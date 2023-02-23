@@ -220,12 +220,12 @@ public class Joueur {
     }
 
     boolean destinationEstComplete(Destination d) {
-
-        return false;
+        boolean[][] matrice = new boolean[routes.size()][routes.size()];
+        List<String> villes = new ArrayList<>();
     }
 
     public int calculerScoreFinal() {
-        return destinations.stream().filter(this::destinationEstComplete).mapToInt(Destination::getValeurSimple).sum();  // a changer
+        return 1;
     }
 
     /**

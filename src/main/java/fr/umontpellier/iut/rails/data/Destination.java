@@ -1,5 +1,7 @@
 package fr.umontpellier.iut.rails.data;
 
+import fr.umontpellier.iut.rails.Joueur;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
@@ -132,9 +134,5 @@ public class Destination {
         destinations.add(new Destination(List.of("Tehran", "Lahore", "Mumbai", "Bangkok"), 9, 13, 19)); // D64
         destinations.add(new Destination(List.of("Murmansk", "Tiksi", "Novosibirsk", "Yakutsk", "Petropavlovsk"), 20, 30, 36)); // D65
         return destinations;
-    }
-
-    public int getValeurSimple() {
-        return valeurSimple;
     }
 }
