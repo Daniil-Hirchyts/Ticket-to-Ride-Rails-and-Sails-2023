@@ -95,26 +95,31 @@ public class Joueur {
      */
     void jouerTour() {
         // IMPORTANT : Le corps de cette fonction est à réécrire entièrement
+
+
+
+
+
         // Un exemple très simple est donné pour illustrer l'utilisation de certaines méthodes
-        List<String> optionsVilles = new ArrayList<>();
-        for (Ville ville : jeu.getPortsLibres()) {
-            optionsVilles.add(ville.nom());
-        }
-        List<Bouton> boutons = Arrays.asList(
-                new Bouton("Montpellier"),
-                new Bouton("Sète"));
-
-        String choix = choisir(
-                "Choisissez votre ville préférée",
-                optionsVilles,
-                boutons,
-                true);
-
-        if (choix.equals("")) {
-            log(String.format("%s n'aime aucune ville", toLog()));
-        } else {
-            log(String.format("%s a choisi %s", toLog(), choix));
-        }
+//        List<String> optionsVilles = new ArrayList<>();
+//        for (Ville ville : jeu.getPortsLibres()) {
+//            optionsVilles.add(ville.nom());
+//        }
+//        List<Bouton> boutons = Arrays.asList(
+//                new Bouton("Montpellier"),
+//                new Bouton("Sète"));
+//
+//        String choix = choisir(
+//                "Choisissez votre ville préférée",
+//                optionsVilles,
+//                boutons,
+//                true);
+//
+//        if (choix.equals("")) {
+//            log(String.format("%s n'aime aucune ville", toLog()));
+//        } else {
+//            log(String.format("%s a choisi %s", toLog(), choix));
+//        }
     }
 
     /**
@@ -215,13 +220,12 @@ public class Joueur {
     }
 
     boolean destinationEstComplete(Destination d) {
-        // Cette méthode pour l'instant renvoie false pour que le jeu puisse s'exécuter.
-        // À vous de modifier le corps de cette fonction pour qu'elle retourne la valeur attendue.
+
         return false;
     }
 
     public int calculerScoreFinal() {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        return destinations.stream().filter(this::destinationEstComplete).mapToInt(Destination::getValeurSimple).sum();  // a changer
     }
 
     /**

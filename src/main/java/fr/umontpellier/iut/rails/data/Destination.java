@@ -133,4 +133,8 @@ public class Destination {
         destinations.add(new Destination(List.of("Murmansk", "Tiksi", "Novosibirsk", "Yakutsk", "Petropavlovsk"), 20, 30, 36)); // D65
         return destinations;
     }
+
+    public int getValeurSimple() {
+        return valeurSimple;
+    }
 }
