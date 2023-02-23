@@ -130,36 +130,53 @@ public class Joueur {
                     new Bouton("Capturer une route"),
                     new Bouton("Construire un port"));
 
-            List<String> choix = Arrays.asList("Piocher une carte visible", "Piocher une carte dans la pioche", "Ne rien piocher");
-
+            List<String> choix = Arrays.asList("Piocher des cartes transport", "Echanger des pions wagons ou bateau", "Prendre de nouvelles destinations", "Capturer une route", "Construire un port");
             String input = choisir("qu'elle choix d'action ferez vous ?", choix, boutons, false);
+
             if (input.equals("Piocher des cartes transport")) {
+
                 List<Bouton> boutonPiocher = Arrays.asList(
                         new Bouton("Piocher une carte visible"),
                         new Bouton("Piocher une carte dans la pioche"),
                         new Bouton("Ne rien piocher"));
+
                 List<String> choix2 = Arrays.asList("Piocher la première carte visible", "Piocher la deuxième carte visible");
                 String input2 = choisir("que voulez-vous piochez ?", choix2, boutonPiocher, false);
+
                 if (input2.equals("Piocher une carte visible")) {
-                    cartesTransport.add(jeu.piocherCarteWagon());
+                    //faire en sorte de piocher 2 cartes visible de la pile visible
                 } else if(input2.equals("Piocher une carte dans la pioche")){
-                    cartesTransport.add(jeu.piocherCarteBateau());
+                    //faire en sorte de piocher 2 cartes dans la pioche
                 } else log("vous n'avez rien piocher");
             }
+
             else if (input.equals("Echanger des pions wagons ou bateau")) {
+
                 List<Bouton> boutonEchanger = Arrays.asList(
                         new Bouton("Echanger des pions wagons"),
                         new Bouton("Echanger des pions bateau"),
                         new Bouton("Ne rien échanger"));
-                List<String> choix3 = Arrays.asList("Echanger 1 pion wagon contre 2 pions bateau", "Echanger 2 pions wagon contre 1 pion bateau");
+
+                List<String> choix3 = Arrays.asList("Echanger 1 pion wagon contre 1 pions bateau", "Echanger 1 pions wagon contre 1 pion bateau");
                 String input3 = choisir("que voulez-vous échanger ?", choix3, boutonEchanger, false);
+
                 if (input3.equals("Echanger des pions wagons")) {
-                    nbPionsWagonEnReserve = nbPionsWagonEnReserve + 1;
-                    nbPionsBateauEnReserve = nbPionsBateauEnReserve - 2;
+                    //a completer
                 } else if(input3.equals("Echanger des pions bateau")){
-                    nbPionsWagonEnReserve = nbPionsWagonEnReserve - 2;
-                    nbPionsBateauEnReserve = nbPionsBateauEnReserve + 1;
+                    //a completer
                 } else log("vous n'avez rien échanger");
+            }
+
+            else if (input.equals("Prendre de nouvelles destinations")) {
+                //a completer
+            }
+
+            else if (input.equals("Capturer une route")) {
+                //a completer
+            }
+
+            else if (input.equals("Construire un port")) {
+                //a completer
             }
     }
 
