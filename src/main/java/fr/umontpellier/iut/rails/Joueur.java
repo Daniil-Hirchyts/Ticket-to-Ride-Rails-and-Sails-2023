@@ -241,9 +241,11 @@ public class Joueur {
             tabSucc.add(succ);
         }
         List<Integer> descendant = new ArrayList<>();
+        int i = villes.indexOf(d.getVilles().get(0));
         for (int j = 0; j < tabSucc.get(i).size(); j++){
-            descendant.add(tabSucc.get(i).get(j));
-            descendant.addAll(descendant(tabSucc.get(i).get(j), tabSucc));
+            if (!descendant.contains(j)){
+                descendant.add(tabSucc.get(i).get(j));
+            }
         }
         return descendant.contains(villes.indexOf(d.getVilles().get(1)));
     }
