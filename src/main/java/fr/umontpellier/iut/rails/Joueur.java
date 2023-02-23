@@ -96,12 +96,7 @@ public class Joueur {
     // TODO : jouerTour
     void jouerTour() {
         // IMPORTANT : Le corps de cette fonction est à réécrire entièrement
-
-
-
-
-
-        // Un exemple très simple est donné pour illustrer l'utilisation de certaines méthodes
+//         Un exemple très simple est donné pour illustrer l'utilisation de certaines méthodes
 //        List<String> optionsVilles = new ArrayList<>();
 //        for (Ville ville : jeu.getPortsLibres()) {
 //            optionsVilles.add(ville.nom());
@@ -121,7 +116,53 @@ public class Joueur {
 //        } else {
 //            log(String.format("%s a choisi %s", toLog(), choix));
 //        }
+//    }
+
+            // TODO : piocher des cartes transport (visibles ou dans la pioche)
+            // TODO : échanger des pions wagons ou bateau
+            // TODO : prendre de nouvelles destinations
+            // TODO : capturer une route
+            // TODO : construire un port
+            List<Bouton> boutons = Arrays.asList(
+                    new Bouton("Piocher des cartes transport"),
+                    new Bouton("Echanger des pions wagons ou bateau"),
+                    new Bouton("Prendre de nouvelles destinations"),
+                    new Bouton("Capturer une route"),
+                    new Bouton("Construire un port"));
+
+            List<String> choix = Arrays.asList("Piocher une carte visible", "Piocher une carte dans la pioche", "Ne rien piocher");
+
+            String input = choisir("qu'elle choix d'action ferez vous ?", choix, boutons, false);
+            if (input.equals("Piocher des cartes transport")) {
+                List<Bouton> boutonPiocher = Arrays.asList(
+                        new Bouton("Piocher une carte visible"),
+                        new Bouton("Piocher une carte dans la pioche"),
+                        new Bouton("Ne rien piocher"));
+                List<String> choix2 = Arrays.asList("Piocher la première carte visible", "Piocher la deuxième carte visible");
+                String input2 = choisir("que voulez-vous piochez ?", choix2, boutonPiocher, false);
+                if (input2.equals("Piocher une carte visible")) {
+                    cartesTransport.add(jeu.piocherCarteWagon());
+                } else if(input2.equals("Piocher une carte dans la pioche")){
+                    cartesTransport.add(jeu.piocherCarteBateau());
+                } else log("vous n'avez rien piocher");
+            }
+            else if (input.equals("Echanger des pions wagons ou bateau")) {
+                List<Bouton> boutonEchanger = Arrays.asList(
+                        new Bouton("Echanger des pions wagons"),
+                        new Bouton("Echanger des pions bateau"),
+                        new Bouton("Ne rien échanger"));
+                List<String> choix3 = Arrays.asList("Echanger 1 pion wagon contre 2 pions bateau", "Echanger 2 pions wagon contre 1 pion bateau");
+                String input3 = choisir("que voulez-vous échanger ?", choix3, boutonEchanger, false);
+                if (input3.equals("Echanger des pions wagons")) {
+                    nbPionsWagonEnReserve = nbPionsWagonEnReserve + 1;
+                    nbPionsBateauEnReserve = nbPionsBateauEnReserve - 2;
+                } else if(input3.equals("Echanger des pions bateau")){
+                    nbPionsWagonEnReserve = nbPionsWagonEnReserve - 2;
+                    nbPionsBateauEnReserve = nbPionsBateauEnReserve + 1;
+                } else log("vous n'avez rien échanger");
+            }
     }
+
 
     /**
      * Attend une entrée de la part du joueur (au clavier ou sur la websocket) et
