@@ -3,6 +3,7 @@ package fr.umontpellier.iut.rails;
 import com.google.gson.Gson;
 import fr.umontpellier.iut.gui.GameServer;
 import fr.umontpellier.iut.rails.data.*;
+import org.glassfish.grizzly.http.server.CompressionLevel;
 
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
@@ -127,6 +128,10 @@ public class Jeu implements Runnable {
         return new ArrayList<>(routesLibres);
     }
 
+    public List<Destination> getPileDestinations() {
+        return pileDestinations;
+    }
+
     public List<CarteTransport> getCartesTransportVisibles() {
         return new ArrayList<>(cartesTransportVisibles);
     }
@@ -149,7 +154,6 @@ public class Jeu implements Runnable {
         // Fin de la partie
         prompt("Fin de la partie.", new ArrayList<>(), true);
     }
-
 
     /**
      * Pioche une carte de la pile de pioche des cartes wagon.
@@ -175,6 +179,14 @@ public class Jeu implements Runnable {
 
     public boolean piocheBateauEstVide() {
         return pilesDeCartesBateau.estVide();
+    }
+
+    public Destination piocherDestination() {
+        Collections.shuffle(pileDestinations);
+        if (pileDestinations.isEmpty()) {
+            return null;
+        }
+        return pileDestinations.remove(0);
     }
 
     /**

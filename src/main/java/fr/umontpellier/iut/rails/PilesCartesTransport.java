@@ -32,6 +32,7 @@ public class PilesCartesTransport {
         if (estVide()){
             return null;
         }
+        defausser(pilePioche.get(0));
         return pilePioche.remove(0);
     }
 
