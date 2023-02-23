@@ -93,6 +93,7 @@ public class Joueur {
      *  - capturer une route
      *  - construire un port
      */
+    // TODO : jouerTour
     void jouerTour() {
         // IMPORTANT : Le corps de cette fonction est à réécrire entièrement
 
@@ -219,6 +220,7 @@ public class Joueur {
         return String.format("<span class=\"joueur\">%s</span>", nom);
     }
 
+    //TODO destinationEstComplete(Destination d)
     boolean destinationEstComplete(Destination d) {
         List<String> villes = new ArrayList<>();
         for (Route r : routes) {
@@ -246,6 +248,7 @@ public class Joueur {
         return descendant.contains(villes.indexOf(d.getVilles().get(1)));
     }
 
+    //TODO calculerScoreFinal()
     public int calculerScoreFinal() {
         return 1;
     }
