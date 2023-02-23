@@ -220,8 +220,30 @@ public class Joueur {
     }
 
     boolean destinationEstComplete(Destination d) {
-        boolean[][] matrice = new boolean[routes.size()][routes.size()];
         List<String> villes = new ArrayList<>();
+        for (Route r : routes) {
+            if (!villes.contains(r.getVille1().nom())) villes.add(r.getVille1().nom());
+            if (!villes.contains(r.getVille2().nom())) villes.add(r.getVille2().nom());
+        }
+        List<List<Integer>> tabSucc = new ArrayList<>();
+        boolean[][] matrice = new boolean[villes.size()][villes.size()];
+        for (Route r : routes) {
+            matrice[villes.indexOf(r.getVille1().nom())][villes.indexOf(r.getVille2().nom())] = true;
+            matrice[villes.indexOf(r.getVille2().nom())][villes.indexOf(r.getVille1().nom())] = true;
+        }
+        for (int i = 0; i < villes.size(); i++) {
+            List<Integer> succ = new ArrayList<>();
+            for (int j = 0; j < villes.size(); j++) {
+                if (matrice[i][j]) succ.add(j);
+            }
+            tabSucc.add(succ);
+        }
+        List<Integer> descendant = new ArrayList<>();
+        for (int j = 0; j < tabSucc.get(i).size(); j++){
+            descendant.add(tabSucc.get(i).get(j));
+            descendant.addAll(descendant(tabSucc.get(i).get(j), tabSucc));
+        }
+        return descendant.contains(villes.indexOf(d.getVilles().get(1)));
     }
 
     public int calculerScoreFinal() {
