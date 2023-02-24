@@ -1,14 +1,12 @@
 package fr.umontpellier.iut.rails;
 
-import fr.umontpellier.iut.rails.data.*;
+import fr.umontpellier.iut.rails.data.CarteTransport;
+import fr.umontpellier.iut.rails.data.Destination;
+import fr.umontpellier.iut.rails.data.Ville;
 
 import java.util.*;
 
 public class Joueur {
-    public enum CouleurJouer {
-        JAUNE, ROUGE, BLEU, VERT, ROSE;
-    }
-
     /**
      * Jeu auquel le joueur est rattaché
      */
@@ -30,6 +28,19 @@ public class Joueur {
      */
     private final List<Route> routes;
     /**
+     * Liste des destinations à réaliser pendant la partie
+     */
+    private final List<Destination> destinations;
+    /**
+     * Liste des cartes que le joueur a en main
+     */
+    private final List<CarteTransport> cartesTransport;
+    /**
+     * Liste temporaire de cartes transport que le joueur est en train de jouer pour
+     * payer la capture d'une route ou la construction d'un port
+     */
+    private final List<CarteTransport> cartesTransportPosees;
+    /**
      * Nombre de pions wagons que le joueur peut encore poser sur le plateau
      */
     private int nbPionsWagon;
@@ -46,24 +57,10 @@ public class Joueur {
      */
     private int nbPionsBateauEnReserve;
     /**
-     * Liste des destinations à réaliser pendant la partie
-     */
-    private final List<Destination> destinations;
-    /**
-     * Liste des cartes que le joueur a en main
-     */
-    private final List<CarteTransport> cartesTransport;
-    /**
-     * Liste temporaire de cartes transport que le joueur est en train de jouer pour
-     * payer la capture d'une route ou la construction d'un port
-     */
-    private final List<CarteTransport> cartesTransportPosees;
-    /**
      * Score courant du joueur (somme des valeurs des routes capturées, et points
      * perdus lors des échanges de pions)
      */
     private int score;
-
     public Joueur(String nom, Jeu jeu, CouleurJouer couleur) {
         this.nom = nom;
         this.jeu = jeu;
@@ -80,6 +77,22 @@ public class Joueur {
         this.score = 0;
     }
 
+    public void setNbPionsWagonEnReserve(int nbPionsWagonEnReserve) {
+        this.nbPionsWagonEnReserve = nbPionsWagonEnReserve;
+    }
+
+    public void setNbPionsBateauEnReserve(int nbPionsBateauEnReserve) {
+        this.nbPionsBateauEnReserve = nbPionsBateauEnReserve;
+    }
+
+    public List<Destination> getDestinations() {
+        return destinations;
+    }
+
+    public List<CarteTransport> getCartesTransport() {
+        return cartesTransport;
+    }
+
     public String getNom() {
         return nom;
     }
@@ -87,11 +100,11 @@ public class Joueur {
     /**
      * Cette méthode est appelée à tour de rôle pour chacun des joueurs de la partie.
      * Elle doit réaliser un tour de jeu, pendant lequel le joueur a le choix entre 5 actions possibles :
-     *  - piocher des cartes transport (visibles ou dans la pioche)
-     *  - échanger des pions wagons ou bateau
-     *  - prendre de nouvelles destinations
-     *  - capturer une route
-     *  - construire un port
+     * - piocher des cartes transport (visibles ou dans la pioche)
+     * - échanger des pions wagons ou bateau
+     * - prendre de nouvelles destinations
+     * - capturer une route
+     * - construire un port
      */
     // TODO : jouerTour
     void jouerTour() {
@@ -118,11 +131,11 @@ public class Joueur {
 //        }
 //    }
 
-            // TODO : piocher des cartes transport (visibles ou dans la pioche)
-            // TODO : échanger des pions wagons ou bateau
-            // TODO : prendre de nouvelles destinations
-            // TODO : capturer une route
-            // TODO : construire un port
+        // TODO : piocher des cartes transport (visibles ou dans la pioche)
+        // TODO : échanger des pions wagons ou bateau
+        // TODO : prendre de nouvelles destinations
+        // TODO : capturer une route
+        // TODO : construire un port
         boolean tour = true;
         do {
             List<Bouton> boutons = Arrays.asList(
@@ -139,7 +152,7 @@ public class Joueur {
 
                 List<Bouton> boutonPiocher = Arrays.asList(
                         new Bouton("Piocher une carte visible"),
-                        new Bouton("Piocher une carte dans la pioche"),
+                        new Bouton("Piocher une carte dans les pioches"),
                         new Bouton("Annuler"));
 
                 List<String> choixPiocher = Arrays.asList("Piocher la première carte visible", "Piocher la deuxième carte visible");
@@ -147,18 +160,37 @@ public class Joueur {
 
                 if (inputPiocher.equals("Piocher une carte visible")) {
                     //faire en sorte de piocher 2 cartes visible de la pile visible
-                } else if (inputPiocher.equals("Piocher une carte dans la pioche")) {
+                } else if (inputPiocher.equals("Piocher une carte dans les pioches")) {
                     //tire une carte random de la pioche
-                    for (int i = 0; i < 2; i++) {
-                        int random = (int) Math.round(Math.random() * 1);
-                        if (random == 1) {
-                            cartesTransport.add(jeu.piocherCarteWagon());
-                        } else {
-                            cartesTransport.add(jeu.piocherCarteBateau());
+                    List<Bouton> boutonPioche = Arrays.asList(
+                            new Bouton("Piocher une carte wagon"),
+                            new Bouton("Piocher une carte bateau"),
+                            new Bouton("Annuler"));
 
+                    List<String> choixPioche = Arrays.asList("Piocher une carte wagon", "Piocher une carte bateau", "Annuler");
+                    String inputPioche = choisir("que voulez-vous piochez ?", choixPioche, boutonPioche, false);
+
+                    int size = cartesTransport.size();
+                    for (int i = 0; i < 2; i++) {
+                        if (inputPioche.equals("Piocher une carte wagon")) {
+                            cartesTransport.add(jeu.piocherCarteWagon());
+                            log("Pioche d'une carte wagon de couleur " + cartesTransport.get(cartesTransport.size() - 1).getCouleur() + "");
+                        } else if (inputPioche.equals("Piocher une carte bateau")) {
+                            cartesTransport.add(jeu.piocherCarteBateau());
+                            log("Pioche d'une carte bateau de couleur " + cartesTransport.get(cartesTransport.size() - 1).getCouleur() + "");
+                        } else if (inputPioche.equals("Annuler")) {
+                            if (size<cartesTransport.size()) {
+                                cartesTransport.remove(cartesTransport.size()-1);
+                            }
+                            log("Annulation de la pioche");
+                            tour = true;
+                            break;
                         }
+                        if(i<1) inputPioche = choisir("que voulez-vous piochez ?", choixPioche, boutonPioche, false);
+                        else tour = false;
                     }
-                    tour = false;
+                    if (size==cartesTransport.size() || size==(cartesTransport.size()+1)) tour = true;
+                    else tour = false;
                 } else {
                     log("Annulation de la pioche");
                     tour = true;
@@ -237,31 +269,30 @@ public class Joueur {
                     tour = true;
                 }
             }
-        }while (tour);
+        } while (tour);
     }
-
 
     /**
      * Attend une entrée de la part du joueur (au clavier ou sur la websocket) et
      * renvoie le choix du joueur.
-     *
+     * <p>
      * Cette méthode lit les entrées du jeu (`Jeu.lireligne()`) jusqu'à ce
      * qu'un choix valide (un élément de `choix` ou de `boutons` ou
      * éventuellement la chaîne vide si l'utilisateur est autorisé à passer) soit
      * reçu.
      * Lorsqu'un choix valide est obtenu, il est renvoyé par la fonction.
-     *
+     * <p>
      * Exemple d'utilisation pour demander à un joueur de répondre à une question
      * par "oui" ou "non" :
-     *
+     * <p>
      * ```
      * List<String> choix = Arrays.asList("Oui", "Non");
      * String input = choisir("Voulez-vous faire ceci ?", choix, null, false);
      * ```
-     *
+     * <p>
      * Si par contre on voulait proposer les réponses à l'aide de boutons, on
      * pourrait utiliser :
-     *
+     * <p>
      * ```
      * List<Bouton> boutons = Arrays.asList(new Bouton("Un", "1"), new Bouton("Deux", "2"), new Bouton("Trois", "3"));
      * String input = choisir("Choisissez un nombre.", null, boutons, false);
@@ -360,8 +391,8 @@ public class Joueur {
         }
         List<Integer> descendant = new ArrayList<>();
         if (tabSucc.size() > 0) descendant.add(villes.indexOf(d.getVilles().get(0)));
-        for (int j = 0; j < descendant.size(); j++){
-            if (!descendant.contains(j)){
+        for (int j = 0; j < descendant.size(); j++) {
+            if (!descendant.contains(j)) {
                 descendant.addAll(tabSucc.get(j));
             }
         }
@@ -394,5 +425,9 @@ public class Joueur {
                 Map.entry("inPlay", cartesTransportPosees.stream().sorted().toList()),
                 Map.entry("ports", ports.stream().map(Ville::nom).toList()),
                 Map.entry("routes", routes.stream().map(Route::getNom).toList()));
+    }
+
+    public enum CouleurJouer {
+        JAUNE, ROUGE, BLEU, VERT, ROSE;
     }
 }

@@ -3,7 +3,6 @@ package fr.umontpellier.iut.rails;
 import com.google.gson.Gson;
 import fr.umontpellier.iut.gui.GameServer;
 import fr.umontpellier.iut.rails.data.*;
-import org.glassfish.grizzly.http.server.CompressionLevel;
 
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
@@ -14,10 +13,6 @@ public class Jeu implements Runnable {
      * Liste des joueurs
      */
     private final List<Joueur> joueurs;
-    /**
-     * Le joueur dont c'est le tour
-     */
-    private Joueur joueurCourant;
     /**
      * Liste des villes disponibles sur le plateau de jeu
      */
@@ -52,7 +47,10 @@ public class Jeu implements Runnable {
      * Messages d'information du jeu
      */
     private final List<String> log;
-
+    /**
+     * Le joueur dont c'est le tour
+     */
+    private Joueur joueurCourant;
     private String instruction;
     private Collection<Bouton> boutons;
 
@@ -138,7 +136,7 @@ public class Jeu implements Runnable {
 
     /**
      * Exécute la partie
-     *
+     * <p>
      * C'est cette méthode qui est appelée pour démarrer la partie. Elle doit intialiser le jeu
      * (retourner les cartes transport visibles, puis demander à chaque joueur de choisir ses destinations initiales
      * et le nombre de pions wagon qu'il souhaite prendre) puis exécuter les tours des joueurs en appelant la
@@ -147,6 +145,44 @@ public class Jeu implements Runnable {
     public void run() {
         // IMPORTANT : Le corps de cette fonction est à réécrire entièrement
         // Un exemple très simple est donné pour illustrer l'utilisation de certaines méthodes
+        for (Joueur j : joueurs) {
+            joueurCourant = j;
+            List<CarteTransport> cartesBateau = new ArrayList<>(pilesDeCartesBateau.getCartes());
+            List<CarteTransport> cartesWagon = new ArrayList<>(pilesDeCartesWagon.getCartes());
+
+            //Bateau
+            for (int i = 0; i < 7; i++) {
+                Collections.shuffle(cartesBateau);
+                j.getCartesTransport().add(cartesBateau.get(0));
+            }
+
+            //Wagon
+            for (int i = 0; i < 3; i++) {
+                Collections.shuffle(cartesWagon);
+                j.getCartesTransport().add(cartesWagon.get(0));
+            }
+
+            //Destinations
+            for (int i = 0; i < 5; i++) {
+                Collections.shuffle(pileDestinations);
+                log("Vous avez pioché la destination " + pileDestinations.get(0));
+                j.getDestinations().add(pileDestinations.get(0));
+            }
+        }
+        // faire le choix des destinations
+
+        for (Joueur j : joueurs) {
+            joueurCourant = j;
+
+            List<String> choixRepratition = Arrays.asList("Piocher des cartes transport", "Echanger des pions wagons ou bateau", "Prendre de nouvelles destinations", "Capturer une route", "Construire un port");
+            String inputTour = choisir("qu'elle choix d'action ferez vous ?", choixTour, boutons, false);
+        }
+        Random r = new Random();
+        for (int i = 0; i < 5; i++) {
+            if (r.nextBoolean()) cartesTransportVisibles.add(pilesDeCartesWagon.piocher());
+            else cartesTransportVisibles.add(pilesDeCartesBateau.piocher());
+        }
+
         for (Joueur j : joueurs) {
             joueurCourant = j;
             j.jouerTour();
