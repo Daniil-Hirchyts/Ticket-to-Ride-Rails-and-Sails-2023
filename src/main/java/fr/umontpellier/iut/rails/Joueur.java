@@ -61,6 +61,7 @@ public class Joueur {
      * perdus lors des échanges de pions)
      */
     private int score;
+
     public Joueur(String nom, Jeu jeu, CouleurJouer couleur) {
         this.nom = nom;
         this.jeu = jeu;
@@ -83,6 +84,14 @@ public class Joueur {
 
     public void setNbPionsBateauEnReserve(int nbPionsBateauEnReserve) {
         this.nbPionsBateauEnReserve = nbPionsBateauEnReserve;
+    }
+
+    public void setNbPionsWagon(int nbPionsWagon) {
+        this.nbPionsWagon = nbPionsWagon;
+    }
+
+    public void setNbPionsBateau(int nbPionsBateau) {
+        this.nbPionsBateau = nbPionsBateau;
     }
 
     public List<Destination> getDestinations() {
@@ -108,29 +117,6 @@ public class Joueur {
      */
     // TODO : jouerTour
     void jouerTour() {
-        // IMPORTANT : Le corps de cette fonction est à réécrire entièrement
-//         Un exemple très simple est donné pour illustrer l'utilisation de certaines méthodes
-//        List<String> optionsVilles = new ArrayList<>();
-//        for (Ville ville : jeu.getPortsLibres()) {
-//            optionsVilles.add(ville.nom());
-//        }
-//        List<Bouton> boutons = Arrays.asList(
-//                new Bouton("Montpellier"),
-//                new Bouton("Sète"));
-//
-//        String choix = choisir(
-//                "Choisissez votre ville préférée",
-//                optionsVilles,
-//                boutons,
-//                true);
-//
-//        if (choix.equals("")) {
-//            log(String.format("%s n'aime aucune ville", toLog()));
-//        } else {
-//            log(String.format("%s a choisi %s", toLog(), choix));
-//        }
-//    }
-
         // TODO : piocher des cartes transport (visibles ou dans la pioche)
         // TODO : échanger des pions wagons ou bateau
         // TODO : prendre de nouvelles destinations
@@ -148,125 +134,94 @@ public class Joueur {
             List<String> choixTour = Arrays.asList("Piocher des cartes transport", "Echanger des pions wagons ou bateau", "Prendre de nouvelles destinations", "Capturer une route", "Construire un port");
             String inputTour = choisir("qu'elle choix d'action ferez vous ?", choixTour, boutons, false);
 
-            if (inputTour.equals("Piocher des cartes transport")) {
-
-                List<Bouton> boutonPiocher = Arrays.asList(
-                        new Bouton("Piocher une carte visible"),
-                        new Bouton("Piocher une carte dans les pioches"),
-                        new Bouton("Annuler"));
-
-                List<String> choixPiocher = Arrays.asList("Piocher la première carte visible", "Piocher la deuxième carte visible");
-                String inputPiocher = choisir("que voulez-vous piochez ?", choixPiocher, boutonPiocher, false);
-
-                if (inputPiocher.equals("Piocher une carte visible")) {
-                    //faire en sorte de piocher 2 cartes visible de la pile visible
-                } else if (inputPiocher.equals("Piocher une carte dans les pioches")) {
-                    //tire une carte random de la pioche
-                    List<Bouton> boutonPioche = Arrays.asList(
-                            new Bouton("Piocher une carte wagon"),
-                            new Bouton("Piocher une carte bateau"),
+            switch (inputTour) {
+                case "Piocher des cartes transport" -> {
+                    List<Bouton> boutonPiocher = Arrays.asList(
+                            new Bouton("Piocher une carte visible"),
+                            new Bouton("Piocher une carte dans les pioches"),
                             new Bouton("Annuler"));
-
-                    List<String> choixPioche = Arrays.asList("Piocher une carte wagon", "Piocher une carte bateau", "Annuler");
-                    String inputPioche = choisir("que voulez-vous piochez ?", choixPioche, boutonPioche, false);
-
-                    int size = cartesTransport.size();
-                    for (int i = 0; i < 2; i++) {
-                        if (inputPioche.equals("Piocher une carte wagon")) {
-                            cartesTransport.add(jeu.piocherCarteWagon());
-                            log("Pioche d'une carte wagon de couleur " + cartesTransport.get(cartesTransport.size() - 1).getCouleur() + "");
-                        } else if (inputPioche.equals("Piocher une carte bateau")) {
-                            cartesTransport.add(jeu.piocherCarteBateau());
-                            log("Pioche d'une carte bateau de couleur " + cartesTransport.get(cartesTransport.size() - 1).getCouleur() + "");
-                        } else if (inputPioche.equals("Annuler")) {
-                            if (size<cartesTransport.size()) {
-                                cartesTransport.remove(cartesTransport.size()-1);
+                    List<String> choixPiocher = Arrays.asList("Piocher la première carte visible", "Piocher la deuxième carte visible");
+                    String inputPiocher = choisir("que voulez-vous piochez ?", choixPiocher, boutonPiocher, false);
+                    if (inputPiocher.equals("Piocher une carte visible")) {
+                        //TODO : piocher une carte visible
+                    } else if (inputPiocher.equals("Piocher une carte dans les pioches")) {
+                        List<Bouton> boutonPioche = Arrays.asList(
+                                new Bouton("Piocher une carte wagon"),
+                                new Bouton("Piocher une carte bateau"),
+                                new Bouton("Annuler"));
+                        List<String> choixPioche = Arrays.asList("Piocher une carte wagon", "Piocher une carte bateau", "Annuler");
+                        String inputPioche = choisir("que voulez-vous piochez ?", choixPioche, boutonPioche, false);
+                        int size = cartesTransport.size();
+                        label:
+                        for (int i = 0; i < 2; i++) {
+                            switch (inputPioche) {
+                                case "Piocher une carte wagon":
+                                    cartesTransport.add(jeu.piocherCarteWagon());
+                                    break;
+                                case "Piocher une carte bateau":
+                                    cartesTransport.add(jeu.piocherCarteBateau());
+                                    break;
+                                case "Annuler":
+                                    if (size < cartesTransport.size())
+                                        cartesTransport.remove(cartesTransport.size() - 1);
+                                    break label;
                             }
-                            log("Annulation de la pioche");
-                            tour = true;
-                            break;
+                            if (i < 1)
+                                inputPioche = choisir("que voulez-vous piochez ?", choixPioche, boutonPioche, false);
+                            else tour = false;
                         }
-                        if(i<1) inputPioche = choisir("que voulez-vous piochez ?", choixPioche, boutonPioche, false);
-                        else tour = false;
-                    }
-                    if (size==cartesTransport.size() || size==(cartesTransport.size()+1)) tour = true;
-                    else tour = false;
-                } else {
-                    log("Annulation de la pioche");
-                    tour = true;
+                        tour = size == cartesTransport.size() || size == (cartesTransport.size() + 1);
+                    } else log("Annulation de la pioche");
                 }
-            } else if (inputTour.equals("Echanger des pions wagons ou bateau")) {
-
-                List<Bouton> boutonEchanger = Arrays.asList(
-                        new Bouton("Echanger des pions wagons"),
-                        new Bouton("Echanger des pions bateau"),
-                        new Bouton("Ne rien échanger"));
-
-                List<String> choixEchanger = Arrays.asList("Echanger 1 pion wagon contre 1 pions bateau", "Echanger 1 pions wagon contre 1 pion bateau");
-                String inputEchanger = choisir("que voulez-vous échanger ?", choixEchanger, boutonEchanger, false);
-
-                if (inputEchanger.equals("Echanger des pions wagons")) {
-                    //a completer
-                    tour = false;
-                } else if (inputEchanger.equals("Echanger des pions bateau")) {
-                    //a completer
-                    tour = false;
-                } else {
-                    log("vous n'avez rien échanger");
-                    tour = true;
+                case "Echanger des pions wagons ou bateau" -> {
+                    List<Bouton> boutonEchanger = Arrays.asList(
+                            new Bouton("Echanger des pions wagons"),
+                            new Bouton("Echanger des pions bateau"),
+                            new Bouton("Ne rien échanger"));
+                    List<String> choixEchanger = Arrays.asList("Echanger 1 pion wagon contre 1 pions bateau", "Echanger 1 pions wagon contre 1 pion bateau");
+                    String inputEchanger = choisir("que voulez-vous échanger ?", choixEchanger, boutonEchanger, false);
+                    if (inputEchanger.equals("Echanger des pions wagons")) {
+                        //a completer
+                        tour = false;
+                    } else if (inputEchanger.equals("Echanger des pions bateau")) {
+                        //a completer
+                        tour = false;
+                    } else log("vous n'avez rien échanger");
                 }
-
-            } else if (inputTour.equals("Prendre de nouvelles destinations")) {
-
-                List<Bouton> boutonDestination = Arrays.asList(
-                        new Bouton("Prendre une destination"),
-                        new Bouton("Ne rien prendre"));
-
-                List<String> choixDestinations = Arrays.asList("Prendre la première destination", "Prendre la deuxième destination");
-                String inputDestinations = choisir("que voulez-vous prendre ?", choixDestinations, boutonDestination, false);
-
-                if (inputDestinations.equals("Prendre une destination")) {
-                    //choisir une destination de maniere aleatoire
-                    log("vous avez pris une destination");
-                    destinations.add(jeu.piocherDestination());
-                    tour = false;
-                } else {
-                    log("vous n'avez rien pris");
-                    tour = true;
+                case "Prendre de nouvelles destinations" -> {
+                    List<Bouton> boutonDestination = Arrays.asList(
+                            new Bouton("Prendre une destination"),
+                            new Bouton("Ne rien prendre"));
+                    List<String> choixDestinations = Arrays.asList("Prendre la première destination", "Prendre la deuxième destination");
+                    String inputDestinations = choisir("que voulez-vous prendre ?", choixDestinations, boutonDestination, false);
+                    if (inputDestinations.equals("Prendre une destination")) {
+                        //choisir une destination de maniere aleatoire
+                        log("vous avez pris une destination");
+                        destinations.add(jeu.piocherDestination());
+                        tour = false;
+                    } else log("vous n'avez rien pris");
                 }
-
-            } else if (inputTour.equals("Capturer une route")) {
-
-                List<Bouton> boutonRoute = Arrays.asList(
-                        new Bouton("Capturer une route"),
-                        new Bouton("Ne rien capturer"));
-
-                List<String> choixRoute = Arrays.asList("Capturer la première route", "Capturer la deuxième route");
-                String inputRoute = choisir("que voulez-vous capturer ?", choixRoute, boutonRoute, false);
-
-                if (inputRoute.equals("Capturer une route")) {
-                    //a completer
-                    tour = false;
-                } else {
-                    log("vous n'avez rien capturer");
-                    tour = true;
+                case "Capturer une route" -> {
+                    List<Bouton> boutonRoute = Arrays.asList(
+                            new Bouton("Capturer une route"),
+                            new Bouton("Ne rien capturer"));
+                    List<String> choixRoute = Arrays.asList("Capturer la première route", "Capturer la deuxième route");
+                    String inputRoute = choisir("que voulez-vous capturer ?", choixRoute, boutonRoute, false);
+                    if (inputRoute.equals("Capturer une route")) {
+                        //a completer
+                        tour = false;
+                    } else log("vous n'avez rien capturer");
                 }
-
-            } else if (inputTour.equals("Construire un port")) {
-
-                List<Bouton> boutonPort = Arrays.asList(
-                        new Bouton("Construire un port"),
-                        new Bouton("Ne rien construire"));
-
-                List<String> choixPort = Arrays.asList("Construire", "Ne pas construire");
-                String inputPort = choisir("que voulez-vous construire ?", choixPort, boutonPort, false);
-
-                if (inputPort.equals("Construire un port")) {
-                    //a completer
-                    tour = false;
-                } else {
-                    log("vous n'avez rien construire");
-                    tour = true;
+                case "Construire un port" -> {
+                    List<Bouton> boutonPort = Arrays.asList(
+                            new Bouton("Construire un port"),
+                            new Bouton("Ne rien construire"));
+                    List<String> choixPort = Arrays.asList("Construire", "Ne pas construire");
+                    String inputPort = choisir("que voulez-vous construire ?", choixPort, boutonPort, false);
+                    if (inputPort.equals("Construire un port")) {
+                        //a completer
+                        tour = false;
+                    } else log("vous n'avez rien construire");
                 }
             }
         } while (tour);
@@ -369,7 +324,6 @@ public class Joueur {
         return String.format("<span class=\"joueur\">%s</span>", nom);
     }
 
-    //TODO destinationEstComplete(Destination d)
     boolean destinationEstComplete(Destination d) {
         List<String> villes = new ArrayList<>();
         for (Route r : routes) {
@@ -384,18 +338,14 @@ public class Joueur {
         }
         for (int i = 0; i < villes.size(); i++) {
             List<Integer> succ = new ArrayList<>();
-            for (int j = 0; j < villes.size(); j++) {
+            for (int j = 0; j < villes.size(); j++)
                 if (matrice[i][j]) succ.add(j);
-            }
             tabSucc.add(succ);
         }
         List<Integer> descendant = new ArrayList<>();
         if (tabSucc.size() > 0) descendant.add(villes.indexOf(d.getVilles().get(0)));
-        for (int j = 0; j < descendant.size(); j++) {
-            if (!descendant.contains(j)) {
-                descendant.addAll(tabSucc.get(j));
-            }
-        }
+        for (int j = 0; j < descendant.size(); j++)
+            if (!descendant.contains(j)) descendant.addAll(tabSucc.get(j));
         return descendant.contains(villes.indexOf(d.getVilles().get(1)));
     }
 

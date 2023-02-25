@@ -144,7 +144,7 @@ public class Jeu implements Runnable {
      */
     public void run() {
         fairePremierePiocheCartesTransport();
-        faireChoixDestinations();
+        fairePremierePiocheCartesDestination();
         faireChoixPions();
         faireCartesTransportVisibles();
 
@@ -164,7 +164,7 @@ public class Jeu implements Runnable {
             for (int i = 0; i < 7; i++) {
                 if (i < 3) {
                     Collections.shuffle(cartesWagon);
-                    j.getCartesTransport().add(cartesWagon.get(0));
+                    j.getCartesTransport().add(pilesDeCartesWagon.piocher());
                 }
                 if (i < 5) {
                     Collections.shuffle(pileDestinations);
@@ -172,13 +172,12 @@ public class Jeu implements Runnable {
                     this.pileDestinations.remove(0);
                 }
                 Collections.shuffle(cartesBateau);
-                j.getCartesTransport().add(cartesBateau.get(0));
+                j.getCartesTransport().add(pilesDeCartesBateau.piocher());
             }
         }
     }
 
-
-    public void faireChoixDestinations() {
+    public void fairePremierePiocheCartesDestination() {
         for (Joueur j : joueurs) {
             joueurCourant = j;
             int i = 0;
@@ -205,9 +204,11 @@ public class Jeu implements Runnable {
             for (int i = 0; i <= 25; i++) choix.add(String.valueOf(i));
             String inputTour = j.choisir("combien de wagon voulez vous garder (maximum 25)", choix, null, false);
             int nbWagon = Integer.parseInt(inputTour);
-            j.setNbPionsWagonEnReserve(nbWagon);
-            int nbBateau = 75 - nbWagon;
-            j.setNbPionsBateauEnReserve(nbBateau);
+            j.setNbPionsWagon(nbWagon);
+            j.setNbPionsWagonEnReserve(25 - nbWagon);
+            int nbBateau = 60 - nbWagon;
+            j.setNbPionsBateau(nbBateau);
+            j.setNbPionsBateauEnReserve(50 - nbBateau);
         }
     }
 
