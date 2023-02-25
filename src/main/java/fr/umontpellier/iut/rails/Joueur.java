@@ -258,7 +258,7 @@ public class Joueur {
                         new Bouton("Construire un port"),
                         new Bouton("Ne rien construire"));
 
-                List<String> choixPort = Arrays.asList("Construire le premier port", "Construire le deuxième port");
+                List<String> choixPort = Arrays.asList("Construire", "Ne pas construire");
                 String inputPort = choisir("que voulez-vous construire ?", choixPort, boutonPort, false);
 
                 if (inputPort.equals("Construire un port")) {

@@ -152,30 +152,54 @@ public class Jeu implements Runnable {
 
             //Bateau
             for (int i = 0; i < 7; i++) {
+                if (i < 3) {
+                    Collections.shuffle(cartesWagon);
+                    j.getCartesTransport().add(cartesWagon.get(0));
+                }
+                if (i < 5) {
+                    Collections.shuffle(pileDestinations);
+                    j.getDestinations().add(pileDestinations.get(0));
+                    this.pileDestinations.remove(0);
+                }
                 Collections.shuffle(cartesBateau);
                 j.getCartesTransport().add(cartesBateau.get(0));
             }
-
-            //Wagon
-            for (int i = 0; i < 3; i++) {
-                Collections.shuffle(cartesWagon);
-                j.getCartesTransport().add(cartesWagon.get(0));
-            }
-
-            //Destinations
-            for (int i = 0; i < 5; i++) {
-                Collections.shuffle(pileDestinations);
-                log("Vous avez pioché la destination " + pileDestinations.get(0));
-                j.getDestinations().add(pileDestinations.get(0));
-            }
         }
         // faire le choix des destinations
+        for (Joueur j : joueurs) {
+            joueurCourant = j;
+            int i = 0;
+            int compteurRemove = 0;
+
+            List<Bouton> boutonChoixDestination = Arrays.asList(
+                    new Bouton("Oui"),
+                    new Bouton("Non"));
+            List<String> choixDestinaton = Arrays.asList("Oui", "Non");
+
+            while (i != j.getDestinations().size() && compteurRemove < 2) {
+
+                String inputTour = j.choisir("choisissez une destination : " + j.getDestinations().get(i), choixDestinaton, boutonChoixDestination, false);
+                if (inputTour.equals("Non")) {
+                    this.pileDestinations.add(j.getDestinations().get(i));
+                    j.getDestinations().remove(i);
+                    compteurRemove++;
+                } else i++;
+            }
+        }
+
 
         for (Joueur j : joueurs) {
             joueurCourant = j;
 
-            List<String> choixRepratition = Arrays.asList("Piocher des cartes transport", "Echanger des pions wagons ou bateau", "Prendre de nouvelles destinations", "Capturer une route", "Construire un port");
-            String inputTour = choisir("qu'elle choix d'action ferez vous ?", choixTour, boutons, false);
+            List<String> choix = new ArrayList<>();
+            for (int i = 0; i < 25; i++) {
+                choix.add(String.valueOf(i));
+            }
+            String inputTour = j.choisir("combien de wagon voulez vous garder (maximum 25)", choix, null, false);
+            int nbWagon = Integer.parseInt(inputTour);
+            j.setNbPionsWagonEnReserve(nbWagon);
+            int nbBateau = 75 - nbWagon;
+            j.setNbPionsBateauEnReserve(nbBateau);
         }
         Random r = new Random();
         for (int i = 0; i < 5; i++) {
