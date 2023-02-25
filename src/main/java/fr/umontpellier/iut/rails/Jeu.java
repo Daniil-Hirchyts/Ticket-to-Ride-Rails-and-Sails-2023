@@ -143,14 +143,24 @@ public class Jeu implements Runnable {
      * méthode Joueur.jouerTour() jusqu'à ce que la condition de fin de partie soit réalisée.
      */
     public void run() {
-        // IMPORTANT : Le corps de cette fonction est à réécrire entièrement
-        // Un exemple très simple est donné pour illustrer l'utilisation de certaines méthodes
+        fairePremierePiocheCartesTransport();
+        faireChoixDestinations();
+        faireChoixPions();
+        faireCartesTransportVisibles();
+
+        for (Joueur j : joueurs) {
+            joueurCourant = j;
+            j.jouerTour();
+        }
+
+        prompt("Fin de la partie.", new ArrayList<>(), true);
+    }
+
+    public void fairePremierePiocheCartesTransport() {
         for (Joueur j : joueurs) {
             joueurCourant = j;
             List<CarteTransport> cartesBateau = new ArrayList<>(pilesDeCartesBateau.getCartes());
             List<CarteTransport> cartesWagon = new ArrayList<>(pilesDeCartesWagon.getCartes());
-
-            //Bateau
             for (int i = 0; i < 7; i++) {
                 if (i < 3) {
                     Collections.shuffle(cartesWagon);
@@ -165,19 +175,19 @@ public class Jeu implements Runnable {
                 j.getCartesTransport().add(cartesBateau.get(0));
             }
         }
-        // faire le choix des destinations
+    }
+
+
+    public void faireChoixDestinations() {
         for (Joueur j : joueurs) {
             joueurCourant = j;
             int i = 0;
             int compteurRemove = 0;
-
             List<Bouton> boutonChoixDestination = Arrays.asList(
                     new Bouton("Oui"),
                     new Bouton("Non"));
             List<String> choixDestinaton = Arrays.asList("Oui", "Non");
-
             while (i != j.getDestinations().size() && compteurRemove < 2) {
-
                 String inputTour = j.choisir("choisissez une destination : " + j.getDestinations().get(i), choixDestinaton, boutonChoixDestination, false);
                 if (inputTour.equals("Non")) {
                     this.pileDestinations.add(j.getDestinations().get(i));
@@ -186,33 +196,27 @@ public class Jeu implements Runnable {
                 } else i++;
             }
         }
+    }
 
-
+    public void faireChoixPions() {
         for (Joueur j : joueurs) {
             joueurCourant = j;
-
             List<String> choix = new ArrayList<>();
-            for (int i = 0; i < 25; i++) {
-                choix.add(String.valueOf(i));
-            }
+            for (int i = 0; i <= 25; i++) choix.add(String.valueOf(i));
             String inputTour = j.choisir("combien de wagon voulez vous garder (maximum 25)", choix, null, false);
             int nbWagon = Integer.parseInt(inputTour);
             j.setNbPionsWagonEnReserve(nbWagon);
             int nbBateau = 75 - nbWagon;
             j.setNbPionsBateauEnReserve(nbBateau);
         }
+    }
+
+    public void faireCartesTransportVisibles() {
         Random r = new Random();
         for (int i = 0; i < 5; i++) {
             if (r.nextBoolean()) cartesTransportVisibles.add(pilesDeCartesWagon.piocher());
             else cartesTransportVisibles.add(pilesDeCartesBateau.piocher());
         }
-
-        for (Joueur j : joueurs) {
-            joueurCourant = j;
-            j.jouerTour();
-        }
-        // Fin de la partie
-        prompt("Fin de la partie.", new ArrayList<>(), true);
     }
 
     /**
