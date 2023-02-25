@@ -45,33 +45,21 @@ public final class CarteTransport implements Comparable<CarteTransport> {
     @Override
     public String toString() {
         String label;
-        if (type == TypeCarteTransport.JOKER) {
-            label = "Joker";
-        } else if (type == TypeCarteTransport.BATEAU) {
-            if (estDouble) {
-                label = "Double";
-            } else {
-                label = "Bateau";
-            }
-        } else {
-            label = "Wagon";
-        }
+        if (type == TypeCarteTransport.JOKER) label = "Joker";
+        else if (type == TypeCarteTransport.BATEAU) {
+            if (estDouble) label = "Double";
+            else label = "Bateau";
+        } else label = "Wagon";
         return String.format("%s %s (%s)", label, couleur.name(), nom);
     }
 
     public String toLog() {
         String label;
-        if (type == TypeCarteTransport.JOKER) {
-            label = "Joker";
-        } else if (type == TypeCarteTransport.BATEAU) {
-            if (estDouble) {
-                label = "Double";
-            } else {
-                label = "Bateau";
-            }
-        } else {
-            label = "Wagon";
-        }
+        if (type == TypeCarteTransport.JOKER) label = "Joker";
+        else if (type == TypeCarteTransport.BATEAU) {
+            if (estDouble) label = "Double";
+            else label = "Bateau";
+        } else label = "Wagon";
 
         return String.format(
                 "<img class=\"couleur\" src=\"images/symbole-%s.png\"><span class=\"nom-carte %s %s\">%s</span>",
@@ -80,18 +68,11 @@ public final class CarteTransport implements Comparable<CarteTransport> {
 
     @Override
     public int compareTo(CarteTransport carte) {
-        if (getType() != carte.getType()) {
-            return getType().compareTo(carte.getType());
-        }
-        if (getCouleur() != carte.getCouleur()) {
-            return getCouleur().compareTo(carte.getCouleur());
-        }
-        if (estDouble() != carte.estDouble()) {
-            return Boolean.compare(estDouble(), carte.estDouble());
-        }
-        if (getAncre() != carte.getAncre()) {
-            return Boolean.compare(getAncre(), carte.getAncre());
-        }
+        if (getType() != carte.getType()) return getType().compareTo(carte.getType());
+        if (getCouleur() != carte.getCouleur()) return getCouleur().compareTo(carte.getCouleur());
+        if (estDouble() != carte.estDouble()) return Boolean.compare(estDouble(), carte.estDouble());
+        if (getAncre() != carte.getAncre()) return Boolean.compare(getAncre(), carte.getAncre());
         return getNom().compareTo(carte.getNom());
     }
+
 }

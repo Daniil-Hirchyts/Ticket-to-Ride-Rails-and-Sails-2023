@@ -212,12 +212,25 @@ public class Jeu implements Runnable {
         }
     }
 
+    public void piocherCarteVisible(int numeroCarte, Joueur j) {
+        CarteTransport carte = cartesTransportVisibles.get(numeroCarte);
+        if (carte == null) {
+            log("erreur : carte invalide");
+            return;
+        }
+        j.getCartesTransport().add(carte);
+        cartesTransportVisibles.remove(numeroCarte);
+    }
+
     public void faireCartesTransportVisibles() {
         Random r = new Random();
         for (int i = 0; i < 5; i++) {
             if (r.nextBoolean()) cartesTransportVisibles.add(pilesDeCartesWagon.piocher());
             else cartesTransportVisibles.add(pilesDeCartesBateau.piocher());
         }
+//        for (CarteTransport c : cartesTransportVisibles) {
+//            log("type : " + c.getType());
+//        }
     }
 
     /**

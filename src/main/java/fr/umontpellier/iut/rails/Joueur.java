@@ -117,7 +117,6 @@ public class Joueur {
      */
     // TODO : jouerTour
     void jouerTour() {
-        // TODO : piocher des cartes transport (visibles ou dans la pioche)
         // TODO : échanger des pions wagons ou bateau
         // TODO : prendre de nouvelles destinations
         // TODO : capturer une route
@@ -136,42 +135,11 @@ public class Joueur {
 
             switch (inputTour) {
                 case "Piocher des cartes transport" -> {
-                    List<Bouton> boutonPiocher = Arrays.asList(
-                            new Bouton("Piocher une carte visible"),
-                            new Bouton("Piocher une carte dans les pioches"),
-                            new Bouton("Annuler"));
-                    List<String> choixPiocher = Arrays.asList("Piocher la première carte visible", "Piocher la deuxième carte visible");
-                    String inputPiocher = choisir("que voulez-vous piochez ?", choixPiocher, boutonPiocher, false);
-                    if (inputPiocher.equals("Piocher une carte visible")) {
-                        //TODO : piocher une carte visible
-                    } else if (inputPiocher.equals("Piocher une carte dans les pioches")) {
-                        List<Bouton> boutonPioche = Arrays.asList(
-                                new Bouton("Piocher une carte wagon"),
-                                new Bouton("Piocher une carte bateau"),
-                                new Bouton("Annuler"));
-                        List<String> choixPioche = Arrays.asList("Piocher une carte wagon", "Piocher une carte bateau", "Annuler");
-                        String inputPioche = choisir("que voulez-vous piochez ?", choixPioche, boutonPioche, false);
-                        int size = cartesTransport.size();
-                        label:
-                        for (int i = 0; i < 2; i++) {
-                            switch (inputPioche) {
-                                case "Piocher une carte wagon":
-                                    cartesTransport.add(jeu.piocherCarteWagon());
-                                    break;
-                                case "Piocher une carte bateau":
-                                    cartesTransport.add(jeu.piocherCarteBateau());
-                                    break;
-                                case "Annuler":
-                                    if (size < cartesTransport.size())
-                                        cartesTransport.remove(cartesTransport.size() - 1);
-                                    break label;
-                            }
-                            if (i < 1)
-                                inputPioche = choisir("que voulez-vous piochez ?", choixPioche, boutonPioche, false);
-                            else tour = false;
-                        }
-                        tour = size == cartesTransport.size() || size == (cartesTransport.size() + 1);
-                    } else log("Annulation de la pioche");
+                    int size = cartesTransport.size();
+                    for (int i = 0; i < 2; i++) {
+                        piocherCarte();
+                        tour = size == cartesTransport.size() || size == (cartesTransport.size() + 2);
+                    }
                 }
                 case "Echanger des pions wagons ou bateau" -> {
                     List<Bouton> boutonEchanger = Arrays.asList(
@@ -225,6 +193,39 @@ public class Joueur {
                 }
             }
         } while (tour);
+    }
+
+    public void piocherCarte() {
+        List<Bouton> boutonPioche = Arrays.asList(
+                new Bouton("Piocher une carte visible"),
+                new Bouton("Piocher une carte wagon"),
+                new Bouton("Piocher une carte bateau"),
+                new Bouton("Retour"));
+        List<String> choixPioche = Arrays.asList("Piocher une carte visible", "Piocher une carte wagon", "Piocher une carte bateau", "Retour");
+
+        String inputPioche = choisir("que voulez-vous piochez ?", choixPioche, boutonPioche, false);
+
+        switch (inputPioche) {
+            case "Piocher une carte visible" -> {
+                List<Bouton> boutonPiocheCarte = Arrays.asList(
+                        new Bouton("1"),
+                        new Bouton("2"),
+                        new Bouton("3"),
+                        new Bouton("4"),
+                        new Bouton("5"));
+                List<String> choixPiocheCarte = Arrays.asList("1", "2", "3", "4", "5");
+                String inputPiocheCarte = choisir("qu'elle numéro de carte voulez-vous piochez ?", choixPiocheCarte, boutonPiocheCarte, false);
+                switch (inputPiocheCarte) {
+                    case "1" -> jeu.piocherCarteVisible(0, this);
+                    case "2" -> jeu.piocherCarteVisible(1, this);
+                    case "3" -> jeu.piocherCarteVisible(2, this);
+                    case "4" -> jeu.piocherCarteVisible(3, this);
+                    case "5" -> jeu.piocherCarteVisible(4, this);
+                }
+            }
+            case "Piocher une carte wagon" -> cartesTransport.add(jeu.piocherCarteWagon());
+            case "Piocher une carte bateau" -> cartesTransport.add(jeu.piocherCarteBateau());
+        }
     }
 
     /**
