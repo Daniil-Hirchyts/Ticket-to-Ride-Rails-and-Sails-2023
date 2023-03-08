@@ -1,8 +1,6 @@
 package fr.umontpellier.iut.rails;
 
-import fr.umontpellier.iut.rails.data.CarteTransport;
-import fr.umontpellier.iut.rails.data.Destination;
-import fr.umontpellier.iut.rails.data.Ville;
+import fr.umontpellier.iut.rails.data.*;
 
 import java.util.*;
 
@@ -123,6 +121,7 @@ public class Joueur {
         // TODO : construire un port
         boolean tour = true;
         do {
+            //clear the log
             List<Bouton> boutons = Arrays.asList(
                     new Bouton("Piocher des cartes transport"),
                     new Bouton("Echanger des pions wagons ou bateau"),
@@ -170,16 +169,47 @@ public class Joueur {
                     } else log("vous n'avez rien pris");
                 }
                 case "Capturer une route" -> {
+                    //TODO : capturer une route a completer
                     List<Bouton> boutonRoute = Arrays.asList(
                             new Bouton("Capturer une route"),
                             new Bouton("Ne rien capturer"));
+
                     List<String> choixRoute = Arrays.asList("Capturer la première route", "Capturer la deuxième route");
                     String inputRoute = choisir("que voulez-vous capturer ?", choixRoute, boutonRoute, false);
+
                     if (inputRoute.equals("Capturer une route")) {
-                        //a completer
-                        tour = false;
+                        List<String> choix = new ArrayList<>();
+                        for (Route route : jeu.getRoutesLibres()) {
+                            choix.add(route.getNom());
+                        }
+                        do{
+                        String inputRoute2 = choisir("quelle route voulez-vous capturer ?", choix, null, false);
+                        int nbC = 0;
+                        for (Route route : jeu.getRoutesLibres()) {
+                            if (route.getNom().equals(inputRoute2)) {
+                                for (CarteTransport carteTransport : cartesTransport) {
+                                    if (carteTransport.getCouleur().equals(route.getCouleur())) {
+                                        nbC++;
+                                    }
+                                }
+                                if (nbC >= route.getLongueur()) {
+                                    routes.add(route);
+                                    log("vous avez capturer la route : " + inputRoute2);
+                                    System.out.println("routes : " + routes);
+                                    tour = false;
+                                } else {
+                                    log("vous n'avez pas assez de cartes de la bonne couleur");
+                                    log("vous avez : " + nbC + " cartes de la bonne couleur");
+                                    log("il vous en faut : " + route.getLongueur());
+                                    log("veuillez choisir une autre route");
+                                    tour = true;
+                                }
+                            }
+                        }
+                        }while(tour);
                     } else log("vous n'avez rien capturer");
                 }
+
                 case "Construire un port" -> {
                     List<Bouton> boutonPort = Arrays.asList(
                             new Bouton("Construire un port"),
@@ -192,9 +222,8 @@ public class Joueur {
                     } else log("vous n'avez rien construire");
                 }
             }
-        } while (tour);
-    }
-
+            } while (tour) ;
+        }
     public void piocherCarte() {
         List<Bouton> boutonPioche = Arrays.asList(
                 new Bouton("Piocher une carte visible"),
