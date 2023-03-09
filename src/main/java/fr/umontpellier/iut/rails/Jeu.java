@@ -180,15 +180,21 @@ public class Jeu implements Runnable {
             joueurCourant = j;
             int i = 0;
             int compteurRemove = 0;
-            List<Bouton> boutonChoixDestination = Arrays.asList(
-                    new Bouton("Oui"),
-                    new Bouton("Non"));
-            List<String> choixDestinaton = Arrays.asList("Oui", "Non");
-            while (i != j.getDestinations().size() && compteurRemove < 2) {
-                String inputTour = j.choisir("choisissez une destination : " + j.getDestinations().get(i), choixDestinaton, boutonChoixDestination, false);
-                if (inputTour.equals("Non")) {
-                    this.pileDestinations.add(j.getDestinations().get(i));
+            List<Bouton> boutonChoixDestination = new ArrayList<>();
+            for (Destination d : j.getDestinations()) {
+                boutonChoixDestination.add(new Bouton(d.toString()));
+            }
+            List<String> choixDestinaton = new ArrayList<>();
+            for (Destination d : j.getDestinations()) {
+                choixDestinaton.add(d.toString());
+            }
+            while(compteurRemove <=1 ){
+                String inputTour = j.choisir("choisissez une destination :", choixDestinaton, boutonChoixDestination, true);
+                if (inputTour.isEmpty()) {
+                    compteurRemove = 2;
+                } else if (choixDestinaton.contains(inputTour)) {
                     j.getDestinations().remove(i);
+                    boutonChoixDestination.remove(i);
                     compteurRemove++;
                 } else i++;
             }
@@ -197,16 +203,28 @@ public class Jeu implements Runnable {
 
     public void faireChoixPions() {
         for (Joueur j : joueurs) {
+            boolean etat = true;
             joueurCourant = j;
             List<String> choix = new ArrayList<>();
-            for (int i = 0; i <= 25; i++) choix.add(String.valueOf(i));
-            String inputTour = j.choisir("combien de wagon voulez vous garder (maximum 25)", choix, null, false);
-            int nbWagon = Integer.parseInt(inputTour);
-            j.setNbPionsWagon(nbWagon);
-            j.setNbPionsWagonEnReserve(25 - nbWagon);
-            int nbBateau = 60 - nbWagon;
-            j.setNbPionsBateau(nbBateau);
-            j.setNbPionsBateauEnReserve(50 - nbBateau);
+            for (int i = 10; i < 26; i++) {
+                choix.add(String.valueOf(i));
+            }
+            while(etat) {
+                String inputTour = j.choisir("combien de wagon voulez vous garder (maximum 25)", choix, null, false);
+                //si lireligne() ne contien pas un nombre dans la list choix
+                if (choix.contains(inputTour)) {
+                    int nbWagon = Integer.parseInt(inputTour);
+                    j.setNbPionsWagon(nbWagon);
+                    j.setNbPionsWagonEnReserve(25 - nbWagon);
+                    int nbBateau = 60 - nbWagon;
+                    j.setNbPionsBateau(nbBateau);
+                    j.setNbPionsBateauEnReserve(50 - nbBateau);
+                    etat = false;
+                }
+                else {
+                    log("erreur : nombre invalide");
+                }
+            }
         }
     }
 
@@ -222,7 +240,7 @@ public class Jeu implements Runnable {
 
     public void faireCartesTransportVisibles() {
         Random r = new Random();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             if (r.nextBoolean()) cartesTransportVisibles.add(pilesDeCartesWagon.piocher());
             else cartesTransportVisibles.add(pilesDeCartesBateau.piocher());
         }
