@@ -124,6 +124,14 @@ public class Jeu implements Runnable {
         return new ArrayList<>(routesLibres);
     }
 
+    public PilesCartesTransport getPilesDeCartesWagon() {
+        return pilesDeCartesWagon;
+    }
+
+    public PilesCartesTransport getPilesDeCartesBateau() {
+        return pilesDeCartesBateau;
+    }
+
     public List<Destination> getPileDestinations() {
         return pileDestinations;
     }
@@ -141,10 +149,10 @@ public class Jeu implements Runnable {
      * méthode Joueur.jouerTour() jusqu'à ce que la condition de fin de partie soit réalisée.
      */
     public void run() {
+        faireCartesTransportVisibles();
         fairePremierePiocheCartesTransport();
         fairePremierePiocheCartesDestination();
-        faireChoixPions();
-        faireCartesTransportVisibles();
+
 
         for (Joueur j : joueurs) {
             joueurCourant = j;
@@ -155,6 +163,7 @@ public class Jeu implements Runnable {
     }
 
     public void fairePremierePiocheCartesTransport() {
+        Collections.shuffle(pileDestinations);
         for (Joueur j : joueurs) {
             joueurCourant = j;
             List<CarteTransport> cartesBateau = new ArrayList<>(pilesDeCartesBateau.getCartes());
@@ -165,9 +174,7 @@ public class Jeu implements Runnable {
                     j.getCartesTransport().add(pilesDeCartesWagon.piocher());
                 }
                 if (i < 5) {
-                    Collections.shuffle(pileDestinations);
-                    j.getDestinations().add(pileDestinations.get(0));
-                    this.pileDestinations.remove(0);
+                    j.getDestinations().add(piocherDestination());
                 }
                 Collections.shuffle(cartesBateau);
                 j.getCartesTransport().add(pilesDeCartesBateau.piocher());
@@ -189,20 +196,21 @@ public class Jeu implements Runnable {
                 choixDestinaton.add(d.toString());
             }
             while(compteurRemove <=1 ){
-                String inputTour = j.choisir("choisissez une destination :", choixDestinaton, boutonChoixDestination, true);
+                String inputTour = j.choisir("choisissez une destination a retirer :", choixDestinaton, boutonChoixDestination, true);
                 if (inputTour.isEmpty()) {
                     compteurRemove = 2;
                 } else if (choixDestinaton.contains(inputTour)) {
                     j.getDestinations().remove(i);
+                    pileDestinations.add(j.getDestinations().get(i));
                     boutonChoixDestination.remove(i);
                     compteurRemove++;
                 } else i++;
             }
+            faireChoixPions(j);
         }
     }
 
-    public void faireChoixPions() {
-        for (Joueur j : joueurs) {
+    public void faireChoixPions(Joueur j) {
             boolean etat = true;
             joueurCourant = j;
             List<String> choix = new ArrayList<>();
@@ -225,7 +233,6 @@ public class Jeu implements Runnable {
                     log("erreur : nombre invalide");
                 }
             }
-        }
     }
 
     public void piocherCarteVisible(int numeroCarte, Joueur j) {
@@ -244,9 +251,6 @@ public class Jeu implements Runnable {
             if (r.nextBoolean()) cartesTransportVisibles.add(pilesDeCartesWagon.piocher());
             else cartesTransportVisibles.add(pilesDeCartesBateau.piocher());
         }
-//        for (CarteTransport c : cartesTransportVisibles) {
-//            log("type : " + c.getType());
-//        }
     }
 
     /**

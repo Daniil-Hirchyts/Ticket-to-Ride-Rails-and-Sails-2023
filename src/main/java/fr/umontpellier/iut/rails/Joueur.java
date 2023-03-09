@@ -2,6 +2,7 @@ package fr.umontpellier.iut.rails;
 
 import fr.umontpellier.iut.rails.data.*;
 
+import java.lang.reflect.Type;
 import java.util.*;
 
 public class Joueur {
@@ -90,6 +91,14 @@ public class Joueur {
 
     public void setNbPionsBateau(int nbPionsBateau) {
         this.nbPionsBateau = nbPionsBateau;
+    }
+
+    public int getNbPionsWagon() {
+        return nbPionsWagon;
+    }
+
+    public int getNbPionsBateau() {
+        return nbPionsBateau;
     }
 
     public List<Destination> getDestinations() {
@@ -190,12 +199,46 @@ public class Joueur {
                         for (Route route : jeu.getRoutesLibres()) {
                             if (route.getNom().equals(inputRoute2)) {
                                 for (CarteTransport carteTransport : cartesTransport) {
-                                    if (carteTransport.getCouleur().equals(route.getCouleur())) {
+                                    if (carteTransport.getCouleur().equals(route.getCouleur()) || carteTransport.getType().equals(TypeCarteTransport.JOKER)) {
                                         nbC++;
                                     }
                                 }
                                 if (nbC >= route.getLongueur()) {
                                     routes.add(route);
+                                    //on defausse les cartes de la bonne couleur pour capturer la route
+                                    //TODO : a optimiser
+                                    //faire en sorte que si la carte estDouble cela compte pour deux
+                                    for (int i = 0; i < route.getLongueur(); i++) {
+                                        for (CarteTransport carteTransport : cartesTransport) {
+                                            if (carteTransport.getCouleur().equals(route.getCouleur()) || carteTransport.getType().equals(TypeCarteTransport.JOKER)) {
+                                                cartesTransport.remove(carteTransport);
+                                                if (carteTransport.getType().equals(TypeCarteTransport.WAGON)){
+                                                    jeu.getPilesDeCartesWagon().defausser(carteTransport);
+                                                    jeu.getCartesTransportVisibles().remove(carteTransport);
+                                                    nbPionsWagon--;
+                                                }
+                                                else if (carteTransport.getType().equals(TypeCarteTransport.BATEAU)){
+                                                    jeu.getPilesDeCartesBateau().defausser(carteTransport);
+                                                    jeu.getCartesTransportVisibles().remove(carteTransport);
+                                                    nbPionsBateau--;
+                                                }
+                                                else if (carteTransport.getType().equals(TypeCarteTransport.JOKER)){
+                                                    if (route.getClass().equals(RouteMaritime.class)){
+                                                        jeu.getPilesDeCartesBateau().defausser(carteTransport);
+                                                        jeu.getCartesTransportVisibles().remove(carteTransport);
+                                                        nbPionsBateau--;
+                                                    }
+                                                    else{
+                                                        jeu.getPilesDeCartesWagon().defausser(carteTransport);
+                                                        jeu.getCartesTransportVisibles().remove(carteTransport);
+                                                        nbPionsWagon--;
+                                                    }
+
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
                                     log("vous avez capturer la route : " + inputRoute2);
                                     System.out.println("routes : " + routes);
                                     tour = false;
@@ -237,36 +280,23 @@ public class Joueur {
 
         switch (inputPioche) {
             case "Piocher une carte visible" -> {
-                boolean carteTire = false;
                 List<String> choixPiocheCarte = new ArrayList<>();
+                //remplir la liste des choix avec les cartes visibles
                 for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
                     choixPiocheCarte.add(carteTransport.getNom());
                 }
-                do{
+                //permet de choisir la carte a piocher
                 String inputPiocheCarte = choisir("qu'elle carte voulez-vous piochez ?", choixPiocheCarte, null, false);
                 for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
-                    //TODO : piocher une carte quand joker
                     if (carteTransport.getNom().equals(inputPiocheCarte)) {
-                        if (cartesTransport.get(cartesTransport.size()-1).getType().equals("JOKER")) {
-                            if (inputPiocheCarte.equals("JOKER")) {
-                                log("vous ne pouvez pas piocher 2 joker de suite");
-                            } else {
-                                cartesTransport.add(carteTransport);
-                                jeu.getCartesTransportVisibles().remove(carteTransport);
-                                log("vous avez piocher la carte : " + carteTransport.getNom());
-                                carteTire = true;
-                            }
-                        } else {
-                            cartesTransport.add(carteTransport);
-                            jeu.getCartesTransportVisibles().remove(carteTransport);
-                            log("vous avez piocher la carte : " + carteTransport.getNom());
-                            carteTire = true;
-                        }
+                        cartesTransport.add(carteTransport);
+                        jeu.getCartesTransportVisibles().remove(carteTransport);
+                        break;
                     }
                 }
-                }while(!carteTire);
             }
             case "Piocher une carte" -> {
+                //permet de choisir le type de carte a piocher
                 List<String> choixPiocheCarte = Arrays.asList("WAGON", "BATEAU");
                 String inputPiocheCarte = choisir("qu'elle type de carte voulez-vous piochez ?", choixPiocheCarte, null, false);
 
