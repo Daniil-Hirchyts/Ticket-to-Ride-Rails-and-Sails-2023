@@ -136,6 +136,10 @@ public class Destination {
         return destinations;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
     public List<String> getVilles() {
         return villes;
     }

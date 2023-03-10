@@ -149,7 +149,7 @@ public class Jeu implements Runnable {
      * méthode Joueur.jouerTour() jusqu'à ce que la condition de fin de partie soit réalisée.
      */
     public void run() {
-        faireCartesTransportVisibles();
+        faireCartesTransportVisiblesDepart();
         fairePremierePiocheCartesTransport();
         fairePremierePiocheCartesDestination();
 
@@ -193,7 +193,7 @@ public class Jeu implements Runnable {
             }
             List<String> choixDestinaton = new ArrayList<>();
             for (Destination d : j.getDestinations()) {
-                choixDestinaton.add(d.toString());
+                choixDestinaton.add(d.getNom());
             }
             while(compteurRemove <=1 ){
                 String inputTour = j.choisir("choisissez une destination a retirer :", choixDestinaton, boutonChoixDestination, true);
@@ -218,7 +218,7 @@ public class Jeu implements Runnable {
                 choix.add(String.valueOf(i));
             }
             while(etat) {
-                String inputTour = j.choisir("combien de wagon voulez vous garder (maximum 25)", choix, null, false);
+                String inputTour = j.choisir("combien de wagon voulez vous garder (maximum 25)", choix, null, true);
                 //si lireligne() ne contien pas un nombre dans la list choix
                 if (choix.contains(inputTour)) {
                     int nbWagon = Integer.parseInt(inputTour);
@@ -245,11 +245,10 @@ public class Jeu implements Runnable {
         cartesTransportVisibles.remove(numeroCarte);
     }
 
-    public void faireCartesTransportVisibles() {
-        Random r = new Random();
-        for (int i = 0; i < 6; i++) {
-            if (r.nextBoolean()) cartesTransportVisibles.add(pilesDeCartesWagon.piocher());
-            else cartesTransportVisibles.add(pilesDeCartesBateau.piocher());
+    public void faireCartesTransportVisiblesDepart() {
+        for (int i = 0; i < 3; i++) {
+            cartesTransportVisibles.add(pilesDeCartesWagon.piocher());
+            cartesTransportVisibles.add(pilesDeCartesBateau.piocher());
         }
     }
 
