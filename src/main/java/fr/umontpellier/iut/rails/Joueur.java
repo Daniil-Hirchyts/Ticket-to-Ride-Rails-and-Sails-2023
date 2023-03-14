@@ -136,6 +136,10 @@ public class Joueur {
                     new Bouton("Echanger pions bateaux", "PIONS BATEAU")
                     );
             List<String> choixTour = Arrays.asList("WAGON","BATEAU", "DESTINATION");
+            List<String> carteVisible = new ArrayList<>();
+            for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
+                carteVisible.add(carteTransport.getNom());
+            }
             for (Route route : routes) {
                 choixTour.add(route.getNom());
             }
@@ -144,45 +148,49 @@ public class Joueur {
                     choixTour.add(ville.nom());
                 }
             }
+            for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
+                choixTour.add(carteTransport.getNom());
+            }
             String inputTour = choisir("qu'elle choix d'action ferez vous ?", choixTour, boutons, false);
             System.out.println(inputTour);
             switch (inputTour) {
-                case "WAGON" || "BATEU"-> {
+                case "WAGON" -> {
                     int size = cartesTransport.size();
-                    for (int i = 0; i < 2; i++) {
-                        piocherCarte();
-                        //si la carte piocher est un joker on ne peut pas piocher une deuxième carte
-                        if (cartesTransport.get(size).getType().equals("JOKER")) {
-                            break;
-                        }
+                    if (jeu.piocherCarteWagon().getType().equals("JOKER")){
+                        cartesTransport.add(jeu.piocherCarteWagon());
+                        break;
+                    }
+                    else {
+                        cartesTransport.add(jeu.piocherCarteWagon());
                         tour = size == cartesTransport.size() || size == (cartesTransport.size() + 2);
                     }
                 }
-
-                case "Echanger des pions wagons ou bateau" -> {
-                    List<Bouton> boutonEchanger = Arrays.asList(
-                            new Bouton("Echanger des pions wagons"),
-                            new Bouton("Echanger des pions bateau"),
-                            new Bouton("Ne rien échanger"));
-                    List<String> choixEchanger = Arrays.asList("Echanger 1 pion wagon contre 1 pions bateau", "Echanger 1 pions wagon contre 1 pion bateau");
-                    String inputEchanger = choisir("que voulez-vous échanger ?", choixEchanger, boutonEchanger, false);
-                    if (inputEchanger.equals("Echanger des pions wagons")) {
-                        //a completer
-                        tour = false;
-                    } else if (inputEchanger.equals("Echanger des pions bateau")) {
-                        //a completer
-                        tour = false;
-                    } else log("vous n'avez rien échanger");
+                case "BATEAU" -> {
+                    int size = cartesTransport.size();
+                    cartesTransport.add(jeu.piocherCarteBateau());
+                    tour = size == cartesTransport.size() || size == (cartesTransport.size() + 2);
                 }
-
-                case "Prendre de nouvelles destinations" -> {
-                    List<String> choixDestinations = Arrays.asList("DESTINATION");
-                    String inputDestinations = choisir("que voulez-vous prendre ?", choixDestinations, null, false);
-                    if (inputDestinations.equals("DESTINATION")) {
-                        log("vous avez pris une destination");
+                //si carte visible.contains(inputTour) alors on la prend et on la met dans la main du joueur et on la retire de la liste des cartes visibles
+                //TODO: CASE CARTEVISIBLE
+//                case carteVisible -> {
+//                    int size = cartesTransport.size();
+//                    for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
+//                        if (carteTransport.getNom().equals(inputTour)) {
+//                            cartesTransport.add(carteTransport);
+//                            jeu.getCartesTransportVisibles().remove(carteTransport);
+//                            break;
+//                        }
+//                    }
+//                    tour = size == cartesTransport.size() || size == (cartesTransport.size() + 2);
+//                }
+                case "PIONS WAGON", "PIONS BATEAU" -> {
+                    if (inputTour.equals("PIONS WAGON")){
+                        //a completer
+                    }
+                }
+                case "DESTINATIONS" -> {
                         destinations.add(jeu.piocherDestination());
                         tour = false;
-                    } else log("vous n'avez rien pris");
                 }
                 case "Capturer une route" -> {
                     //TODO : capturer une route a completer
