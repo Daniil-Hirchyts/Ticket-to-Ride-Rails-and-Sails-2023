@@ -140,16 +140,13 @@ public class Joueur {
             for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
                 carteVisible.add(carteTransport.getNom());
             }
-            for (Route route : routes) {
+            for (Route route : jeu.getRoutesLibres()) {
                 choixTour.add(route.getNom());
             }
-            for (Ville ville : ports) {
+            for (Ville ville : jeu.getPortsLibres()) {
                 if (ville.estPort()){
                     choixTour.add(ville.nom());
                 }
-            }
-            for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
-                choixTour.add(carteTransport.getNom());
             }
             String inputTour = choisir("qu'elle choix d'action ferez vous ?", choixTour, boutons, false);
             System.out.println(inputTour);
@@ -270,59 +267,20 @@ public class Joueur {
 //                    } else log("vous n'avez rien capturer");
 //                }
 
-                case "Construire un port" -> {
-                    List<Bouton> boutonPort = Arrays.asList(
-                            new Bouton("Construire un port"),
-                            new Bouton("Ne rien construire"));
-                    List<String> choixPort = Arrays.asList("Construire", "Ne pas construire");
-                    String inputPort = choisir("que voulez-vous construire ?", choixPort, boutonPort, false);
-                    if (inputPort.equals("Construire un port")) {
-                        //a completer
-                        tour = false;
-                    } else log("vous n'avez rien construire");
-                }
+//                case list de port -> {
+//                    List<Bouton> boutonPort = Arrays.asList(
+//                            new Bouton("Construire un port"),
+//                            new Bouton("Ne rien construire"));
+//                    List<String> choixPort = Arrays.asList("Construire", "Ne pas construire");
+//                    String inputPort = choisir("que voulez-vous construire ?", choixPort, boutonPort, false);
+//                    if (inputPort.equals("Construire un port")) {
+//                        //a completer
+//                        tour = false;
+//                    } else log("vous n'avez rien construire");
+//                }
             }
             } while (tour) ;
         }
-    public void piocherCarte() {
-        List<Bouton> boutonPioche = Arrays.asList(
-                new Bouton("Piocher une carte visible"),
-                new Bouton("Piocher une carte"),
-                new Bouton("Retour"));
-        List<String> choixPioche = Arrays.asList("Piocher une carte visible", "Piocher une carte wagon", "Retour");
-
-        String inputPioche = choisir("que voulez-vous piochez ?", choixPioche, boutonPioche, false);
-
-        switch (inputPioche) {
-            case "Piocher une carte visible" -> {
-                List<String> choixPiocheCarte = new ArrayList<>();
-                //remplir la liste des choix avec les cartes visibles
-                for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
-                    choixPiocheCarte.add(carteTransport.getNom());
-                }
-                //permet de choisir la carte a piocher
-                String inputPiocheCarte = choisir("qu'elle carte voulez-vous piochez ?", choixPiocheCarte, null, false);
-                for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
-                    if (carteTransport.getNom().equals(inputPiocheCarte)) {
-                        cartesTransport.add(carteTransport);
-                        jeu.getCartesTransportVisibles().remove(carteTransport);
-                        break;
-                    }
-                }
-            }
-            case "Piocher une carte" -> {
-                //permet de choisir le type de carte a piocher
-                List<String> choixPiocheCarte = Arrays.asList("WAGON", "BATEAU");
-                String inputPiocheCarte = choisir("qu'elle type de carte voulez-vous piochez ?", choixPiocheCarte, null, false);
-
-                if (inputPiocheCarte.equals("WAGON")) {
-                    cartesTransport.add(jeu.piocherCarteWagon());
-                } else if (inputPiocheCarte.equals("BATEAU")){
-                    cartesTransport.add(jeu.piocherCarteBateau());
-                }
-            }
-        }
-    }
 
     /**
      * Attend une entrée de la part du joueur (au clavier ou sur la websocket) et
