@@ -192,81 +192,83 @@ public class Joueur {
                         destinations.add(jeu.piocherDestination());
                         tour = false;
                 }
-                case "Capturer une route" -> {
-                    //TODO : capturer une route a completer
-                    List<Bouton> boutonRoute = Arrays.asList(
-                            new Bouton("Capturer une route"),
-                            new Bouton("Ne rien capturer"));
 
-                    List<String> choixRoute = Arrays.asList("Capturer la première route", "Capturer la deuxième route");
-                    String inputRoute = choisir("que voulez-vous capturer ?", choixRoute, boutonRoute, false);
-
-                    if (inputRoute.equals("Capturer une route")) {
-                        List<String> choix = new ArrayList<>();
-                        for (Route route : jeu.getRoutesLibres()) {
-                            choix.add(route.getNom());
-                        }
-                        do{
-                        String inputRoute2 = choisir("quelle route voulez-vous capturer ?", choix, null, false);
-                        int nbC = 0;
-                        for (Route route : jeu.getRoutesLibres()) {
-                            if (route.getNom().equals(inputRoute2)) {
-                                for (CarteTransport carteTransport : cartesTransport) {
-                                    if (carteTransport.getCouleur().equals(route.getCouleur()) || carteTransport.getType().equals(TypeCarteTransport.JOKER)) {
-                                        nbC++;
-                                    }
-                                }
-                                if (nbC >= route.getLongueur()) {
-                                    routes.add(route);
-                                    //on defausse les cartes de la bonne couleur pour capturer la route
-                                    //TODO : a optimiser
-                                    //faire en sorte que si la carte estDouble cela compte pour deux
-                                    for (int i = 0; i < route.getLongueur(); i++) {
-                                        for (CarteTransport carteTransport : cartesTransport) {
-                                            if (carteTransport.getCouleur().equals(route.getCouleur()) || carteTransport.getType().equals(TypeCarteTransport.JOKER)) {
-                                                cartesTransport.remove(carteTransport);
-                                                if (carteTransport.getType().equals(TypeCarteTransport.WAGON)){
-                                                    jeu.getPilesDeCartesWagon().defausser(carteTransport);
-                                                    jeu.getCartesTransportVisibles().remove(carteTransport);
-                                                    nbPionsWagon--;
-                                                }
-                                                else if (carteTransport.getType().equals(TypeCarteTransport.BATEAU)){
-                                                    jeu.getPilesDeCartesBateau().defausser(carteTransport);
-                                                    jeu.getCartesTransportVisibles().remove(carteTransport);
-                                                    nbPionsBateau--;
-                                                }
-                                                else if (carteTransport.getType().equals(TypeCarteTransport.JOKER)){
-                                                    if (route.getClass().equals(RouteMaritime.class)){
-                                                        jeu.getPilesDeCartesBateau().defausser(carteTransport);
-                                                        jeu.getCartesTransportVisibles().remove(carteTransport);
-                                                        nbPionsBateau--;
-                                                    }
-                                                    else{
-                                                        jeu.getPilesDeCartesWagon().defausser(carteTransport);
-                                                        jeu.getCartesTransportVisibles().remove(carteTransport);
-                                                        nbPionsWagon--;
-                                                    }
-
-                                                }
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    log("vous avez capturer la route : " + inputRoute2);
-                                    System.out.println("routes : " + routes);
-                                    tour = false;
-                                } else {
-                                    log("vous n'avez pas assez de cartes de la bonne couleur");
-                                    log("vous avez : " + nbC + " cartes de la bonne couleur");
-                                    log("il vous en faut : " + route.getLongueur());
-                                    log("veuillez choisir une autre route");
-                                    tour = true;
-                                }
-                            }
-                        }
-                        }while(tour);
-                    } else log("vous n'avez rien capturer");
-                }
+                //TODO: A CHANGER ENTIEREMENT
+//                case choixTour.contains(inputTour) -> {
+//                    //TODO : capturer une route a completer
+//                    List<Bouton> boutonRoute = Arrays.asList(
+//                            new Bouton("Capturer une route"),
+//                            new Bouton("Ne rien capturer"));
+//
+//                    List<String> choixRoute = Arrays.asList("Capturer la première route", "Capturer la deuxième route");
+//                    String inputRoute = choisir("que voulez-vous capturer ?", choixRoute, boutonRoute, false);
+//
+//                    if (inputRoute.equals("Capturer une route")) {
+//                        List<String> choix = new ArrayList<>();
+//                        for (Route route : jeu.getRoutesLibres()) {
+//                            choix.add(route.getNom());
+//                        }
+//                        do{
+//                        String inputRoute2 = choisir("quelle route voulez-vous capturer ?", choix, null, false);
+//                        int nbC = 0;
+//                        for (Route route : jeu.getRoutesLibres()) {
+//                            if (route.getNom().equals(inputRoute2)) {
+//                                for (CarteTransport carteTransport : cartesTransport) {
+//                                    if (carteTransport.getCouleur().equals(route.getCouleur()) || carteTransport.getType().equals(TypeCarteTransport.JOKER)) {
+//                                        nbC++;
+//                                    }
+//                                }
+//                                if (nbC >= route.getLongueur()) {
+//                                    routes.add(route);
+//                                    //on defausse les cartes de la bonne couleur pour capturer la route
+//                                    //TODO : a optimiser
+//                                    //faire en sorte que si la carte estDouble cela compte pour deux
+//                                    for (int i = 0; i < route.getLongueur(); i++) {
+//                                        for (CarteTransport carteTransport : cartesTransport) {
+//                                            if (carteTransport.getCouleur().equals(route.getCouleur()) || carteTransport.getType().equals(TypeCarteTransport.JOKER)) {
+//                                                cartesTransport.remove(carteTransport);
+//                                                if (carteTransport.getType().equals(TypeCarteTransport.WAGON)){
+//                                                    jeu.getPilesDeCartesWagon().defausser(carteTransport);
+//                                                    jeu.getCartesTransportVisibles().remove(carteTransport);
+//                                                    nbPionsWagon--;
+//                                                }
+//                                                else if (carteTransport.getType().equals(TypeCarteTransport.BATEAU)){
+//                                                    jeu.getPilesDeCartesBateau().defausser(carteTransport);
+//                                                    jeu.getCartesTransportVisibles().remove(carteTransport);
+//                                                    nbPionsBateau--;
+//                                                }
+//                                                else if (carteTransport.getType().equals(TypeCarteTransport.JOKER)){
+//                                                    if (route.getClass().equals(RouteMaritime.class)){
+//                                                        jeu.getPilesDeCartesBateau().defausser(carteTransport);
+//                                                        jeu.getCartesTransportVisibles().remove(carteTransport);
+//                                                        nbPionsBateau--;
+//                                                    }
+//                                                    else{
+//                                                        jeu.getPilesDeCartesWagon().defausser(carteTransport);
+//                                                        jeu.getCartesTransportVisibles().remove(carteTransport);
+//                                                        nbPionsWagon--;
+//                                                    }
+//
+//                                                }
+//                                                break;
+//                                            }
+//                                        }
+//                                    }
+//                                    log("vous avez capturer la route : " + inputRoute2);
+//                                    System.out.println("routes : " + routes);
+//                                    tour = false;
+//                                } else {
+//                                    log("vous n'avez pas assez de cartes de la bonne couleur");
+//                                    log("vous avez : " + nbC + " cartes de la bonne couleur");
+//                                    log("il vous en faut : " + route.getLongueur());
+//                                    log("veuillez choisir une autre route");
+//                                    tour = true;
+//                                }
+//                            }
+//                        }
+//                        }while(tour);
+//                    } else log("vous n'avez rien capturer");
+//                }
 
                 case "Construire un port" -> {
                     List<Bouton> boutonPort = Arrays.asList(
