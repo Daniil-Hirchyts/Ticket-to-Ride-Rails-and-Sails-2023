@@ -189,14 +189,17 @@ public class Jeu implements Runnable {
             int compteurRemove = 0;
             List<Bouton> boutonChoixDestination = new ArrayList<>();
             for (Destination d : j.getDestinations()) {
-                boutonChoixDestination.add(new Bouton(d.toString()));
+                boutonChoixDestination.add(new Bouton(d.toString(), d.getNom()));
             }
             List<String> choixDestinaton = new ArrayList<>();
             for (Destination d : j.getDestinations()) {
                 choixDestinaton.add(d.getNom());
             }
+            System.out.println(boutonChoixDestination);
+            System.out.println(choixDestinaton);
             while(compteurRemove <=1 ){
                 String inputTour = j.choisir("choisissez une destination a retirer :", choixDestinaton, boutonChoixDestination, true);
+                System.out.println(inputTour);
                 if (inputTour.isEmpty()) {
                     compteurRemove = 2;
                 } else if (choixDestinaton.contains(inputTour)) {

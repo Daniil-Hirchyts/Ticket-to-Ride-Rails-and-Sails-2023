@@ -132,17 +132,22 @@ public class Joueur {
         do {
             //clear the log
             List<Bouton> boutons = Arrays.asList(
-                    new Bouton("Piocher des cartes transport"),
-                    new Bouton("Echanger des pions wagons ou bateau"),
-                    new Bouton("Prendre de nouvelles destinations"),
-                    new Bouton("Capturer une route"),
-                    new Bouton("Construire un port"));
-
-            List<String> choixTour = Arrays.asList("Piocher des cartes transport", "Echanger des pions wagons ou bateau", "Prendre de nouvelles destinations", "Capturer une route", "Construire un port");
+                    new Bouton("Echanger pions wagons", "PIONS WAGON"),
+                    new Bouton("Echanger pions bateaux", "PIONS BATEAU")
+                    );
+            List<String> choixTour = Arrays.asList("WAGON","BATEAU", "DESTINATION");
+            for (Route route : routes) {
+                choixTour.add(route.getNom());
+            }
+            for (Ville ville : ports) {
+                if (ville.estPort()){
+                    choixTour.add(ville.nom());
+                }
+            }
             String inputTour = choisir("qu'elle choix d'action ferez vous ?", choixTour, boutons, false);
-
+            System.out.println(inputTour);
             switch (inputTour) {
-                case "Piocher des cartes transport" -> {
+                case "WAGON" || "BATEU"-> {
                     int size = cartesTransport.size();
                     for (int i = 0; i < 2; i++) {
                         piocherCarte();

@@ -12,4 +12,14 @@ public record Ville(
     public String toLog() {
         return String.format("<span class=\"ville\">%s</span>", nom);
     }
+
+    @Override
+    public boolean estPort() {
+        return estPort;
+    }
+
+    @Override
+    public String nom() {
+        return nom;
+    }
 }
