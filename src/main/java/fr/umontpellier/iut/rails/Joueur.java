@@ -135,12 +135,13 @@ public class Joueur {
                     new Bouton("Echanger pions wagons", "PIONS WAGON"),
                     new Bouton("Echanger pions bateaux", "PIONS BATEAU")
                     );
-            List<String> choixTour = Arrays.asList("WAGON","BATEAU", "DESTINATION");
+            List<String> choixTour = new ArrayList<>(Arrays.asList("WAGON","BATEAU", "DESTINATION"));
             List<String> carteVisible = new ArrayList<>();
             for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
                 carteVisible.add(carteTransport.getNom());
             }
             for (Route route : jeu.getRoutesLibres()) {
+                System.out.println(route.getNom());
                 choixTour.add(route.getNom());
             }
             for (Ville ville : jeu.getPortsLibres()) {
@@ -153,14 +154,8 @@ public class Joueur {
             switch (inputTour) {
                 case "WAGON" -> {
                     int size = cartesTransport.size();
-                    if (jeu.piocherCarteWagon().getType().equals("JOKER")){
-                        cartesTransport.add(jeu.piocherCarteWagon());
-                        break;
-                    }
-                    else {
-                        cartesTransport.add(jeu.piocherCarteWagon());
-                        tour = size == cartesTransport.size() || size == (cartesTransport.size() + 2);
-                    }
+                    cartesTransport.add(jeu.piocherCarteWagon());
+                    tour = size == cartesTransport.size() || size == (cartesTransport.size() + 2);
                 }
                 case "BATEAU" -> {
                     int size = cartesTransport.size();
