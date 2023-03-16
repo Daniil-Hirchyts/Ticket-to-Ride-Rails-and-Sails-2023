@@ -161,6 +161,7 @@ public class Joueur {
             else {
                 inputTour = choisir("qu'elle choix d'action ferez vous ?", choixTour, boutons, false);
             }
+            if(fin && inputTour.equals("")) tour = false;
             if(inputTour.equals("WAGON")){
                 cartesTransport.add(jeu.piocherCarteWagon());
                 compteur++;
@@ -214,46 +215,53 @@ public class Joueur {
             if (!fin){
                 //TODO changer systeme echange
                 if(inputTour.equals("PIONS WAGON") || inputTour.equals("PIONS BATEAU")) {
-                    if (inputTour.equals("PIONS WAGON") && nbPionsWagonEnReserve > 0 && nbPionsWagon >= 0) {
-                        List<String> choixPionsWagon = new ArrayList<>();
-                        if (nbPionsWagonEnReserve > nbPionsWagon) {
-                            for (int i = 0; i <= nbPionsWagon; i++) {
-                                choixPionsWagon.add(String.valueOf(i));
-                            }
-                        } else {
-                            for (int i = 0; i <= nbPionsWagonEnReserve; i++) {
-                                choixPionsWagon.add(String.valueOf(i));
+                    if (inputTour.equals("PIONS WAGON")) {
+                        if(nbPionsWagonEnReserve > 0 && nbPionsBateau > 0) {
+                            List<String> choixPionsWagon = new ArrayList<>();
+                            if(nbPionsWagonEnReserve > nbPionsBateau) {
+                                for (int i = 0; i <= nbPionsBateau; i++) {
+                                    choixPionsWagon.add(String.valueOf(i));
+                                }
+                            } else {
+                                for (int i = 0; i <= nbPionsWagonEnReserve; i++) {
+                                    choixPionsWagon.add(String.valueOf(i));
+                                }
+                                String inputPionsWagon = choisir("combien de pions wagon voulez vous échanger ? Au maximum " + choixPionsWagon.get(choixPionsWagon.size()-1), choixPionsWagon, null, false);
+                                nbPionsWagon += Integer.parseInt(inputPionsWagon);
+                                nbPionsWagonEnReserve -= Integer.parseInt(inputPionsWagon);
+                                nbPionsBateau -= Integer.parseInt(inputPionsWagon);
+                                nbPionsBateauEnReserve += Integer.parseInt(inputPionsWagon);
+                                score -= Integer.parseInt(inputPionsWagon);
+                                tour = false;
                             }
                         }
-                        if(choixPionsWagon.size() == 1 && choixPionsWagon.get(0).equals("0")){
-                            log("vous ne pouvez pas échanger de pions wagon");
-                        } else {
-                            String inputPionsWagon = choisir("combien de pions wagon voulez vous échanger ? Au maximum " + choixPionsWagon.get(choixPionsWagon.size()-1), choixPionsWagon, null, false);
-                            nbPionsBateau += Integer.parseInt(inputPionsWagon);
-                            nbPionsWagon -= Integer.parseInt(inputPionsWagon);
-                            nbPionsWagonEnReserve -= Integer.parseInt(inputPionsWagon);
-                            tour = false;
+                        else {
+                            if (nbPionsWagonEnReserve == 0)
+                                log("vous ne pouvez pas échanger de pions wagon");
+                            if (nbPionsBateau == 0)
+                                log("vous ne pouvez pas échanger de pions wagon");
                         }
                     }
-                    else if (inputTour.equals("PIONS BATEAU") && nbPionsBateauEnReserve > 0 && nbPionsBateau >= 0) {
-                        List<String> choixPionsBateau = new ArrayList<>();
-                        if (nbPionsBateauEnReserve > nbPionsBateau) {
-                            for (int i = 0; i <= nbPionsBateau; i++) {
-                                choixPionsBateau.add(String.valueOf(i));
+                    else if (inputTour.equals("PIONS BATEAU")) {
+                        if (nbPionsBateauEnReserve > 0 && nbPionsWagon > 0) {
+                            List<String> choixPionsBateau = new ArrayList<>();
+                            if (nbPionsBateauEnReserve > nbPionsWagon) {
+                                for (int i = 0; i <= nbPionsWagon; i++) {
+                                    choixPionsBateau.add(String.valueOf(i));
+                                }
+                            } else {
+                                for (int i = 0; i <= nbPionsBateauEnReserve; i++) {
+                                    choixPionsBateau.add(String.valueOf(i));
+                                }
                             }
-                        } else {
-                            for (int i = 0; i <= nbPionsBateauEnReserve; i++) {
-                                choixPionsBateau.add(String.valueOf(i));
-                            }
-                        }
-                        if(choixPionsBateau.size() == 1 && choixPionsBateau.get(0).equals("0")){
-                            log("vous ne pouvez pas échanger de pions wagon");
-                        } else {
                             String inputPionsBateau = choisir("combien de pions bateau voulez vous échanger ? Au maximum " + choixPionsBateau.get(choixPionsBateau.size()-1), choixPionsBateau, null, false);
-                            nbPionsWagon += Integer.parseInt(inputPionsBateau);
-                            nbPionsBateau -= Integer.parseInt(inputPionsBateau);
+                            nbPionsWagon -= Integer.parseInt(inputPionsBateau);
+                            nbPionsWagonEnReserve += Integer.parseInt(inputPionsBateau);
+                            nbPionsBateau += Integer.parseInt(inputPionsBateau);
                             nbPionsBateauEnReserve -= Integer.parseInt(inputPionsBateau);
+                            score -= Integer.parseInt(inputPionsBateau);
                             tour = false;
+
                         }
                     } else {
                         System.out.println("vous n'avez pas de pions wagon en reserve");
