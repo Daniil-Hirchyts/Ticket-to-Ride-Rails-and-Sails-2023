@@ -189,15 +189,24 @@ public class Joueur {
                         carteTransportTemp.add(carteTransport);
                     }
                 }
-                if (carteTransportTemp.get(0).getType().equals(TypeCarteTransport.JOKER)) {
-                    choisirPileJoueur(cartesTransport, carteTransportTemp);
-                    compteur += 2;
-                } else if (carteTransportTemp.get(0).getType().equals(TypeCarteTransport.BATEAU) || carteTransportTemp.get(0).getType().equals(TypeCarteTransport.WAGON)) {
-                    choisirPileJoueur(cartesTransport, carteTransportTemp);
-                    compteur++;
+                if (compteur == 0) {
+                    if (carteTransportTemp.get(0).getType().equals(TypeCarteTransport.JOKER)) {
+                        choisirPileJoueur(cartesTransport, carteTransportTemp);
+                        compteur += 2;
+                        fin = false;
+                        tour = false;
+                    }
+                }
+                if (compteur < 2){
+                    if (carteTransportTemp.get(0).getType().equals(TypeCarteTransport.BATEAU) || carteTransportTemp.get(0).getType().equals(TypeCarteTransport.WAGON)) {
+                        choisirPileJoueur(cartesTransport, carteTransportTemp);
+                        compteur++;
+                        fin = true;
+                    }
                 }
                 if (compteur >= 2) {
                     compteur = 0;
+                    fin = false;
                     tour = false;
                 }
             }
