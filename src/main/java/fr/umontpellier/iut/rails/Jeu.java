@@ -137,7 +137,7 @@ public class Jeu implements Runnable {
     }
 
     public List<CarteTransport> getCartesTransportVisibles() {
-        return new ArrayList<>(cartesTransportVisibles);
+        return cartesTransportVisibles;
     }
 
     /**
@@ -151,7 +151,7 @@ public class Jeu implements Runnable {
     public void run() {
         faireCartesTransportVisiblesDepart();
         fairePremierePiocheCartesTransport();
-        fairePremierePiocheCartesDestination();
+        PiocheCartesDestination();
 
 
         for (Joueur j : joueurs) {
@@ -182,11 +182,9 @@ public class Jeu implements Runnable {
         }
     }
 
-    public void fairePremierePiocheCartesDestination() {
+    public void PiocheCartesDestination() {
+        //TODO : Opimiser piocheDestinationEnCours pour pouvoir l'appeler aussi depuis joueur pour la pioche des destinations
         for (Joueur j : joueurs) {
-            joueurCourant = j;
-            int i = 0;
-            int compteurRemove = 0;
             List<Bouton> boutonChoixDestination = new ArrayList<>();
             for (Destination d : j.getDestinations()) {
                 boutonChoixDestination.add(new Bouton(d.toString(), d.getNom()));
@@ -197,20 +195,26 @@ public class Jeu implements Runnable {
             }
             System.out.println(boutonChoixDestination);
             System.out.println(choixDestinaton);
-            while(compteurRemove <=1 ){
-                String inputTour = j.choisir("choisissez une destination a retirer :", choixDestinaton, boutonChoixDestination, true);
-                System.out.println(inputTour);
-                if (inputTour.isEmpty()) {
-                    compteurRemove = 2;
-                } else if (choixDestinaton.contains(inputTour)) {
-                    j.getDestinations().remove(i);
-                    pileDestinations.add(j.getDestinations().get(i));
-                    boutonChoixDestination.remove(i);
-                    compteurRemove++;
-                } else i++;
-            }
-            faireChoixPions(j);
+            piocheDestinationEnCours(j, 2, boutonChoixDestination, choixDestinaton);
         }
+    }
+
+    public void piocheDestinationEnCours(Joueur j, int nb, List<Bouton> boutonChoixDestination, List<String> choixDestinaton) {
+        int i = 0;
+        int compteurRemove = 0;
+        while(compteurRemove <=nb-1 ){
+            String inputTour = j.choisir("choisissez une destination a retirer :", choixDestinaton, boutonChoixDestination, true);
+            System.out.println(inputTour);
+            if (inputTour.isEmpty()) {
+                compteurRemove = nb;
+            } else if (choixDestinaton.contains(inputTour)) {
+                j.getDestinations().remove(i);
+                pileDestinations.add(j.getDestinations().get(i));
+                boutonChoixDestination.remove(i);
+                compteurRemove++;
+            } else i++;
+        }
+        faireChoixPions(j);
     }
 
     public void faireChoixPions(Joueur j) {
