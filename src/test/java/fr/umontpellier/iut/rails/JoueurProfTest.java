@@ -125,6 +125,10 @@ public class JoueurProfTest {
                 ""); // fin du tour
         joueur1.jouerTour();
         assertEquals(2, destinations.size());
+        String jepeuxvoir = "";
+        for (Destination dest : destinations) {
+            jepeuxvoir += dest.getNom() + " ";
+        }
         assertTrue(destinations.contains(destAB));
         assertTrue(destinations.contains(destGH));
         assertEquals(destIJ, pileDestinations.get(0));

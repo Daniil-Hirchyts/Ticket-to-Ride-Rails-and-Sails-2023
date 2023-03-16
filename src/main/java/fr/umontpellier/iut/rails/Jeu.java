@@ -286,7 +286,6 @@ public class Jeu implements Runnable {
     }
 
     public Destination piocherDestination() {
-        Collections.shuffle(pileDestinations);
         if (pileDestinations.isEmpty()) {
             return null;
         }

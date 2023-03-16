@@ -2,6 +2,7 @@ package fr.umontpellier.iut.rails;
 
 import fr.umontpellier.iut.rails.data.*;
 
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Joueur {
@@ -148,9 +149,7 @@ public class Joueur {
                 choixRoute.add(route.getNom());
             }
             for (Ville ville : jeu.getPortsLibres()) {
-                if (ville.estPort()) {
-                    choixPort.add(ville.nom());
-                }
+                choixPort.add(ville.nom());
             }
             choixTour.addAll(choixRoute);
             choixTour.addAll(choixcarteVisible);
@@ -274,6 +273,7 @@ public class Joueur {
                     List<Bouton> boutonChoixDestination = new ArrayList<>();
                     List<Destination> destinationTemp = new ArrayList<>();
                     for (int i = 0; i < 4; i++){
+                        System.out.println("destination "+ jeu.getPileDestinations().get(0) +" : " + jeu.getPileDestinations().get(0).getNom());
                         destinationTemp.add(jeu.piocherDestination());
                         destinations.add(destinationTemp.get(i));
                     }
@@ -284,7 +284,6 @@ public class Joueur {
                     for (Destination d : getDestinations()) {
                         choixDestinaton.add(d.getNom());
                     }
-                    int i = 0;
                     int compteurRemove = 0;
                     while(compteurRemove <=2 ){
                         String inputChoix = choisir("choisissez une destination a retirer :", choixDestinaton, boutonChoixDestination, true);
@@ -292,13 +291,24 @@ public class Joueur {
                         if (inputChoix.isEmpty()) {
                             compteurRemove = 3;
                         } else if (choixDestinaton.contains(inputChoix)) {
-                            //remove la destination de destinations du joueur
-                            getDestinations().remove(destinationTemp.get(i));
-                            destinationTemp.remove(i);
-                            jeu.getPileDestinations().add(destinationTemp.get(i));
-                            boutonChoixDestination.remove(i);
-                            compteurRemove++;
-                        } else i++;
+                            for (Destination d : destinationTemp) {
+                                if (d.getNom().equals(inputChoix)) {
+                                    choixDestinaton.remove(inputChoix);
+                                    System.out.println("destination a retirer : " + d.getNom());
+                                    getDestinations().remove(d);
+                                    for (Bouton b : boutonChoixDestination) {
+                                        if (b.valeur().equals(d.getNom())) {
+                                            boutonChoixDestination.remove(b);
+                                            break;
+                                        }
+                                    }
+                                    jeu.getPileDestinations().add(d);
+                                    destinationTemp.remove(d);
+                                    compteurRemove++;
+                                    break;
+                                }
+                            }
+                        }
                     }
                     tour = false;
                 }
