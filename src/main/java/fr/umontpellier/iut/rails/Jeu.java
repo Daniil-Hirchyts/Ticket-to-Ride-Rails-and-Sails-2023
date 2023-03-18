@@ -156,6 +156,7 @@ public class Jeu implements Runnable {
 
         for (Joueur j : joueurs) {
             joueurCourant = j;
+            System.out.println("C'est au tour de " + j.getNom() + " de choisir ses destinations initiales.");
             j.jouerTour();
         }
 
@@ -165,7 +166,6 @@ public class Jeu implements Runnable {
     public void fairePremierePiocheCartesTransport() {
         Collections.shuffle(pileDestinations);
         for (Joueur j : joueurs) {
-            joueurCourant = j;
             List<CarteTransport> cartesBateau = new ArrayList<>(pilesDeCartesBateau.getCartes());
             List<CarteTransport> cartesWagon = new ArrayList<>(pilesDeCartesWagon.getCartes());
             for (int i = 0; i < 7; i++) {
@@ -184,7 +184,10 @@ public class Jeu implements Runnable {
 
     public void PiocheCartesDestination() {
         //TODO : Opimiser piocheDestinationEnCours pour pouvoir l'appeler aussi depuis joueur pour la pioche des destinations
+        System.out.println("joueurs = " + joueurs);
         for (Joueur j : joueurs) {
+            joueurCourant = j;
+            System.out.println("j = " + j);
             List<Bouton> boutonChoixDestination = new ArrayList<>();
             for (Destination d : j.getDestinations()) {
                 boutonChoixDestination.add(new Bouton(d.toString(), d.getNom()));

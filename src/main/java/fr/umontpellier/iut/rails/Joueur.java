@@ -65,6 +65,10 @@ public class Joueur {
      */
     private int score;
 
+    private boolean tour = true;
+    private boolean fin = false;
+    private int compteur = 0;
+
     public Joueur(String nom, Jeu jeu, CouleurJouer couleur) {
         this.nom = nom;
         this.jeu = jeu;
@@ -132,9 +136,6 @@ public class Joueur {
         // TODO : prendre de nouvelles destinations
         // TODO : capturer une route
         // TODO : construire un port
-        boolean tour = true;
-        int compteur = 0;
-        boolean fin = false;
         do {
             //clear the log
             List<Bouton> boutons = Arrays.asList(
@@ -170,13 +171,13 @@ public class Joueur {
 
 
             if (fin && inputTour.equals("")) tour = false;
-            if (inputTour.equals("WAGON") || inputTour.equals("BATEAU")) joueurPiocheDansLeDeck(cartesTransport,compteur, fin, tour, inputTour);
-            if (choixcarteVisible.contains(inputTour)) joueurPiocheCarteVisible(cartesTransport, inputTour, compteur, fin, tour);
+            if (inputTour.equals("WAGON") || inputTour.equals("BATEAU")) joueurPiocheDansLeDeck(cartesTransport, inputTour);
+            if (choixcarteVisible.contains(inputTour)) joueurPiocheCarteVisible(cartesTransport, inputTour);
 
             if (!fin) {
-                if (inputTour.equals("PIONS WAGON") || inputTour.equals("PIONS BATEAU")) echangerPions(inputTour, tour);
-                if (inputTour.equals("DESTINATION")) prendreDestination(tour);
-                if (choixRoute.contains(inputTour)) capturerRoute(inputTour, tour);
+                if (inputTour.equals("PIONS WAGON") || inputTour.equals("PIONS BATEAU")) echangerPions(inputTour);
+                if (inputTour.equals("DESTINATION")) prendreDestination();
+                if (choixRoute.contains(inputTour)) capturerRoute(inputTour);
                 if (choixPort.contains(inputTour)) {
                     //a completer
                     tour = false;
@@ -185,7 +186,7 @@ public class Joueur {
         } while (tour);
     }
 
-    private void capturerRoute(String inputTour, boolean tour) {
+    private void capturerRoute(String inputTour) {
         //TODO : CHANGER CAPTURE ROUTE
         List<CarteTransport> carteCorrecte = new ArrayList<>();
         //captureRoute Terrestre
@@ -302,7 +303,7 @@ public class Joueur {
         }
     }
 
-    private void prendreDestination(boolean tour) {
+    private void prendreDestination() {
         //TODO : A Opimiser pour pouvoir l'appeler depuis jeu
         List<Bouton> boutonChoixDestination = new ArrayList<>();
         List<Destination> destinationTemp = new ArrayList<>();
@@ -339,7 +340,6 @@ public class Joueur {
                         jeu.getPileDestinations().add(d);
                         destinationTemp.remove(d);
                         compteurRemove++;
-                        break;
                     }
                 }
             }
@@ -347,7 +347,7 @@ public class Joueur {
         tour = false;
     }
 
-    private void echangerPions(String inputTour, boolean tour) {
+    private void echangerPions(String inputTour) {
             if (inputTour.equals("PIONS WAGON")) {
                 if (nbPionsWagonEnReserve > 0 && nbPionsBateau > 0) {
                     List<String> choixPionsWagon = new ArrayList<>();
@@ -399,7 +399,7 @@ public class Joueur {
             }
         }
 
-    private void joueurPiocheCarteVisible(List<CarteTransport> cartesTransport, String inputTour, int compteur, boolean fin, boolean tour) {
+    private void joueurPiocheCarteVisible(List<CarteTransport> cartesTransport, String inputTour) {
         List<CarteTransport> carteTransportTemp = new ArrayList<>();
         for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
             if (carteTransport.getNom().equals(inputTour)) {
@@ -428,7 +428,7 @@ public class Joueur {
         }
     }
 
-    private void joueurPiocheDansLeDeck(List<CarteTransport> cartesTransport, int compteur, boolean fin, boolean tour, String inputTour){
+    private void joueurPiocheDansLeDeck(List<CarteTransport> cartesTransport, String inputTour){
         if (inputTour.equals("WAGON")){
             cartesTransport.add(jeu.piocherCarteWagon());
             compteur++;
