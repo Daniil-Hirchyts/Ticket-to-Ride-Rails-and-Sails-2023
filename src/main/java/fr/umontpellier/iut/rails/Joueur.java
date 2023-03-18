@@ -5,7 +5,6 @@ import fr.umontpellier.iut.rails.data.Destination;
 import fr.umontpellier.iut.rails.data.TypeCarteTransport;
 import fr.umontpellier.iut.rails.data.Ville;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class Joueur {
@@ -63,6 +62,7 @@ public class Joueur {
      * perdus lors des échanges de pions)
      */
     private int score;
+
 
     public Joueur(String nom, Jeu jeu, CouleurJouer couleur) {
         this.nom = nom;
@@ -347,7 +347,7 @@ public class Joueur {
                                         }
                                     }
                                 }
-                                while (compterCarte(cartesTransportPosees,r.getLongueur()));
+                                while (compterCarte(cartesTransportPosees, r.getLongueur()));
                                 log("vous avez capturé la route " + r.getNom());
                                 cartesTransport.removeAll(cartesTransportPosees);
                                 cartesTransportPosees.clear();
@@ -361,11 +361,10 @@ public class Joueur {
                         } else if (r.getNom().equals(inputTour) && r instanceof RouteMaritime) {
                             for (CarteTransport c : cartesTransport) {
                                 if (c.getCouleur().equals(r.getCouleur()) && (c.getType().equals(TypeCarteTransport.BATEAU) || c.getType().equals(TypeCarteTransport.JOKER))) {
-                                    if (c.estDouble()){
+                                    if (c.estDouble()) {
                                         carteCorrecte.add(c);
                                         cpt += 2;
-                                    }
-                                    else{
+                                    } else {
                                         carteCorrecte.add(c);
                                         cpt++;
                                     }
@@ -386,7 +385,7 @@ public class Joueur {
                                         }
                                     }
                                 }
-                                while (compterCarte(cartesTransportPosees,r.getLongueur()));
+                                while (compterCarte(cartesTransportPosees, r.getLongueur()));
                                 log("vous avez capturé la route " + r.getNom());
                                 cartesTransport.removeAll(cartesTransportPosees);
                                 cartesTransportPosees.clear();
@@ -407,26 +406,26 @@ public class Joueur {
                     tour = false;
                 }
             }
+
         } while (tour);
     }
 
     private boolean compterCarte(List<CarteTransport> carteTransportPosees, int longueurRoute) {
         int cpt = 0;
         for (CarteTransport c : carteTransportPosees) {
-            if (c.estDouble()){
+            if (c.estDouble()) {
                 cpt += 2;
-            }
-            else{
+            } else {
                 cpt++;
             }
         }
-        if (cpt == longueurRoute){
+        if (cpt == longueurRoute) {
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
+
     public void choisirPileJoueur(List<CarteTransport> cartesTransport, List<CarteTransport> carteTransportTemp) {
         cartesTransport.add(carteTransportTemp.get(0));
         jeu.getCartesTransportVisibles().remove(carteTransportTemp.get(0));
@@ -568,6 +567,7 @@ public class Joueur {
                 Map.entry("ports", ports.stream().map(Ville::nom).toList()),
                 Map.entry("routes", routes.stream().map(Route::getNom).toList()));
     }
+
     public enum CouleurJouer {
         JAUNE, ROUGE, BLEU, VERT, ROSE;
     }
