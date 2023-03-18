@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Jeu implements Runnable {
@@ -171,18 +172,21 @@ public class Jeu implements Runnable {
             }
         }
 
+        //Choix des destinations initiales et des pions
         for (Joueur j : joueurs) {
             joueurCourant = j;
             PiocheCartesDestination(2, 5, joueurCourant);
+            faireChoixPions(joueurCourant);
         }
 
-
+        //Début de la partie
         for (Joueur j : joueurs) {
             log("C'est au tour de " + j.getNom() + " de choisir ses destinations initiales.");
             joueurCourant = j;
             j.jouerTour();
         }
 
+        //Fin de la partie
         prompt("Fin de la partie.", new ArrayList<>(), true);
     }
 
@@ -199,7 +203,7 @@ public class Jeu implements Runnable {
         int compteurRemove = 0;
         while (compteurRemove < nbCartesMin) {
             List<String> grabberDestinaton = Stream.concat(choixDestinaton.stream(), choixDestinatonSpecial.stream()).collect(Collectors.toList());
-            String inputTour = joueurCourant.choisir("<h3>choisissez une destination a retirer</h3>", grabberDestinaton, null, true);
+            String inputTour = joueurCourant.choisir("<h3>Choisissez une destination a retirer</h3>", grabberDestinaton, null, true);
             if (inputTour.isEmpty()) compteurRemove = nbCartesMin;
             else {
                 Iterator<Destination> iterator = joueurCourant.getDestinations().iterator();
@@ -218,20 +222,15 @@ public class Jeu implements Runnable {
                 }
             }
         }
-        faireChoixPions(joueurCourant);
     }
 
-
     public void faireChoixPions(Joueur j) {
-        boolean etat = true;
         joueurCourant = j;
-        List<String> choix = new ArrayList<>();
-        for (int i = 10; i < 26; i++) {
-            choix.add(String.valueOf(i));
-        }
-        while (etat) {
-            String inputTour = j.choisir("combien de wagon voulez vous garder (maximum 25)", choix, null, true);
-            //si lireligne() ne contien pas un nombre dans la list choix
+        List<String> choix = IntStream.rangeClosed(10, 25)
+                .mapToObj(String::valueOf)
+                .collect(Collectors.toList());
+        while (true) {
+            String inputTour = j.choisir("<h3>Combien de wagon voulez vous garder (10-25)</h3>", choix, null, false);
             if (choix.contains(inputTour)) {
                 int nbWagon = Integer.parseInt(inputTour);
                 j.setNbPionsWagon(nbWagon);
@@ -239,9 +238,7 @@ public class Jeu implements Runnable {
                 int nbBateau = 60 - nbWagon;
                 j.setNbPionsBateau(nbBateau);
                 j.setNbPionsBateauEnReserve(50 - nbBateau);
-                etat = false;
-            } else {
-                log("erreur : nombre invalide");
+                break;
             }
         }
     }
