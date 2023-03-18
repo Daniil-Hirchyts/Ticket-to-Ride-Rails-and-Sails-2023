@@ -323,16 +323,25 @@ public class Joueur {
                         if (r.getNom().equals(inputTour) && r instanceof RouteTerrestre) {
                             System.out.println(r.getCouleur());
                             for (CarteTransport c : cartesTransport) {
-                                System.out.println(c.getCouleur() + " " + c.getType());
-                                System.out.println(c.getCouleur().equals(r.getCouleur()));
-                                if (c.getCouleur().equals(r.getCouleur()) && (c.getType().equals(TypeCarteTransport.WAGON) || c.getType().equals(TypeCarteTransport.JOKER))) {
+                                System.out.println("couleur + type de la carte : " +c.getCouleur() + " " + c.getType());
+                                System.out.println("Boolean egal couleur route : " +c.getCouleur().equals(r.getCouleur()));
+                                System.out.println("Type de la carte : " + c.getType().equals(TypeCarteTransport.WAGON));
+                                System.out.println("Type de la carte : " + c.getType().equals(TypeCarteTransport.JOKER));
+                                System.out.println("------------------------------------");
+                                if (c.getType().equals(TypeCarteTransport.JOKER)) {
+                                    System.out.println(c.getNom());
+                                    System.out.println(c.getCouleur());
+                                    carteCorrecte.add(c);
+                                    cpt++;
+                                }
+                                else if (c.getCouleur().equals(r.getCouleur()) && c.getType().equals(TypeCarteTransport.WAGON)) {
                                     System.out.println(c.getNom());
                                     System.out.println(c.getCouleur());
                                     carteCorrecte.add(c);
                                     cpt++;
                                 }
                             }
-                            if (cpt > r.getLongueur()) {
+                            if (cpt >= r.getLongueur()) {
                                 //demander au joueur de choisir les cartes qui vont bien puis compter le nombre de carte tant que le joueur n'a pas selectionner le bon nombre de carte pour capturer la route on lui redemande
                                 List<String> choixCarteWagon = new ArrayList<>();
                                 for (CarteTransport c : carteCorrecte) {
@@ -340,8 +349,11 @@ public class Joueur {
                                 }
                                 do {
                                     String inputChoix = choisir("choisissez les cartes qui vont bien pour capturer la route :", choixCarteWagon, null, false);
+                                    System.out.println(inputChoix);
                                     for (CarteTransport c : carteCorrecte) {
+                                        System.out.println(c.getNom());
                                         if (c.getNom().equals(inputTour)) {
+                                            System.out.println("carte a retirer : " + c.getNom());
                                             cartesTransportPosees.add(c);
                                             carteCorrecte.remove(c);
                                         }
@@ -371,7 +383,7 @@ public class Joueur {
                                     }
                                 }
                             }
-                            if (cpt > r.getLongueur()) {
+                            if (cpt >= r.getLongueur()) {
                                 //demander au joueur de choisir les cartes qui vont bien puis compter le nombre de carte tant que le joueur n'a pas selectionner le bon nombre de carte pour capturer la route on lui redemande
                                 List<String> choixCarteBateau = new ArrayList<>();
                                 for (CarteTransport c : carteCorrecte) {
