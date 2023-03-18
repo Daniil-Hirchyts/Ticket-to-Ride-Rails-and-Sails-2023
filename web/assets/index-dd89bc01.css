@@ -77,6 +77,10 @@ body {
     background-size: cover
 }
 
+.carte-transport:hover {
+    translate: 2px 2px;
+}
+
 #cartes-visibles {
     justify-content: space-evenly
 }
@@ -150,12 +154,30 @@ body {
 }
 
 .panneau-joueur .destinations {
-    align-content: right;
+    align-content: end;
     font-size: 80%
 }
 
 .panneau-joueur .destinations .complete {
     text-decoration: line-through
+}
+
+.destination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 4px;
+    font-size: 14px;
+    background: #fff;
+    border: 1px solid var(--col-dark);
+    border-radius: 5px;
+    text-align: center;
+    padding: 4px;
+    align-items: center;
+}
+
+.destination:hover {
+    background: #f0f0f0
 }
 
 .panneau-joueur .cartes-transport {
@@ -185,7 +207,7 @@ body {
 #log #inner-log {
     padding: 0;
     height: 100%;
-    overflow: overlay
+    overflow: auto;
 }
 
 #log ::-webkit-scrollbar {
