@@ -1,8 +1,10 @@
 package fr.umontpellier.iut.rails;
 
-import fr.umontpellier.iut.rails.data.*;
+import fr.umontpellier.iut.rails.data.CarteTransport;
+import fr.umontpellier.iut.rails.data.Destination;
+import fr.umontpellier.iut.rails.data.TypeCarteTransport;
+import fr.umontpellier.iut.rails.data.Ville;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class Joueur {
@@ -85,20 +87,20 @@ public class Joueur {
         this.nbPionsBateauEnReserve = nbPionsBateauEnReserve;
     }
 
-    public void setNbPionsWagon(int nbPionsWagon) {
-        this.nbPionsWagon = nbPionsWagon;
-    }
-
-    public void setNbPionsBateau(int nbPionsBateau) {
-        this.nbPionsBateau = nbPionsBateau;
-    }
-
     public int getNbPionsWagon() {
         return nbPionsWagon;
     }
 
+    public void setNbPionsWagon(int nbPionsWagon) {
+        this.nbPionsWagon = nbPionsWagon;
+    }
+
     public int getNbPionsBateau() {
         return nbPionsBateau;
+    }
+
+    public void setNbPionsBateau(int nbPionsBateau) {
+        this.nbPionsBateau = nbPionsBateau;
     }
 
     public List<Destination> getDestinations() {
@@ -154,14 +156,13 @@ public class Joueur {
             choixTour.addAll(choixRoute);
             choixTour.addAll(choixcarteVisible);
             choixTour.addAll(choixPort);
-            if (fin){
+            if (fin) {
                 inputTour = choisir("qu'elle choix d'action ferez vous ?", choixTour, null, true);
-            }
-            else {
+            } else {
                 inputTour = choisir("qu'elle choix d'action ferez vous ?", choixTour, boutons, false);
             }
-            if(fin && inputTour.equals("")) tour = false;
-            if(inputTour.equals("WAGON")){
+            if (fin && inputTour.equals("")) tour = false;
+            if (inputTour.equals("WAGON")) {
                 cartesTransport.add(jeu.piocherCarteWagon());
                 compteur++;
                 fin = true;
@@ -171,7 +172,7 @@ public class Joueur {
                     tour = false;
                 }
             }
-            if(inputTour.equals("BATEAU")){
+            if (inputTour.equals("BATEAU")) {
                 cartesTransport.add(jeu.piocherCarteBateau());
                 compteur++;
                 fin = true;
@@ -182,7 +183,7 @@ public class Joueur {
                 }
             }
 
-            if(choixcarteVisible.contains(inputTour)) {
+            if (choixcarteVisible.contains(inputTour)) {
                 List<CarteTransport> carteTransportTemp = new ArrayList<>();
                 for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
                     if (carteTransport.getNom().equals(inputTour)) {
@@ -197,7 +198,7 @@ public class Joueur {
                         tour = false;
                     }
                 }
-                if (compteur < 2){
+                if (compteur < 2) {
                     if (carteTransportTemp.get(0).getType().equals(TypeCarteTransport.BATEAU) || carteTransportTemp.get(0).getType().equals(TypeCarteTransport.WAGON)) {
                         choisirPileJoueur(cartesTransport, carteTransportTemp);
                         compteur++;
@@ -211,13 +212,13 @@ public class Joueur {
                 }
             }
             //si inputTour == "PIONS WAGON" "PIONS BATEAU"
-            if (!fin){
+            if (!fin) {
                 //TODO changer systeme echange
-                if(inputTour.equals("PIONS WAGON") || inputTour.equals("PIONS BATEAU")) {
+                if (inputTour.equals("PIONS WAGON") || inputTour.equals("PIONS BATEAU")) {
                     if (inputTour.equals("PIONS WAGON")) {
-                        if(nbPionsWagonEnReserve > 0 && nbPionsBateau > 0) {
+                        if (nbPionsWagonEnReserve > 0 && nbPionsBateau > 0) {
                             List<String> choixPionsWagon = new ArrayList<>();
-                            if(nbPionsWagonEnReserve > nbPionsBateau) {
+                            if (nbPionsWagonEnReserve > nbPionsBateau) {
                                 for (int i = 0; i <= nbPionsBateau; i++) {
                                     choixPionsWagon.add(String.valueOf(i));
                                 }
@@ -225,7 +226,7 @@ public class Joueur {
                                 for (int i = 0; i <= nbPionsWagonEnReserve; i++) {
                                     choixPionsWagon.add(String.valueOf(i));
                                 }
-                                String inputPionsWagon = choisir("combien de pions wagon voulez vous échanger ? Au maximum " + choixPionsWagon.get(choixPionsWagon.size()-1), choixPionsWagon, null, false);
+                                String inputPionsWagon = choisir("combien de pions wagon voulez vous échanger ? Au maximum " + choixPionsWagon.get(choixPionsWagon.size() - 1), choixPionsWagon, null, false);
                                 nbPionsWagon += Integer.parseInt(inputPionsWagon);
                                 nbPionsWagonEnReserve -= Integer.parseInt(inputPionsWagon);
                                 nbPionsBateau -= Integer.parseInt(inputPionsWagon);
@@ -233,15 +234,13 @@ public class Joueur {
                                 score -= Integer.parseInt(inputPionsWagon);
                                 tour = false;
                             }
-                        }
-                        else {
+                        } else {
                             if (nbPionsWagonEnReserve == 0)
                                 log("vous ne pouvez pas échanger de pions wagon");
                             if (nbPionsBateau == 0)
                                 log("vous ne pouvez pas échanger de pions wagon");
                         }
-                    }
-                    else if (inputTour.equals("PIONS BATEAU")) {
+                    } else if (inputTour.equals("PIONS BATEAU")) {
                         if (nbPionsBateauEnReserve > 0 && nbPionsWagon > 0) {
                             List<String> choixPionsBateau = new ArrayList<>();
                             if (nbPionsBateauEnReserve > nbPionsWagon) {
@@ -253,7 +252,7 @@ public class Joueur {
                                     choixPionsBateau.add(String.valueOf(i));
                                 }
                             }
-                            String inputPionsBateau = choisir("combien de pions bateau voulez vous échanger ? Au maximum " + choixPionsBateau.get(choixPionsBateau.size()-1), choixPionsBateau, null, false);
+                            String inputPionsBateau = choisir("combien de pions bateau voulez vous échanger ? Au maximum " + choixPionsBateau.get(choixPionsBateau.size() - 1), choixPionsBateau, null, false);
                             nbPionsWagon -= Integer.parseInt(inputPionsBateau);
                             nbPionsWagonEnReserve += Integer.parseInt(inputPionsBateau);
                             nbPionsBateau += Integer.parseInt(inputPionsBateau);
@@ -267,13 +266,13 @@ public class Joueur {
                     }
                 }
             }
-            if (!fin){
-                if(inputTour.equals("DESTINATION")){
+            if (!fin) {
+                if (inputTour.equals("DESTINATION")) {
                     //TODO : A Opimiser pour pouvoir l'appeler depuis jeu
                     List<Bouton> boutonChoixDestination = new ArrayList<>();
                     List<Destination> destinationTemp = new ArrayList<>();
-                    for (int i = 0; i < 4; i++){
-                        System.out.println("destination "+ jeu.getPileDestinations().get(0) +" : " + jeu.getPileDestinations().get(0).getNom());
+                    for (int i = 0; i < 4; i++) {
+                        System.out.println("destination " + jeu.getPileDestinations().get(0) + " : " + jeu.getPileDestinations().get(0).getNom());
                         destinationTemp.add(jeu.piocherDestination());
                         destinations.add(destinationTemp.get(i));
                     }
@@ -285,7 +284,7 @@ public class Joueur {
                         choixDestinaton.add(d.getNom());
                     }
                     int compteurRemove = 0;
-                    while(compteurRemove <=2 ){
+                    while (compteurRemove <= 2) {
                         String inputChoix = choisir("choisissez une destination a retirer :", choixDestinaton, boutonChoixDestination, true);
                         System.out.println(inputChoix);
                         if (inputChoix.isEmpty()) {
@@ -313,8 +312,8 @@ public class Joueur {
                     tour = false;
                 }
             }
-            if(!fin){
-                if(choixRoute.contains(inputTour)){
+            if (!fin) {
+                if (choixRoute.contains(inputTour)) {
                     //TODO : CHANGER CAPTURE ROUTE
                     int nbC = 0;
                     for (Route route : jeu.getRoutesLibres()) {
@@ -372,16 +371,16 @@ public class Joueur {
                 }
             }
 
-            if(!fin){
-                if(choixPort.contains(inputTour)){
+            if (!fin) {
+                if (choixPort.contains(inputTour)) {
                     //a completer
                     tour = false;
                 }
             }
-        } while(tour);
+        } while (tour);
     }
 
-    public void choisirPileJoueur(List<CarteTransport> cartesTransport, List<CarteTransport> carteTransportTemp){
+    public void choisirPileJoueur(List<CarteTransport> cartesTransport, List<CarteTransport> carteTransportTemp) {
         cartesTransport.add(carteTransportTemp.get(0));
         jeu.getCartesTransportVisibles().remove(carteTransportTemp.get(0));
         carteTransportTemp.remove(0);
@@ -392,6 +391,7 @@ public class Joueur {
             jeu.getCartesTransportVisibles().add(jeu.piocherCarteBateau());
         }
     }
+
     /**
      * Attend une entrée de la part du joueur (au clavier ou sur la websocket) et
      * renvoie le choix du joueur.
@@ -522,7 +522,7 @@ public class Joueur {
                 Map.entry("routes", routes.stream().map(Route::getNom).toList()));
     }
 
-public enum CouleurJouer {
-    JAUNE, ROUGE, BLEU, VERT, ROSE;
-}
+    public enum CouleurJouer {
+        JAUNE, ROUGE, BLEU, VERT, ROSE;
+    }
 }
