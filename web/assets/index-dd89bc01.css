@@ -74,7 +74,12 @@ body {
 .carte-transport .image-transport {
     width: 100%;
     height: 100%;
-    background-size: cover
+    background-size: cover;
+    cursor: pointer;
+}
+
+.carte-transport {
+    cursor: pointer;
 }
 
 .carte-transport:hover {
@@ -174,6 +179,7 @@ body {
     text-align: center;
     padding: 4px;
     align-items: center;
+    cursor: pointer;
 }
 
 .destination:hover {
@@ -399,7 +405,7 @@ button:hover {
 }
 
 #boutons {
-    display : grid;
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     /*grid-template-rows: 1fr 1fr 1fr;*/
     grid-gap: 1px;
