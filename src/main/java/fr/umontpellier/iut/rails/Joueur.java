@@ -141,11 +141,13 @@ public class Joueur {
                     new Bouton("Echanger pions wagons", "PIONS WAGON"),
                     new Bouton("Echanger pions bateaux", "PIONS BATEAU")
             );
+
             String inputTour;
             List<String> choixTour = new ArrayList<>(Arrays.asList("WAGON", "BATEAU", "DESTINATION"));
             List<String> choixcarteVisible = new ArrayList<>();
             List<String> choixRoute = new ArrayList<>();
             List<String> choixPort = new ArrayList<>();
+
             for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
                 choixcarteVisible.add(carteTransport.getNom());
             }
@@ -155,18 +157,22 @@ public class Joueur {
             for (Ville ville : jeu.getPortsLibres()) {
                 choixPort.add(ville.nom());
             }
+
             choixTour.addAll(choixRoute);
             choixTour.addAll(choixcarteVisible);
             choixTour.addAll(choixPort);
+
             if (fin) {
                 inputTour = choisir("qu'elle choix d'action ferez vous ?", choixTour, null, true);
             } else {
                 inputTour = choisir("qu'elle choix d'action ferez vous ?", choixTour, boutons, false);
             }
+
+
             if (fin && inputTour.equals("")) tour = false;
             if (inputTour.equals("WAGON") || inputTour.equals("BATEAU")) joueurPiocheDansLeDeck(cartesTransport,compteur, fin, tour, inputTour);
             if (choixcarteVisible.contains(inputTour)) joueurPiocheCarteVisible(cartesTransport, inputTour, compteur, fin, tour);
-            //si inputTour == "PIONS WAGON" "PIONS BATEAU"
+
             if (!fin) {
                 if (inputTour.equals("PIONS WAGON") || inputTour.equals("PIONS BATEAU")) echangerPions(inputTour, tour);
                 if (inputTour.equals("DESTINATION")) prendreDestination(tour);
