@@ -7,6 +7,8 @@ import fr.umontpellier.iut.rails.data.*;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Jeu implements Runnable {
     /**
@@ -187,24 +189,28 @@ public class Jeu implements Runnable {
     public void PiocheCartesDestination(int nbCartesMin, int nbTotalCartes, Joueur joueurCourant) {
         for (int i = 0; i < nbTotalCartes; i++) joueurCourant.getDestinations().add(piocherDestination());
         List<String> choixDestinaton = new ArrayList<>();
+        List<String> choixDestinatonSpecial = new ArrayList<>();
         for (Destination destination : joueurCourant.getDestinations()) {
+            choixDestinatonSpecial.add(destination.getNom());
             StringJoiner name = new StringJoiner(",");
             for (String ville : destination.getVilles()) name.add(ville);
             choixDestinaton.add(name.toString());
         }
         int compteurRemove = 0;
         while (compteurRemove < nbCartesMin) {
-            String inputTour = joueurCourant.choisir("<h3>choisissez une destination a retirer</h3>", choixDestinaton, null, true);
+            List<String> grabberDestinaton = Stream.concat(choixDestinaton.stream(), choixDestinatonSpecial.stream()).collect(Collectors.toList());
+            String inputTour = joueurCourant.choisir("<h3>choisissez une destination a retirer</h3>", grabberDestinaton, null, true);
             if (inputTour.isEmpty()) compteurRemove = nbCartesMin;
             else {
                 Iterator<Destination> iterator = joueurCourant.getDestinations().iterator();
                 int index = 0;
                 while (iterator.hasNext()) {
                     Destination destination = iterator.next();
-                    if (choixDestinaton.get(index).equals(inputTour)) {
+                    if (choixDestinaton.get(index).equals(inputTour) || choixDestinatonSpecial.get(index).equals(inputTour)) {
                         iterator.remove();
                         pileDestinations.add(destination);
                         choixDestinaton.remove(index);
+                        choixDestinatonSpecial.remove(index);
                         compteurRemove++;
                         break;
                     }
