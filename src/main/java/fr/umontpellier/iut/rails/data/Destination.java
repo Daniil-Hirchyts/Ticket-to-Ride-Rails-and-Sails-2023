@@ -1,12 +1,17 @@
 package fr.umontpellier.iut.rails.data;
 
-import fr.umontpellier.iut.rails.Joueur;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
 public class Destination {
+    /**
+     * Compteur du nombre de destinations instanciées (utilisé pour donner
+     * automatiquement un id unique à chaque destination)
+     * Vous ne devez pas toucher à cet attribut qui est utilisé pour les interfaces
+     * (console et web)
+     */
+    private static int compteur = 1;
     /**
      * Liste des villes à relier
      */
@@ -30,13 +35,6 @@ public class Destination {
      * Le nom d'une destination est "Dxx" (où xx est le numéro de la destination)
      */
     private final String nom;
-    /**
-     * Compteur du nombre de destinations instanciées (utilisé pour donner
-     * automatiquement un id unique à chaque destination)
-     * Vous ne devez pas toucher à cet attribut qui est utilisé pour les interfaces
-     * (console et web)
-     */
-    private static int compteur = 1;
 
     public Destination(List<String> villes, int valeurSimple, int valeurMax, int penalite) {
         this.villes = villes;
@@ -48,19 +46,6 @@ public class Destination {
 
     public Destination(String ville1, String ville2, int valeur) {
         this(new ArrayList<>(List.of(ville1, ville2)), valeur, valeur, valeur);
-    }
-
-
-    public String toString() {
-        StringJoiner sj = new StringJoiner(" - ");
-        for (String ville : villes) {
-            sj.add(ville);
-        }
-        if (valeurSimple == valeurMax) {
-            return String.format("%s (%d)", sj, valeurSimple);
-        } else {
-            return String.format("%s (%d, %d, %d)", sj, valeurSimple, valeurMax, penalite);
-        }
     }
 
     /**
@@ -136,8 +121,28 @@ public class Destination {
         return destinations;
     }
 
+    public String toString() {
+        StringJoiner sj = new StringJoiner(" - ");
+        for (String ville : villes) {
+            sj.add(ville);
+        }
+        if (valeurSimple == valeurMax) {
+            return String.format("%s (%d)", sj, valeurSimple);
+        } else {
+            return String.format("%s (%d, %d, %d)", sj, valeurSimple, valeurMax, penalite);
+        }
+    }
+
     public String getNom() {
         return nom;
+    }
+
+    public int[] getValeurs() {
+        int[] valeurs = new int[3];
+        if (valeurSimple > 0) valeurs[0] = valeurSimple;
+        if (valeurMax > 0) valeurs[1] = valeurMax;
+        if (penalite > 0) valeurs[2] = penalite;
+        return valeurs;
     }
 
     public List<String> getVilles() {
