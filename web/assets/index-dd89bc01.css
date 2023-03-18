@@ -420,8 +420,8 @@ button:hover {
 
 #boutons {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 1px;
-    margin: 5px 0;
+    margin: 2px 0;
 
 }
