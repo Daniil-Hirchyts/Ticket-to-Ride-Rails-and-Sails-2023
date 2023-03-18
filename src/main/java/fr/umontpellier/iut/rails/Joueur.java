@@ -164,111 +164,14 @@ public class Joueur {
                 inputTour = choisir("qu'elle choix d'action ferez vous ?", choixTour, boutons, false);
             }
             if (fin && inputTour.equals("")) tour = false;
-            if (inputTour.equals("WAGON")) {
-                cartesTransport.add(jeu.piocherCarteWagon());
-                compteur++;
-                fin = true;
-                if (compteur >= 2) {
-                    compteur = 0;
-                    fin = false;
-                    tour = false;
-                }
-            }
-            if (inputTour.equals("BATEAU")) {
-                cartesTransport.add(jeu.piocherCarteBateau());
-                compteur++;
-                fin = true;
-                if (compteur >= 2) {
-                    compteur = 0;
-                    fin = false;
-                    tour = false;
-                }
-            }
-
-            if (choixcarteVisible.contains(inputTour)) {
-                List<CarteTransport> carteTransportTemp = new ArrayList<>();
-                for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
-                    if (carteTransport.getNom().equals(inputTour)) {
-                        carteTransportTemp.add(carteTransport);
-                    }
-                }
-                if (compteur == 0) {
-                    if (carteTransportTemp.get(0).getType().equals(TypeCarteTransport.JOKER)) {
-                        choisirPileJoueur(cartesTransport, carteTransportTemp);
-                        compteur += 2;
-                        fin = false;
-                        tour = false;
-                    }
-                }
-                if (compteur < 2) {
-                    if (carteTransportTemp.get(0).getType().equals(TypeCarteTransport.BATEAU) || carteTransportTemp.get(0).getType().equals(TypeCarteTransport.WAGON)) {
-                        choisirPileJoueur(cartesTransport, carteTransportTemp);
-                        compteur++;
-                        fin = true;
-                    }
-                }
-                if (compteur >= 2) {
-                    compteur = 0;
-                    fin = false;
-                    tour = false;
-                }
-            }
+            if (inputTour.equals("WAGON") || inputTour.equals("BATEAU")) joueurPiocheDansLeDeck(cartesTransport,compteur, fin, tour, inputTour);
+            if (choixcarteVisible.contains(inputTour)) joueurPiocheCarteVisible(cartesTransport, inputTour, compteur, fin, tour);
             //si inputTour == "PIONS WAGON" "PIONS BATEAU"
             if (!fin) {
                 //TODO changer systeme echange
                 if (inputTour.equals("PIONS WAGON") || inputTour.equals("PIONS BATEAU")) {
-                    if (inputTour.equals("PIONS WAGON")) {
-                        if (nbPionsWagonEnReserve > 0 && nbPionsBateau > 0) {
-                            List<String> choixPionsWagon = new ArrayList<>();
-                            if (nbPionsWagonEnReserve > nbPionsBateau) {
-                                for (int i = 0; i <= nbPionsBateau; i++) {
-                                    choixPionsWagon.add(String.valueOf(i));
-                                }
-                            } else {
-                                for (int i = 0; i <= nbPionsWagonEnReserve; i++) {
-                                    choixPionsWagon.add(String.valueOf(i));
-                                }
-                                String inputPionsWagon = choisir("combien de pions wagon voulez vous échanger ? Au maximum " + choixPionsWagon.get(choixPionsWagon.size() - 1), choixPionsWagon, null, false);
-                                nbPionsWagon += Integer.parseInt(inputPionsWagon);
-                                nbPionsWagonEnReserve -= Integer.parseInt(inputPionsWagon);
-                                nbPionsBateau -= Integer.parseInt(inputPionsWagon);
-                                nbPionsBateauEnReserve += Integer.parseInt(inputPionsWagon);
-                                score -= Integer.parseInt(inputPionsWagon);
-                                tour = false;
-                            }
-                        } else {
-                            if (nbPionsWagonEnReserve == 0)
-                                log("vous ne pouvez pas échanger de pions wagon");
-                            if (nbPionsBateau == 0)
-                                log("vous ne pouvez pas échanger de pions wagon");
-                        }
-                    } else if (inputTour.equals("PIONS BATEAU")) {
-                        if (nbPionsBateauEnReserve > 0 && nbPionsWagon > 0) {
-                            List<String> choixPionsBateau = new ArrayList<>();
-                            if (nbPionsBateauEnReserve > nbPionsWagon) {
-                                for (int i = 0; i <= nbPionsWagon; i++) {
-                                    choixPionsBateau.add(String.valueOf(i));
-                                }
-                            } else {
-                                for (int i = 0; i <= nbPionsBateauEnReserve; i++) {
-                                    choixPionsBateau.add(String.valueOf(i));
-                                }
-                            }
-                            String inputPionsBateau = choisir("combien de pions bateau voulez vous échanger ? Au maximum " + choixPionsBateau.get(choixPionsBateau.size() - 1), choixPionsBateau, null, false);
-                            nbPionsWagon -= Integer.parseInt(inputPionsBateau);
-                            nbPionsWagonEnReserve += Integer.parseInt(inputPionsBateau);
-                            nbPionsBateau += Integer.parseInt(inputPionsBateau);
-                            nbPionsBateauEnReserve -= Integer.parseInt(inputPionsBateau);
-                            score -= Integer.parseInt(inputPionsBateau);
-                            tour = false;
-
-                        }
-                    } else {
-                        System.out.println("vous n'avez pas de pions wagon en reserve");
-                    }
+                    echangerPions(inputTour, tour);
                 }
-            }
-            if (!fin) {
                 if (inputTour.equals("DESTINATION")) {
                     //TODO : A Opimiser pour pouvoir l'appeler depuis jeu
                     List<Bouton> boutonChoixDestination = new ArrayList<>();
@@ -313,8 +216,6 @@ public class Joueur {
                     }
                     tour = false;
                 }
-            }
-            if (!fin) {
                 if (choixRoute.contains(inputTour)) {
                     //TODO : CHANGER CAPTURE ROUTE
                     List<CarteTransport> carteCorrecte = new ArrayList<>();
@@ -324,11 +225,6 @@ public class Joueur {
                         if (r.getNom().equals(inputTour) && r instanceof RouteTerrestre) {
                             System.out.println(r.getCouleur());
                             for (CarteTransport c : cartesTransport) {
-                                System.out.println("couleur + type de la carte : " +c.getCouleur() + " " + c.getType());
-                                System.out.println("Boolean egal couleur route : " +c.getCouleur().equals(r.getCouleur()));
-                                System.out.println("Type de la carte : " + c.getType().equals(TypeCarteTransport.WAGON));
-                                System.out.println("Type de la carte : " + c.getType().equals(TypeCarteTransport.JOKER));
-                                System.out.println("------------------------------------");
                                 if (c.getType().equals(TypeCarteTransport.JOKER)) {
                                     System.out.println(c.getNom());
                                     System.out.println(c.getCouleur());
@@ -350,14 +246,8 @@ public class Joueur {
                                 }
                                 do {
                                     String inputChoix = choisir("choisissez les cartes pour capturer la route :", choixCarteWagon, null, false);
-                                    System.out.println(inputChoix);
-                                    System.out.println(r.getLongueur());
-                                    System.out.println(carteCorrecte.toString());
                                     for (CarteTransport c : carteCorrecte) {
-                                        System.out.println(c.getNom());
-                                        System.out.println(c.getCouleur());
                                         if (c.getNom().equals(inputChoix)) {
-                                            System.out.println("carte a retirer : " + c.getNom());
                                             cartesTransportPosees.add(c);
                                             cartesTransport.remove(c);
                                             choixCarteWagon.remove(inputChoix);
@@ -365,13 +255,17 @@ public class Joueur {
                                     }
                                 }
                                 while (compterCarte(cartesTransportPosees) < r.getLongueur());
-                                log("vous avez capturé la route " + r.getNom());
                                 for (CarteTransport c : cartesTransportPosees) {
-                                    score++;
+                                    score += r.getScore();
                                     jeu.getPilesDeCartesWagon().defausser(c);
                                 }
                                 cartesTransportPosees.clear();
                                 routes.add(r);
+                                System.out.println("nb joueur : " + jeu.getJoueurs().size());
+                                if (jeu.getJoueurs().size()<=3){
+                                    System.out.println("route parallele : " + r.getRouteParallele());
+                                    jeu.getRoutesLibres().remove(r.getRouteParallele());
+                                }
                                 jeu.getRoutesLibres().remove(r);
                                 cpt = 0;
                                 tour = false;
@@ -418,12 +312,14 @@ public class Joueur {
                                 while (compterCarte(cartesTransportPosees) < r.getLongueur());
                                 log("vous avez capturé la route " + r.getNom());
                                 for (CarteTransport c : cartesTransportPosees) {
-                                    if (c.estDouble())score+=2;
-                                    else score++;
+                                    score += r.getScore();
                                     jeu.getPilesDeCartesBateau().defausser(c);
                                 }
                                 cartesTransportPosees.clear();
                                 routes.add(r);
+                                if (jeu.getJoueurs().size()<=3){
+                                    jeu.getRoutesLibres().remove(r.getRouteParallele());
+                                }
                                 jeu.getRoutesLibres().remove(r);
                                 cpt = 0;
                                 tour = false;
@@ -436,14 +332,116 @@ public class Joueur {
                         }
                     }
                 }
-            }
-            if (!fin) {
                 if (choixPort.contains(inputTour)) {
                     //a completer
                     tour = false;
                 }
             }
         } while (tour);
+    }
+
+    private void echangerPions(String inputTour, boolean tour) {
+            if (inputTour.equals("PIONS WAGON")) {
+                if (nbPionsWagonEnReserve > 0 && nbPionsBateau > 0) {
+                    List<String> choixPionsWagon = new ArrayList<>();
+                    if (nbPionsWagonEnReserve > nbPionsBateau) {
+                        for (int i = 0; i <= nbPionsBateau; i++) {
+                            choixPionsWagon.add(String.valueOf(i));
+                        }
+                    } else {
+                        for (int i = 0; i <= nbPionsWagonEnReserve; i++) {
+                            choixPionsWagon.add(String.valueOf(i));
+                        }
+                        String inputPionsWagon = choisir("combien de pions wagon voulez vous échanger ? Au maximum " + choixPionsWagon.get(choixPionsWagon.size() - 1), choixPionsWagon, null, false);
+                        nbPionsWagon += Integer.parseInt(inputPionsWagon);
+                        nbPionsWagonEnReserve -= Integer.parseInt(inputPionsWagon);
+                        nbPionsBateau -= Integer.parseInt(inputPionsWagon);
+                        nbPionsBateauEnReserve += Integer.parseInt(inputPionsWagon);
+                        score -= Integer.parseInt(inputPionsWagon);
+                        tour = false;
+                    }
+                } else {
+                    if (nbPionsWagonEnReserve == 0)
+                        log("vous ne pouvez pas échanger de pions wagon");
+                    if (nbPionsBateau == 0)
+                        log("vous ne pouvez pas échanger de pions wagon");
+                }
+            } else if (inputTour.equals("PIONS BATEAU")) {
+                if (nbPionsBateauEnReserve > 0 && nbPionsWagon > 0) {
+                    List<String> choixPionsBateau = new ArrayList<>();
+                    if (nbPionsBateauEnReserve > nbPionsWagon) {
+                        for (int i = 0; i <= nbPionsWagon; i++) {
+                            choixPionsBateau.add(String.valueOf(i));
+                        }
+                    } else {
+                        for (int i = 0; i <= nbPionsBateauEnReserve; i++) {
+                            choixPionsBateau.add(String.valueOf(i));
+                        }
+                    }
+                    String inputPionsBateau = choisir("combien de pions bateau voulez vous échanger ? Au maximum " + choixPionsBateau.get(choixPionsBateau.size() - 1), choixPionsBateau, null, false);
+                    nbPionsWagon -= Integer.parseInt(inputPionsBateau);
+                    nbPionsWagonEnReserve += Integer.parseInt(inputPionsBateau);
+                    nbPionsBateau += Integer.parseInt(inputPionsBateau);
+                    nbPionsBateauEnReserve -= Integer.parseInt(inputPionsBateau);
+                    score -= Integer.parseInt(inputPionsBateau);
+                    tour = false;
+
+                }
+            } else {
+                System.out.println("vous n'avez pas de pions wagon en reserve");
+            }
+        }
+
+    private void joueurPiocheCarteVisible(List<CarteTransport> cartesTransport, String inputTour, int compteur, boolean fin, boolean tour) {
+        List<CarteTransport> carteTransportTemp = new ArrayList<>();
+        for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
+            if (carteTransport.getNom().equals(inputTour)) {
+                carteTransportTemp.add(carteTransport);
+            }
+        }
+        if (compteur == 0) {
+            if (carteTransportTemp.get(0).getType().equals(TypeCarteTransport.JOKER)) {
+                choisirPileJoueur(cartesTransport, carteTransportTemp);
+                compteur += 2;
+                fin = false;
+                tour = false;
+            }
+        }
+        if (compteur < 2) {
+            if (carteTransportTemp.get(0).getType().equals(TypeCarteTransport.BATEAU) || carteTransportTemp.get(0).getType().equals(TypeCarteTransport.WAGON)) {
+                choisirPileJoueur(cartesTransport, carteTransportTemp);
+                compteur++;
+                fin = true;
+            }
+        }
+        if (compteur >= 2) {
+            compteur = 0;
+            fin = false;
+            tour = false;
+        }
+    }
+
+    private void joueurPiocheDansLeDeck(List<CarteTransport> cartesTransport, int compteur, boolean fin, boolean tour, String inputTour){
+        if (inputTour.equals("WAGON")){
+            cartesTransport.add(jeu.piocherCarteWagon());
+            compteur++;
+            fin = true;
+            if (compteur >= 2) {
+                compteur = 0;
+                fin = false;
+                tour = false;
+            }
+        }
+        else {
+            cartesTransport.add(jeu.piocherCarteBateau());
+            compteur++;
+            fin = true;
+            if (compteur >= 2) {
+                compteur = 0;
+                fin = false;
+                tour = false;
+            }
+        }
     }
 
     private int compterCarte(List<CarteTransport> carteTransportPosees) {
