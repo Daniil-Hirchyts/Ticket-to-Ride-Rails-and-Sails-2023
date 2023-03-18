@@ -129,12 +129,7 @@ public class Joueur {
      */
     // TODO : jouerTour
     void jouerTour() {
-        // TODO : échanger des pions wagons ou bateau
-        // TODO : prendre de nouvelles destinations
-        // TODO : capturer une route
-        // TODO : construire un port
         do {
-            //clear the log
             List<Bouton> boutons = Arrays.asList(
                     new Bouton("Echanger pions wagons", "PIONS WAGON"),
                     new Bouton("Echanger pions bateaux", "PIONS BATEAU")
