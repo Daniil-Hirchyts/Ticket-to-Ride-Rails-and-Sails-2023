@@ -155,8 +155,8 @@ public class Jeu implements Runnable {
 
 
         for (Joueur j : joueurs) {
+            log("C'est au tour de " + j.getNom() + " de choisir ses destinations initiales.");
             joueurCourant = j;
-            System.out.println("C'est au tour de " + j.getNom() + " de choisir ses destinations initiales.");
             j.jouerTour();
         }
 
@@ -183,19 +183,14 @@ public class Jeu implements Runnable {
     }
 
     public void PiocheCartesDestination() {
-        //TODO : Opimiser piocheDestinationEnCours pour pouvoir l'appeler aussi depuis joueur pour la pioche des destinations
         System.out.println("joueurs = " + joueurs);
         for (Joueur j : joueurs) {
             joueurCourant = j;
             System.out.println("j = " + j);
             List<Bouton> boutonChoixDestination = new ArrayList<>();
-            for (Destination d : j.getDestinations()) {
-                boutonChoixDestination.add(new Bouton(d.toString(), d.getNom()));
-            }
+            for (Destination d : j.getDestinations()) boutonChoixDestination.add(new Bouton(d.toString(), d.getNom()));
             List<String> choixDestinaton = new ArrayList<>();
-            for (Destination d : j.getDestinations()) {
-                choixDestinaton.add(d.getNom());
-            }
+            for (Destination d : j.getDestinations()) choixDestinaton.add(d.getNom());
             System.out.println(boutonChoixDestination);
             System.out.println(choixDestinaton);
             piocheDestinationEnCours(j, 2, boutonChoixDestination, choixDestinaton);
@@ -205,12 +200,11 @@ public class Jeu implements Runnable {
     public void piocheDestinationEnCours(Joueur j, int nb, List<Bouton> boutonChoixDestination, List<String> choixDestinaton) {
         int i = 0;
         int compteurRemove = 0;
-        while(compteurRemove <=nb-1 ){
+        while (compteurRemove <= nb - 1) {
             String inputTour = j.choisir("choisissez une destination a retirer :", choixDestinaton, boutonChoixDestination, true);
             System.out.println(inputTour);
-            if (inputTour.isEmpty()) {
-                compteurRemove = nb;
-            } else if (choixDestinaton.contains(inputTour)) {
+            if (inputTour.isEmpty()) compteurRemove = nb;
+            else if (choixDestinaton.contains(inputTour)) {
                 j.getDestinations().remove(i);
                 pileDestinations.add(j.getDestinations().get(i));
                 boutonChoixDestination.remove(i);
@@ -221,28 +215,27 @@ public class Jeu implements Runnable {
     }
 
     public void faireChoixPions(Joueur j) {
-            boolean etat = true;
-            joueurCourant = j;
-            List<String> choix = new ArrayList<>();
-            for (int i = 10; i < 26; i++) {
-                choix.add(String.valueOf(i));
+        boolean etat = true;
+        joueurCourant = j;
+        List<String> choix = new ArrayList<>();
+        for (int i = 10; i < 26; i++) {
+            choix.add(String.valueOf(i));
+        }
+        while (etat) {
+            String inputTour = j.choisir("combien de wagon voulez vous garder (maximum 25)", choix, null, true);
+            //si lireligne() ne contien pas un nombre dans la list choix
+            if (choix.contains(inputTour)) {
+                int nbWagon = Integer.parseInt(inputTour);
+                j.setNbPionsWagon(nbWagon);
+                j.setNbPionsWagonEnReserve(25 - nbWagon);
+                int nbBateau = 60 - nbWagon;
+                j.setNbPionsBateau(nbBateau);
+                j.setNbPionsBateauEnReserve(50 - nbBateau);
+                etat = false;
+            } else {
+                log("erreur : nombre invalide");
             }
-            while(etat) {
-                String inputTour = j.choisir("combien de wagon voulez vous garder (maximum 25)", choix, null, true);
-                //si lireligne() ne contien pas un nombre dans la list choix
-                if (choix.contains(inputTour)) {
-                    int nbWagon = Integer.parseInt(inputTour);
-                    j.setNbPionsWagon(nbWagon);
-                    j.setNbPionsWagonEnReserve(25 - nbWagon);
-                    int nbBateau = 60 - nbWagon;
-                    j.setNbPionsBateau(nbBateau);
-                    j.setNbPionsBateauEnReserve(50 - nbBateau);
-                    etat = false;
-                }
-                else {
-                    log("erreur : nombre invalide");
-                }
-            }
+        }
     }
 
     public void piocherCarteVisible(int numeroCarte, Joueur j) {
