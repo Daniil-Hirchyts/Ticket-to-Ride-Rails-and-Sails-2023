@@ -319,7 +319,6 @@ public class Joueur {
         }
     }
 
-
     private void prendreDestination() {
         //TODO : A Opimiser pour pouvoir l'appeler depuis jeu
         List<Bouton> boutonChoixDestination = new ArrayList<>();

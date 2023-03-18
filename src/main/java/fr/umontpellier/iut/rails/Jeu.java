@@ -149,102 +149,89 @@ public class Jeu implements Runnable {
      * méthode Joueur.jouerTour() jusqu'à ce que la condition de fin de partie soit réalisée.
      */
     public void run() {
-        faireCartesTransportVisiblesDepart();
-        fairePremierePiocheCartesTransport();
-        PiocheCartesDestination();
+
+        //Afficher les cartes transport visibles
+        for (int i = 0; i < 3; i++) {
+            cartesTransportVisibles.add(pilesDeCartesWagon.piocher());
+            cartesTransportVisibles.add(pilesDeCartesBateau.piocher());
+        }
+
+        //Pioche des cartes transport initiales
+        Collections.shuffle(pileDestinations);
+        for (Joueur j : joueurs) {
+            List<CarteTransport> cartesBateau = new ArrayList<>(pilesDeCartesBateau.getCartes());
+            List<CarteTransport> cartesWagon = new ArrayList<>(pilesDeCartesWagon.getCartes());
+            Collections.shuffle(cartesWagon);
+            Collections.shuffle(cartesBateau);
+            for (int i = 0; i < 7; i++) {
+                if (i < 3) j.getCartesTransport().add(pilesDeCartesWagon.piocher());
+                if (i < 5) j.getDestinations().add(piocherDestination());
+                j.getCartesTransport().add(pilesDeCartesBateau.piocher());
+            }
+        }
+
+        PiocheCartesDestination(2);
 
 
         for (Joueur j : joueurs) {
+            log("C'est au tour de " + j.getNom() + " de choisir ses destinations initiales.");
             joueurCourant = j;
-            System.out.println("C'est au tour de " + j.getNom() + " de choisir ses destinations initiales.");
             j.jouerTour();
         }
 
         prompt("Fin de la partie.", new ArrayList<>(), true);
     }
 
-    public void fairePremierePiocheCartesTransport() {
-        Collections.shuffle(pileDestinations);
+    public void PiocheCartesDestination(int nbCartesMin) {
         for (Joueur j : joueurs) {
-            List<CarteTransport> cartesBateau = new ArrayList<>(pilesDeCartesBateau.getCartes());
-            List<CarteTransport> cartesWagon = new ArrayList<>(pilesDeCartesWagon.getCartes());
-            for (int i = 0; i < 7; i++) {
-                if (i < 3) {
-                    Collections.shuffle(cartesWagon);
-                    j.getCartesTransport().add(pilesDeCartesWagon.piocher());
-                }
-                if (i < 5) {
-                    j.getDestinations().add(piocherDestination());
-                }
-                Collections.shuffle(cartesBateau);
-                j.getCartesTransport().add(pilesDeCartesBateau.piocher());
-            }
-        }
-    }
-
-    public void PiocheCartesDestination() {
-        //TODO : Opimiser piocheDestinationEnCours pour pouvoir l'appeler aussi depuis joueur pour la pioche des destinations
-        System.out.println("joueurs = " + joueurs);
-        for (Joueur j : joueurs) {
-            joueurCourant = j;
-            System.out.println("j = " + j);
             List<Bouton> boutonChoixDestination = new ArrayList<>();
-            for (Destination d : j.getDestinations()) {
-                boutonChoixDestination.add(new Bouton(d.toString(), d.getNom()));
-            }
             List<String> choixDestinaton = new ArrayList<>();
-            for (Destination d : j.getDestinations()) {
-                choixDestinaton.add(d.getNom());
-                choixDestinaton.add(d.toString());
-                System.out.println(d.toString());
+            List<Destination> destinations = new ArrayList<>();
+            joueurCourant = j;
+            for (Destination d : j.getDestinations()) boutonChoixDestination.add(new Bouton(d.toString(), d.getNom()));
+            for (Destination d : j.getDestinations()) choixDestinaton.add(d.getNom());
+            for (Destination d : j.getDestinations()) destinations.add(d);
+            int i = 0;
+            int compteurRemove = 0;
+            while (compteurRemove < nbCartesMin) {
+                String inputTour = j.choisir("choisissez une destination a retirer :", choixDestinaton, boutonChoixDestination, false);
+                log(inputTour);
+                System.out.println(inputTour);
+                if (inputTour.isEmpty()) compteurRemove = nbCartesMin;
+                else if (choixDestinaton.contains(inputTour)) {
+                    j.getDestinations().remove(i);
+                    pileDestinations.add(j.getDestinations().get(i));
+                    boutonChoixDestination.remove(i);
+                    compteurRemove++;
+                } else i++;
             }
-            System.out.println(boutonChoixDestination);
-            System.out.println(choixDestinaton);
-            piocheDestinationEnCours(j, 2, boutonChoixDestination, choixDestinaton);
-        }
-    }
+            faireChoixPions(j);
 
-    public void piocheDestinationEnCours(Joueur j, int nb, List<Bouton> boutonChoixDestination, List<String> choixDestinaton) {
-        int i = 0;
-        int compteurRemove = 0;
-        while(compteurRemove <=nb-1 ){
-            String inputTour = j.choisir("choisissez une destination a retirer :", choixDestinaton, boutonChoixDestination, true);
-            System.out.println(inputTour);
-            if (inputTour.isEmpty()) {
-                compteurRemove = nb;
-            } else if (choixDestinaton.contains(inputTour)) {
-                j.getDestinations().remove(i);
-                pileDestinations.add(j.getDestinations().get(i));
-                boutonChoixDestination.remove(i);
-                compteurRemove++;
-            } else i++;
         }
-        faireChoixPions(j);
     }
 
     public void faireChoixPions(Joueur j) {
-            boolean etat = true;
-            joueurCourant = j;
-            List<String> choix = new ArrayList<>();
-            for (int i = 10; i < 26; i++) {
-                choix.add(String.valueOf(i));
+        boolean etat = true;
+        joueurCourant = j;
+        List<String> choix = new ArrayList<>();
+        for (int i = 10; i < 26; i++) {
+            choix.add(String.valueOf(i));
+        }
+        while (etat) {
+            String inputTour = j.choisir("combien de wagon voulez vous garder (maximum 25)", choix, null, true);
+            //si lireligne() ne contien pas un nombre dans la list choix
+            if (choix.contains(inputTour)) {
+                int nbWagon = Integer.parseInt(inputTour);
+                j.setNbPionsWagon(nbWagon);
+                j.setNbPionsWagonEnReserve(25 - nbWagon);
+                int nbBateau = 60 - nbWagon;
+                j.setNbPionsBateau(nbBateau);
+                j.setNbPionsBateauEnReserve(50 - nbBateau);
+                etat = false;
+            } else {
+                log("erreur : nombre invalide");
             }
-            while(etat) {
-                String inputTour = j.choisir("combien de wagon voulez vous garder (maximum 25)", choix, null, true);
-                //si lireligne() ne contien pas un nombre dans la list choix
-                if (choix.contains(inputTour)) {
-                    int nbWagon = Integer.parseInt(inputTour);
-                    j.setNbPionsWagon(nbWagon);
-                    j.setNbPionsWagonEnReserve(25 - nbWagon);
-                    int nbBateau = 60 - nbWagon;
-                    j.setNbPionsBateau(nbBateau);
-                    j.setNbPionsBateauEnReserve(50 - nbBateau);
-                    etat = false;
-                }
-                else {
-                    log("erreur : nombre invalide");
-                }
-            }
+        }
     }
 
     public void piocherCarteVisible(int numeroCarte, Joueur j) {
@@ -255,13 +242,6 @@ public class Jeu implements Runnable {
         }
         j.getCartesTransport().add(carte);
         cartesTransportVisibles.remove(numeroCarte);
-    }
-
-    public void faireCartesTransportVisiblesDepart() {
-        for (int i = 0; i < 3; i++) {
-            cartesTransportVisibles.add(pilesDeCartesWagon.piocher());
-            cartesTransportVisibles.add(pilesDeCartesBateau.piocher());
-        }
     }
 
     /**
@@ -339,16 +319,16 @@ public class Jeu implements Runnable {
         this.instruction = instruction;
         this.boutons = boutons;
 
-        System.out.println();
-        System.out.println(this);
+//        System.out.println();
+//        System.out.println(this);
         if (boutons.isEmpty()) {
-            System.out.printf(">>> %s: %s <<<\n", joueurCourant.getNom(), instruction);
+//            System.out.printf(">>> %s: %s <<<\n", joueurCourant.getNom(), instruction);
         } else {
             StringJoiner joiner = new StringJoiner(" / ");
             for (Bouton bouton : boutons) {
                 joiner.add(bouton.toPrompt());
             }
-            System.out.printf(">>> %s: %s [%s] <<<\n", joueurCourant.getNom(), instruction, joiner);
+//            System.out.printf(">>> %s: %s [%s] <<<\n", joueurCourant.getNom(), instruction, joiner);
         }
         GameServer.setEtatJeu(new Gson().toJson(dataMap()));
     }

@@ -1,7 +1,8 @@
 @import "https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap";
 
 * {
-    box-sizing: border-box
+    box-sizing: border-box;
+    transition: all .1s ease-in-out;
 }
 
 html {
@@ -407,7 +408,6 @@ button:hover {
 #boutons {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    /*grid-template-rows: 1fr 1fr 1fr;*/
     grid-gap: 1px;
     margin: 5px 0;
 
