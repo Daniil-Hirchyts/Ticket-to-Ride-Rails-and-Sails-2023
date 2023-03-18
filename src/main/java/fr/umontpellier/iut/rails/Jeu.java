@@ -190,7 +190,14 @@ public class Jeu implements Runnable {
         prompt("Fin de la partie.", new ArrayList<>(), true);
     }
 
-    public void PiocheCartesDestination(int nbCartesMin, int nbTotalCartes, Joueur joueurCourant) {
+    /**
+     * Pioche des cartes destination pour un joueur
+     *
+     * @param nbCartesMax  nombre maximal de cartes à retirer
+     * @param nbTotalCartes nombre total de cartes à piocher
+     * @param joueurCourant joueur qui pioche
+     */
+    public void PiocheCartesDestination(int nbCartesMax, int nbTotalCartes, Joueur joueurCourant) {
         for (int i = 0; i < nbTotalCartes; i++) joueurCourant.getDestinations().add(piocherDestination());
         List<String> choixDestinaton = new ArrayList<>();
         List<String> choixDestinatonSpecial = new ArrayList<>();
@@ -201,10 +208,10 @@ public class Jeu implements Runnable {
             choixDestinaton.add(name.toString());
         }
         int compteurRemove = 0;
-        while (compteurRemove < nbCartesMin) {
+        while (compteurRemove < nbCartesMax) {
             List<String> grabberDestinaton = Stream.concat(choixDestinaton.stream(), choixDestinatonSpecial.stream()).collect(Collectors.toList());
             String inputTour = joueurCourant.choisir("<h3>Choisissez une destination a retirer</h3>", grabberDestinaton, null, true);
-            if (inputTour.isEmpty()) compteurRemove = nbCartesMin;
+            if (inputTour.isEmpty()) compteurRemove = nbCartesMax;
             else {
                 Iterator<Destination> iterator = joueurCourant.getDestinations().iterator();
                 int index = 0;
@@ -224,6 +231,11 @@ public class Jeu implements Runnable {
         }
     }
 
+    /**
+     * Demande au joueur de choisir le nombre de pions wagon qu'il souhaite prendre
+     *
+     * @param j joueur qui choisit
+     */
     public void faireChoixPions(Joueur j) {
         joueurCourant = j;
         List<String> choix = IntStream.rangeClosed(10, 25)
@@ -241,16 +253,6 @@ public class Jeu implements Runnable {
                 break;
             }
         }
-    }
-
-    public void piocherCarteVisible(int numeroCarte, Joueur j) {
-        CarteTransport carte = cartesTransportVisibles.get(numeroCarte);
-        if (carte == null) {
-            log("erreur : carte invalide");
-            return;
-        }
-        j.getCartesTransport().add(carte);
-        cartesTransportVisibles.remove(numeroCarte);
     }
 
     /**
