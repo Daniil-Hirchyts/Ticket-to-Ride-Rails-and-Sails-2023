@@ -387,7 +387,7 @@ button {
 }
 
 button:hover {
-    background: var(--col-light);
+    background: rgba(128, 128, 128, 0.1);
     color: var(--col-dark);
     box-shadow: 1px 1px 1px var(--col-dark);
 }
