@@ -1,9 +1,7 @@
 package fr.umontpellier.iut.rails;
 
-import com.google.gson.internal.bind.util.ISO8601Utils;
 import fr.umontpellier.iut.rails.data.*;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class Joueur {
@@ -185,7 +183,7 @@ public class Joueur {
         //captureRoute Terrestre
         int cpt = 0;
         List<Route> routeTemp = new ArrayList<>(jeu.getRoutesLibres());
-        for (Route r : routeTemp){
+        for (Route r : routeTemp) {
             if (r.getNom().equals(inputTour) && r instanceof RouteTerrestre) {
                 System.out.println(r.getCouleur());
                 for (CarteTransport c : cartesTransport) {
@@ -320,46 +318,7 @@ public class Joueur {
     }
 
     private void prendreDestination() {
-        //TODO : A Opimiser pour pouvoir l'appeler depuis jeu
-        List<Bouton> boutonChoixDestination = new ArrayList<>();
-        List<Destination> destinationTemp = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            System.out.println("destination " + jeu.getPileDestinations().get(0) + " : " + jeu.getPileDestinations().get(0).getNom());
-            destinationTemp.add(jeu.piocherDestination());
-            destinations.add(destinationTemp.get(i));
-        }
-        for (Destination d : destinationTemp) {
-            boutonChoixDestination.add(new Bouton(d.toString(), d.getNom()));
-        }
-        List<String> choixDestinaton = new ArrayList<>();
-        for (Destination d : getDestinations()) {
-            choixDestinaton.add(d.getNom());
-        }
-        int compteurRemove = 0;
-        while (compteurRemove <= 2) {
-            String inputChoix = choisir("choisissez une destination a retirer :", choixDestinaton, boutonChoixDestination, true);
-            System.out.println(inputChoix);
-            if (inputChoix.isEmpty()) {
-                compteurRemove = 3;
-            } else if (choixDestinaton.contains(inputChoix)) {
-                for (Destination d : destinationTemp) {
-                    if (d.getNom().equals(inputChoix)) {
-                        choixDestinaton.remove(inputChoix);
-                        System.out.println("destination a retirer : " + d.getNom());
-                        getDestinations().remove(d);
-                        for (Bouton b : boutonChoixDestination) {
-                            if (b.valeur().equals(d.getNom())) {
-                                boutonChoixDestination.remove(b);
-                                break;
-                            }
-                        }
-                        jeu.getPileDestinations().add(d);
-                        destinationTemp.remove(d);
-                        compteurRemove++;
-                    }
-                }
-            }
-        }
+        jeu.PiocheCartesDestination(3, 4, this);
         tour = false;
     }
 

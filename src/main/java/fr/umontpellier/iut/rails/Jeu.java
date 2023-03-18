@@ -193,15 +193,17 @@ public class Jeu implements Runnable {
     /**
      * Pioche des cartes destination pour un joueur
      *
-     * @param nbCartesMax  nombre maximal de cartes à retirer
+     * @param nbCartesMax   nombre maximal de cartes à retirer
      * @param nbTotalCartes nombre total de cartes à piocher
      * @param joueurCourant joueur qui pioche
      */
     public void PiocheCartesDestination(int nbCartesMax, int nbTotalCartes, Joueur joueurCourant) {
-        for (int i = 0; i < nbTotalCartes; i++) joueurCourant.getDestinations().add(piocherDestination());
+        List<Destination> destinations = new ArrayList<>();
         List<String> choixDestinaton = new ArrayList<>();
         List<String> choixDestinatonSpecial = new ArrayList<>();
-        for (Destination destination : joueurCourant.getDestinations()) {
+        for (int i = 0; i < nbTotalCartes; i++) destinations.add(piocherDestination());
+        joueurCourant.getDestinations().addAll(destinations);
+        for (Destination destination : destinations) {
             choixDestinatonSpecial.add(destination.getNom());
             StringJoiner name = new StringJoiner(",");
             for (String ville : destination.getVilles()) name.add(ville);
@@ -210,7 +212,7 @@ public class Jeu implements Runnable {
         int compteurRemove = 0;
         while (compteurRemove < nbCartesMax) {
             List<String> grabberDestinaton = Stream.concat(choixDestinaton.stream(), choixDestinatonSpecial.stream()).collect(Collectors.toList());
-            String inputTour = joueurCourant.choisir("<h3>Choisissez une destination a retirer</h3>", grabberDestinaton, null, true);
+            String inputTour = joueurCourant.choisir("<h3>Choisissez une destination a retirer.</h3>", grabberDestinaton, null, true);
             if (inputTour.isEmpty()) compteurRemove = nbCartesMax;
             else {
                 Iterator<Destination> iterator = joueurCourant.getDestinations().iterator();
@@ -231,6 +233,7 @@ public class Jeu implements Runnable {
         }
     }
 
+
     /**
      * Demande au joueur de choisir le nombre de pions wagon qu'il souhaite prendre
      *
@@ -242,7 +245,7 @@ public class Jeu implements Runnable {
                 .mapToObj(String::valueOf)
                 .collect(Collectors.toList());
         while (true) {
-            String inputTour = j.choisir("<h3>Combien de wagon voulez vous garder (10-25)</h3>", choix, null, false);
+            String inputTour = j.choisir("<h3>Combien de wagon voulez vous garder? (10-25)</h3>", choix, null, false);
             if (choix.contains(inputTour)) {
                 int nbWagon = Integer.parseInt(inputTour);
                 j.setNbPionsWagon(nbWagon);
