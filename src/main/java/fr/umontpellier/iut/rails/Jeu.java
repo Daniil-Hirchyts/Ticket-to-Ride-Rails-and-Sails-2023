@@ -121,7 +121,7 @@ public class Jeu implements Runnable {
     }
 
     public List<Route> getRoutesLibres() {
-        return new ArrayList<>(routesLibres);
+        return routesLibres;
     }
 
     public PilesCartesTransport getPilesDeCartesWagon() {
@@ -195,6 +195,8 @@ public class Jeu implements Runnable {
             List<String> choixDestinaton = new ArrayList<>();
             for (Destination d : j.getDestinations()) {
                 choixDestinaton.add(d.getNom());
+                choixDestinaton.add(d.toString());
+                System.out.println(d.toString());
             }
             System.out.println(boutonChoixDestination);
             System.out.println(choixDestinaton);
