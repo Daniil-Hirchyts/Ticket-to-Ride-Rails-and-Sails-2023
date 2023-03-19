@@ -161,35 +161,68 @@ public class Joueur {
 
     private void capturerRouteTerrestre(RouteTerrestre r) {
         Map<Couleur, Integer> colorCount = new HashMap<>();
+        List<CarteTransport> carteCorrect = new ArrayList<>();
+        List<CarteTransport> cloneCarteCorrect = new ArrayList<>();
         int jokerCount = 0;
+        //compte le nombre de carte de chaque couleur
         for (CarteTransport c : cartesTransport) {
-            if (c.getType().equals(TypeCarteTransport.JOKER)) jokerCount++;
-            else if (c.getType().equals(TypeCarteTransport.WAGON))
+            if (c.getType().equals(TypeCarteTransport.JOKER)){
+                jokerCount++;
+                carteCorrect.add(c);
+            }
+            else if (c.getType().equals(TypeCarteTransport.WAGON)) {
+                carteCorrect.add(c);
                 colorCount.put(c.getCouleur(), colorCount.getOrDefault(c.getCouleur(), 0) + 1);
+            }
         }
-        Couleur chosenColor = null;
+        //met les couleurs des cartes possibles dans une liste
+        System.out.println(colorCount);
+        List<Couleur> chosenColor = new ArrayList<>();
         if (r.getCouleur().equals(Couleur.GRIS)) {
             for (Map.Entry<Couleur, Integer> entry : colorCount.entrySet()) {
                 if (entry.getValue() + jokerCount >= r.getLongueur()) {
-                    chosenColor = entry.getKey();
-                    break;
+                    chosenColor.add(entry.getKey());
                 }
             }
         } else if (colorCount.getOrDefault(r.getCouleur(), 0) + jokerCount >= r.getLongueur())
-            chosenColor = r.getCouleur();
-        if (chosenColor != null) {
-            Couleur finalChosenColor = chosenColor;
-            List<String> choixCarteWagon = cartesTransport.stream()
-                    .filter(c -> c.getType().equals(TypeCarteTransport.JOKER) || c.getCouleur().equals(finalChosenColor))
+            chosenColor.add(r.getCouleur());
+        //ajoute toute les cartes qui ne sont pas de la bonne couleur car le nombre de carte de la bonne couleur est insuffisant dans cloneCarteCorrect
+        for (CarteTransport c : carteCorrect) {
+            if (!chosenColor.contains(c.getCouleur()) && chosenColor.size() > 0) {
+                cloneCarteCorrect.add(c);
+            }
+        }
+        //remove toutes les cartes de cloneCarteCorrect de carteCorrect
+        carteCorrect.removeAll(cloneCarteCorrect);
+        //ajoute les jokers dans carteCorrect
+        for (CarteTransport c : cartesTransport) {
+            if (c.getType().equals(TypeCarteTransport.JOKER)) {
+                carteCorrect.add(c);
+            }
+        }
+        if (!chosenColor.isEmpty()) {
+            System.out.println(chosenColor);
+            System.out.println(carteCorrect);
+            Couleur finalChosenColor = null;
+            List<String> choixCarteWagon = carteCorrect.stream()
                     .map(CarteTransport::getNom)
                     .collect(Collectors.toList());
+            System.out.println(choixCarteWagon);
             while (compterCarte(cartesTransportPosees) < r.getLongueur()) {
                 String inputChoix = choisir("<h3>Choisissez les cartes pour capturer la route.</h3>", choixCarteWagon, null, false);
                 CarteTransport selectedCard = cartesTransport.stream().filter(c -> c.getNom().equals(inputChoix)).findFirst().orElse(null);
-                if (selectedCard != null) {
-                    cartesTransportPosees.add(selectedCard);
-                    cartesTransport.remove(selectedCard);
-                    choixCarteWagon.remove(inputChoix);
+                for (CarteTransport c : carteCorrect) {
+                    if (c.getNom().equals(inputChoix) && finalChosenColor == null && !c.getType().equals(TypeCarteTransport.JOKER)) {
+                        cartesTransportPosees.add(selectedCard);
+                        cartesTransport.remove(selectedCard);
+                        choixCarteWagon.remove(inputChoix);
+                        finalChosenColor = c.getCouleur();
+                    }
+                    else if (c.getNom().equals(inputChoix) && (c.getCouleur().equals(finalChosenColor) || c.getType().equals(TypeCarteTransport.JOKER))) {
+                        cartesTransportPosees.add(selectedCard);
+                        cartesTransport.remove(selectedCard);
+                        choixCarteWagon.remove(inputChoix);
+                    }
                 }
             }
             conditionGagnante(r);
@@ -198,26 +231,32 @@ public class Joueur {
 
     private void capturerRouteMaritime(RouteMaritime r) {
         Map<Couleur, Integer> colorCount = new HashMap<>();
+        List<CarteTransport> carteCorrect = new ArrayList<>();
         int jokerCount = 0;
         for (CarteTransport c : cartesTransport) {
-            if (c.getType().equals(TypeCarteTransport.JOKER)) jokerCount++;
+            if (c.getType().equals(TypeCarteTransport.JOKER)){
+                jokerCount++;
+                carteCorrect.add(c);
+            }
             else if (c.getType().equals(TypeCarteTransport.BATEAU))
-                colorCount.put(c.getCouleur(), colorCount.getOrDefault(c.getCouleur(), 0) + 1);
+                if (c.estDouble()) colorCount.put(c.getCouleur(), colorCount.getOrDefault(c.getCouleur(), 0) + 2);
+                else colorCount.put(c.getCouleur(), colorCount.getOrDefault(c.getCouleur(), 0) + 1);
+                carteCorrect.add(c);
         }
-        Couleur chosenColor = null;
+        System.out.println(colorCount);
+        List<Couleur> chosenColor = null;
         if (r.getCouleur().equals(Couleur.GRIS)) {
             for (Map.Entry<Couleur, Integer> entry : colorCount.entrySet()) {
                 if (entry.getValue() + jokerCount >= r.getLongueur()) {
-                    chosenColor = entry.getKey();
-                    break;
+                    chosenColor.add(entry.getKey());
                 }
             }
         } else if (colorCount.getOrDefault(r.getCouleur(), 0) + jokerCount >= r.getLongueur())
-            chosenColor = r.getCouleur();
+            chosenColor.add(r.getCouleur());
         if (chosenColor != null) {
-            Couleur finalChosenColor = chosenColor;
+            Couleur finalChosenColor = null;
+            int nbValide = 0;
             List<String> choixCarteBateau = cartesTransport.stream()
-                    .filter(c -> c.getType().equals(TypeCarteTransport.JOKER) || c.getCouleur().equals(finalChosenColor) && c.getType().equals(TypeCarteTransport.BATEAU))
                     .map(CarteTransport::getNom)
                     .collect(Collectors.toList());
             while (compterCarte(cartesTransportPosees) < r.getLongueur()) {
@@ -378,8 +417,11 @@ public class Joueur {
 
     private void conditionGagnante(Route r) {
         Collection<Route> routesLibres = jeu.getRoutesLibres();
-        for (CarteTransport c : cartesTransportPosees) jeu.getPilesDeCartesWagon().defausser(c);
-        for (CarteTransport c : cartesTransportPosees) jeu.getPilesDeCartesBateau().defausser(c);
+        for (CarteTransport c : cartesTransportPosees) {
+            if (c.getType().equals(TypeCarteTransport.WAGON) || c.getType().equals(TypeCarteTransport.JOKER))
+            jeu.getPilesDeCartesWagon().defausser(c);
+            else jeu.getPilesDeCartesBateau().defausser(c);
+        }
         score += r.getScore();
         cartesTransportPosees.clear();
         routes.add(r);
