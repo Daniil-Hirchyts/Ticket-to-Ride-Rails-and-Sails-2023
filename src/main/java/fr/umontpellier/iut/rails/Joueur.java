@@ -359,7 +359,6 @@ public class Joueur {
         }
     }
 
-
     private void joueurPiocheCarteVisible(List<CarteTransport> cartesTransport, String inputTour) {
         List<CarteTransport> carteTransportTemp = new ArrayList<>();
         for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
