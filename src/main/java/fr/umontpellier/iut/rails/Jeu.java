@@ -120,7 +120,7 @@ public class Jeu implements Runnable {
     }
 
     public List<Ville> getPortsLibres() {
-        return portsLibres;
+        return new ArrayList<>(portsLibres);
     }
 
     public List<Route> getRoutesLibres() {
