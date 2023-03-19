@@ -257,14 +257,14 @@ public class Joueur {
                 for (CarteTransport c : carteCorrecte) {
                     if (c.getNom().equals(inputChoix)) {
                         if (c.getType().equals(TypeCarteTransport.JOKER)) {
-                            dataCartePosees(c,cartesTransportPosees, carteCorrecteTemp, choixCarteWagon, inputChoix);
+                            dataCartePosees(c, cartesTransportPosees, carteCorrecteTemp, choixCarteWagon, inputChoix);
                             lastcarteJoker.add(c);
                             nbCouleurValide.replaceAll(integer -> integer + 1);
                         } else {
                             if (!DebutCouleur.contains(c.getCouleur()) && nbCouleur < r.getLongueur()) {
                                 DebutCouleur.add(c.getCouleur());
                                 nbCouleurValide.set(DebutCouleur.indexOf(c.getCouleur()), nbCouleurValide.get(DebutCouleur.indexOf(c.getCouleur())) + 1);
-                                dataCartePosees(c,cartesTransportPosees, carteCorrecteTemp, choixCarteWagon, inputChoix);
+                                dataCartePosees(c, cartesTransportPosees, carteCorrecteTemp, choixCarteWagon, inputChoix);
                                 nbCouleur++;
                                 for (int i = 0; i < nbcarteCouleur.size(); i++) {
                                     if (OpposerNbCarteCouleur.get(i) == 1 && c.getCouleur().equals(Couleur.values()[i])) {
@@ -282,7 +282,7 @@ public class Joueur {
                                 }
                             } else if (DebutCouleur.contains(c.getCouleur())) {
                                 nbCouleurValide.set(DebutCouleur.indexOf(c.getCouleur()), nbCouleurValide.get(DebutCouleur.indexOf(c.getCouleur())) + 1);
-                                dataCartePosees(c,cartesTransportPosees, carteCorrecteTemp, choixCarteWagon, inputChoix);
+                                dataCartePosees(c, cartesTransportPosees, carteCorrecteTemp, choixCarteWagon, inputChoix);
 
                             }
                         }
@@ -307,8 +307,8 @@ public class Joueur {
                             nbCouleurValide.replaceAll(integer -> integer - 1);
                             choixCarteWagon.remove(c.getNom());
                             nbcarteCouleur.replaceAll(integer -> integer - 1);
-                            for (int i = 0; i < OpposerNbCarteCouleur.size();i++){
-                                if (OpposerNbCarteCouleur.get(i) == 1) OpposerNbCarteCouleur.set(i,0);
+                            for (int i = 0; i < OpposerNbCarteCouleur.size(); i++) {
+                                if (OpposerNbCarteCouleur.get(i) == 1) OpposerNbCarteCouleur.set(i, 0);
                             }
                         }
                         lastcarteJoker.clear();
@@ -330,12 +330,13 @@ public class Joueur {
         }
     }
 
-    public void dataCartePosees(CarteTransport c,List<CarteTransport> cartesTransportPosees,List<CarteTransport> carteCorrecteTemp,List<String> choixCarteWagon, String inputChoix) {
+    public void dataCartePosees(CarteTransport c, List<CarteTransport> cartesTransportPosees, List<CarteTransport> carteCorrecteTemp, List<String> choixCarteWagon, String inputChoix) {
         cartesTransportPosees.add(c);
         cartesTransport.remove(c);
         choixCarteWagon.remove(inputChoix);
         carteCorrecteTemp.add(c);
     }
+
     private int compterCarte(List<CarteTransport> carteTransportPosees) {
         int cpt = 0;
         for (CarteTransport c : carteTransportPosees) cpt += c.estDouble() ? 2 : 1;
@@ -356,8 +357,139 @@ public class Joueur {
 
     //TODO construirePort()
     private void construirePort(String inputTour) {
-        tour = false;
+        boolean peuxConstruirePort = true;
+        List<CarteTransport> cartesCorrectes = new ArrayList<>();
+        List<CarteTransport> cloneCartesCorrectesToRemove = new ArrayList<>();
+        List<Integer> nbCartesDeCouleur = new ArrayList<>();
+        List<String> choixCarteConstructionPort = new ArrayList<>();
+        List<Integer> nbBateuxWagonPort = new ArrayList<>(Arrays.asList(0, 0));
+        List<Couleur> couleurBateauWagon = new ArrayList<>(Arrays.asList(null, null));
+        Ville ville = null;
+        int nbCouleurBateauWagon = 0;
+        int nbJoker = 0;
+        int compteurPairValide = 0;
+        for (Ville v : jeu.getPortsLibres()) {
+            if (v.nom().equals(inputTour)) {
+                for (Route r : routes) {
+                    if (r.getVille1().equals(v) || r.getVille2().equals(v)) {
+                        peuxConstruirePort = true;
+                        ville = v;
+                        break;
+                    } else {
+                        System.out.println("Vous ne pouvez pas construire un port si aucune de vos routes n'est relié à ce port");
+                        peuxConstruirePort = false;
+                    }
+                }
+            }
+        }
+        if (peuxConstruirePort) {
+            for (CarteTransport c : cartesTransport) {
+                if ((c.getType().equals(TypeCarteTransport.BATEAU) || c.getType().equals(TypeCarteTransport.WAGON)) && c.getAncre()) {
+                    cartesCorrectes.add(c);
+                } else if (c.getType().equals(TypeCarteTransport.JOKER)) {
+                    cartesCorrectes.add(c);
+                }
+            }
+            //compter le nombre de carte de chaque couleur
+            for (Couleur couleur : Couleur.values()) {
+                if (couleur.equals(Couleur.GRIS)) {
+                    nbCartesDeCouleur.replaceAll(integer -> integer + 1);
+                } else {
+                    int nbCarteCouleur = 0;
+                    for (CarteTransport c : cartesCorrectes) {
+                        if (c.getCouleur().equals(couleur) && c.estDouble()) nbCarteCouleur += 2;
+                        else if (c.getCouleur().equals(couleur)) nbCarteCouleur++;
+                    }
+                    nbCartesDeCouleur.add(nbCarteCouleur);
+                }
+            }
+            for (int i = 0; i < nbCartesDeCouleur.size(); i++) {
+                if (nbCartesDeCouleur.get(i) >= 4) {
+                    for (CarteTransport c : cartesCorrectes) {
+                        if (c.getCouleur().equals(Couleur.values()[i]) && !c.getType().equals(TypeCarteTransport.JOKER)) {
+                            choixCarteConstructionPort.add(c.getNom());
+
+                        }
+                    }
+                    compteurPairValide++;
+                } else {
+                    for (CarteTransport c : cartesCorrectes) {
+                        if (c.getCouleur().equals(Couleur.values()[i]) && !c.getType().equals(TypeCarteTransport.JOKER)) {
+                            cloneCartesCorrectesToRemove.add(c);
+                            nbCartesDeCouleur.set(i, 0);
+                        } else if (c.getType().equals(TypeCarteTransport.JOKER)) {
+                            nbCartesDeCouleur.set(i, 0);
+                        }
+                    }
+                    if (cloneCartesCorrectesToRemove.size() != 0) {
+                        cartesCorrectes.removeAll(cloneCartesCorrectesToRemove);
+                        cloneCartesCorrectesToRemove.clear();
+                    }
+                }
+            }
+            for (CarteTransport c : cartesCorrectes) {
+                if (c.getType().equals(TypeCarteTransport.JOKER)) {
+                    choixCarteConstructionPort.add(c.getNom());
+                    nbJoker++;
+                }
+            }
+            if (compteurPairValide != 0) {
+                //TODO choisirCarteConstructionPort(choixCarteConstructionPort)
+                peuxConstruirePort = false;
+                System.out.println("Vous pouvez construire un port");
+                do {
+                    String inputConstructionPort = choisir("Choisissez une carte pour construire un port", choixCarteConstructionPort, null, false);
+                    for (CarteTransport c : cartesCorrectes) {
+                        if (c.getNom().equals(inputConstructionPort)) {
+                            if (c.getType().equals(TypeCarteTransport.BATEAU) && couleurBateauWagon.get(0) == null && nbBateuxWagonPort.get(0) < 2) {
+                                dataCartePosees(c, cartesTransportPosees, cloneCartesCorrectesToRemove, choixCarteConstructionPort, inputConstructionPort);
+                                nbBateuxWagonPort.set(0, nbBateuxWagonPort.get(0) + 1);
+                                couleurBateauWagon.set(0, c.getCouleur());
+                                for (CarteTransport carteTransport : cartesCorrectes) {
+                                    if (!carteTransport.getCouleur().equals(couleurBateauWagon.get(0)) && carteTransport.getType().equals(TypeCarteTransport.BATEAU)) {
+                                        cloneCartesCorrectesToRemove.add(carteTransport);
+                                    }
+                                }
+                            } else if (c.getType().equals(TypeCarteTransport.BATEAU) && c.getCouleur().equals(couleurBateauWagon.get(0)) && nbBateuxWagonPort.get(0) < 2) {
+                                dataCartePosees(c, cartesTransportPosees, cloneCartesCorrectesToRemove, choixCarteConstructionPort, inputConstructionPort);
+                                nbBateuxWagonPort.set(0, nbBateuxWagonPort.get(0) + 1);
+                            } else if (c.getType().equals(TypeCarteTransport.WAGON) && couleurBateauWagon.get(1) == null && nbBateuxWagonPort.get(1) < 2) {
+                                dataCartePosees(c, cartesTransportPosees, cloneCartesCorrectesToRemove, choixCarteConstructionPort, inputConstructionPort);
+                                nbBateuxWagonPort.set(1, nbBateuxWagonPort.get(1) + 1);
+                                couleurBateauWagon.set(1, c.getCouleur());
+                                for (CarteTransport carteTransport : cartesCorrectes) {
+                                    if (!carteTransport.getCouleur().equals(couleurBateauWagon.get(1)) && carteTransport.getType().equals(TypeCarteTransport.WAGON)) {
+                                        cloneCartesCorrectesToRemove.add(carteTransport);
+                                    }
+                                }
+                            } else if (c.getType().equals(TypeCarteTransport.WAGON) && c.getCouleur().equals(couleurBateauWagon.get(1)) && nbBateuxWagonPort.get(1) < 2) {
+                                dataCartePosees(c, cartesTransportPosees, cloneCartesCorrectesToRemove, choixCarteConstructionPort, inputConstructionPort);
+                                nbBateuxWagonPort.set(1, nbBateuxWagonPort.get(1) + 1);
+                            } else if (c.getType().equals(TypeCarteTransport.JOKER)) {
+                                dataCartePosees(c, cartesTransportPosees, cloneCartesCorrectesToRemove, choixCarteConstructionPort, inputConstructionPort);
+                            }
+                            if (nbBateuxWagonPort.get(0) + nbBateuxWagonPort.get(1) == 4 - nbJoker) {
+                                peuxConstruirePort = true;
+                            }
+                        }
+                    }
+                    cartesCorrectes.removeAll(cloneCartesCorrectesToRemove);
+                } while (!peuxConstruirePort);
+                for (CarteTransport c : cartesTransportPosees) {
+                    if (c.getType().equals(TypeCarteTransport.BATEAU))
+                        jeu.getPilesDeCartesBateau().defausser(c);
+                    else if (c.getType().equals(TypeCarteTransport.WAGON) || c.getType().equals(TypeCarteTransport.JOKER))
+                        jeu.getPilesDeCartesWagon().defausser(c);
+                }
+                cartesTransportPosees.clear();
+                ports.add(ville);
+                jeu.getPortsLibres().remove(ville);
+                tour = false;
+            } else
+                System.out.println("Vous n'avez pas assez de carte pour construire un port");
+        }
     }
+
 
     //TODO destinationEstComplete()
     boolean destinationEstComplete(Destination d) {
