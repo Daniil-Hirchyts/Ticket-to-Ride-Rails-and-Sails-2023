@@ -255,40 +255,82 @@ public class Joueur {
                 carteCorrect.add(c);
             }
         }
-
-        boolean useDoubleCards = (r.getLongueur() - simpleBateauCount) % 2 != 0;
-
+        cloneCarteCorrect.clear();
         if (!chosenColor.isEmpty()) {
             Couleur finalChosenColor = null;
+            CarteTransport uneCarteSimpleAEtePoser = null;
+            List<Integer> OpposerNbDoubleEtSimple = new ArrayList<>();
+            List<Integer> nbDoubleEtSimple = new ArrayList<>();
+            for (int i = 0; i < 2; i++) {
+                nbDoubleEtSimple.add(0);
+                OpposerNbDoubleEtSimple.add(0);
+            }
+            for (CarteTransport c : carteCorrect) {
+                if (c.getType().equals(TypeCarteTransport.BATEAU)) {
+                    if (c.estDouble()) OpposerNbDoubleEtSimple.set(0, OpposerNbDoubleEtSimple.get(0) + 1);
+                    else OpposerNbDoubleEtSimple.set(1, OpposerNbDoubleEtSimple.get(1) + 1);
+                }
+            }
             List<String> choixCarteBateau = carteCorrect.stream()
                     .map(CarteTransport::getNom)
                     .collect(Collectors.toList());
 
             int placedBateau = 0;
+            boolean haveToRemove = false;
             while (placedBateau < r.getLongueur()) {
                 String inputChoix = choisir("<h3>Choisissez les cartes pour capturer la route.</h3>", choixCarteBateau, null, false);
                 CarteTransport selectedCard = cartesTransport.stream().filter(c -> c.getNom().equals(inputChoix)).findFirst().orElse(null);
-
+                String jetevois = inputChoix;
                 for (CarteTransport c : carteCorrect) {
-                    if (c.getNom().equals(inputChoix) && finalChosenColor == null && !c.getType().equals(TypeCarteTransport.JOKER)) {
-                        int bateauToAdd = c.estDouble() ? 2 : 1;
-                        if (useDoubleCards || c.estDouble()) {
-                            placedBateau += bateauToAdd;
-                            cartesTransportPosees.add(selectedCard);
-                            cartesTransport.remove(selectedCard);
-                            choixCarteBateau.remove(inputChoix);
-                            finalChosenColor = c.getCouleur();
+                    if (c.estDouble() && (placedBateau + 2 <= r.getLongueur() || uneCarteSimpleAEtePoser == null) && c.getNom().equals(inputChoix) && finalChosenColor == null && !c.getType().equals(TypeCarteTransport.JOKER)) {
+                        cartesTransportPosees.add(selectedCard);
+                        cartesTransport.remove(selectedCard);
+                        haveToRemove = true;
+                        choixCarteBateau.remove(inputChoix);
+                        finalChosenColor = c.getCouleur();
+                        cloneCarteCorrect.add(c);
+                        nbDoubleEtSimple.set(0, nbDoubleEtSimple.get(0) + 1);
+                        OpposerNbDoubleEtSimple.set(0, OpposerNbDoubleEtSimple.get(0) - 1);
+                    } else if (c.estDouble() && (placedBateau + 2 <= r.getLongueur() || uneCarteSimpleAEtePoser == null ) && c.getNom().equals(inputChoix) && (c.getCouleur().equals(finalChosenColor) || c.getType().equals(TypeCarteTransport.JOKER))) {
+                        cartesTransportPosees.add(selectedCard);
+                        cartesTransport.remove(selectedCard);
+                        choixCarteBateau.remove(inputChoix);
+                        finalChosenColor = c.getCouleur();
+                        haveToRemove = true;
+                        cloneCarteCorrect.add(c);
+                        nbDoubleEtSimple.set(0, nbDoubleEtSimple.get(0) + 1);
+                        OpposerNbDoubleEtSimple.set(0, OpposerNbDoubleEtSimple.get(0) - 1);
+                    } else if (!c.estDouble() && c.getNom().equals(inputChoix) && finalChosenColor == null && !c.getType().equals(TypeCarteTransport.JOKER)) {
+                        if (uneCarteSimpleAEtePoser==null){
+                            uneCarteSimpleAEtePoser = selectedCard;
                         }
-                    } else if (c.getNom().equals(inputChoix) && (c.getCouleur().equals(finalChosenColor) || c.getType().equals(TypeCarteTransport.JOKER))) {
-                        int bateauToAdd = c.estDouble() ? 2 : 1;
-                        if (useDoubleCards || c.estDouble()) {
-                            placedBateau += bateauToAdd;
-                            cartesTransportPosees.add(selectedCard);
-                            cartesTransport.remove(selectedCard);
-                            choixCarteBateau.remove(inputChoix);
+                        cartesTransportPosees.add(selectedCard);
+                        cartesTransport.remove(selectedCard);
+                        choixCarteBateau.remove(inputChoix);
+                        finalChosenColor = c.getCouleur();
+                        haveToRemove = true;
+                        cloneCarteCorrect.add(c);
+                        nbDoubleEtSimple.set(1, nbDoubleEtSimple.get(1) + 1);
+                        OpposerNbDoubleEtSimple.set(1, OpposerNbDoubleEtSimple.get(1) - 1);
+                    } else if (!c.estDouble() && c.getNom().equals(inputChoix) && (c.getCouleur().equals(finalChosenColor) || c.getType().equals(TypeCarteTransport.JOKER))) {
+                        if (uneCarteSimpleAEtePoser==null){
+                            uneCarteSimpleAEtePoser = selectedCard;
                         }
+                        cartesTransportPosees.add(selectedCard);
+                        cartesTransport.remove(selectedCard);
+                        cloneCarteCorrect.add(c);
+                        haveToRemove = true;
+                        choixCarteBateau.remove(inputChoix);
+                        nbDoubleEtSimple.set(1, nbDoubleEtSimple.get(1) + 1);
+                        OpposerNbDoubleEtSimple.set(1, OpposerNbDoubleEtSimple.get(1) - 1);
                     }
                 }
+                if (haveToRemove) {
+                    carteCorrect.removeAll(cloneCarteCorrect);
+                    cloneCarteCorrect.clear();
+                    haveToRemove = false;
+                }
+                placedBateau = nbDoubleEtSimple.get(0) * 2 + nbDoubleEtSimple.get(1);
             }
             conditionGagnante(r);
         }

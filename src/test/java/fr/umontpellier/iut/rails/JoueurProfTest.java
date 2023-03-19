@@ -478,7 +478,7 @@ public class JoueurProfTest {
                 "C142", // bateau rouge
                 "C141", // bateau vert (invalide)
                 "C144"); // bateau rouge
-        joueur1.jouerTour();
+         joueur1.jouerTour();
 
         assertEquals(2, cartesJoueur1.size());
         assertTrue(cartesJoueur1.contains(c1));
