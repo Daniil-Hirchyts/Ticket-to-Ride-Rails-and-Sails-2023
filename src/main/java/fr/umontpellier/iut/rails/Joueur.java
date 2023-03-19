@@ -267,7 +267,7 @@ public class Joueur {
                                 dataCartePosees(c,cartesTransportPosees, carteCorrecteTemp, choixCarteWagon, inputChoix);
                                 nbCouleur++;
                                 for (int i = 0; i < nbcarteCouleur.size(); i++) {
-                                    if (nbcarteCouleur.get(i) >= 1 && c.getCouleur().equals(Couleur.values()[i])) {
+                                    if (OpposerNbCarteCouleur.get(i) == 1 && c.getCouleur().equals(Couleur.values()[i])) {
                                         removeAllOne = true;
                                         for (CarteTransport ct : carteCorrecte) {
                                             if (!ct.getCouleur().equals(Couleur.values()[i]) && ct.getType().equals(TypeCarteTransport.WAGON) && OpposerNbCarteCouleur.get(ct.getCouleur().ordinal()) == 1) {
@@ -292,6 +292,7 @@ public class Joueur {
                     if (nbCouleurValide.get(i) >= 2) {
                         nbValide++;
                         indexToRemove = i;
+                        break;
                     }
                 }
                 if (removeAllOne) {
@@ -305,6 +306,10 @@ public class Joueur {
                         for (CarteTransport c : lastcarteJoker) {
                             nbCouleurValide.replaceAll(integer -> integer - 1);
                             choixCarteWagon.remove(c.getNom());
+                            nbcarteCouleur.replaceAll(integer -> integer - 1);
+                            for (int i = 0; i < OpposerNbCarteCouleur.size();i++){
+                                if (OpposerNbCarteCouleur.get(i) == 1) OpposerNbCarteCouleur.set(i,0);
+                            }
                         }
                         lastcarteJoker.clear();
                     }
