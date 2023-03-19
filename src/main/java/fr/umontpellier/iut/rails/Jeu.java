@@ -180,9 +180,11 @@ public class Jeu implements Runnable {
         }
 
         //Début de la partie
-        for (Joueur j : joueurs) {
-            joueurCourant = j;
-            j.jouerTour();
+        for (int i = 0; i < 14; i++) {
+            for (Joueur j : joueurs) {
+                joueurCourant = j;
+                j.jouerTour();
+            }
         }
 
         //Fin de la partie

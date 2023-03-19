@@ -58,4 +58,8 @@ public class PilesCartesTransport {
                 Map.entry("pioche", pilePioche.size()),
                 Map.entry("defausse", pileDefausse));
     }
+
+    public boolean isEmpty() {
+        return pilePioche.isEmpty();
+    }
 }
