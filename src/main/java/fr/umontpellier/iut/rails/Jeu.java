@@ -135,10 +135,6 @@ public class Jeu implements Runnable {
         return pilesDeCartesBateau;
     }
 
-    public List<Destination> getPileDestinations() {
-        return pileDestinations;
-    }
-
     public List<CarteTransport> getCartesTransportVisibles() {
         return cartesTransportVisibles;
     }
@@ -333,17 +329,9 @@ public class Jeu implements Runnable {
     public void prompt(String instruction, Collection<Bouton> boutons, boolean peutPasser) {
         this.instruction = instruction;
         this.boutons = boutons;
-
-//        System.out.println();
-//        System.out.println(this);
-        if (boutons.isEmpty()) {
-//            System.out.printf(">>> %s: %s <<<\n", joueurCourant.getNom(), instruction);
-        } else {
+        if (!boutons.isEmpty()) {
             StringJoiner joiner = new StringJoiner(" / ");
-            for (Bouton bouton : boutons) {
-                joiner.add(bouton.toPrompt());
-            }
-//            System.out.printf(">>> %s: %s [%s] <<<\n", joueurCourant.getNom(), instruction, joiner);
+            for (Bouton bouton : boutons) joiner.add(bouton.toPrompt());
         }
         GameServer.setEtatJeu(new Gson().toJson(dataMap()));
     }
