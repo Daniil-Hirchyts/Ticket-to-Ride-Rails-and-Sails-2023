@@ -213,7 +213,7 @@ public class Jeu implements Runnable {
         int compteurRemove = 0;
         while (compteurRemove < nbCartesMax) {
             List<String> grabberDestinaton = Stream.concat(choixDestinaton.stream(), choixDestinatonSpecial.stream()).collect(Collectors.toList());
-            String inputTour = joueurCourant.choisir("<h3>Choisissez une destination a retirer.</h3>", grabberDestinaton, null, true);
+            String inputTour = joueurCourant.choisir("<h3> Choisissez une destination a retirer.</h3>", grabberDestinaton, null, true);
             if (inputTour.isEmpty()) compteurRemove = nbCartesMax;
             else {
                 Iterator<Destination> iterator = joueurCourant.getDestinations().iterator();

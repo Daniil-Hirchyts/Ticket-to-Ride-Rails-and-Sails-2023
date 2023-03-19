@@ -125,57 +125,37 @@ public class Joueur {
      * - capturer une route
      * - construire un port
      */
-    // TODO : jouerTour
     void jouerTour() {
         do {
             List<Bouton> boutons = Arrays.asList(
                     new Bouton("Echanger pions wagons", "PIONS WAGON"),
                     new Bouton("Echanger pions bateaux", "PIONS BATEAU")
             );
-
-            String inputTour;
             List<String> choixTour = new ArrayList<>(Arrays.asList("WAGON", "BATEAU", "DESTINATION"));
-            List<String> choixcarteVisible = new ArrayList<>();
-            List<String> choixRoute = new ArrayList<>();
-            List<String> choixPort = new ArrayList<>();
-
-            for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
-                choixcarteVisible.add(carteTransport.getNom());
-            }
-            for (Route route : jeu.getRoutesLibres()) {
-                choixRoute.add(route.getNom());
-            }
-            for (Ville ville : jeu.getPortsLibres()) {
-                choixPort.add(ville.nom());
-            }
-
+            List<String> choixcarteVisible = jeu.getCartesTransportVisibles().stream().map(CarteTransport::getNom).toList();
+            List<String> choixRoute = jeu.getRoutesLibres().stream().map(Route::getNom).toList();
+            List<String> choixPort = jeu.getPortsLibres().stream().map(Ville::nom).toList();
             choixTour.addAll(choixRoute);
             choixTour.addAll(choixcarteVisible);
             choixTour.addAll(choixPort);
-
-            if (fin) {
-                inputTour = choisir("<h3>Qu'elle choix d'action ferez vous?</h3>", choixTour, null, true);
-            } else {
-                inputTour = choisir("<h3>Qu'elle choix d'action ferez vous?</h3>", choixTour, boutons, false);
-            }
-
-
+            String inputTour = choisir("<h3>Qu'elle choix d'action ferez vous?</h3>", choixTour, fin ? null : boutons, fin);
             if (fin && inputTour.equals("")) tour = false;
             if (inputTour.equals("WAGON") || inputTour.equals("BATEAU"))
                 joueurPiocheDansLeDeck(cartesTransport, inputTour);
-            if (choixcarteVisible.contains(inputTour)) joueurPiocheCarteVisible(cartesTransport, inputTour);
-
-            if (!fin) {
-                if (inputTour.equals("PIONS WAGON") || inputTour.equals("PIONS BATEAU")) echangerPions(inputTour);
-                if (inputTour.equals("DESTINATION")) prendreDestination();
-                if (choixRoute.contains(inputTour)) capturerRoute(inputTour);
-                if (choixPort.contains(inputTour)) {
-                    //a completer
-                    tour = false;
+            else if (choixcarteVisible.contains(inputTour)) joueurPiocheCarteVisible(cartesTransport, inputTour);
+            else if (!fin) {
+                switch (inputTour) {
+                    case "PIONS WAGON", "PIONS BATEAU" -> echangerPions(inputTour);
+                    case "DESTINATION" -> prendreDestination();
+                    default -> {
+                        if (choixRoute.contains(inputTour)) capturerRoute(inputTour);
+                        else if (choixPort.contains(inputTour)) construirePort(inputTour);
+                    }
                 }
             }
         } while (tour);
     }
+
 
     private void capturerRoute(String inputTour) {
         //TODO : CHANGER CAPTURE ROUTE
@@ -495,19 +475,14 @@ public class Joueur {
     private int compterCarte(List<CarteTransport> carteTransportPosees) {
         int cpt = 0;
         for (CarteTransport c : carteTransportPosees) {
-            if (c.estDouble()) {
-                cpt += 2;
-            } else {
-                cpt++;
-            }
+            if (c.estDouble()) cpt += 2;
+            else cpt++;
         }
         return cpt;
     }
 
     private void conditionGagnante(Route r, int cpt) {
-        for (CarteTransport c : cartesTransportPosees) {
-            jeu.getPilesDeCartesWagon().defausser(c);
-        }
+        for (CarteTransport c : cartesTransportPosees) jeu.getPilesDeCartesWagon().defausser(c);
         score += r.getScore();
         cartesTransportPosees.clear();
         routes.add(r);
@@ -523,6 +498,13 @@ public class Joueur {
         cpt = 0;
         tour = false;
     }
+
+    private void construirePort(String inputTour) {
+        tour = false;
+    }
+
+
+//    FIXME : DONE ---------------------------------------------------------------------------------
 
     private void joueurPiocheCarteVisible(List<CarteTransport> cartesTransport, String inputTour) {
         CarteTransport selectedCard = null;
@@ -543,8 +525,8 @@ public class Joueur {
                 choisirPileJoueur(cartesTransport, selectedCard);
                 compteur++;
                 fin = true;
+                if (compteur >= 2) resetCounterAndTurn();
             }
-            if (compteur >= 2) resetCounterAndTurn();
         }
     }
 
@@ -560,7 +542,7 @@ public class Joueur {
         PilesCartesTransport pilesDeCartesWagon = jeu.getPilesDeCartesWagon();
         PilesCartesTransport pilesDeCartesBateau = jeu.getPilesDeCartesBateau();
         if (!pilesDeCartesWagon.isEmpty() || !pilesDeCartesBateau.isEmpty()) {
-            String choixPioche = choisir("Quelle carte voulez vous piocher ?", Arrays.asList("WAGON", "BATEAU"), null, false);
+            String choixPioche = choisir("<h3>Quelle carte voulez vous piocher?</h3>", Arrays.asList("WAGON", "BATEAU"), null, false);
             if (choixPioche.equals("WAGON")) {
                 CarteTransport carteWagon = pilesDeCartesWagon.piocher();
                 if (carteWagon != null) jeu.getCartesTransportVisibles().add(carteWagon);
