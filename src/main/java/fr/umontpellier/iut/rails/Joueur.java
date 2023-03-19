@@ -215,6 +215,7 @@ public class Joueur {
         List<CarteTransport> cloneCarteCorrect = new ArrayList<>();
         int jokerCount = 0;
         int doubleBateauCount = 0;
+        int simpleBateauCount = 0;
         for (CarteTransport c : cartesTransport) {
             if (c.getType().equals(TypeCarteTransport.JOKER)) {
                 jokerCount++;
@@ -222,6 +223,8 @@ public class Joueur {
             } else if (c.getType().equals(TypeCarteTransport.BATEAU)) {
                 if (c.estDouble()) {
                     doubleBateauCount++;
+                } else {
+                    simpleBateauCount++;
                 }
                 carteCorrect.add(c);
                 colorCount.put(c.getCouleur(), colorCount.getOrDefault(c.getCouleur(), 0) + 1);
@@ -253,6 +256,8 @@ public class Joueur {
             }
         }
 
+        boolean useDoubleCards = (r.getLongueur() - simpleBateauCount) % 2 != 0;
+
         if (!chosenColor.isEmpty()) {
             Couleur finalChosenColor = null;
             List<String> choixCarteBateau = carteCorrect.stream()
@@ -266,24 +271,29 @@ public class Joueur {
 
                 for (CarteTransport c : carteCorrect) {
                     if (c.getNom().equals(inputChoix) && finalChosenColor == null && !c.getType().equals(TypeCarteTransport.JOKER)) {
-                        int BateauToAdd = c.estDouble() ? 2 : 1;
-                        placedBateau += BateauToAdd;
-                        cartesTransportPosees.add(selectedCard);
-                        cartesTransport.remove(selectedCard);
-                        choixCarteBateau.remove(inputChoix);
-                        finalChosenColor = c.getCouleur();
+                        int bateauToAdd = c.estDouble() ? 2 : 1;
+                        if (useDoubleCards || c.estDouble()) {
+                            placedBateau += bateauToAdd;
+                            cartesTransportPosees.add(selectedCard);
+                            cartesTransport.remove(selectedCard);
+                            choixCarteBateau.remove(inputChoix);
+                            finalChosenColor = c.getCouleur();
+                        }
                     } else if (c.getNom().equals(inputChoix) && (c.getCouleur().equals(finalChosenColor) || c.getType().equals(TypeCarteTransport.JOKER))) {
-                        int BateauToAdd = c.estDouble() ? 2 : 1;
-                        placedBateau += BateauToAdd;
-                        cartesTransportPosees.add(selectedCard);
-                        cartesTransport.remove(selectedCard);
-                        choixCarteBateau.remove(inputChoix);
+                        int bateauToAdd = c.estDouble() ? 2 : 1;
+                        if (useDoubleCards || c.estDouble()) {
+                            placedBateau += bateauToAdd;
+                            cartesTransportPosees.add(selectedCard);
+                            cartesTransport.remove(selectedCard);
+                            choixCarteBateau.remove(inputChoix);
+                        }
                     }
                 }
             }
             conditionGagnante(r);
         }
     }
+
 
     private void capturerRoutePaire(RoutePaire r) {
         // TODO: Implementation
