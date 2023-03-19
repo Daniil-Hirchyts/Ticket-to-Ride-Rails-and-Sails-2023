@@ -196,15 +196,13 @@ public class Joueur {
         }
     }
 
-
     private void capturerRouteMaritime(RouteMaritime r) {
-        // TODO: Implementation
+        //TODO: Implementation
     }
 
     private void capturerRoutePaire(RoutePaire r) {
         // TODO: Implementation
     }
-
 
     private int compterCarte(List<CarteTransport> carteTransportPosees) {
         int cpt = 0;
