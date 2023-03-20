@@ -683,57 +683,7 @@ public class Joueur {
             }
         }
     }
-
-    public Integer[][] construireMatriceDistances(List<Route> routes, Destination destination) {
-        Map<String, Integer> villes = new HashMap<>();
-        int indexVille = 0;
-        List<String> villesDestination = destination.getVilles();
-        for (Route route : routes) {
-            if (!villes.containsKey(route.getVille1().nom())) {
-                villes.put(route.getVille1().nom(), indexVille++);
-            }
-            if (!villes.containsKey(route.getVille2().nom())) {
-                villes.put(route.getVille2().nom(), indexVille++);
-            }
-        }
-        Integer[][] distances = new Integer[indexVille][indexVille];
-        if (villesDestination.size() == 2) {
-            String ville1 = villesDestination.get(0);
-            String ville2 = villesDestination.get(1);
-            if (!villes.containsKey(ville1) || !villes.containsKey(ville2)) {
-                return distances;
-            }
-            int indexVille1 = villes.get(ville1);
-            int indexVille2 = villes.get(ville2);
-            for (Route route : routes) {
-                if ((route.getVille1().nom().equals(ville1) && route.getVille2().nom().equals(ville2)) ||
-                        (route.getVille1().nom().equals(ville2) && route.getVille2().nom().equals(ville1))) {
-                    distances[indexVille1][indexVille2] = route.getLongueur();
-                    distances[indexVille2][indexVille1] = route.getLongueur();
-                    break;
-                }
-            }
-        } else {
-            for (int i = 0; i < villesDestination.size() - 1; i++) {
-                String ville1 = villesDestination.get(i);
-                String ville2 = villesDestination.get(i + 1);
-                if (!villes.containsKey(ville1) || !villes.containsKey(ville2)) {
-                    continue;
-                }
-                int indexVille1 = villes.get(ville1);
-                int indexVille2 = villes.get(ville2);
-                for (Route route : routes) {
-                    if ((route.getVille1().nom().equals(ville1) && route.getVille2().nom().equals(ville2)) ||
-                            (route.getVille1().nom().equals(ville2) && route.getVille2().nom().equals(ville1))) {
-                        distances[indexVille1][indexVille2] = route.getLongueur();
-                        distances[indexVille2][indexVille1] = route.getLongueur();
-                        break;
-                    }
-                }
-            }
-        }
-        return distances;
-    }
+    
 
     //TODO calculerScoreFinal()
     public int calculerScoreFinal() {
