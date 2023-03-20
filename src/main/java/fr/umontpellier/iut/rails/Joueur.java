@@ -59,7 +59,7 @@ public class Joueur {
      * Score courant du joueur (somme des valeurs des routes capturées, et points
      * perdus lors des échanges de pions)
      */
-    private int score;
+    private int score = 0;
     private boolean tour = true;
     private boolean fin = false;
     private int compteur = 0;
@@ -333,7 +333,6 @@ public class Joueur {
     }
 
     private void capturerRoutePaire(RoutePaire r) {
-        // TODO: Implementation
         List<CarteTransport> carteCorrecte = new ArrayList<>();
         List<CarteTransport> carteCorrecteTemp = new ArrayList<>();
         List<CarteTransport> lastcarteJoker = new ArrayList<>();
@@ -693,22 +692,14 @@ public class Joueur {
     //TODO calculerScoreFinal()
     public int calculerScoreFinal() {
         int scoreFinal = 0;
-//        scoreFinal += score;
-
-        //for all destinations uncompleted : scoreFinal -= 10
+        scoreFinal += score;
         for (Destination d : getDestinations()) {
-            if (!destinationEstComplete(d)) scoreFinal -= d.getValeurSimple();
+            if (d.getValeurMax() > 0) {
+                if (destinationEstComplete(d)) scoreFinal += d.getValeurSimple();
+                else scoreFinal -= d.getPenalite();
+            } else if (destinationEstComplete(d)) scoreFinal += d.getValeurSimple();
+            else scoreFinal -= d.getValeurSimple();
         }
-//            if (d.getValeurs()[1] > 0) {
-//                if (destinationEstComplete(d)) scoreFinal += d.getValeurs()[1];
-//                else scoreFinal -= d.getValeurs()[2];
-//            } else if (destinationEstComplete(d)) scoreFinal += d.getValeurs()[0];
-//            else scoreFinal -= d.getValeurs()[0];
-//        }
-//                for (Destination d : destinationEstComplete) {
-
-
-
         scoreFinal -= ((3 - ports.size()) * 4);
         return scoreFinal;
     }

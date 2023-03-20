@@ -152,4 +152,5 @@ public class Destination {
     public int getPenalite() {
         return penalite;
     }
+
 }

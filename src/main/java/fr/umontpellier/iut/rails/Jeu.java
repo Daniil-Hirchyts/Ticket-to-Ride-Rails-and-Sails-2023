@@ -215,8 +215,10 @@ public class Jeu implements Runnable {
         }
         int compteurRemove = 0;
         while (compteurRemove < nbCartesMax) {
-            List<String> grabberDestinaton = Stream.concat(choixDestinaton.stream(), choixDestinatonSpecial.stream()).collect(Collectors.toList());
-            String inputTour = joueurCourant.choisir("<h3> Choisissez une destination a retirer.</h3>", grabberDestinaton, null, true);
+            List<String> grabberDestinaton = Stream.concat(choixDestinaton.stream(), choixDestinatonSpecial.stream())
+                    .collect(Collectors.toList());
+            String inputTour = joueurCourant.choisir("<h3> Choisissez une destination a retirer.</h3>"
+                    , grabberDestinaton, null, true);
             if (inputTour.isEmpty()) compteurRemove = nbCartesMax;
             else {
                 Iterator<Destination> iterator = joueurCourant.getDestinations().iterator();
@@ -249,7 +251,8 @@ public class Jeu implements Runnable {
                 .mapToObj(String::valueOf)
                 .collect(Collectors.toList());
         while (true) {
-            String inputTour = j.choisir("<h3>Combien de wagon voulez vous garder? (10-25)</h3>", choix, null, false);
+            String inputTour = j.choisir("<h3>Combien de wagon voulez vous garder? (10-25)</h3>"
+                    , choix, null, false);
             if (choix.contains(inputTour)) {
                 int nbWagon = Integer.parseInt(inputTour);
                 j.setNbPionsWagon(nbWagon);
