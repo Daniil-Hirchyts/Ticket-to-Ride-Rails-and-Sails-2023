@@ -453,7 +453,7 @@ public class Joueur {
             }
             while (nbValide < r.getLongueur());
             for (CarteTransport c : cartesTransportPosees) jeu.getPilesDeCartesWagon().defausser(c);
-            score += r.getScore();
+//            score += r.getScore();
             cartesTransportPosees.clear();
             routes.add(r);
             if (jeu.getJoueurs().size() <= 3) jeu.getRoutesLibres().remove(r.getRouteParallele());
@@ -688,13 +688,14 @@ public class Joueur {
             } else {
                 villeActuelle = routeSuivante.getVille1().nom();
             }
+            log("ville actuelle : " + villeActuelle);
         }
     }
+
 
     //TODO calculerScoreFinal()
     public int calculerScoreFinal() {
         int scoreFinal = 0;
-        scoreFinal += score;
         for (Destination d : getDestinations()) {
             if (d.getValeurMax() > 0) {
                 if (destinationEstComplete(d)) scoreFinal += d.getValeurSimple();
@@ -702,7 +703,7 @@ public class Joueur {
             } else if (destinationEstComplete(d)) scoreFinal += d.getValeurSimple();
             else scoreFinal -= d.getValeurSimple();
         }
-        scoreFinal -= ((3 - ports.size()) * 4);
+        scoreFinal += -((3 - ports.size()) * 4);
         return scoreFinal;
     }
 

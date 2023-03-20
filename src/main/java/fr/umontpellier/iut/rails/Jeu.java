@@ -150,14 +150,11 @@ public class Jeu implements Runnable {
      */
     public void run() {
 
-        //Afficher les cartes transport visibles
         for (int i = 0; i < 3; i++) {
             cartesTransportVisibles.add(pilesDeCartesWagon.piocher());
             cartesTransportVisibles.add(pilesDeCartesBateau.piocher());
         }
 
-        //Pioche des cartes transport initiales
-//        Collections.shuffle(pileDestinations);
         for (Joueur j : joueurs) {
             List<CarteTransport> cartesBateau = new ArrayList<>(pilesDeCartesBateau.getCartes());
             List<CarteTransport> cartesWagon = new ArrayList<>(pilesDeCartesWagon.getCartes());
