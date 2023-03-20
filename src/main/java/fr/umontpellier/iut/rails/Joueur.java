@@ -270,7 +270,7 @@ public class Joueur {
             List<String> choixCarteBateau = carteCorrect.stream()
                     .map(CarteTransport::getNom)
                     .collect(Collectors.toList());
-
+            List<Integer> MemoireWagonSimpleEtDouble = new ArrayList<>(OpposerNbDoubleEtSimple);
             int placedBateau = 0;
             boolean haveToRemove = false;
             while (placedBateau < r.getLongueur()) {
@@ -294,31 +294,33 @@ public class Joueur {
                         finalChosenColor = c.getCouleur();
                         haveToRemove = true;
                         cloneCarteCorrect.add(c);
-                        nbDoubleEtSimple.set(0, nbDoubleEtSimple.get(0) + 1);
-                        OpposerNbDoubleEtSimple.set(0, OpposerNbDoubleEtSimple.get(0) - 1);
-                    } else if (!c.estDouble() && c.getNom().equals(inputChoix) && finalChosenColor == null && !c.getType().equals(TypeCarteTransport.JOKER)) {
-                        if (uneCarteSimpleAEtePoser == null) {
-                            uneCarteSimpleAEtePoser = selectedCard;
+                        nbDoubleEtSimple.set(0, nbDoubleEtSimple.get(0) + 1);//TODO
+                        OpposerNbDoubleEtSimple.set(0, OpposerNbDoubleEtSimple.get(0) - 1);//TODO                                                                        VRAI                         vrai
+                    } else if (MemoireWagonSimpleEtDouble.get(1) + jokerCount != 1) {
+                        if (!c.estDouble() && c.getNom().equals(inputChoix) && finalChosenColor == null && !c.getType().equals(TypeCarteTransport.JOKER) && (r.getLongueur() % 2 != 1 || MemoireWagonSimpleEtDouble.get(1) + jokerCount != 1)) {
+                            if (uneCarteSimpleAEtePoser == null) {
+                                uneCarteSimpleAEtePoser = selectedCard;
+                            }
+                            cartesTransportPosees.add(selectedCard);
+                            cartesTransport.remove(selectedCard);
+                            choixCarteBateau.remove(inputChoix);
+                            finalChosenColor = c.getCouleur();
+                            haveToRemove = true;
+                            cloneCarteCorrect.add(c);
+                            nbDoubleEtSimple.set(1, nbDoubleEtSimple.get(1) + 1);
+                            OpposerNbDoubleEtSimple.set(1, OpposerNbDoubleEtSimple.get(1) - 1);////                                                                                         faux                 vrai
+                        } else if (!c.estDouble() && c.getNom().equals(inputChoix) && (c.getCouleur().equals(finalChosenColor) || c.getType().equals(TypeCarteTransport.JOKER))) {
+                            if (uneCarteSimpleAEtePoser == null) {
+                                uneCarteSimpleAEtePoser = selectedCard;
+                            }
+                            cartesTransportPosees.add(selectedCard);
+                            cartesTransport.remove(selectedCard);
+                            cloneCarteCorrect.add(c);
+                            haveToRemove = true;
+                            choixCarteBateau.remove(inputChoix);
+                            nbDoubleEtSimple.set(1, nbDoubleEtSimple.get(1) + 1);
+                            OpposerNbDoubleEtSimple.set(1, OpposerNbDoubleEtSimple.get(1) - 1);
                         }
-                        cartesTransportPosees.add(selectedCard);
-                        cartesTransport.remove(selectedCard);
-                        choixCarteBateau.remove(inputChoix);
-                        finalChosenColor = c.getCouleur();
-                        haveToRemove = true;
-                        cloneCarteCorrect.add(c);
-                        nbDoubleEtSimple.set(1, nbDoubleEtSimple.get(1) + 1);
-                        OpposerNbDoubleEtSimple.set(1, OpposerNbDoubleEtSimple.get(1) - 1);
-                    } else if (!c.estDouble() && c.getNom().equals(inputChoix) && (c.getCouleur().equals(finalChosenColor) || c.getType().equals(TypeCarteTransport.JOKER))) {
-                        if (uneCarteSimpleAEtePoser == null) {
-                            uneCarteSimpleAEtePoser = selectedCard;
-                        }
-                        cartesTransportPosees.add(selectedCard);
-                        cartesTransport.remove(selectedCard);
-                        cloneCarteCorrect.add(c);
-                        haveToRemove = true;
-                        choixCarteBateau.remove(inputChoix);
-                        nbDoubleEtSimple.set(1, nbDoubleEtSimple.get(1) + 1);
-                        OpposerNbDoubleEtSimple.set(1, OpposerNbDoubleEtSimple.get(1) - 1);
                     }
                 }
                 if (haveToRemove) {
