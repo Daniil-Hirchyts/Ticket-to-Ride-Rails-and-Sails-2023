@@ -709,7 +709,7 @@ public class Joueur {
 
 
 
-//        scoreFinal -= ((3 - ports.size()) * 4);
+        scoreFinal -= ((3 - ports.size()) * 4);
         return scoreFinal;
     }
 
