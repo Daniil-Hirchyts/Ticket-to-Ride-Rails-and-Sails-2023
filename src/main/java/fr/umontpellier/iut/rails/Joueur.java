@@ -64,6 +64,9 @@ public class Joueur {
     private boolean fin = false;
     private int compteur = 0;
 
+    private Set<String> ordreVillesACapturer = new HashSet<>();
+    private Set<String> ordreVillesDejaCapturer = new HashSet<>();
+
     public Joueur(String nom, Jeu jeu, CouleurJouer couleur) {
         this.nom = nom;
         this.jeu = jeu;
@@ -296,7 +299,7 @@ public class Joueur {
                         cloneCarteCorrect.add(c);
                         nbDoubleEtSimple.set(0, nbDoubleEtSimple.get(0) + 1);//TODO
                         OpposerNbDoubleEtSimple.set(0, OpposerNbDoubleEtSimple.get(0) - 1);//TODO                                                                        VRAI                         vrai
-                    } else if (MemoireWagonSimpleEtDouble.get(1) + jokerCount != 1) {
+                    } else if (MemoireWagonSimpleEtDouble.get(1) + jokerCount != 1 && r.getLongueur() != 1) {
                         if (!c.estDouble() && c.getNom().equals(inputChoix) && finalChosenColor == null && !c.getType().equals(TypeCarteTransport.JOKER) && (r.getLongueur() % 2 != 1 || MemoireWagonSimpleEtDouble.get(1) + jokerCount != 1)) {
                             if (uneCarteSimpleAEtePoser == null) {
                                 uneCarteSimpleAEtePoser = selectedCard;
@@ -453,7 +456,7 @@ public class Joueur {
             }
             while (nbValide < r.getLongueur());
             for (CarteTransport c : cartesTransportPosees) jeu.getPilesDeCartesWagon().defausser(c);
-//            score += r.getScore();
+            score += r.getScore();
             cartesTransportPosees.clear();
             routes.add(r);
             if (jeu.getJoueurs().size() <= 3) jeu.getRoutesLibres().remove(r.getRouteParallele());
@@ -493,8 +496,14 @@ public class Joueur {
                 jeu.getPilesDeCartesWagon().defausser(c);
                 setNbPionsWagon(getNbPionsWagon() - 1);
             } else {
-                jeu.getPilesDeCartesBateau().defausser(c);
-                setNbPionsBateau(getNbPionsBateau() - 1);
+                if (!c.estDouble()) {
+                    jeu.getPilesDeCartesBateau().defausser(c);
+                    setNbPionsBateau(getNbPionsBateau() - 1);
+                }
+                else {
+                    jeu.getPilesDeCartesBateau().defausser(c);
+                    setNbPionsBateau(getNbPionsBateau() - 2);
+                }
             }
         }
         score += r.getScore();
@@ -653,27 +662,44 @@ public class Joueur {
             // Si la ville de départ ou d'arrivée ne sont pas capturées, la destination ne peut pas être complète
             return false;
         }
+        boolean checkOrdreDestination = false;
+        if (d.getValeurMax()!=d.getValeurSimple()){
+            ordreVillesACapturer.addAll(d.getVilles());
+            checkOrdreDestination = true;
+        }
         String villeActuelle = villeDépart;
+        Route routeDejaVue = null;
+        List<Route> routeActuelle = new ArrayList<>(routes);
         while (true) {
             Route routeSuivante = null;
-            for (Route route : routes) {
+            for (Route route : routeActuelle) {
                 System.out.println(route.getVille1().nom().equals(villeActuelle));
                 System.out.println(villesCapturées.contains(route.getVille2().nom()));
                 if (route.getVille1().nom().equals(villeActuelle) && villesCapturées.contains(route.getVille2().nom())) {
                     // La route relie la ville actuelle à une ville non encore capturée
+                    if (checkOrdreDestination){
+                        ordreVillesDejaCapturer.add(route.getVille1().nom());
+                        ordreVillesDejaCapturer.add(route.getVille2().nom());
+                    }
                     if (route.getVille2().nom().equals(villeArrivée)) {
                         // Si la ville d'arrivée est atteinte, la destination est complète
                         return true;
                     }
                     routeSuivante = route;
+                    routeDejaVue = route;
                     break;
                 } else if (route.getVille2().nom().equals(villeActuelle) && villesCapturées.contains(route.getVille1().nom())) {
                     // La route relie la ville actuelle à une ville non encore capturée
+                    if (checkOrdreDestination){
+                        ordreVillesDejaCapturer.add(route.getVille2().nom());
+                        ordreVillesDejaCapturer.add(route.getVille1().nom());
+                    }
                     if (route.getVille1().nom().equals(villeArrivée)) {
                         // Si la ville d'arrivée est atteinte, la destination est complète
                         return true;
                     }
                     routeSuivante = route;
+                    routeDejaVue = route;
                     break;
                 }
             }
@@ -688,6 +714,8 @@ public class Joueur {
             } else {
                 villeActuelle = routeSuivante.getVille1().nom();
             }
+            routeActuelle.remove(routeDejaVue);
+            routeDejaVue = null;
             log("ville actuelle : " + villeActuelle);
         }
     }
@@ -704,6 +732,7 @@ public class Joueur {
             else scoreFinal -= d.getValeurSimple();
         }
         scoreFinal += -((3 - ports.size()) * 4);
+        score += scoreFinal;
         return scoreFinal;
     }
 
