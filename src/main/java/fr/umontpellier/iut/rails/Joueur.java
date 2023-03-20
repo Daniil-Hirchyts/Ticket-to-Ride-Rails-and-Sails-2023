@@ -60,7 +60,6 @@ public class Joueur {
      * perdus lors des échanges de pions)
      */
     private int score;
-
     private boolean tour = true;
     private boolean fin = false;
     private int compteur = 0;
@@ -87,14 +86,6 @@ public class Joueur {
 
     public void setNbPionsBateauEnReserve(int nbPionsBateauEnReserve) {
         this.nbPionsBateauEnReserve = nbPionsBateauEnReserve;
-    }
-
-    public void setNbPionsWagon(int nbPionsWagon) {
-        this.nbPionsWagon = nbPionsWagon;
-    }
-
-    public void setNbPionsBateau(int nbPionsBateau) {
-        this.nbPionsBateau = nbPionsBateau;
     }
 
     public List<Destination> getDestinations() {
@@ -158,6 +149,10 @@ public class Joueur {
                 capturerRouteMaritime((RouteMaritime) r);
             else if (r.getNom().equals(inputTour) && r instanceof RoutePaire) capturerRoutePaire((RoutePaire) r);
         }
+    }
+
+    public int getNombreTotalPions() {
+        return nbPionsWagonEnReserve + nbPionsBateauEnReserve;
     }
 
     private void capturerRouteTerrestre(RouteTerrestre r) {
@@ -337,7 +332,6 @@ public class Joueur {
         }
     }
 
-
     private void capturerRoutePaire(RoutePaire r) {
         // TODO: Implementation
         List<CarteTransport> carteCorrecte = new ArrayList<>();
@@ -475,18 +469,32 @@ public class Joueur {
         carteCorrecteTemp.add(c);
     }
 
-    private int compterCarte(List<CarteTransport> carteTransportPosees) {
-        int cpt = 0;
-        for (CarteTransport c : carteTransportPosees) cpt += c.estDouble() ? 2 : 1;
-        return cpt;
+    public int getNbPionsWagon() {
+        return nbPionsWagon;
+    }
+
+    public void setNbPionsWagon(int nbPionsWagon) {
+        this.nbPionsWagon = nbPionsWagon;
+    }
+
+    public int getNbPionsBateau() {
+        return nbPionsBateau;
+    }
+
+    public void setNbPionsBateau(int nbPionsBateau) {
+        this.nbPionsBateau = nbPionsBateau;
     }
 
     private void conditionGagnante(Route r) {
         Collection<Route> routesLibres = jeu.getRoutesLibres();
         for (CarteTransport c : cartesTransportPosees) {
-            if (c.getType().equals(TypeCarteTransport.WAGON) || c.getType().equals(TypeCarteTransport.JOKER))
+            if (c.getType().equals(TypeCarteTransport.WAGON) || c.getType().equals(TypeCarteTransport.JOKER)) {
                 jeu.getPilesDeCartesWagon().defausser(c);
-            else jeu.getPilesDeCartesBateau().defausser(c);
+                setNbPionsWagon(getNbPionsWagon() - 1);
+            } else {
+                jeu.getPilesDeCartesBateau().defausser(c);
+                setNbPionsBateau(getNbPionsBateau() - 1);
+            }
         }
         score += r.getScore();
         cartesTransportPosees.clear();
@@ -496,7 +504,6 @@ public class Joueur {
         tour = false;
     }
 
-    //TODO construirePort()
     private void construirePort(String inputTour) {
         boolean peuxConstruirePort = true;
         List<CarteTransport> cartesCorrectes = new ArrayList<>();
@@ -631,7 +638,6 @@ public class Joueur {
         }
     }
 
-    //TODO destinationEstComplete()
     public boolean destinationEstComplete(Destination d) {
         String villeDépart = d.getVilles().get(0);
         String villeArrivée = d.getVilles().get(1);
@@ -683,14 +689,29 @@ public class Joueur {
             }
         }
     }
-    
 
     //TODO calculerScoreFinal()
     public int calculerScoreFinal() {
-        return 1;
-    }
+        int scoreFinal = 0;
+//        scoreFinal += score;
 
-//    FIXME : DONE ---------------------------------------------------------------------------------
+        //for all destinations uncompleted : scoreFinal -= 10
+        for (Destination d : getDestinations()) {
+            if (!destinationEstComplete(d)) scoreFinal -= d.getValeurSimple();
+        }
+//            if (d.getValeurs()[1] > 0) {
+//                if (destinationEstComplete(d)) scoreFinal += d.getValeurs()[1];
+//                else scoreFinal -= d.getValeurs()[2];
+//            } else if (destinationEstComplete(d)) scoreFinal += d.getValeurs()[0];
+//            else scoreFinal -= d.getValeurs()[0];
+//        }
+//                for (Destination d : destinationEstComplete) {
+
+
+
+//        scoreFinal -= ((3 - ports.size()) * 4);
+        return scoreFinal;
+    }
 
     private void joueurPiocheCarteVisible(List<CarteTransport> cartesTransport, String inputTour) {
         CarteTransport selectedCard = null;

@@ -348,8 +348,8 @@ body {
 }
 
 #plateau > g > rect {
-    stroke: #252525;
-    stroke-width: 1px;
+    stroke: #fff;
+    stroke-width: 0;
 }
 
 #plateau > g > rect:hover {

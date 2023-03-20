@@ -1,19 +1,18 @@
 package fr.umontpellier.iut.rails;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import fr.umontpellier.iut.rails.data.CarteTransport;
+import fr.umontpellier.iut.rails.data.Destination;
+import fr.umontpellier.iut.rails.data.TypeCarteTransport;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import fr.umontpellier.iut.rails.data.CarteTransport;
-import fr.umontpellier.iut.rails.data.Destination;
-import fr.umontpellier.iut.rails.data.TypeCarteTransport;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JeuProfTest {
     private IOJeu jeu;
@@ -36,7 +35,7 @@ public class JeuProfTest {
         TestUtils.setAttribute(Destination.class, "compteur", 1);
         TestUtils.setAttribute(Route.class, "compteur", 1);
 
-        jeu = new IOJeu(new String[] { "Guybrush", "Largo", "LeChuck", "Elaine" });
+        jeu = new IOJeu(new String[]{"Guybrush", "Largo", "LeChuck", "Elaine"});
         PilesCartesTransport pilesWagon = (PilesCartesTransport) TestUtils.getAttribute(jeu,
                 "pilesDeCartesWagon");
         piocheWagon = (List<CarteTransport>) TestUtils.getAttribute(pilesWagon, "pilePioche");

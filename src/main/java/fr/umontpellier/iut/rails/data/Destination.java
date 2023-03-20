@@ -137,16 +137,19 @@ public class Destination {
         return nom;
     }
 
-    public int[] getValeurs() {
-        int[] valeurs = new int[3];
-        if (valeurSimple > 0) valeurs[0] = valeurSimple;
-        if (valeurMax > 0) valeurs[1] = valeurMax;
-        if (penalite > 0) valeurs[2] = penalite;
-        return valeurs;
-    }
-
     public List<String> getVilles() {
         return villes;
     }
 
+    public int getValeurSimple() {
+        return valeurSimple;
+    }
+
+    public int getValeurMax() {
+        return valeurMax;
+    }
+
+    public int getPenalite() {
+        return penalite;
+    }
 }

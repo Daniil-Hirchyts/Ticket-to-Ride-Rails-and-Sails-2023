@@ -54,6 +54,7 @@ public class Jeu implements Runnable {
     private Joueur joueurCourant;
     private String instruction;
     private Collection<Bouton> boutons;
+    private boolean dernierDeuxTours = false;
 
     public Jeu(String[] nomJoueurs) {
         // initialisation des entrées/sorties
@@ -168,23 +169,29 @@ public class Jeu implements Runnable {
             }
         }
 
-        //Choix des destinations initiales et des pions
         for (Joueur j : joueurs) {
             joueurCourant = j;
             PiocheCartesDestination(2, 5, joueurCourant);
             faireChoixPions(joueurCourant);
         }
 
-        //Début de la partie
-        for (int i = 0; i < 14; i++) {
-            for (Joueur j : joueurs) {
-                joueurCourant = j;
-                j.jouerTour();
-            }
+        do {
+            jouerForEachPlayer(joueurs);
+            for (Joueur j : joueurs) if (j.getNombreTotalPions() <= 6) dernierDeuxTours = true;
+        } while (!dernierDeuxTours);
+
+        for (int i = 0; i < 2; i++) {
+            jouerForEachPlayer(joueurs);
         }
 
-        //Fin de la partie
-        prompt("Fin de la partie.", new ArrayList<>(), true);
+        prompt("Fin de la partie.", new ArrayList<>(), false);
+    }
+
+    private void jouerForEachPlayer(List<Joueur> joueurs) {
+        for (Joueur joueur : joueurs) {
+            joueurCourant = joueur;
+            joueur.jouerTour();
+        }
     }
 
     /**
