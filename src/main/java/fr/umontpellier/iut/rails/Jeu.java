@@ -171,8 +171,8 @@ public class Jeu implements Runnable {
         //Choix des destinations initiales et des pions
         for (Joueur j : joueurs) {
             joueurCourant = j;
-//            PiocheCartesDestination(2, 5, joueurCourant);
-//            faireChoixPions(joueurCourant);
+            PiocheCartesDestination(2, 5, joueurCourant);
+            faireChoixPions(joueurCourant);
         }
 
         //Début de la partie

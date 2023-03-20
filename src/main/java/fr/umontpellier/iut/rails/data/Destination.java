@@ -148,4 +148,5 @@ public class Destination {
     public List<String> getVilles() {
         return villes;
     }
+
 }

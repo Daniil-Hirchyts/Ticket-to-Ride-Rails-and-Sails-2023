@@ -147,6 +147,7 @@ public class Joueur {
                 }
             }
         } while (tour);
+        tour = true;
     }
 
     private void capturerRoute(String inputTour) {
@@ -291,7 +292,7 @@ public class Joueur {
                         cloneCarteCorrect.add(c);
                         nbDoubleEtSimple.set(0, nbDoubleEtSimple.get(0) + 1);
                         OpposerNbDoubleEtSimple.set(0, OpposerNbDoubleEtSimple.get(0) - 1);
-                    } else if (c.estDouble() && (placedBateau + 2 <= r.getLongueur() || uneCarteSimpleAEtePoser == null ) && c.getNom().equals(inputChoix) && (c.getCouleur().equals(finalChosenColor) || c.getType().equals(TypeCarteTransport.JOKER))) {
+                    } else if (c.estDouble() && (placedBateau + 2 <= r.getLongueur() || uneCarteSimpleAEtePoser == null) && c.getNom().equals(inputChoix) && (c.getCouleur().equals(finalChosenColor) || c.getType().equals(TypeCarteTransport.JOKER))) {
                         cartesTransportPosees.add(selectedCard);
                         cartesTransport.remove(selectedCard);
                         choixCarteBateau.remove(inputChoix);
@@ -301,7 +302,7 @@ public class Joueur {
                         nbDoubleEtSimple.set(0, nbDoubleEtSimple.get(0) + 1);
                         OpposerNbDoubleEtSimple.set(0, OpposerNbDoubleEtSimple.get(0) - 1);
                     } else if (!c.estDouble() && c.getNom().equals(inputChoix) && finalChosenColor == null && !c.getType().equals(TypeCarteTransport.JOKER)) {
-                        if (uneCarteSimpleAEtePoser==null){
+                        if (uneCarteSimpleAEtePoser == null) {
                             uneCarteSimpleAEtePoser = selectedCard;
                         }
                         cartesTransportPosees.add(selectedCard);
@@ -313,7 +314,7 @@ public class Joueur {
                         nbDoubleEtSimple.set(1, nbDoubleEtSimple.get(1) + 1);
                         OpposerNbDoubleEtSimple.set(1, OpposerNbDoubleEtSimple.get(1) - 1);
                     } else if (!c.estDouble() && c.getNom().equals(inputChoix) && (c.getCouleur().equals(finalChosenColor) || c.getType().equals(TypeCarteTransport.JOKER))) {
-                        if (uneCarteSimpleAEtePoser==null){
+                        if (uneCarteSimpleAEtePoser == null) {
                             uneCarteSimpleAEtePoser = selectedCard;
                         }
                         cartesTransportPosees.add(selectedCard);
@@ -631,8 +632,107 @@ public class Joueur {
     }
 
     //TODO destinationEstComplete()
-    boolean destinationEstComplete(Destination d) {
-        return false;
+    public boolean destinationEstComplete(Destination d) {
+        String villeDépart = d.getVilles().get(0);
+        String villeArrivée = d.getVilles().get(1);
+        Set<String> villesCapturées = new HashSet<>();
+        for (Route route : routes) {
+            villesCapturées.add(route.getVille1().nom());
+            villesCapturées.add(route.getVille2().nom());
+        }
+        System.out.println("condition 1 : " + !villesCapturées.contains(villeDépart));
+        System.out.println("condition 2 : " + !villesCapturées.contains(villeArrivée));
+        if (!villesCapturées.contains(villeDépart) || !villesCapturées.contains(villeArrivée)) {
+            // Si la ville de départ ou d'arrivée ne sont pas capturées, la destination ne peut pas être complète
+            return false;
+        }
+        String villeActuelle = villeDépart;
+        while (true) {
+            Route routeSuivante = null;
+            for (Route route : routes) {
+                System.out.println(route.getVille1().nom().equals(villeActuelle));
+                System.out.println(villesCapturées.contains(route.getVille2().nom()));
+                if (route.getVille1().nom().equals(villeActuelle) && villesCapturées.contains(route.getVille2().nom())) {
+                    // La route relie la ville actuelle à une ville non encore capturée
+                    if (route.getVille2().nom().equals(villeArrivée)) {
+                        // Si la ville d'arrivée est atteinte, la destination est complète
+                        return true;
+                    }
+                    routeSuivante = route;
+                    break;
+                } else if (route.getVille2().nom().equals(villeActuelle) && villesCapturées.contains(route.getVille1().nom())) {
+                    // La route relie la ville actuelle à une ville non encore capturée
+                    if (route.getVille1().nom().equals(villeArrivée)) {
+                        // Si la ville d'arrivée est atteinte, la destination est complète
+                        return true;
+                    }
+                    routeSuivante = route;
+                    break;
+                }
+            }
+            if (routeSuivante == null) {
+                // Si aucune route ne relie la ville actuelle à une ville non encore capturée, la destination n'est pas complète
+                return false;
+            }
+            villesCapturées.add(routeSuivante.getVille1().nom());
+            villesCapturées.add(routeSuivante.getVille2().nom());
+            if (routeSuivante.getVille1().nom().equals(villeActuelle)) {
+                villeActuelle = routeSuivante.getVille2().nom();
+            } else {
+                villeActuelle = routeSuivante.getVille1().nom();
+            }
+        }
+    }
+
+    public Integer[][] construireMatriceDistances(List<Route> routes, Destination destination) {
+        Map<String, Integer> villes = new HashMap<>();
+        int indexVille = 0;
+        List<String> villesDestination = destination.getVilles();
+        for (Route route : routes) {
+            if (!villes.containsKey(route.getVille1().nom())) {
+                villes.put(route.getVille1().nom(), indexVille++);
+            }
+            if (!villes.containsKey(route.getVille2().nom())) {
+                villes.put(route.getVille2().nom(), indexVille++);
+            }
+        }
+        Integer[][] distances = new Integer[indexVille][indexVille];
+        if (villesDestination.size() == 2) {
+            String ville1 = villesDestination.get(0);
+            String ville2 = villesDestination.get(1);
+            if (!villes.containsKey(ville1) || !villes.containsKey(ville2)) {
+                return distances;
+            }
+            int indexVille1 = villes.get(ville1);
+            int indexVille2 = villes.get(ville2);
+            for (Route route : routes) {
+                if ((route.getVille1().nom().equals(ville1) && route.getVille2().nom().equals(ville2)) ||
+                        (route.getVille1().nom().equals(ville2) && route.getVille2().nom().equals(ville1))) {
+                    distances[indexVille1][indexVille2] = route.getLongueur();
+                    distances[indexVille2][indexVille1] = route.getLongueur();
+                    break;
+                }
+            }
+        } else {
+            for (int i = 0; i < villesDestination.size() - 1; i++) {
+                String ville1 = villesDestination.get(i);
+                String ville2 = villesDestination.get(i + 1);
+                if (!villes.containsKey(ville1) || !villes.containsKey(ville2)) {
+                    continue;
+                }
+                int indexVille1 = villes.get(ville1);
+                int indexVille2 = villes.get(ville2);
+                for (Route route : routes) {
+                    if ((route.getVille1().nom().equals(ville1) && route.getVille2().nom().equals(ville2)) ||
+                            (route.getVille1().nom().equals(ville2) && route.getVille2().nom().equals(ville1))) {
+                        distances[indexVille1][indexVille2] = route.getLongueur();
+                        distances[indexVille2][indexVille1] = route.getLongueur();
+                        break;
+                    }
+                }
+            }
+        }
+        return distances;
     }
 
     //TODO calculerScoreFinal()
