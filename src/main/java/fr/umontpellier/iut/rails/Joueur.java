@@ -67,6 +67,8 @@ public class Joueur {
     private Map<Destination, List<String>> ordreVillesACapturer = new HashMap<>();
     private Map<Destination, List<String>> ordreVillesDejaCapturer = new HashMap<>();
 
+    private Map<Destination, List<String>> Historique = new HashMap<>();
+
     public Joueur(String nom, Jeu jeu, CouleurJouer couleur) {
         this.nom = nom;
         this.jeu = jeu;
@@ -690,11 +692,16 @@ public class Joueur {
             return false;
         }
         boolean checkOrdreDestination = false;
+        if (Historique.get(d) == null) {
+            Historique.put(d, d.getVilles());
+        }
         if (d.getValeurMax() != d.getValeurSimple()) {
-            ordreVillesACapturer.put(d, d.getVilles());
-            System.out.println("ordreVillesACapturer : " + ordreVillesACapturer.get(d));
-            ordreVillesDejaCapturer.put(d, new ArrayList<>());
-            checkOrdreDestination = true;
+            if (ordreVillesACapturer.get(d) == null) {
+                ordreVillesACapturer.put(d, d.getVilles());
+                System.out.println("ordreVillesACapturer : " + ordreVillesACapturer.get(d));
+                ordreVillesDejaCapturer.put(d, new ArrayList<>());
+                checkOrdreDestination = true;
+            }
         }
         String villeActuelle = villeDépart;
         Route routeDejaVue = null;
@@ -704,6 +711,11 @@ public class Joueur {
             for (Route route : routeActuelle) {
                 if (route.getVille1().nom().equals(villeActuelle) && villesCapturées.contains(route.getVille2().nom())) {
                     // La route relie la ville actuelle à une ville non encore capturée
+                    for (String v : route.getNomVilles()){
+                        if (!Historique.get(d).contains(v)){
+                            Historique.get(d).add(v);
+                        }
+                    }
                     if (checkOrdreDestination) {
                         for (String v : route.getNomVilles()){
                             if (!ordreVillesDejaCapturer.get(d).contains(v)){
@@ -721,6 +733,11 @@ public class Joueur {
                     break;
                 } else if (route.getVille2().nom().equals(villeActuelle) && villesCapturées.contains(route.getVille1().nom())) {
                     // La route relie la ville actuelle à une ville non encore capturée
+                    for (String v : route.getNomVillesInverser()){
+                        if (!Historique.get(d).contains(v)){
+                            Historique.get(d).add(v);
+                        }
+                    }
                     if (checkOrdreDestination) {
                         for (String v : route.getNomVillesInverser()){
                             if (!ordreVillesDejaCapturer.get(d).contains(v)){
@@ -761,6 +778,10 @@ public class Joueur {
 
     public Map<Destination, List<String>> getOrdreVillesACapturer() {
         return ordreVillesACapturer;
+    }
+
+    public Map<Destination, List<String>> getHistorique() {
+        return Historique;
     }
 
     //TODO calculerScoreFinal()
