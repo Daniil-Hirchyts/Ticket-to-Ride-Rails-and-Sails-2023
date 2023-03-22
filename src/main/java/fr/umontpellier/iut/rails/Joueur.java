@@ -664,12 +664,17 @@ public class Joueur {
     private void conditionGagnantePort(Ville ville) {
         for (CarteTransport c : cartesTransportPosees) {
             if (jeu.getCartesTransportVisibles().size() < 6) {
-                if (!c.estDouble()) {
+                if (c.getType().equals(TypeCarteTransport.WAGON) || c.getType().equals(TypeCarteTransport.JOKER)) {
                     jeu.getCartesTransportVisibles().add(c);
-                    setNbPionsBateau(getNbPionsBateau() - 1);
+                    setNbPionsWagon(getNbPionsWagon() - 1);
                 } else {
-                    jeu.getCartesTransportVisibles().add(c);
-                    setNbPionsBateau(getNbPionsBateau() - 2);
+                    if (!c.estDouble()) {
+                        jeu.getCartesTransportVisibles().add(c);
+                        setNbPionsBateau(getNbPionsBateau() - 1);
+                    } else {
+                        jeu.getCartesTransportVisibles().add(c);
+                        setNbPionsBateau(getNbPionsBateau() - 2);
+                    }
                 }
             } else if (c.getType().equals(TypeCarteTransport.WAGON) || c.getType().equals(TypeCarteTransport.JOKER)) {
                 jeu.getPilesDeCartesWagon().defausser(c);
