@@ -149,10 +149,12 @@ public class Joueur {
     private void capturerRoute(String inputTour) {
         List<Route> routeTemp = new ArrayList<>(jeu.getRoutesLibres());
         for (Route r : routeTemp) {
-            if (r.getNom().equals(inputTour) && r instanceof RouteTerrestre && nbPionsWagon >= r.getLongueur()) capturerRouteTerrestre((RouteTerrestre) r);
+            if (r.getNom().equals(inputTour) && r instanceof RouteTerrestre && nbPionsWagon >= r.getLongueur())
+                capturerRouteTerrestre((RouteTerrestre) r);
             else if (r.getNom().equals(inputTour) && r instanceof RouteMaritime && nbPionsBateau >= r.getLongueur())
                 capturerRouteMaritime((RouteMaritime) r);
-            else if (r.getNom().equals(inputTour) && r instanceof RoutePaire && nbPionsWagon + nbPionsBateau > r.getLongueur()) capturerRoutePaire((RoutePaire) r);
+            else if (r.getNom().equals(inputTour) && r instanceof RoutePaire && nbPionsWagon + nbPionsBateau > r.getLongueur())
+                capturerRoutePaire((RoutePaire) r);
         }
     }
 
@@ -185,6 +187,9 @@ public class Joueur {
         carteCorrect.removeAll(cloneCarteCorrect);
         for (CarteTransport c : cartesTransport)
             if (c.getType().equals(TypeCarteTransport.JOKER)) carteCorrect.add(c);
+        if (routes.contains(r.getRouteParallele())) {
+            chosenColor.clear();
+        }
         if (!chosenColor.isEmpty()) {
             Couleur finalChosenColor = null;
             List<String> choixCarteWagon = carteCorrect.stream()
@@ -255,6 +260,9 @@ public class Joueur {
             }
         }
         cloneCarteCorrect.clear();
+        if (routes.contains(r.getRouteParallele())) {
+            chosenColor.clear();
+        }
         if (!chosenColor.isEmpty()) {
             Couleur finalChosenColor = null;
             CarteTransport uneCarteSimpleAEtePoser = null;
@@ -333,7 +341,7 @@ public class Joueur {
                             haveToRemove = true;
                             cloneCarteCorrect.add(c);
                             nbDoubleEtSimple.set(1, nbDoubleEtSimple.get(1) + 1);
-                            OpposerNbDoubleEtSimple.set(1, OpposerNbDoubleEtSimple.get(1) - 1);////                                                                                         faux                 vrai
+                            OpposerNbDoubleEtSimple.set(1, OpposerNbDoubleEtSimple.get(1) - 1);
                         } else if (!c.estDouble() && c.getNom().equals(inputChoix) && (c.getCouleur().equals(finalChosenColor) || c.getType().equals(TypeCarteTransport.JOKER))) {
                             cartesTransportPosees.add(selectedCard);
                             cartesTransport.remove(selectedCard);
@@ -507,7 +515,7 @@ public class Joueur {
             if (c.getType().equals(TypeCarteTransport.WAGON)) {
                 jeu.getPilesDeCartesWagon().defausser(c);
                 setNbPionsWagon(getNbPionsWagon() - 1);
-            } else if (c.getType().equals(TypeCarteTransport.BATEAU)){
+            } else if (c.getType().equals(TypeCarteTransport.BATEAU)) {
                 if (!c.estDouble()) {
                     jeu.getPilesDeCartesBateau().defausser(c);
                     setNbPionsBateau(getNbPionsBateau() - 1);
@@ -515,7 +523,7 @@ public class Joueur {
                     jeu.getPilesDeCartesBateau().defausser(c);
                     setNbPionsBateau(getNbPionsBateau() - 2);
                 }
-            }else if (c.getType().equals(TypeCarteTransport.JOKER)) {
+            } else if (c.getType().equals(TypeCarteTransport.JOKER)) {
                 if (r instanceof RouteMaritime) {
                     jeu.getPilesDeCartesWagon().defausser(c);
                     setNbPionsBateau(getNbPionsBateau() - 1);
@@ -663,7 +671,7 @@ public class Joueur {
             if (c.getType().equals(TypeCarteTransport.WAGON) || c.getType().equals(TypeCarteTransport.JOKER)) {
                 jeu.getPilesDeCartesWagon().defausser(c);
                 setNbPionsWagon(getNbPionsWagon() - 1);
-            } else if (c.getType().equals(TypeCarteTransport.BATEAU)){
+            } else if (c.getType().equals(TypeCarteTransport.BATEAU)) {
                 if (!c.estDouble()) {
                     jeu.getPilesDeCartesBateau().defausser(c);
                     setNbPionsBateau(getNbPionsBateau() - 1);
@@ -681,7 +689,7 @@ public class Joueur {
 
     public boolean destinationEstComplete(Destination d) {
         String villeDépart = d.getVilles().get(0);
-        String villeArrivée = d.getVilles().get(d.getVilles().size()-1);
+        String villeArrivée = d.getVilles().get(d.getVilles().size() - 1);
         Set<String> villesCapturées = new HashSet<>();
         for (Route route : routes) {
             villesCapturées.add(route.getVille1().nom());
@@ -692,9 +700,12 @@ public class Joueur {
             return false;
         }
         boolean checkOrdreDestination = false;
-        if (Historique.get(d) == null) {
-            Historique.put(d, d.getVilles());
+        if (d.getValeurSimple()==d.getValeurMax()) {
+            if (Historique.get(d) == null) {
+                Historique.put(d, new ArrayList<>());
+            }
         }
+
         if (d.getValeurMax() != d.getValeurSimple()) {
             if (ordreVillesACapturer.get(d) == null) {
                 ordreVillesACapturer.put(d, d.getVilles());
@@ -711,14 +722,14 @@ public class Joueur {
             for (Route route : routeActuelle) {
                 if (route.getVille1().nom().equals(villeActuelle) && villesCapturées.contains(route.getVille2().nom())) {
                     // La route relie la ville actuelle à une ville non encore capturée
-                    for (String v : route.getNomVilles()){
-                        if (!Historique.get(d).contains(v)){
+                    for (String v : route.getNomVilles()) {
+                        if (!Historique.get(d).contains(v)) {
                             Historique.get(d).add(v);
                         }
                     }
                     if (checkOrdreDestination) {
-                        for (String v : route.getNomVilles()){
-                            if (!ordreVillesDejaCapturer.get(d).contains(v)){
+                        for (String v : route.getNomVilles()) {
+                            if (!ordreVillesDejaCapturer.get(d).contains(v)) {
                                 ordreVillesDejaCapturer.get(d).add(v);
                             }
                         }
@@ -733,14 +744,14 @@ public class Joueur {
                     break;
                 } else if (route.getVille2().nom().equals(villeActuelle) && villesCapturées.contains(route.getVille1().nom())) {
                     // La route relie la ville actuelle à une ville non encore capturée
-                    for (String v : route.getNomVillesInverser()){
-                        if (!Historique.get(d).contains(v)){
+                    for (String v : route.getNomVillesInverser()) {
+                        if (!Historique.get(d).contains(v)) {
                             Historique.get(d).add(v);
                         }
                     }
                     if (checkOrdreDestination) {
-                        for (String v : route.getNomVillesInverser()){
-                            if (!ordreVillesDejaCapturer.get(d).contains(v)){
+                        for (String v : route.getNomVillesInverser()) {
+                            if (!ordreVillesDejaCapturer.get(d).contains(v)) {
                                 ordreVillesDejaCapturer.get(d).add(v);
                             }
                         }
@@ -765,6 +776,10 @@ public class Joueur {
                 villeActuelle = routeSuivante.getVille2().nom();
             } else {
                 villeActuelle = routeSuivante.getVille1().nom();
+            }
+            //pour toute les destination que le joueur a on affiche sont historique
+            for (Destination dest : getDestinations()) {
+                System.out.println("Historique de " + dest + " : " + Historique.get(dest));
             }
             routeActuelle.remove(routeDejaVue);
             routeDejaVue = null;
@@ -867,7 +882,23 @@ public class Joueur {
                             compteurJoker++;
                         }
                     }
-                    while (compteurJoker >= 3) {
+                    boolean carteWagonPresente = true;
+                    while (compteurJoker >= 3 && carteWagonPresente) {
+                        int cptCarteWagon = 0;
+                        for (CarteTransport c : jeu.getPilesDeCartesWagon().getPilePioche()) {
+                            if (c.getType().equals(TypeCarteTransport.WAGON)) {
+                                cptCarteWagon++;
+                            }
+                        }
+                        for (CarteTransport c : jeu.getCartesTransportVisibles()) {
+                            if (c.getType().equals(TypeCarteTransport.WAGON)) {
+                                cptCarteWagon++;
+                            }
+                        }
+                        if (cptCarteWagon == 0) {
+                            carteWagonPresente = false;
+                            break;
+                        }
                         for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
                             if (carteTransport.getType().equals(TypeCarteTransport.WAGON) || carteTransport.getType().equals(TypeCarteTransport.JOKER)) {
                                 pilesDeCartesWagon.remiseDansLaPile(carteTransport);
@@ -879,11 +910,9 @@ public class Joueur {
                         jeu.getPilesDeCartesWagon().shuffle();
                         jeu.getPilesDeCartesBateau().shuffle();
                         //on pioche aléatoirement dans les deux piles de cartes pour remplir les cartes visibles
-                        if (jeu.getPilesDeCartesBateau().getNbCartes() > 3 && jeu.getPilesDeCartesWagon().getNbCartes() > 3) {
-                            for (int i = 0; i < 3; i++) {
-                                jeu.getCartesTransportVisibles().add(pilesDeCartesWagon.piocher());
-                                jeu.getCartesTransportVisibles().add(pilesDeCartesBateau.piocher());
-                            }
+                        for (int i = 0; i < 3; i++) {
+                            jeu.getCartesTransportVisibles().add(pilesDeCartesWagon.piocher());
+                            jeu.getCartesTransportVisibles().add(pilesDeCartesBateau.piocher());
                         }
                         compteurJoker = 0;
                         for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
@@ -892,6 +921,7 @@ public class Joueur {
                             }
                         }
                     }
+
                     carteNonTire = false;
                 } else if (choixPioche.equals("BATEAU") && !jeu.getPilesDeCartesBateau().isEmpty()) {
                     CarteTransport carteBateau = pilesDeCartesBateau.piocher();

@@ -41,6 +41,10 @@ public class PilesCartesTransport {
         Collections.shuffle(pilePioche);
     }
 
+    public List<CarteTransport> getPilePioche() {
+        return pilePioche;
+    }
+
     public void remiseDansLaPile(CarteTransport carte) {
         pilePioche.add(carte);
     }
