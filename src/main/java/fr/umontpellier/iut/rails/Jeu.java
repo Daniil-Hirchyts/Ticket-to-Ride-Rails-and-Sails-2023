@@ -244,12 +244,13 @@ public class Jeu implements Runnable {
      */
     public void faireChoixPions(Joueur j) {
         joueurCourant = j;
+        boolean choixPions = true;
         List<String> choix = IntStream.rangeClosed(10, 25)
                 .mapToObj(String::valueOf)
                 .collect(Collectors.toList());
-        while (true) {
+        while (choixPions) {
             String inputTour = j.choisir("<h3>Combien de wagon voulez vous garder? (10-25)</h3>"
-                    , choix, null, false);
+                    , choix, null, true);
             if (choix.contains(inputTour)) {
                 int nbWagon = Integer.parseInt(inputTour);
                 j.setNbPionsWagon(nbWagon);
@@ -257,7 +258,10 @@ public class Jeu implements Runnable {
                 int nbBateau = 60 - nbWagon;
                 j.setNbPionsBateau(nbBateau);
                 j.setNbPionsBateauEnReserve(50 - nbBateau);
-                break;
+                choixPions = false;
+            }
+            else if(inputTour.equals("")) {
+                choixPions = false;
             }
         }
     }
@@ -288,6 +292,10 @@ public class Jeu implements Runnable {
         return pilesDeCartesBateau.estVide();
     }
 
+    public List<Destination> getPileDeCartesDestination() {
+        return pileDestinations;
+    }
+
     public Destination piocherDestination() {
         if (pileDestinations.isEmpty()) {
             return null;
@@ -308,6 +316,7 @@ public class Jeu implements Runnable {
     public void addInput(String message) {
         inputQueue.add(message);
     }
+
 
     /**
      * Lit une ligne de l'entrée standard
