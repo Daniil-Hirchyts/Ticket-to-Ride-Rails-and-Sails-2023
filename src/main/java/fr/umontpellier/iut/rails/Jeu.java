@@ -261,6 +261,10 @@ public class Jeu implements Runnable {
                 choixPions = false;
             }
             else if(inputTour.equals("")) {
+                j.setNbPionsBateau(60);
+                j.setNbPionsBateauEnReserve(10);
+                j.setNbPionsWagon(0);
+                j.setNbPionsWagonEnReserve(25);
                 choixPions = false;
             }
         }
