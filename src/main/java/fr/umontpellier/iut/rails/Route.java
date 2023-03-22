@@ -80,6 +80,13 @@ public abstract class Route {
         return nomVilles;
     }
 
+    public List<String> getNomVillesInverser() {
+        List<String> nomVilles = new ArrayList<>();
+        nomVilles.add(ville2.nom());
+        nomVilles.add(ville1.nom());
+        return nomVilles;
+    }
+
     public Couleur getCouleur() {
         return couleur;
     }

@@ -64,8 +64,8 @@ public class Joueur {
     private boolean fin = false;
     private int compteur = 0;
 
-    private Map<Destination, Set<String>> ordreVillesACapturer = new HashMap<>();
-    private Map<Destination, Set<String>> ordreVillesDejaCapturer = new HashMap<>();
+    private Map<Destination, List<String>> ordreVillesACapturer = new HashMap<>();
+    private Map<Destination, List<String>> ordreVillesDejaCapturer = new HashMap<>();
 
     public Joueur(String nom, Jeu jeu, CouleurJouer couleur) {
         this.nom = nom;
@@ -685,18 +685,15 @@ public class Joueur {
             villesCapturées.add(route.getVille1().nom());
             villesCapturées.add(route.getVille2().nom());
         }
-        System.out.println("condition 1 : " + !villesCapturées.contains(villeDépart));
-        System.out.println("condition 2 : " + !villesCapturées.contains(villeArrivée));
         if (!villesCapturées.contains(villeDépart) || !villesCapturées.contains(villeArrivée)) {
             // Si la ville de départ ou d'arrivée ne sont pas capturées, la destination ne peut pas être complète
             return false;
         }
         boolean checkOrdreDestination = false;
         if (d.getValeurMax() != d.getValeurSimple()) {
-            //transformer en list de list
-            ordreVillesACapturer.put(d, d.getVillesSet());
+            ordreVillesACapturer.put(d, d.getVilles());
             System.out.println("ordreVillesACapturer : " + ordreVillesACapturer.get(d));
-            ordreVillesDejaCapturer.put(d, new HashSet<>());
+            ordreVillesDejaCapturer.put(d, new ArrayList<>());
             checkOrdreDestination = true;
         }
         String villeActuelle = villeDépart;
@@ -705,13 +702,14 @@ public class Joueur {
         while (true) {
             Route routeSuivante = null;
             for (Route route : routeActuelle) {
-                System.out.println(route.getVille1().nom().equals(villeActuelle));
-                System.out.println(villesCapturées.contains(route.getVille2().nom()));
                 if (route.getVille1().nom().equals(villeActuelle) && villesCapturées.contains(route.getVille2().nom())) {
                     // La route relie la ville actuelle à une ville non encore capturée
                     if (checkOrdreDestination) {
-                        ordreVillesDejaCapturer.get(d).add(route.getVille1().nom());
-                        ordreVillesDejaCapturer.get(d).add(route.getVille2().nom());
+                        for (String v : route.getNomVilles()){
+                            if (!ordreVillesDejaCapturer.get(d).contains(v)){
+                                ordreVillesDejaCapturer.get(d).add(v);
+                            }
+                        }
                         System.out.println("ordreVillesDejaCapturer : " + ordreVillesDejaCapturer.get(d));
                     }
                     if (route.getVille2().nom().equals(villeArrivée)) {
@@ -724,8 +722,11 @@ public class Joueur {
                 } else if (route.getVille2().nom().equals(villeActuelle) && villesCapturées.contains(route.getVille1().nom())) {
                     // La route relie la ville actuelle à une ville non encore capturée
                     if (checkOrdreDestination) {
-                        ordreVillesDejaCapturer.get(d).add(route.getVille2().nom());
-                        ordreVillesDejaCapturer.get(d).add(route.getVille1().nom());
+                        for (String v : route.getNomVillesInverser()){
+                            if (!ordreVillesDejaCapturer.get(d).contains(v)){
+                                ordreVillesDejaCapturer.get(d).add(v);
+                            }
+                        }
                         System.out.println("ordreVillesDejaCapturer : " + ordreVillesDejaCapturer.get(d));
                     }
                     if (route.getVille1().nom().equals(villeArrivée)) {
@@ -754,6 +755,13 @@ public class Joueur {
         }
     }
 
+    public Map<Destination, List<String>> getOrdreVillesDejaCapturer() {
+        return ordreVillesDejaCapturer;
+    }
+
+    public Map<Destination, List<String>> getOrdreVillesACapturer() {
+        return ordreVillesACapturer;
+    }
 
     //TODO calculerScoreFinal()
     public int calculerScoreFinal() {
