@@ -332,7 +332,7 @@ public class Joueur {
                             nbDoubleEtSimple.set(1, nbDoubleEtSimple.get(1) + 1);
                             OpposerNbDoubleEtSimple.set(1, OpposerNbDoubleEtSimple.get(1) - 1);
                         }
-                    } else if (MemoireWagonSimpleEtDouble.get(1) + jokerCount == 1 && r.getLongueur() == 1) {
+                    } else if (r.getLongueur() == 1) {
                         if (!c.estDouble() && c.getNom().equals(inputChoix) && finalChosenColor == null && !c.getType().equals(TypeCarteTransport.JOKER)) {
                             cartesTransportPosees.add(selectedCard);
                             cartesTransport.remove(selectedCard);
