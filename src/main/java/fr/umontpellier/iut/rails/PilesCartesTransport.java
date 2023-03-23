@@ -35,6 +35,24 @@ public class PilesCartesTransport {
         return pilePioche.remove(0);
     }
 
+    public void setPilePioche() {
+        pilePioche.addAll(pileDefausse);
+        pileDefausse.clear();
+        Collections.shuffle(pilePioche);
+    }
+
+    public List<CarteTransport> getPilePioche() {
+        return pilePioche;
+    }
+
+    public void remiseDansLaPile(CarteTransport carte) {
+        pilePioche.add(carte);
+    }
+
+    public void shuffle() {
+        Collections.shuffle(pilePioche);
+    }
+
     public void defausser(CarteTransport carte) {
         pileDefausse.add(carte);
     }
@@ -51,6 +69,10 @@ public class PilesCartesTransport {
         cartes.addAll(pilePioche);
         cartes.addAll(pileDefausse);
         return cartes;
+    }
+
+    public int getNbCartes() {
+        return pilePioche.size() + pileDefausse.size();
     }
 
     public Map<String, Object> dataMap() {

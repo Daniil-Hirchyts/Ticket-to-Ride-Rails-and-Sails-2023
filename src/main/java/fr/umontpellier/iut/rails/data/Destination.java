@@ -1,8 +1,6 @@
 package fr.umontpellier.iut.rails.data;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class Destination {
     /**
@@ -139,6 +137,10 @@ public class Destination {
 
     public List<String> getVilles() {
         return villes;
+    }
+
+    public Set<String> getVillesSet() {
+        return new HashSet<>(villes);
     }
 
     public int getValeurSimple() {

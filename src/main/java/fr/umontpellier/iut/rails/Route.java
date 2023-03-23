@@ -3,6 +3,9 @@ package fr.umontpellier.iut.rails;
 import fr.umontpellier.iut.rails.data.Couleur;
 import fr.umontpellier.iut.rails.data.Ville;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Route {
     /**
      * Première extrémité
@@ -70,7 +73,20 @@ public abstract class Route {
             default -> 0;
         };
     }
-    
+    public List<String> getNomVilles() {
+        List<String> nomVilles = new ArrayList<>();
+        nomVilles.add(ville1.nom());
+        nomVilles.add(ville2.nom());
+        return nomVilles;
+    }
+
+    public List<String> getNomVillesInverser() {
+        List<String> nomVilles = new ArrayList<>();
+        nomVilles.add(ville2.nom());
+        nomVilles.add(ville1.nom());
+        return nomVilles;
+    }
+
     public Couleur getCouleur() {
         return couleur;
     }
