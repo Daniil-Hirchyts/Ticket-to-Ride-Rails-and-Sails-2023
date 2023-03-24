@@ -152,7 +152,7 @@ public class Joueur {
     }
 
     private boolean nePeuxRienFaire() {
-        return nbPionsWagonEnReserve == 0 && nbPionsBateauEnReserve == 0 && destinations.isEmpty() && cartesTransportPosees.isEmpty() && jeu.getRoutesLibres().isEmpty() && jeu.getPortsLibres().isEmpty();
+        return destinations.isEmpty() && cartesTransportPosees.isEmpty() && jeu.getRoutesLibres().isEmpty() && jeu.getPortsLibres().isEmpty();
     }
 
     private void capturerRoute(String inputTour) {
@@ -891,6 +891,9 @@ public class Joueur {
                             compteurJoker++;
                         }
                     }
+                    //TODO : MODIFIER LE CODE POUR QUE LE JOUEUR PUISSE CHOISIR LA CARTE QUI VA ETRE RETIRER
+                    //le joueur dois choisir si il veut retirer une carte wagon ou bateau
+                    //attention au cas ou il y a pas assez de carte bateau et qu'il y a pas de carte wagon dans la pile
                     boolean carteWagonPresente = true;
                     while (compteurJoker >= 3 && carteWagonPresente) {
                         int cptCarteWagon = 0;
