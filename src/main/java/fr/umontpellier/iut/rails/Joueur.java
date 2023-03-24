@@ -105,6 +105,7 @@ public class Joueur {
         return nom;
     }
 
+    private String inputTour;
     /**
      * Cette méthode est appelée à tour de rôle pour chacun des joueurs de la partie.
      * Elle doit réaliser un tour de jeu, pendant lequel le joueur a le choix entre 5 actions possibles :
@@ -127,7 +128,11 @@ public class Joueur {
             choixTour.addAll(choixRoute);
             choixTour.addAll(choixCarteVisible);
             choixTour.addAll(choixPort);
-            String inputTour = choisir("<h3>Qu'elle choix d'action ferez vous?</h3>", choixTour, fin ? null : boutons, fin);
+            if(nePeuxRienFaire()){
+                inputTour = choisir("<h3>Vous ne pouvez rien faire. Passez-votre tour</h3>", null, null, true);
+            } else {
+                inputTour = choisir("<h3>Qu'elle choix d'action ferez vous?</h3>", choixTour, fin ? null : boutons, fin);
+            }
             if (fin && inputTour.equals("")) tour = false;
             if (inputTour.equals("WAGON") || inputTour.equals("BATEAU"))
                 joueurPiocheDansLeDeck(cartesTransport, inputTour);
@@ -144,6 +149,10 @@ public class Joueur {
             }
         } while (tour);
         tour = true;
+    }
+
+    private boolean nePeuxRienFaire() {
+        return nbPionsWagonEnReserve == 0 && nbPionsBateauEnReserve == 0 && destinations.isEmpty() && cartesTransportPosees.isEmpty() && jeu.getRoutesLibres().isEmpty() && jeu.getPortsLibres().isEmpty();
     }
 
     private void capturerRoute(String inputTour) {
