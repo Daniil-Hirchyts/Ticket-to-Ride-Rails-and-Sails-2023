@@ -17,7 +17,9 @@ import fr.umontpellier.iut.rails.data.Couleur;
 import fr.umontpellier.iut.rails.data.Destination;
 import fr.umontpellier.iut.rails.data.TypeCarteTransport;
 import fr.umontpellier.iut.rails.data.Ville;
+import org.junit.jupiter.api.Timeout;
 
+@Timeout(value = 1, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
 public class JoueurProfTest {
     private IOJeu jeu;
     private List<CarteTransport> piocheWagon;
@@ -71,6 +73,14 @@ public class JoueurProfTest {
         TestUtils.setAttribute(joueur1, "nbPionsWagonEnReserve", 5);
         TestUtils.setAttribute(joueur1, "nbPionsBateau", 40);
         TestUtils.setAttribute(joueur1, "nbPionsBateauEnReserve", 10);
+
+        // initialisation des cartes visibles
+        cartesTransportVisibles.add(jeu.piocherCarteWagon());
+        cartesTransportVisibles.add(jeu.piocherCarteWagon());
+        cartesTransportVisibles.add(jeu.piocherCarteWagon());
+        cartesTransportVisibles.add(jeu.piocherCarteBateau());
+        cartesTransportVisibles.add(jeu.piocherCarteBateau());
+        cartesTransportVisibles.add(jeu.piocherCarteBateau());
     }
 
     @Test
@@ -125,10 +135,6 @@ public class JoueurProfTest {
                 ""); // fin du tour
         joueur1.jouerTour();
         assertEquals(2, destinations.size());
-        String jepeuxvoir = "";
-        for (Destination dest : destinations) {
-            jepeuxvoir += dest.getNom() + " ";
-        }
         assertTrue(destinations.contains(destAB));
         assertTrue(destinations.contains(destGH));
         assertEquals(destIJ, pileDestinations.get(0));
@@ -478,7 +484,7 @@ public class JoueurProfTest {
                 "C142", // bateau rouge
                 "C141", // bateau vert (invalide)
                 "C144"); // bateau rouge
-         joueur1.jouerTour();
+        joueur1.jouerTour();
 
         assertEquals(2, cartesJoueur1.size());
         assertTrue(cartesJoueur1.contains(c1));
@@ -734,8 +740,7 @@ public class JoueurProfTest {
 
         joueur1.jouerTour();
 
-//        assertEquals(1, defausseWagon.size());
-        System.out.println(defausseWagon);
+        assertEquals(1, defausseWagon.size());
         assertEquals(2, defausseBateau.size());
         assertTrue(defausseWagon.contains(c6));
         assertTrue(defausseBateau.contains(c1));
