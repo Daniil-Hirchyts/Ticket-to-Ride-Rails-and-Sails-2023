@@ -941,7 +941,7 @@ public class Joueur {
             }
         }
         scoreFinal += -((3 - ports.size()) * 4);
-        score += scoreFinal;
+        scoreFinal += score;
         return scoreFinal;
     }
 
