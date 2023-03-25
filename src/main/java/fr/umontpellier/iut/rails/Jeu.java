@@ -188,6 +188,7 @@ public class Jeu implements Runnable {
         for (Joueur joueur : joueurs) {
             joueurCourant = joueur;
             joueur.jouerTour();
+            log("Fin du tour de " + joueur.getNom());
             log("Score de " + joueur.getNom() + " : " + joueur.getScore());
         }
     }
