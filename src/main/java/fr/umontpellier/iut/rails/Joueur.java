@@ -67,9 +67,9 @@ public class Joueur {
     private boolean haveToRemove = false;
     private final Map<Destination, List<String>> ordreVillesACapturer = new HashMap<>();
     private final Map<Destination, List<String>> ordreVillesDejaCapturer = new HashMap<>();
-    
+
     private final Map<Destination, List<String>> Historique = new HashMap<>();
-    
+
     private Boolean encoreDesCartes = true;
 
     public Joueur(String nom, Jeu jeu, CouleurJouer couleur) {
@@ -87,27 +87,27 @@ public class Joueur {
         this.destinations = new ArrayList<>();
         this.score = 0;
     }
-    
+
     public void setNbPionsWagonEnReserve(int nbPionsWagonEnReserve) {
         this.nbPionsWagonEnReserve = nbPionsWagonEnReserve;
     }
-    
+
     public void setNbPionsBateauEnReserve(int nbPionsBateauEnReserve) {
         this.nbPionsBateauEnReserve = nbPionsBateauEnReserve;
     }
-    
+
     public List<Destination> getDestinations() {
         return destinations;
     }
-    
+
     public List<CarteTransport> getCartesTransport() {
         return cartesTransport;
     }
-    
+
     public String getNom() {
         return nom;
     }
-    
+
     /**
      * Cette méthode est appelée à tour de rôle pour chacun des joueurs de la partie.
      * Elle doit réaliser un tour de jeu, pendant lequel le joueur a le choix entre 5 actions possibles :
@@ -157,7 +157,7 @@ public class Joueur {
         } while (tour);
         tour = true;
     }
-    
+
     private void checker() {
         if (jeu.getPilesDeCartesBateau().isEmpty() || jeu.getPilesDeCartesWagon().isEmpty()) {
             jeu.getPilesDeCartesWagon().getPilePioche().addAll(jeu.getPilesDeCartesWagon().getPileDefausse());
@@ -241,15 +241,15 @@ public class Joueur {
                     }
                 }
             }
-            
+
         }
         //si dans la pileWagon il y aU MOINS UN WAGON NON JOKER changer cartevisible pour eviter d'avoir trois joker si il y a au moins 3 bateaux dans cartevisible+piledecartebateaux
     }
-    
+
     private boolean nePeuxRienFaire() {
         return destinations.isEmpty() && cartesTransportPosees.isEmpty() && jeu.getRoutesLibres().isEmpty() && jeu.getPortsLibres().isEmpty();
     }
-    
+
     private void capturerRoute(String inputTour) {
         List<Route> routeTemp = new ArrayList<>(jeu.getRoutesLibres());
         for (Route r : routeTemp) {
@@ -261,11 +261,11 @@ public class Joueur {
                 capturerRoutePaire((RoutePaire) r);
         }
     }
-    
+
     public int getNombreTotalPions() {
         return nbPionsWagonEnReserve + nbPionsBateauEnReserve;
     }
-    
+
     private void capturerRouteTerrestre(RouteTerrestre r) {
         Map<Couleur, Integer> colorCount = new HashMap<>();
         List<CarteTransport> carteCorrect = new ArrayList<>();
@@ -337,7 +337,7 @@ public class Joueur {
                     colorCount.put(c.getCouleur(), colorCount.getOrDefault(c.getCouleur(), 0) + 1);
                 }
                 carteCorrect.add(c);
-                
+
             }
         }
 
@@ -530,7 +530,7 @@ public class Joueur {
                             } else if (DebutCouleur.contains(c.getCouleur())) {
                                 nbCouleurValide.set(DebutCouleur.indexOf(c.getCouleur()), nbCouleurValide.get(DebutCouleur.indexOf(c.getCouleur())) + 1);
                                 dataCartePosees(c, cartesTransportPosees, carteCorrecteTemp, choixCarteWagon, inputChoix);
-                                
+
                             }
                         }
                     }
@@ -569,30 +569,30 @@ public class Joueur {
             conditionGagnante(r);
         }
     }
-    
+
     public void dataCartePosees(CarteTransport c, List<CarteTransport> cartesTransportPosees, List<CarteTransport> carteCorrecteTemp, List<String> choixCarteWagon, String inputChoix) {
         cartesTransportPosees.add(c);
         cartesTransport.remove(c);
         choixCarteWagon.remove(inputChoix);
         carteCorrecteTemp.add(c);
     }
-    
+
     public int getNbPionsWagon() {
         return nbPionsWagon;
     }
-    
+
     public void setNbPionsWagon(int nbPionsWagon) {
         this.nbPionsWagon = nbPionsWagon;
     }
-    
+
     public int getNbPionsBateau() {
         return nbPionsBateau;
     }
-    
+
     public void setNbPionsBateau(int nbPionsBateau) {
         this.nbPionsBateau = nbPionsBateau;
     }
-    
+
     private void conditionGagnante(Route r) {
         Collection<Route> routesLibres = jeu.getRoutesLibres();
         for (CarteTransport c : cartesTransportPosees) {
@@ -624,7 +624,7 @@ public class Joueur {
         routesLibres.remove(r);
         tour = false;
     }
-    
+
     private void construirePort(String inputTour) {
         boolean peuxConstruirePort = true;
         List<CarteTransport> cartesCorrectes = new ArrayList<>();
@@ -676,7 +676,7 @@ public class Joueur {
                     for (CarteTransport c : cartesCorrectes) {
                         if (c.getCouleur().equals(Couleur.values()[i]) && !c.getType().equals(TypeCarteTransport.JOKER)) {
                             choixCarteConstructionPort.add(c.getNom());
-                            
+
                         }
                     }
                     compteurPairValide++;
@@ -748,7 +748,7 @@ public class Joueur {
                 System.out.println("Vous n'avez pas assez de carte pour construire un port");
         }
     }
-    
+
     private void conditionGagnantePort(Ville ville) {
         for (CarteTransport c : cartesTransportPosees) {
             if (c.getType().equals(TypeCarteTransport.WAGON) || c.getType().equals(TypeCarteTransport.JOKER)) {
@@ -769,7 +769,7 @@ public class Joueur {
         jeu.getPortsLibres().remove(ville);
         tour = false;
     }
-    
+
     public boolean destinationEstComplete(Destination d) {
         String villeDépart = d.getVilles().get(0);
         String villeArrivée = d.getVilles().get(d.getVilles().size() - 1);
@@ -786,7 +786,7 @@ public class Joueur {
         if (d.getValeurSimple() == d.getValeurMax()) {
             Historique.computeIfAbsent(d, k -> new ArrayList<>());
         }
-        
+
         if (d.getValeurMax() != d.getValeurSimple()) {
             if (ordreVillesACapturer.get(d) == null) {
                 ordreVillesACapturer.put(d, d.getVilles());
@@ -869,7 +869,7 @@ public class Joueur {
             log("ville actuelle : " + villeActuelle);
         }
     }
-    
+
     //TODO calculerScoreFinal()
     public int calculerScoreFinal() {
         int scoreFinal = 0;
@@ -882,7 +882,7 @@ public class Joueur {
                 List<String> capturedOrder = ordreVillesDejaCapturer.get(d);
                 isCorrectOrder = expectedOrder.equals(capturedOrder);
             }
-            
+
             if (isComplete) {
                 if (d.getValeurMax() == d.getValeurSimple()) scoreFinal += d.getValeurSimple() + getScorePort(d);
                 else {
@@ -890,12 +890,12 @@ public class Joueur {
                 }
             } else scoreFinal -= d.getPenalite();
         }
-        
+
         scoreFinal += ((ports.size() - 3) * 4);
         scoreFinal += score;
         return scoreFinal;
     }
-    
+
     public int getScorePort(Destination d){
         int scorePort;
         int compteur = 0;
@@ -960,7 +960,7 @@ public class Joueur {
             }
         }
     }
-    
+
     private void joueurPiocheDansLeDeck(List<CarteTransport> cartesTransport, String inputTour) {
         //si le deck est vide, on remet les cartes dans le deck
         if (jeu.getPilesDeCartesWagon().isEmpty()) {
@@ -978,7 +978,7 @@ public class Joueur {
             log("Vous ne pouvez pas piocher dans cette pile");
         }
     }
-    
+
     private void choisirPileJoueur(List<CarteTransport> cartesTransport, CarteTransport selectedCard) {
         cartesTransport.add(selectedCard);
         boolean carteNonTire = true;
@@ -1008,20 +1008,20 @@ public class Joueur {
             }
         }
     }
-    
+
     private void updateCounterAndTurn() {
         compteur++;
         fin = true;
         if (compteur >= 2) resetCounterAndTurn();
     }
-    
+
     private void resetCounterAndTurn() {
         compteur = 0;
         fin = false;
         tour = false;
     }
-    
-    
+
+
     private void prendreDestination() {
         if (jeu.getPileDeCartesDestination().size() >= 4) {
             jeu.PiocheCartesDestination(3, 4, this);
@@ -1033,7 +1033,7 @@ public class Joueur {
             log("Il n'y a plus de cartes destination");
         }
     }
-    
+
     private void echangerPions(String inputTour) {
         if (("PIONS WAGON".equals(inputTour) && nbPionsWagonEnReserve > 0 && nbPionsBateau > 0)
                 || ("PIONS BATEAU".equals(inputTour) && nbPionsBateauEnReserve > 0 && nbPionsWagon > 0)) {
@@ -1050,13 +1050,13 @@ public class Joueur {
             tour = false;
         }
     }
-    
+
     private List<String> createExchangeChoices(int maxExchange) {
         List<String> choices = new ArrayList<>();
         for (int i = 1; i <= maxExchange; i++) choices.add(String.valueOf(i));
         return choices;
     }
-    
+
     private void updatePions(boolean isWagon, int pionsExchanged) {
         if (isWagon) {
             nbPionsWagon += pionsExchanged;
@@ -1070,7 +1070,7 @@ public class Joueur {
             nbPionsBateauEnReserve -= pionsExchanged;
         }
     }
-    
+
     /**
      * Attend une entrée de la part du joueur (au clavier ou sur la websocket) et
      * renvoie le choix du joueur.
@@ -1123,13 +1123,13 @@ public class Joueur {
             choix = new ArrayList<>();
         if (boutons == null)
             boutons = new ArrayList<>();
-        
+
         HashSet<String> choixDistincts = new HashSet<>(choix);
         choixDistincts.addAll(boutons.stream().map(Bouton::valeur).toList());
         if (peutPasser || choixDistincts.isEmpty()) {
             choixDistincts.add("");
         }
-        
+
         String entree;
         // Lit l'entrée de l'utilisateur jusqu'à obtenir un choix valide
         while (true) {
@@ -1141,7 +1141,7 @@ public class Joueur {
             }
         }
     }
-    
+
     /**
      * Affiche un message dans le log du jeu (visible sur l'interface graphique)
      *
@@ -1151,7 +1151,7 @@ public class Joueur {
     public void log(String message) {
         jeu.log(message);
     }
-    
+
     @Override
     public String toString() {
         StringJoiner joiner = new StringJoiner("\n");
@@ -1159,7 +1159,7 @@ public class Joueur {
         joiner.add(String.format("  Wagons: %d  Bateaux: %d", nbPionsWagon, nbPionsBateau));
         return joiner.toString();
     }
-    
+
     /**
      * @return une chaîne de caractères contenant le nom du joueur, avec des balises
      * HTML pour être mis en forme dans le log
@@ -1167,7 +1167,7 @@ public class Joueur {
     public String toLog() {
         return String.format("<span class=\"joueur\">%s</span>", nom);
     }
-    
+
     /**
      * Renvoie une représentation du joueur sous la forme d'un dictionnaire de
      * valeurs sérialisables
@@ -1190,11 +1190,11 @@ public class Joueur {
                 Map.entry("ports", ports.stream().map(Ville::nom).toList()),
                 Map.entry("routes", routes.stream().map(Route::getNom).toList()));
     }
-    
+
     public String getScore() {
         return String.valueOf(score);
     }
-    
+
     public enum CouleurJouer {
         JAUNE, ROUGE, BLEU, VERT, ROSE;
     }
