@@ -69,6 +69,8 @@ public class Joueur {
 
     private Map<Destination, List<String>> Historique = new HashMap<>();
 
+    private Boolean encoreDesCartes = true;
+
     public Joueur(String nom, Jeu jeu, CouleurJouer couleur) {
         this.nom = nom;
         this.jeu = jeu;
@@ -105,7 +107,6 @@ public class Joueur {
         return nom;
     }
 
-    private String inputTour;
     /**
      * Cette méthode est appelée à tour de rôle pour chacun des joueurs de la partie.
      * Elle doit réaliser un tour de jeu, pendant lequel le joueur a le choix entre 5 actions possibles :
@@ -128,12 +129,32 @@ public class Joueur {
             choixTour.addAll(choixRoute);
             choixTour.addAll(choixCarteVisible);
             choixTour.addAll(choixPort);
-            if(nePeuxRienFaire()){
-                inputTour = choisir("<h3>Vous ne pouvez rien faire. Passez-votre tour</h3>", null, null, true);
-            } else {
-                inputTour = choisir("<h3>Qu'elle choix d'action ferez vous?</h3>", choixTour, fin ? null : boutons, fin);
+            if (jeu.getPilesDeCartesBateau().isEmpty() && jeu.getPilesDeCartesWagon().isEmpty()) {
+                jeu.getPilesDeCartesWagon().getPilePioche().addAll(jeu.getPilesDeCartesWagon().getPileDefausse());
+                jeu.getPilesDeCartesBateau().getPilePioche().addAll(jeu.getPilesDeCartesBateau().getPileDefausse());
+                jeu.getPilesDeCartesWagon().getPileDefausse().clear();
+                jeu.getPilesDeCartesBateau().getPileDefausse().clear();
             }
-            if (fin && inputTour.equals("")) tour = false;
+            if (jeu.getPilesDeCartesWagon().getPilePioche().size()+ jeu.getPilesDeCartesBateau().getPilePioche().size() >= 6 && jeu.getCartesTransportVisibles().size() < 6) {
+               while(jeu.getCartesTransportVisibles().size() < 6 && encoreDesCartes) {
+                    String choixPioche = choisir("<h3>Choisissez dans quelle pile piocher pour remplir la les carteVisible</h3>", Arrays.asList("WAGON", "BATEAU"), null, false);
+                    if (choixPioche.equals("WAGON")) {
+                        CarteTransport carteWagon = jeu.getPilesDeCartesWagon().piocher();
+                        if (carteWagon != null) jeu.getCartesTransportVisibles().add(carteWagon);
+                    } else {
+                        CarteTransport carteBateau = jeu.getPilesDeCartesBateau().piocher();
+                        if (carteBateau != null) jeu.getCartesTransportVisibles().add(carteBateau);
+                    }
+                    if (jeu.getPilesDeCartesWagon().getPilePioche().isEmpty() && jeu.getPilesDeCartesBateau().getPilePioche().isEmpty()) {
+                        encoreDesCartes = false;
+                    }
+                }
+            }
+            String inputTour = choisir("<h3>Qu'elle choix d'action ferez vous?</h3>", choixTour, fin ? null : boutons, fin);
+            if (fin && inputTour.equals("")){
+                tour = false;
+                compteur=0;
+            }
             if (inputTour.equals("WAGON") || inputTour.equals("BATEAU"))
                 joueurPiocheDansLeDeck(cartesTransport, inputTour);
             else if (choixCarteVisible.contains(inputTour)) joueurPiocheCarteVisible(cartesTransport, inputTour);
@@ -149,10 +170,6 @@ public class Joueur {
             }
         } while (tour);
         tour = true;
-    }
-
-    private boolean nePeuxRienFaire() {
-        return destinations.isEmpty() && cartesTransportPosees.isEmpty() && jeu.getRoutesLibres().isEmpty() && jeu.getPortsLibres().isEmpty();
     }
 
     private void capturerRoute(String inputTour) {
@@ -841,6 +858,9 @@ public class Joueur {
                 if (compteur != 1 || !selectedCard.getType().equals(TypeCarteTransport.JOKER)) {
                     if (compteur < 2 && (selectedCard.getType().equals(TypeCarteTransport.BATEAU) || selectedCard.getType().equals(TypeCarteTransport.WAGON))) {
                         choisirPileJoueur(cartesTransport, selectedCard);
+                        if  (jeu.getPilesDeCartesWagon().isEmpty() && jeu.getPilesDeCartesWagon().isEmpty() && jeu.getCartesTransportVisibles().size()<2 && jeu.getCartesTransportVisibles().contains(TypeCarteTransport.JOKER)){
+                            compteur+=2;
+                        }
                         compteur++;
                         fin = true;
                         if (compteur >= 2) resetCounterAndTurn();
@@ -891,9 +911,6 @@ public class Joueur {
                             compteurJoker++;
                         }
                     }
-                    //TODO : MODIFIER LE CODE POUR QUE LE JOUEUR PUISSE CHOISIR LA CARTE QUI VA ETRE RETIRER
-                    //le joueur dois choisir si il veut retirer une carte wagon ou bateau
-                    //attention au cas ou il y a pas assez de carte bateau et qu'il y a pas de carte wagon dans la pile
                     boolean carteWagonPresente = true;
                     while (compteurJoker >= 3 && carteWagonPresente) {
                         int cptCarteWagon = 0;

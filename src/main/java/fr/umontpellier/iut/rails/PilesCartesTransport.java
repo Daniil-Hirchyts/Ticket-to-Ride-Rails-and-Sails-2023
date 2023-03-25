@@ -57,6 +57,9 @@ public class PilesCartesTransport {
         pileDefausse.add(carte);
     }
 
+    public List<CarteTransport> getPileDefausse() {
+        return pileDefausse;
+    }
     /**
      * @return true si aucune carte ne peut être prise (si les deux piles sont vides)
      */
