@@ -9,7 +9,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Jeu implements Runnable {
     /**
@@ -55,17 +54,17 @@ public class Jeu implements Runnable {
     private String instruction;
     private Collection<Bouton> boutons;
     private boolean dernierDeuxTours = false;
-
+    
     public Jeu(String[] nomJoueurs) {
         // initialisation des entrées/sorties
         inputQueue = new LinkedBlockingQueue<>();
         log = new ArrayList<>();
-
+        
         // création des villes et des routes
         Plateau plateau = Plateau.makePlateauMonde();
         portsLibres = plateau.getPorts();
         routesLibres = plateau.getRoutes();
-
+        
         // création des piles de pioche et défausses des cartes Transport (wagon et
         // bateau)
         ArrayList<CarteTransport> cartesWagon = new ArrayList<>();
@@ -97,15 +96,15 @@ public class Jeu implements Runnable {
         }
         pilesDeCartesWagon = new PilesCartesTransport(cartesWagon);
         pilesDeCartesBateau = new PilesCartesTransport(cartesBateau);
-
+        
         // création de la liste pile de cartes transport visibles
         // (les cartes seront retournées plus tard, au début de la partie dans run())
         cartesTransportVisibles = new ArrayList<>();
-
+        
         // création des destinations
         pileDestinations = Destination.makeDestinationsMonde();
         Collections.shuffle(pileDestinations);
-
+        
         // création des joueurs
         ArrayList<Joueur.CouleurJouer> couleurs = new ArrayList<>(Arrays.asList(Joueur.CouleurJouer.values()));
         Collections.shuffle(couleurs);
@@ -115,31 +114,31 @@ public class Jeu implements Runnable {
         }
         this.joueurCourant = joueurs.get(0);
     }
-
+    
     public List<Joueur> getJoueurs() {
         return joueurs;
     }
-
+    
     public List<Ville> getPortsLibres() {
         return portsLibres;
     }
-
+    
     public List<Route> getRoutesLibres() {
         return routesLibres;
     }
-
+    
     public PilesCartesTransport getPilesDeCartesWagon() {
         return pilesDeCartesWagon;
     }
-
+    
     public PilesCartesTransport getPilesDeCartesBateau() {
         return pilesDeCartesBateau;
     }
-
+    
     public List<CarteTransport> getCartesTransportVisibles() {
         return cartesTransportVisibles;
     }
-
+    
     /**
      * Exécute la partie
      * <p>
@@ -149,12 +148,12 @@ public class Jeu implements Runnable {
      * méthode Joueur.jouerTour() jusqu'à ce que la condition de fin de partie soit réalisée.
      */
     public void run() {
-
+        
         for (int i = 0; i < 3; i++) {
             cartesTransportVisibles.add(pilesDeCartesWagon.piocher());
             cartesTransportVisibles.add(pilesDeCartesBateau.piocher());
         }
-
+        
         for (Joueur j : joueurs) {
             List<CarteTransport> cartesBateau = new ArrayList<>(pilesDeCartesBateau.getCartes());
             List<CarteTransport> cartesWagon = new ArrayList<>(pilesDeCartesWagon.getCartes());
@@ -165,25 +164,25 @@ public class Jeu implements Runnable {
                 j.getCartesTransport().add(pilesDeCartesBateau.piocher());
             }
         }
-
+        
         for (Joueur j : joueurs) {
             joueurCourant = j;
             PiocheCartesDestination(2, 5, joueurCourant);
             faireChoixPions(joueurCourant);
         }
-
+        
         do {
             jouerForEachPlayer(joueurs);
             for (Joueur j : joueurs) if (j.getNombreTotalPions() <= 6) dernierDeuxTours = true;
         } while (!dernierDeuxTours);
-
+        
         for (int i = 0; i < 2; i++) {
             jouerForEachPlayer(joueurs);
         }
-
+        
         prompt("Fin de la partie.", new ArrayList<>(), false);
     }
-
+    
     private void jouerForEachPlayer(List<Joueur> joueurs) {
         for (Joueur joueur : joueurs) {
             joueurCourant = joueur;
@@ -192,7 +191,7 @@ public class Jeu implements Runnable {
             log("Score de " + joueur.getNom() + " : " + joueur.getScore());
         }
     }
-
+    
     /**
      * Pioche des cartes destination pour un joueur
      *
@@ -202,43 +201,44 @@ public class Jeu implements Runnable {
      */
     public void PiocheCartesDestination(int nbCartesMax, int nbTotalCartes, Joueur joueurCourant) {
         List<Destination> destinations = new ArrayList<>();
-        List<String> choixDestinaton = new ArrayList<>();
-        List<String> choixDestinatonSpecial = new ArrayList<>();
-        for (int i = 0; i < nbTotalCartes; i++) destinations.add(piocherDestination());
-        joueurCourant.getDestinations().addAll(destinations);
-        for (Destination destination : destinations) {
-            choixDestinatonSpecial.add(destination.getNom());
+        Map<String, Destination> choixDestinaton = new HashMap<>();
+        Map<String, Destination> choixDestinatonSpecial = new HashMap<>();
+        
+        for (int i = 0; i < nbTotalCartes; i++) {
+            Destination destination = piocherDestination();
+            destinations.add(destination);
             StringJoiner name = new StringJoiner(",");
-            for (String ville : destination.getVilles()) name.add(ville);
-            choixDestinaton.add(name.toString());
+            for (String ville : destination.getVilles()) {
+                name.add(ville);
+            }
+            choixDestinaton.put(name.toString(), destination);
+            choixDestinatonSpecial.put(destination.getNom(), destination);
         }
+        
+        joueurCourant.getDestinations().addAll(destinations);
+        
         int compteurRemove = 0;
         while (compteurRemove < nbCartesMax) {
-            List<String> grabberDestinaton = Stream.concat(choixDestinaton.stream(), choixDestinatonSpecial.stream())
-                    .collect(Collectors.toList());
-            String inputTour = joueurCourant.choisir("<h3> Choisissez une destination a retirer.</h3>"
-                    , grabberDestinaton, null, true);
-            if (inputTour.isEmpty()) compteurRemove = nbCartesMax;
-            else {
-                Iterator<Destination> iterator = joueurCourant.getDestinations().iterator();
-                int index = 0;
-                while (iterator.hasNext()) {
-                    Destination destination = iterator.next();
-                    if (choixDestinaton.get(index).equals(inputTour) || choixDestinatonSpecial.get(index).equals(inputTour)) {
-                        iterator.remove();
-                        pileDestinations.add(destination);
-                        choixDestinaton.remove(index);
-                        choixDestinatonSpecial.remove(index);
-                        compteurRemove++;
-                        break;
-                    }
-                    index++;
+            List<String> grabberDestinaton = new ArrayList<>(choixDestinaton.keySet());
+            grabberDestinaton.addAll(choixDestinatonSpecial.keySet());
+            String inputTour = joueurCourant.choisir("<h3> Choisissez une destination a retirer.</h3>",
+                    grabberDestinaton, null, true);
+            if (inputTour.isEmpty()) {
+                compteurRemove = nbCartesMax;
+            } else {
+                Destination destinationToRemove = choixDestinaton.getOrDefault(inputTour, choixDestinatonSpecial.get(inputTour));
+                if (destinationToRemove != null) {
+                    joueurCourant.getDestinations().remove(destinationToRemove);
+                    pileDestinations.add(destinationToRemove);
+                    choixDestinaton.remove(inputTour);
+                    choixDestinatonSpecial.remove(inputTour);
+                    compteurRemove++;
                 }
             }
         }
     }
-
-
+    
+    
     /**
      * Demande au joueur de choisir le nombre de pions wagon qu'il souhaite prendre
      *
@@ -261,8 +261,7 @@ public class Jeu implements Runnable {
                 j.setNbPionsBateau(nbBateau);
                 j.setNbPionsBateauEnReserve(50 - nbBateau);
                 choixPions = false;
-            }
-            else if(inputTour.equals("")) {
+            } else if (inputTour.equals("")) {
                 j.setNbPionsBateau(35);
                 j.setNbPionsBateauEnReserve(15);
                 j.setNbPionsWagon(25);
@@ -271,7 +270,7 @@ public class Jeu implements Runnable {
             }
         }
     }
-
+    
     /**
      * Pioche une carte de la pile de pioche des cartes wagon.
      *
@@ -280,11 +279,11 @@ public class Jeu implements Runnable {
     public CarteTransport piocherCarteWagon() {
         return pilesDeCartesWagon.piocher();
     }
-
+    
     public boolean piocheWagonEstVide() {
         return pilesDeCartesWagon.estVide();
     }
-
+    
     /**
      * Pioche une carte de la pile de pioche des cartes bateau.
      *
@@ -293,37 +292,37 @@ public class Jeu implements Runnable {
     public CarteTransport piocherCarteBateau() {
         return pilesDeCartesBateau.piocher();
     }
-
+    
     public boolean piocheBateauEstVide() {
         return pilesDeCartesBateau.estVide();
     }
-
+    
     public List<Destination> getPileDeCartesDestination() {
         return pileDestinations;
     }
-
+    
     public Destination piocherDestination() {
         if (pileDestinations.isEmpty()) {
             return null;
         }
         return pileDestinations.remove(0);
     }
-
+    
     /**
      * Ajoute un message au log du jeu
      */
     public void log(String message) {
         log.add(message);
     }
-
+    
     /**
      * Ajoute un message à la file d'entrées
      */
     public void addInput(String message) {
         inputQueue.add(message);
     }
-
-
+    
+    
     /**
      * Lit une ligne de l'entrée standard
      * C'est cette méthode qui doit être appelée à chaque fois qu'on veut lire
@@ -340,7 +339,7 @@ public class Jeu implements Runnable {
             return null;
         }
     }
-
+    
     /**
      * Envoie l'état de la partie pour affichage aux joueurs avant de faire un choix
      *
@@ -357,7 +356,7 @@ public class Jeu implements Runnable {
         }
         GameServer.setEtatJeu(new Gson().toJson(dataMap()));
     }
-
+    
     @Override
     public String toString() {
         StringJoiner joiner = new StringJoiner("\n");
@@ -366,7 +365,7 @@ public class Jeu implements Runnable {
         }
         return joiner.toString();
     }
-
+    
     public Map<String, Object> dataMap() {
         return Map.ofEntries(
                 Map.entry("joueurs", joueurs.stream().map(Joueur::dataMap).toList()),
