@@ -910,18 +910,7 @@ public class Joueur {
     //TODO calculerScoreFinal()
     public int calculerScoreFinal() {
         int scoreFinal = 0;
-        
-        Map<String, Integer> portvilleCount = new HashMap<>();
-        for (Destination d : getDestinations()) {
-            boolean isComplete = destinationEstComplete(d);
-            
-            if (isComplete) {
-                for (String ville : d.getVilles()) {
-                    portvilleCount.put(ville, portvilleCount.getOrDefault(ville, 0) + 1);
-                }
-            }
-        }
-        
+
         for (Destination d : getDestinations()) {
             boolean isComplete = destinationEstComplete(d);
             boolean isCorrectOrder = false;
@@ -932,33 +921,49 @@ public class Joueur {
             }
             
             if (isComplete) {
-                if (d.getValeurMax() == d.getValeurSimple()) scoreFinal += d.getValeurSimple();
+                if (d.getValeurMax() == d.getValeurSimple()) scoreFinal += d.getValeurSimple() + getScorePort(d);
                 else {
-                    if (isCorrectOrder) scoreFinal += d.getValeurMax();
-                    else scoreFinal += d.getValeurSimple();
+                    if (isCorrectOrder) scoreFinal += d.getValeurMax() + getScorePort(d);
+                    else scoreFinal += d.getValeurSimple() + getScorePort(d);
                 }
             } else scoreFinal -= d.getPenalite();
         }
-        
-        for (Ville port : ports) {
-            String portville = port.nom();
-            int villeCount = portvilleCount.getOrDefault(portville, 0);
-            
-            switch (villeCount) {
-                case 1 -> scoreFinal += 20;
-                case 2 -> scoreFinal += 30;
-                default -> {
-                    if (villeCount >= 3) scoreFinal += 40;
-                }
-            }
-        }
+
+
         
         scoreFinal += -((3 - ports.size()) * 4);
         scoreFinal += score;
         return scoreFinal;
     }
     
-    
+    public int getScorePort(Destination d){
+        int scorePort = 0;
+        int compteur = 0;
+        boolean itineraire = false;
+        if (d.getVilles().size()>2) itineraire = true;
+        if (itineraire){
+            for (String v : ordreVillesDejaCapturer.get(d)){
+                for (Ville p : ports){
+                    if (p.nom().equals(v)){
+                        compteur++;
+                    }
+                }
+            }
+        }
+        else{
+            for (String v : Historique.get(d)){
+                for (Ville p : ports){
+                    if (p.nom().equals(v)){
+                        compteur++;
+                    }
+                }
+            }
+        }
+        switch (compteur){
+
+        }
+    }
+
     private void joueurPiocheCarteVisible(List<CarteTransport> cartesTransport, String inputTour) {
         CarteTransport selectedCard = null;
         for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
