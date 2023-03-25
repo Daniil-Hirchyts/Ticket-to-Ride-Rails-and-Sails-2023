@@ -71,6 +71,8 @@ public class Joueur {
 
     private Boolean encoreDesCartes = true;
 
+    private String inputTour;
+
     public Joueur(String nom, Jeu jeu, CouleurJouer couleur) {
         this.nom = nom;
         this.jeu = jeu;
@@ -150,7 +152,11 @@ public class Joueur {
                     }
                 }
             }
-            String inputTour = choisir("<h3>Qu'elle choix d'action ferez vous?</h3>", choixTour, fin ? null : boutons, fin);
+            if(nePeuxRienFaire()){
+                inputTour = choisir("<h3>Vous ne pouvez rien faire. Passez-votre tour</h3>", null, null, true);
+            } else {
+                inputTour = choisir("<h3>Qu'elle choix d'action ferez vous?</h3>", choixTour, fin ? null : boutons, fin);
+            }
             if (fin && inputTour.equals("")){
                 tour = false;
                 compteur=0;
@@ -172,6 +178,9 @@ public class Joueur {
         tour = true;
     }
 
+    private boolean nePeuxRienFaire() {
+        return destinations.isEmpty() && cartesTransportPosees.isEmpty() && jeu.getRoutesLibres().isEmpty() && jeu.getPortsLibres().isEmpty();
+    }
     private void capturerRoute(String inputTour) {
         List<Route> routeTemp = new ArrayList<>(jeu.getRoutesLibres());
         for (Route r : routeTemp) {
