@@ -139,10 +139,6 @@ public class Destination {
         return villes;
     }
 
-    public Set<String> getVillesSet() {
-        return new HashSet<>(villes);
-    }
-
     public int getValeurSimple() {
         return valeurSimple;
     }
