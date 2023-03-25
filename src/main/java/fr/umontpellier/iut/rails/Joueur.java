@@ -120,6 +120,7 @@ public class Joueur {
      */
     public void jouerTour() {
         do {
+            checker();
             List<Bouton> boutons = Arrays.asList(
                     new Bouton("Echanger pions wagons", "PIONS WAGON"),
                     new Bouton("Echanger pions bateaux", "PIONS BATEAU")
@@ -131,7 +132,6 @@ public class Joueur {
             choixTour.addAll(choixRoute);
             choixTour.addAll(choixCarteVisible);
             choixTour.addAll(choixPort);
-            checker();
             if(nePeuxRienFaire()){
                 inputTour = choisir("<h3>Vous ne pouvez rien faire. Passez-votre tour</h3>", null, null, true);
             } else {
@@ -355,7 +355,7 @@ public class Joueur {
                         cloneCarteCorrect.add(c);
                         nbDoubleEtSimple.set(0, nbDoubleEtSimple.get(0) + 1);
                         OpposerNbDoubleEtSimple.set(0, OpposerNbDoubleEtSimple.get(0) - 1);
-                    } else if (MemoireWagonSimpleEtDouble.get(1) + jokerCount != 1 && r.getLongueur() != 1) {
+                    } else if (OpposerNbDoubleEtSimple.get(1) + jokerCount != 1 && r.getLongueur() != 1) {
                         if (!c.estDouble() && c.getNom().equals(inputChoix) && finalChosenColor == null && !c.getType().equals(TypeCarteTransport.JOKER)) {
                             if (uneCarteSimpleAEtePoser == null) {
                                 uneCarteSimpleAEtePoser = selectedCard;
