@@ -131,27 +131,7 @@ public class Joueur {
             choixTour.addAll(choixRoute);
             choixTour.addAll(choixCarteVisible);
             choixTour.addAll(choixPort);
-            if (jeu.getPilesDeCartesBateau().isEmpty() && jeu.getPilesDeCartesWagon().isEmpty()) {
-                jeu.getPilesDeCartesWagon().getPilePioche().addAll(jeu.getPilesDeCartesWagon().getPileDefausse());
-                jeu.getPilesDeCartesBateau().getPilePioche().addAll(jeu.getPilesDeCartesBateau().getPileDefausse());
-                jeu.getPilesDeCartesWagon().getPileDefausse().clear();
-                jeu.getPilesDeCartesBateau().getPileDefausse().clear();
-            }
-            if (jeu.getPilesDeCartesWagon().getPilePioche().size()+ jeu.getPilesDeCartesBateau().getPilePioche().size() >= 6 && jeu.getCartesTransportVisibles().size() < 6) {
-               while(jeu.getCartesTransportVisibles().size() < 6 && encoreDesCartes) {
-                    String choixPioche = choisir("<h3>Choisissez dans quelle pile piocher pour remplir la les carteVisible</h3>", Arrays.asList("WAGON", "BATEAU"), null, false);
-                    if (choixPioche.equals("WAGON")) {
-                        CarteTransport carteWagon = jeu.getPilesDeCartesWagon().piocher();
-                        if (carteWagon != null) jeu.getCartesTransportVisibles().add(carteWagon);
-                    } else {
-                        CarteTransport carteBateau = jeu.getPilesDeCartesBateau().piocher();
-                        if (carteBateau != null) jeu.getCartesTransportVisibles().add(carteBateau);
-                    }
-                    if (jeu.getPilesDeCartesWagon().getPilePioche().isEmpty() && jeu.getPilesDeCartesBateau().getPilePioche().isEmpty()) {
-                        encoreDesCartes = false;
-                    }
-                }
-            }
+            checker();
             if(nePeuxRienFaire()){
                 inputTour = choisir("<h3>Vous ne pouvez rien faire. Passez-votre tour</h3>", null, null, true);
             } else {
@@ -176,6 +156,39 @@ public class Joueur {
             }
         } while (tour);
         tour = true;
+    }
+
+    private void checker() {
+         if (jeu.getPilesDeCartesBateau().isEmpty() || jeu.getPilesDeCartesWagon().isEmpty()) {
+            jeu.getPilesDeCartesWagon().getPilePioche().addAll(jeu.getPilesDeCartesWagon().getPileDefausse());
+            jeu.getPilesDeCartesBateau().getPilePioche().addAll(jeu.getPilesDeCartesBateau().getPileDefausse());
+            jeu.getPilesDeCartesWagon().getPileDefausse().clear();
+            jeu.getPilesDeCartesBateau().getPileDefausse().clear();
+        }
+        if (jeu.getCartesTransportVisibles().size() < 6 && jeu.getPilesDeCartesWagon().getPilePioche().size()+jeu.getPilesDeCartesBateau().getPilePioche().size() >0) {
+            while(jeu.getCartesTransportVisibles().size() < 6 && encoreDesCartes) {
+                String choixPioche = choisir("<h3>Choisissez dans quelle pile piocher pour remplir la les carteVisible</h3>", Arrays.asList("WAGON", "BATEAU"), null, false);
+                if (choixPioche.equals("WAGON")) {
+                    CarteTransport carteWagon = jeu.getPilesDeCartesWagon().piocher();
+                    if (carteWagon != null) jeu.getCartesTransportVisibles().add(carteWagon);
+                } else {
+                    CarteTransport carteBateau = jeu.getPilesDeCartesBateau().piocher();
+                    if (carteBateau != null) jeu.getCartesTransportVisibles().add(carteBateau);
+                }
+                if (jeu.getPilesDeCartesWagon().getPilePioche().isEmpty() && jeu.getPilesDeCartesBateau().getPilePioche().isEmpty()) {
+                    encoreDesCartes = false;
+                }
+            }
+        }
+        int compteurJoker = 0;
+        int compteurWagon = 0;
+        int compteurBateau = 0;
+        for (CarteTransport carteTransport : jeu.getCartesTransportVisibles()) {
+            if (carteTransport.getType().equals(TypeCarteTransport.JOKER)) {
+                compteurJoker++;
+            }
+        }
+        //si dans la pileWagon il y aU MOINS UN WAGON NON JOKER changer cartevisible pour eviter d'avoir trois joker si il y a au moins 3 bateaux dans cartevisible+piledecartebateaux
     }
 
     private boolean nePeuxRienFaire() {
