@@ -280,9 +280,6 @@ public class Jeu implements Runnable {
         return pilesDeCartesWagon.piocher();
     }
     
-    public boolean piocheWagonEstVide() {
-        return pilesDeCartesWagon.estVide();
-    }
     
     /**
      * Pioche une carte de la pile de pioche des cartes bateau.
@@ -291,10 +288,6 @@ public class Jeu implements Runnable {
      */
     public CarteTransport piocherCarteBateau() {
         return pilesDeCartesBateau.piocher();
-    }
-    
-    public boolean piocheBateauEstVide() {
-        return pilesDeCartesBateau.estVide();
     }
     
     public List<Destination> getPileDeCartesDestination() {
