@@ -923,13 +923,10 @@ public class Joueur {
             if (isComplete) {
                 if (d.getValeurMax() == d.getValeurSimple()) scoreFinal += d.getValeurSimple() + getScorePort(d);
                 else {
-                    if (isCorrectOrder) scoreFinal += d.getValeurMax() + getScorePort(d);
-                    else scoreFinal += d.getValeurSimple() + getScorePort(d);
+                    if (isCorrectOrder) scoreFinal += d.getValeurSimple() + getScorePort(d);
                 }
             } else scoreFinal -= d.getPenalite();
         }
-
-
         
         scoreFinal += -((3 - ports.size()) * 4);
         scoreFinal += score;
@@ -960,8 +957,12 @@ public class Joueur {
             }
         }
         switch (compteur){
-
+            case 0 -> scorePort = 0;
+            case 1 -> scorePort = 20;
+            case 2 -> scorePort = 30;
+            default -> scorePort = 40;
         }
+        return scorePort;
     }
 
     private void joueurPiocheCarteVisible(List<CarteTransport> cartesTransport, String inputTour) {
