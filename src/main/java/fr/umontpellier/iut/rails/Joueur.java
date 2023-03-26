@@ -711,7 +711,8 @@ public class Joueur {
                         if (c.getNom().equals(inputConstructionPort)) {
                             if (c.getType().equals(TypeCarteTransport.BATEAU) && couleurBateauWagon == null && nbBateuxWagonPort.get(0) < 2) {
                                 dataCartePosees(c, cartesTransportPosees, cloneCartesCorrectesToRemove, choixCarteConstructionPort, inputConstructionPort);
-                                nbBateuxWagonPort.set(0, nbBateuxWagonPort.get(0) + 1);
+                                if (c.estDouble()) nbBateuxWagonPort.set(0, nbBateuxWagonPort.get(0) + 2);
+                                else nbBateuxWagonPort.set(0, nbBateuxWagonPort.get(0) + 1);
                                 couleurBateauWagon=c.getCouleur();
                                 for (CarteTransport carteTransport : cartesCorrectes) {
                                     if (!carteTransport.getCouleur().equals(couleurBateauWagon) && carteTransport.getType().equals(TypeCarteTransport.BATEAU)) {
@@ -723,7 +724,8 @@ public class Joueur {
                                 nbBateuxWagonPort.set(0, nbBateuxWagonPort.get(0) + 1);
                             } else if (c.getType().equals(TypeCarteTransport.WAGON) && couleurBateauWagon== null && nbBateuxWagonPort.get(1) < 2) {
                                 dataCartePosees(c, cartesTransportPosees, cloneCartesCorrectesToRemove, choixCarteConstructionPort, inputConstructionPort);
-                                nbBateuxWagonPort.set(1, nbBateuxWagonPort.get(1) + 1);
+                                if (c.estDouble()) nbBateuxWagonPort.set(1, nbBateuxWagonPort.get(1) + 2);
+                                else nbBateuxWagonPort.set(1, nbBateuxWagonPort.get(1) + 1);
                                 couleurBateauWagon=c.getCouleur();
                                 for (CarteTransport carteTransport : cartesCorrectes) {
                                     if (!carteTransport.getCouleur().equals(couleurBateauWagon) && carteTransport.getType().equals(TypeCarteTransport.WAGON)) {
