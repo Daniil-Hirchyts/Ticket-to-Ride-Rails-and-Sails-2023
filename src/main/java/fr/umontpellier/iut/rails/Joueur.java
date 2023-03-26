@@ -626,13 +626,13 @@ public class Joueur {
     }
 
     private void construirePort(String inputTour) {
-        boolean peuxConstruirePort = true;
+        boolean peuxConstruirePort = false;
         List<CarteTransport> cartesCorrectes = new ArrayList<>();
         List<CarteTransport> cloneCartesCorrectesToRemove = new ArrayList<>();
         List<Integer> nbCartesDeCouleur = new ArrayList<>();
         List<String> choixCarteConstructionPort = new ArrayList<>();
         List<Integer> nbBateuxWagonPort = new ArrayList<>(Arrays.asList(0, 0));
-        List<Couleur> couleurBateauWagon = new ArrayList<>(Arrays.asList(null, null));
+        Couleur couleurBateauWagon = null;
         Ville ville = null;
         int nbJoker = 0;
         int compteurPairValide = 0;
@@ -661,7 +661,9 @@ public class Joueur {
             //compter le nombre de carte de chaque couleur
             for (Couleur couleur : Couleur.values()) {
                 if (couleur.equals(Couleur.GRIS)) {
-                    nbCartesDeCouleur.replaceAll(integer -> integer + 1);
+                    for (CarteTransport c : cartesCorrectes) {
+                        if (c.getType().equals(TypeCarteTransport.JOKER)) nbCartesDeCouleur.replaceAll(integer -> integer + 1);
+                    }
                 } else {
                     int nbCarteCouleur = 0;
                     for (CarteTransport c : cartesCorrectes) {
@@ -698,43 +700,42 @@ public class Joueur {
             for (CarteTransport c : cartesCorrectes) {
                 if (c.getType().equals(TypeCarteTransport.JOKER)) {
                     choixCarteConstructionPort.add(c.getNom());
-                    nbJoker++;
                 }
             }
             if (compteurPairValide != 0) {
-                //TODO choisirCarteConstructionPort(choixCarteConstructionPort)
                 peuxConstruirePort = false;
                 System.out.println("Vous pouvez construire un port");
                 do {
                     String inputConstructionPort = choisir("Choisissez une carte pour construire un port", choixCarteConstructionPort, null, false);
                     for (CarteTransport c : cartesCorrectes) {
                         if (c.getNom().equals(inputConstructionPort)) {
-                            if (c.getType().equals(TypeCarteTransport.BATEAU) && couleurBateauWagon.get(0) == null && nbBateuxWagonPort.get(0) < 2) {
+                            if (c.getType().equals(TypeCarteTransport.BATEAU) && couleurBateauWagon == null && nbBateuxWagonPort.get(0) < 2) {
                                 dataCartePosees(c, cartesTransportPosees, cloneCartesCorrectesToRemove, choixCarteConstructionPort, inputConstructionPort);
                                 nbBateuxWagonPort.set(0, nbBateuxWagonPort.get(0) + 1);
-                                couleurBateauWagon.set(0, c.getCouleur());
+                                couleurBateauWagon=c.getCouleur();
                                 for (CarteTransport carteTransport : cartesCorrectes) {
-                                    if (!carteTransport.getCouleur().equals(couleurBateauWagon.get(0)) && carteTransport.getType().equals(TypeCarteTransport.BATEAU)) {
+                                    if (!carteTransport.getCouleur().equals(couleurBateauWagon) && carteTransport.getType().equals(TypeCarteTransport.BATEAU)) {
                                         cloneCartesCorrectesToRemove.add(carteTransport);
                                     }
                                 }
-                            } else if (c.getType().equals(TypeCarteTransport.BATEAU) && c.getCouleur().equals(couleurBateauWagon.get(0)) && nbBateuxWagonPort.get(0) < 2) {
+                            } else if (c.getType().equals(TypeCarteTransport.BATEAU) && c.getCouleur().equals(couleurBateauWagon) && nbBateuxWagonPort.get(0) < 2) {
                                 dataCartePosees(c, cartesTransportPosees, cloneCartesCorrectesToRemove, choixCarteConstructionPort, inputConstructionPort);
                                 nbBateuxWagonPort.set(0, nbBateuxWagonPort.get(0) + 1);
-                            } else if (c.getType().equals(TypeCarteTransport.WAGON) && couleurBateauWagon.get(1) == null && nbBateuxWagonPort.get(1) < 2) {
+                            } else if (c.getType().equals(TypeCarteTransport.WAGON) && couleurBateauWagon== null && nbBateuxWagonPort.get(1) < 2) {
                                 dataCartePosees(c, cartesTransportPosees, cloneCartesCorrectesToRemove, choixCarteConstructionPort, inputConstructionPort);
                                 nbBateuxWagonPort.set(1, nbBateuxWagonPort.get(1) + 1);
-                                couleurBateauWagon.set(1, c.getCouleur());
+                                couleurBateauWagon=c.getCouleur();
                                 for (CarteTransport carteTransport : cartesCorrectes) {
-                                    if (!carteTransport.getCouleur().equals(couleurBateauWagon.get(1)) && carteTransport.getType().equals(TypeCarteTransport.WAGON)) {
+                                    if (!carteTransport.getCouleur().equals(couleurBateauWagon) && carteTransport.getType().equals(TypeCarteTransport.WAGON)) {
                                         cloneCartesCorrectesToRemove.add(carteTransport);
                                     }
                                 }
-                            } else if (c.getType().equals(TypeCarteTransport.WAGON) && c.getCouleur().equals(couleurBateauWagon.get(1)) && nbBateuxWagonPort.get(1) < 2) {
+                            } else if (c.getType().equals(TypeCarteTransport.WAGON) && c.getCouleur().equals(couleurBateauWagon) && nbBateuxWagonPort.get(1) < 2) {
                                 dataCartePosees(c, cartesTransportPosees, cloneCartesCorrectesToRemove, choixCarteConstructionPort, inputConstructionPort);
                                 nbBateuxWagonPort.set(1, nbBateuxWagonPort.get(1) + 1);
                             } else if (c.getType().equals(TypeCarteTransport.JOKER)) {
                                 dataCartePosees(c, cartesTransportPosees, cloneCartesCorrectesToRemove, choixCarteConstructionPort, inputConstructionPort);
+                                nbJoker++;
                             }
                             if (nbBateuxWagonPort.get(0) + nbBateuxWagonPort.get(1) == 4 - nbJoker) {
                                 peuxConstruirePort = true;
