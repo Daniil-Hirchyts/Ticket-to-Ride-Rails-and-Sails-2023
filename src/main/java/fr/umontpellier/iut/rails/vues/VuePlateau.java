@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Cette classe présente les routes et les villes sur le plateau.
- *
+ * <p>
  * On y définit les handlers à exécuter lorsque qu'un élément du plateau a été choisi par l'utilisateur
  * ainsi que les bindings qui mettront à jour le plateau après la prise d'une route ou d'un port par un joueur
  */
@@ -36,7 +36,7 @@ public class VuePlateau extends Pane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setMinSize(Screen.getPrimary().getBounds().getWidth()/3, Screen.getPrimary().getBounds().getHeight()/3) ;
+        setMinSize(Screen.getPrimary().getBounds().getWidth() / 3, Screen.getPrimary().getBounds().getHeight() / 3);
     }
 
     EventHandler<MouseEvent> choixRoute = event -> {
@@ -85,8 +85,9 @@ public class VuePlateau extends Pane {
         mapMonde.fitHeightProperty().bind(heightProperty());
         mapMonde.layoutXProperty().bind(new DoubleBinding() { // Pour maintenir le plateau au centre
             {
-                super.bind(widthProperty(),heightProperty());
+                super.bind(widthProperty(), heightProperty());
             }
+
             @Override
             protected double computeValue() {
                 double imageViewWidth = mapMonde.getLayoutBounds().getWidth();
@@ -100,24 +101,27 @@ public class VuePlateau extends Pane {
             {
                 super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty());
             }
+
             @Override
             protected double computeValue() {
-                return mapMonde.getLayoutX() + port.centreX() * mapMonde.getLayoutBounds().getWidth()/ DonneesGraphiques.largeurInitialePlateau;
+                return mapMonde.getLayoutX() + port.centreX() * mapMonde.getLayoutBounds().getWidth() / DonneesGraphiques.largeurInitialePlateau;
             }
         });
         cerclePort.centerYProperty().bind(new DoubleBinding() {
             {
                 super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty());
             }
+
             @Override
             protected double computeValue() {
-                return mapMonde.getLayoutY() + port.centreY() * mapMonde.getLayoutBounds().getHeight()/ DonneesGraphiques.hauteurInitialePlateau;
+                return mapMonde.getLayoutY() + port.centreY() * mapMonde.getLayoutBounds().getHeight() / DonneesGraphiques.hauteurInitialePlateau;
             }
         });
         cerclePort.radiusProperty().bind(new DoubleBinding() {
             {
                 super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty());
             }
+
             @Override
             protected double computeValue() {
                 return DonneesGraphiques.rayonInitial * mapMonde.getLayoutBounds().getWidth() / DonneesGraphiques.largeurInitialePlateau;
@@ -127,30 +131,40 @@ public class VuePlateau extends Pane {
 
     private void bindRectangle(Rectangle rect, double layoutX, double layoutY) {
         rect.widthProperty().bind(new DoubleBinding() {
-            { super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty());}
+            {
+                super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty());
+            }
+
             @Override
             protected double computeValue() {
                 return DonneesGraphiques.largeurRectangle * mapMonde.getLayoutBounds().getWidth() / DonneesGraphiques.largeurInitialePlateau;
             }
         });
         rect.heightProperty().bind(new DoubleBinding() {
-            { super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty());}
+            {
+                super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty());
+            }
+
             @Override
             protected double computeValue() {
-                return DonneesGraphiques.hauteurRectangle * mapMonde.getLayoutBounds().getWidth()/ DonneesGraphiques.largeurInitialePlateau;
+                return DonneesGraphiques.hauteurRectangle * mapMonde.getLayoutBounds().getWidth() / DonneesGraphiques.largeurInitialePlateau;
             }
         });
         rect.layoutXProperty().bind(new DoubleBinding() {
             {
                 super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty(), mapMonde.xProperty());
             }
+
             @Override
             protected double computeValue() {
-                return mapMonde.getLayoutX() + layoutX * mapMonde.getLayoutBounds().getWidth()/ DonneesGraphiques.largeurInitialePlateau;
+                return mapMonde.getLayoutX() + layoutX * mapMonde.getLayoutBounds().getWidth() / DonneesGraphiques.largeurInitialePlateau;
             }
         });
         rect.xProperty().bind(new DoubleBinding() {
-            { super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty(), mapMonde.xProperty());}
+            {
+                super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty(), mapMonde.xProperty());
+            }
+
             @Override
             protected double computeValue() {
                 return mapMonde.getLayoutBounds().getWidth() / DonneesGraphiques.largeurInitialePlateau;
@@ -160,16 +174,20 @@ public class VuePlateau extends Pane {
             {
                 super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty());
             }
+
             @Override
             protected double computeValue() {
-                return layoutY * mapMonde.getLayoutBounds().getHeight()/ DonneesGraphiques.hauteurInitialePlateau;
+                return layoutY * mapMonde.getLayoutBounds().getHeight() / DonneesGraphiques.hauteurInitialePlateau;
             }
         });
         rect.yProperty().bind(new DoubleBinding() {
-            { super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty());}
+            {
+                super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty());
+            }
+
             @Override
             protected double computeValue() {
-                return mapMonde.getLayoutBounds().getHeight()/ DonneesGraphiques.hauteurInitialePlateau;
+                return mapMonde.getLayoutBounds().getHeight() / DonneesGraphiques.hauteurInitialePlateau;
             }
         });
     }

@@ -2,27 +2,44 @@ package fr.umontpellier.iut.rails.vues;
 
 import fr.umontpellier.iut.rails.IJeu;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 
 /**
  * Cette classe correspond à la fenêtre principale de l'application.
- *
+ * <p>
  * Elle est initialisée avec une référence sur la partie en cours (Jeu).
- *
+ * <p>
  * On y définit les bindings sur les éléments internes qui peuvent changer
  * (le joueur courant, les cartes Transport visibles, les destinations lors de l'étape d'initialisation de la partie, ...)
  * ainsi que les listeners à exécuter lorsque ces éléments changent
  */
-public class VueDuJeu extends Pane {
+public class VueDuJeu extends GridPane {
 
     private final IJeu jeu;
     private VuePlateau plateau;
+    @FXML
+    private VBox centerBox;
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameScene.fxml"));
+            loader.setRoot(this);
+            loader.setController(this);
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         plateau = new VuePlateau();
-        getChildren().add(plateau);
+        centerBox.getChildren().add(plateau);
     }
 
     public void creerBindings() {

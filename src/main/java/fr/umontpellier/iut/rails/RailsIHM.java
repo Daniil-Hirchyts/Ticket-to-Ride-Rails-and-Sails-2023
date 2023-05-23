@@ -64,10 +64,13 @@ public class RailsIHM extends Application {
         primaryStage.centerOnScreen();
         primaryStage.setMaxWidth(Screen.getPrimary().getBounds().getWidth());
         primaryStage.setMaxHeight(Screen.getPrimary().getBounds().getHeight());
-        primaryStage.setOnCloseRequest(event -> {
-            this.arreterJeu();
-            event.consume();
-        });
+
+//        TODO : A ACTIVER POUR LA VERSION FINALE
+//        primaryStage.setOnCloseRequest(event -> {
+//            this.arreterJeu();
+//            event.consume();
+//        });
+
         primaryStage.show();
     }
 

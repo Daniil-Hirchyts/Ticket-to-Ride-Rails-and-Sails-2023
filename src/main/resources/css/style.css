@@ -1,11 +1,82 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 
 Circle {
-    -fx-fill: "dodgerblue";
-    -fx-stroke: "blue";
+    -fx-fill: "red";
+    -fx-stroke: "red";
 }
 
 Rectangle {
-    -fx-fill: "dodgerblue";/*transparent*/
+    -fx-fill: "blue"; /*transparent*/
     -fx-stroke: "blue";
 }
+
+
+#leftVBox, #deckVBox, #piocheVBox, #playerHBox, #bottomHBox, #rightVBox, #infoVBox, #destinationVBox, #playerVBox, #topHBox, #infoVBox_2, #infoVBox_3 {
+    -fx-background-color: rgba(197, 223, 255);
+    -fx-border-color: #000000;
+    -fx-border-width: 0.25;
+}
+
+#centerBox {
+    -fx-background-color: rgb(241, 197, 255);
+    -fx-border-color: #000000;
+    -fx-border-width: 0.25;
+}
+
+#plateau {
+    -fx-background-color: rgb(186, 255, 119);
+    -fx-border-color: #000000;
+    -fx-border-width: 0.25;
+}
+
+/*LEFT*/
+
+#leftVBox, #deckVBox, #piocheVBox, #destinationVBox {
+    -fx-min-width: 150;
+    -fx-max-width: 150;
+}
+
+#deckVBox {
+    -fx-min-height: 500;
+}
+
+#piocheVBox, #destinationVBox {
+    -fx-min-height: 100;
+}
+
+/*BOTTOM*/
+
+#bottomHBox, #playerHBox, #infoVBox, #playerVBox {
+    -fx-min-height: 150;
+    -fx-max-height: 150;
+}
+
+#infoVBox, #playerVBox {
+    -fx-min-width: 150;
+    -fx-max-width: 150;
+}
+
+#playerHBox {
+    -fx-min-width: 500;
+    -fx-max-width: 500;
+}
+
+/*RIGHT*/
+
+#rightVBox {
+    -fx-min-width: 150;
+    -fx-max-width: 150;
+}
+
+/*TOP*/
+
+#topHBox, #infoVBox_2, #infoVBox_3 {
+    -fx-min-height: 150;
+    -fx-max-height: 150;
+}
+
+#infoVBox_2, #infoVBox_3 {
+    -fx-min-width: 150;
+    -fx-max-width: 150;
+}
+
