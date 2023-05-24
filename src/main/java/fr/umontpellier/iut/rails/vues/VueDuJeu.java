@@ -43,11 +43,14 @@ public class VueDuJeu extends GridPane {
     @FXML
     private VBox centerBox;
     private VBox VboxDestinations;
+    @FXML
+    private VBox rightVBox;
+    @FXML
+    private VBox playerVBox;
 
     private VueJoueurCourant vueJoueurCourant;
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameScene.fxml"));
             loader.setRoot(this);
@@ -59,17 +62,18 @@ public class VueDuJeu extends GridPane {
         VboxDestinations = new VBox();
         btnPasserTour = new Button("Passer");
         ActionJoueur = new Label();
-//        plateau = new VuePlateau();
-        centerBox.getChildren().addAll(ActionJoueur,btnPasserTour,VboxDestinations);
+        plateau = new VuePlateau();
+        centerBox.getChildren().add(plateau);
+        rightVBox.getChildren().addAll(ActionJoueur,btnPasserTour,VboxDestinations);
         VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu);
         vueJoueurCourant.creerBindings();
-        centerBox.getChildren().add(vueJoueurCourant);
+        playerVBox.getChildren().add(vueJoueurCourant);
     }
 
     public void creerBindings() {
-//        plateau.prefWidthProperty().bind(getScene().widthProperty());
-//        plateau.prefHeightProperty().bind(getScene().heightProperty());
-//        plateau.creerBindings();
+        plateau.prefWidthProperty().bind(getScene().widthProperty());
+        plateau.prefHeightProperty().bind(getScene().heightProperty());
+        plateau.creerBindings();
         jeu.destinationsInitialesProperty().addListener(new ListChangeListener<IDestination>() {
             @Override
             public void onChanged(Change<? extends IDestination> change) {
