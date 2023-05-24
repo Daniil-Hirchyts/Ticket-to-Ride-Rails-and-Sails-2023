@@ -2,6 +2,7 @@ package fr.umontpellier.iut.rails.vues;
 
 import fr.umontpellier.iut.rails.IDestination;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * Cette classe représente la vue d'une carte Destination.
