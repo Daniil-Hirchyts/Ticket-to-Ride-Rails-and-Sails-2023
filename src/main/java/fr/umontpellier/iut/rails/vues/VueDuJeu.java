@@ -72,8 +72,8 @@ public class VueDuJeu extends GridPane {
     }
 
     public void creerBindings() {
-//        plateau.prefWidthProperty().bind(getScene().widthProperty());
-//        plateau.prefHeightProperty().bind(getScene().heightProperty());
+        plateau.prefWidthProperty().bind(getScene().widthProperty());
+        plateau.prefHeightProperty().bind(getScene().heightProperty());
         plateau.creerBindings();
         jeu.destinationsInitialesProperty().addListener(new ListChangeListener<IDestination>() {
             @Override
