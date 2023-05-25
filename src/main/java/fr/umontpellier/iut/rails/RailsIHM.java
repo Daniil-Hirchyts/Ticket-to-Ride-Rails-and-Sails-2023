@@ -58,20 +58,18 @@ public class RailsIHM extends Application {
         vueDuJeu.creerBindings();
         jeu.run(); // le jeu doit être démarré après que les bindings ont été mis en place
         //TODO : A ACTIVER POUR LA VERSION FINALE
-        primaryStage.setMinWidth(Screen.getPrimary().getBounds().getWidth() );
-        primaryStage.setMinHeight(Screen.getPrimary().getBounds().getHeight() );
+        primaryStage.setMinWidth(Screen.getPrimary().getBounds().getWidth() / 2);
+        primaryStage.setMinHeight(Screen.getPrimary().getBounds().getHeight() / 2);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Rails");
         primaryStage.centerOnScreen();
         primaryStage.setMaxWidth(Screen.getPrimary().getBounds().getWidth());
         primaryStage.setMaxHeight(Screen.getPrimary().getBounds().getHeight());
-
 //        TODO : A ACTIVER POUR LA VERSION FINALE
 //        primaryStage.setOnCloseRequest(event -> {
 //            this.arreterJeu();
 //            event.consume();
 //        });
-
         primaryStage.show();
     }
 

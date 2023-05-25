@@ -68,7 +68,6 @@ public class VueDuJeu extends GridPane {
         VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu);
         vueJoueurCourant.creerBindings();
         playerVBox.getChildren().add(vueJoueurCourant);
-        //
     }
 
     public void creerBindings() {
