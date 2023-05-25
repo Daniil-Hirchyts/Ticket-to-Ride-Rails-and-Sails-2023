@@ -48,7 +48,6 @@ public class VueDuJeu extends GridPane {
     @FXML
     private VBox playerVBox;
 
-    private VueJoueurCourant vueJoueurCourant;
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
         try {
@@ -68,6 +67,7 @@ public class VueDuJeu extends GridPane {
         VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu);
         vueJoueurCourant.creerBindings();
         playerVBox.getChildren().add(vueJoueurCourant);
+        //
     }
 
     public void creerBindings() {
