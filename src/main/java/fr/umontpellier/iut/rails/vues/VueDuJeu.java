@@ -66,7 +66,7 @@ public class VueDuJeu extends GridPane {
         rightVBox.getChildren().addAll(ActionJoueur,btnPasserTour,VboxDestinations);
         VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu);
         vueJoueurCourant.creerBindings();
-        playerVBox.getChildren().add(vueJoueurCourant);
+//        playerVBox.getChildren().add(vueJoueurCourant);
         //
     }
 

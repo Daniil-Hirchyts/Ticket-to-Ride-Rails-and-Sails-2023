@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
@@ -20,17 +19,13 @@
         <HBox fx:id="topHBox" alignment="CENTER" GridPane.columnIndex="1"/>
         <VBox fx:id="infoVBox_2"/>
         <VBox fx:id="infoVBox_3" GridPane.columnIndex="2"/>
-        <VBox fx:id="infoVBox" alignment="CENTER" GridPane.rowIndex="2">
-            <children>
-                <Label fx:id="handLabel"/>
-            </children>
-        </VBox>
-        <VBox fx:id="playerVBox" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-        <HBox fx:id="bottomHBox" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <HBox fx:id="bottomHBox" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2"
+              GridPane.columnSpan="3">
             <children>
                 <HBox fx:id="playerHBox" alignment="CENTER"/>
             </children>
         </HBox>
+
         <VBox fx:id="rightVBox" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
         <GridPane fx:id="leftVBox" alignment="CENTER" GridPane.rowIndex="1">
             <VBox fx:id="destinationVBox" alignment="CENTER" GridPane.rowIndex="1">
@@ -45,6 +40,15 @@
                                preserveRatio="true"/>
                 </children>
             </VBox>
+            <columnConstraints>
+                <ColumnConstraints/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+            </rowConstraints>
             <!--            <VBox fx:id="deckVBox" alignment="CENTER" GridPane.rowIndex="2"/>-->
         </GridPane>
         <VBox fx:id="centerBox" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
