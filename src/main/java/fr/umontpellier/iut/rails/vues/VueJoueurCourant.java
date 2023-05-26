@@ -93,14 +93,7 @@ public class VueJoueurCourant extends GridPane {
             if (newValue != null) {
                 playerName.setText(newValue.getNom());
                 playerAvatar.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/Avatar/avatar-" + newValue.getCouleur().toString().toUpperCase() + ".png"))));
-                switch (getCouleurJoueur(newValue.getCouleur())) {
-                    case "RED" -> colorBack.setStyle("-fx-background-color: #ff6565");
-                    case "GREEN" -> colorBack.setStyle("-fx-background-color: #65ff65");
-                    case "BLUE" -> colorBack.setStyle("-fx-background-color: #6565ff");
-                    case "YELLOW" -> colorBack.setStyle("-fx-background-color: #ffff65");
-                    case "BLACK" -> colorBack.setStyle("-fx-background-color: #7f7f7f");
-                    default -> colorBack.setStyle("-fx-background-color: #ffffff");
-                }
+                colorBack.setStyle("-fx-background-color: " + getCouleurJoueur(newValue.getCouleur()) + ";");
             }
         });
         for (IJoueur j : jeu.getJoueurs())
@@ -139,17 +132,17 @@ public class VueJoueurCourant extends GridPane {
     private String getCouleurJoueur(IJoueur.CouleurJoueur couleurJoueur) {
         switch (couleurJoueur) {
             case ROUGE:
-                return "RED";
+                return "#ff6565";
             case VERT:
-                return "GREEN";
+                return "#65ff65";
             case BLEU:
-                return "BLUE";
+                return "#6565ff";
             case JAUNE:
-                return "YELLOW";
+                return "#ffff65";
             case ROSE:
-                return "BLACK";
+                return "#7f7f7f";
         }
-        return "WHITE";
+        return "#ffffff";
     }
 
 
