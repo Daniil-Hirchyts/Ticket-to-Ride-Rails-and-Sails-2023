@@ -55,6 +55,12 @@ public class VueJoueurCourant extends GridPane {
     private ImageView playerAvatar;
     @FXML
     private VBox colorBack;
+    @FXML
+    private Label pionsWagon;
+    @FXML
+    private Label pionsBateau;
+    @FXML
+    private Label pionsPort;
 
     public VueJoueurCourant(IJeu jeu) {
         this.jeu = jeu;
@@ -92,6 +98,9 @@ public class VueJoueurCourant extends GridPane {
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 playerName.setText(newValue.getNom());
+                pionsWagon.setText(String.valueOf(newValue.getNbPionsWagon()));
+                pionsBateau.setText(String.valueOf(newValue.getNbPionsBateau()));
+                pionsPort.setText(String.valueOf(newValue.getNbPorts()));
                 playerAvatar.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/Avatar/avatar-" + newValue.getCouleur().toString().toUpperCase() + ".png"))));
                 colorBack.setStyle("-fx-background-color: " + getCouleurJoueur(newValue.getCouleur()) + ";");
             }
@@ -130,20 +139,12 @@ public class VueJoueurCourant extends GridPane {
     }
 
     private String getCouleurJoueur(IJoueur.CouleurJoueur couleurJoueur) {
-        switch (couleurJoueur) {
-            case ROUGE:
-                return "#ff6565";
-            case VERT:
-                return "#65ff65";
-            case BLEU:
-                return "#6565ff";
-            case JAUNE:
-                return "#ffff65";
-            case ROSE:
-                return "#7f7f7f";
-        }
-        return "#ffffff";
+        return switch (couleurJoueur) {
+            case ROUGE -> "#ff6565";
+            case VERT -> "#65ff65";
+            case BLEU -> "#6565ff";
+            case JAUNE -> "#ffff65";
+            case ROSE -> "#7f7f7f";
+        };
     }
-
-
 }

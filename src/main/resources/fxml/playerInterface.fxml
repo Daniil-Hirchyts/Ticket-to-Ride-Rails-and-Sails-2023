@@ -30,8 +30,39 @@
          </children></HBox>
       <HBox fx:id="playerInfoBlock" GridPane.columnIndex="2">
          <children>
-            <VBox fx:id="playerActions" alignment="CENTER">
+            <VBox fx:id="playerActions" alignment="CENTER" spacing="10.0">
                <children>
+                  <GridPane fx:id="pionsGrid">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints vgrow="SOMETIMES" />
+                      <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/bouton-pions-wagon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@../images/bouton-pions-bateau.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="33.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+                           <image>
+                              <Image url="@../images/port.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="pionsWagon" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="pionsBateau" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="pionsPort" layoutX="108.0" layoutY="47.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
                   <Button fx:id="btnPasserTour" mnemonicParsing="false" text="Passer" />
                </children>
             </VBox>
