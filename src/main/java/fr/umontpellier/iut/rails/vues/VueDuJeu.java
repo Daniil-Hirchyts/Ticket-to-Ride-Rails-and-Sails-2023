@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -38,16 +39,17 @@ import java.io.IOException;
 public class VueDuJeu extends GridPane {
 
     private final IJeu jeu;
-    private Label ActionJoueur;
-    private Button btnPasserTour;
     private VuePlateau plateau;
     @FXML
     private VBox centerBox;
-    private VBox VboxDestinations;
     @FXML
     private VBox rightVBox;
     @FXML
     private HBox bottomHBox;
+    @FXML
+    private ScrollPane consoleScrollPane;
+    @FXML
+    private VBox consoleHistory;
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
@@ -59,13 +61,9 @@ public class VueDuJeu extends GridPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        VboxDestinations = new VBox();
-        btnPasserTour = new Button("Passer");
-        ActionJoueur = new Label();
         plateau = new VuePlateau();
         VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu);
         centerBox.getChildren().add(plateau);
-        rightVBox.getChildren().addAll(ActionJoueur,btnPasserTour,VboxDestinations);
         vueJoueurCourant.creerBindings();
         bottomHBox.getChildren().add(vueJoueurCourant);
     }
@@ -74,48 +72,15 @@ public class VueDuJeu extends GridPane {
         plateau.prefWidthProperty().bind(getScene().widthProperty());
         plateau.prefHeightProperty().bind(getScene().heightProperty());
         plateau.creerBindings();
-        jeu.destinationsInitialesProperty().addListener(new ListChangeListener<IDestination>() {
-            @Override
-            public void onChanged(Change<? extends IDestination> change) {
-                while (change.next()) {
-                    if (change.wasAdded()) {
-                        for (IDestination destination : change.getAddedSubList()) {
-                            System.out.println("On a ajouté la destination " + destination.getVilles().toString());
-                            VboxDestinations.getChildren().add(new Label(destination.getVilles().toString()));
-                        }
-                    }
-                    if (change.wasRemoved()){
-                        for (IDestination destination : change.getRemoved()) {
-                            System.out.println("On a enlevé la destination " + destination.getVilles().toString());
-                            VboxDestinations.getChildren().remove(trouveLabelIDestination(destination));
-                        }
-                    }
-                }
-            }
+        jeu.instructionProperty().addListener((observable, oldValue, newValue) -> {
+            Label label = new Label(newValue);
+            consoleHistory.getChildren().addAll(label);
+            consoleScrollPane.setVvalue(1);
         });
-        btnPasserTour.setOnMouseClicked(actionPasserParDefaut);
-        ActionJoueur.textProperty().bind(jeu.instructionProperty());
-    }
-
-    public Label trouveLabelIDestination(IDestination destination) {
-        for (Node node : VboxDestinations.getChildren()) {
-            if (node instanceof Label) {
-                Label label = (Label) node;
-                if (label.getText().equals(destination.getVilles().toString())) {
-                    return label;
-                }
-            }
-        }
-        return null;
     }
 
     public IJeu getJeu() {
         return jeu;
     }
-
-    EventHandler<? super MouseEvent> actionPasserParDefaut = (mouseEvent -> {
-        System.out.println("On a cliqué sur le bouton passer");
-        getJeu().passerAEteChoisi();
-    });
 
 }

@@ -87,7 +87,6 @@ public class VuePlateau extends Pane {
             {
                 super.bind(widthProperty(), heightProperty());
             }
-
             @Override
             protected double computeValue() {
                 double imageViewWidth = mapMonde.getLayoutBounds().getWidth();

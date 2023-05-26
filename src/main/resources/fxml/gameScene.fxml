@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
@@ -15,9 +17,28 @@
         <RowConstraints />
     </rowConstraints>
     <children>
-        <HBox fx:id="topHBox" alignment="CENTER" GridPane.columnIndex="1" />
+        <HBox fx:id="topHBox" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.columnSpan="2">
+            <children>
+                <VBox fx:id="console" alignment="TOP_CENTER" spacing="10.0">
+                    <children>
+                        <Label text="Console" />
+                        <ScrollPane fx:id="consoleScrollPane" vbarPolicy="ALWAYS">
+                            <content>
+                                <VBox fx:id="consoleHistory" prefHeight="111.0" prefWidth="279.0" spacing="10.0">
+                                    <padding>
+                                        <Insets top="25.0" />
+                                    </padding>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                    <padding>
+                        <Insets top="10.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </HBox>
         <VBox fx:id="infoVBox_2" />
-        <VBox fx:id="infoVBox_3" GridPane.columnIndex="2" />
         <HBox fx:id="bottomHBox" alignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="2" />
 
         <VBox fx:id="rightVBox" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1" />

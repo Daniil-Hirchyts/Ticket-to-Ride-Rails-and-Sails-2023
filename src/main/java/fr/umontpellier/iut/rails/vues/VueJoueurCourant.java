@@ -4,15 +4,17 @@ import fr.umontpellier.iut.rails.ICarteTransport;
 import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IJoueur;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -21,18 +23,24 @@ import java.util.List;
 
 /**
  * Cette classe présente les éléments appartenant au joueur courant.
- *
+ * <p>
  * On y définit les bindings sur le joueur courant, ainsi que le listener à exécuter lorsque ce joueur change
  */
 public class VueJoueurCourant extends GridPane {
     IJeu jeu;
-    VBox VboxJoueurCourant;
-    Label nomJoueur;
-
     List<ICarteTransport> cartesTransport;
-
     @FXML
     private HBox playerHBox;
+    @FXML
+    private VBox infoVBox;
+    @FXML
+    private VBox vboxDestinations;
+    @FXML
+    private Button btnPasserTour;
+    @FXML
+    private Label playerName;
+    @FXML
+    private ImageView playerAvatar;
 
     public VueJoueurCourant(IJeu jeu) {
         this.jeu = jeu;
@@ -44,31 +52,61 @@ public class VueJoueurCourant extends GridPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        VboxJoueurCourant = new VBox();
-        nomJoueur = new Label();
         cartesTransport = new ArrayList<>();
-        VboxJoueurCourant.getChildren().add(nomJoueur);
     }
 
+    public VueDestination trouverLabelDestination(IDestination d) {
+        for (Node n : vboxDestinations.getChildren()) {
+            if (n instanceof VueDestination) {
+                VueDestination l = (VueDestination) n;
+                if (l.getText().equals(d.getVilles().toString())) return l;
+            }
+        }
+        return null;
+    }
+
+    EventHandler<? super MouseEvent> actionPasserParDefaut = (mouseEvent -> {
+        System.out.println("On a cliqué sur le bouton passer");
+        jeu.passerAEteChoisi();
+    });
+
     public void creerBindings() {
+        btnPasserTour.setOnMouseClicked(actionPasserParDefaut);
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                nomJoueur.setText(newValue.getNom());
+                playerName.setText(newValue.getNom());
             }
         });
-        for (IJoueur j : jeu.getJoueurs()) {
-            j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
+        for (IJoueur j : jeu.getJoueurs()) j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
                 @Override
                 public void onChanged(Change<? extends ICarteTransport> change) {
                     cartesTransport.clear();
                     cartesTransport.addAll(j.getCartesTransport());
                     for (ICarteTransport c : cartesTransport) {
-                        playerHBox.getChildren().add(new VueCarteTransport(c,1));
-                        playerHBox.getChildren().add(new Label(c.toString()));
+                        playerHBox.getChildren().add(new VueCarteTransport(c, 1));
+//                        playerHBox.getChildren().add(new Label(c:toString());
                     }
                 }
             });
-        }
+        jeu.destinationsInitialesProperty().addListener(new ListChangeListener<IDestination>() {
+            @Override
+            public void onChanged(Change<? extends IDestination> change) {
+                while (change.next()) {
+                    if (change.wasAdded()) {
+                        for (IDestination destination : change.getAddedSubList()) {
+                            System.out.println("On a ajouté la destination " + destination.getVilles().toString());
+                            vboxDestinations.getChildren().add(new VueDestination(destination));
+                        }
+                    }
+                    if (change.wasRemoved()) {
+                        for (IDestination destination : change.getRemoved()) {
+                            System.out.println("On a enlevé la destination " + destination.getVilles().toString());
+                            vboxDestinations.getChildren().remove(trouverLabelDestination(destination));
+                        }
+                    }
+                }
+            }
+        });
     }
 
 }

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <fx:root fx:id="vueJoueurCourant" alignment="CENTER" prefHeight="150.0" prefWidth="1920.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
@@ -12,8 +15,31 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox fx:id="playerAction" alignment="CENTER" />
+      <VBox fx:id="playerDestinations" alignment="TOP_CENTER" spacing="10.0">
+         <children>
+            <Label fx:id="labelDestination" text="Destinations" />
+            <VBox fx:id="vboxDestinations" alignment="CENTER" spacing="2.0" />
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding></VBox>
       <HBox fx:id="playerHBox" alignment="CENTER" GridPane.columnIndex="1" />
-      <VBox fx:id="playerInfo" alignment="CENTER" GridPane.columnIndex="2" />
+      <HBox fx:id="playerInfoBlock" GridPane.columnIndex="2">
+         <children>
+            <VBox fx:id="playerActions" alignment="CENTER">
+               <children>
+                  <Button fx:id="btnPasserTour" mnemonicParsing="false" text="Passer" />
+               </children>
+            </VBox>
+            <VBox fx:id="infoVBox" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" spacing="25.0">
+               <children>
+                  <Label fx:id="playerName" text="Label" />
+                  <ImageView fx:id="playerAvatar" pickOnBounds="true" preserveRatio="true" />
+               </children>
+               <padding>
+                  <Insets top="25.0" />
+               </padding></VBox>
+         </children>
+      </HBox>
    </children>
 </fx:root>

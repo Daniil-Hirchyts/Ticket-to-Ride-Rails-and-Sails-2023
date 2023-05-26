@@ -11,7 +11,7 @@ Rectangle {
 }
 
 
-#leftVBox, #deckVBox, #piocheVBox, #playerHBox, #bottomHBox, #rightVBox, #infoVBox, #destinationVBox, #playerVBox, #topHBox, #infoVBox_2, #infoVBox_3, #playerInfo, #playerAction {
+#leftVBox, #deckVBox, #piocheVBox, #playerHBox, #bottomHBox, #rightVBox, #infoVBox, #destinationVBox, #playerVBox, #topHBox, #infoVBox_2, #console, #playerInfoBlock, #playerDestinations, #consoleScrollPane {
     -fx-background-color: rgba(197, 223, 255);
     -fx-border-color: #000000;
     -fx-border-width: 0.25;
@@ -46,12 +46,12 @@ Rectangle {
 
 /*BOTTOM*/
 
-#bottomHBox, #playerHBox, #infoVBox, #playerVBox, #playerInfo, #playerAction {
+#bottomHBox, #playerHBox, #infoVBox, #playerVBox, #playerInfoBlock, #playerDestinations {
     -fx-min-height: 150;
     -fx-max-height: 150;
 }
 
-#infoVBox, #playerVBox {
+#infoVBox, #playerVBox, #playerActions {
     -fx-min-width: 150;
     -fx-max-width: 150;
 }
@@ -61,10 +61,11 @@ Rectangle {
 /*    -fx-max-width: 500;*/
 /*}*/
 
-#playerInfo, #playerAction {
-     -fx-min-width: 150;
-     -fx-max-width: 150;
- }
+
+#playerInfoBlock, #playerDestinations, #console {
+    -fx-min-width: 300;
+    -fx-max-width: 300;
+}
 
 /*RIGHT*/
 
@@ -75,13 +76,79 @@ Rectangle {
 
 /*TOP*/
 
-#topHBox, #infoVBox_2, #infoVBox_3 {
+#topHBox, #infoVBox_2, #console {
     -fx-min-height: 150;
     -fx-max-height: 150;
 }
 
-#infoVBox_2, #infoVBox_3 {
+#infoVBox_2 {
     -fx-min-width: 150;
     -fx-max-width: 150;
 }
+
+#consoleScrollPane {
+    -fx-background-color: rgba(197, 223, 255);
+    -fx-border-color: #000000;
+    -fx-border-width: 0.25;
+
+    /* additional customization */
+    -fx-background: rgba(197, 223, 255); /* background color of the viewport */
+    -fx-scrollbar-width: 10px; /* width of the scrollbar */
+    -fx-scrollbar-color: rgba(197, 223, 255); /* color of the scrollbar */
+    -fx-scrollbar-thumb-color: #000000; /* color of the scrollbar thumb */
+}
+
+#consoleScrollPane .scroll-bar:vertical {
+    -fx-pref-width: 10px;
+    -fx-background-color: rgb(186, 255, 119);
+}
+
+#consoleScrollPane .scroll-bar:vertical .thumb {
+    -fx-background-color: #ffffff;
+}
+
+#btnPasserTour {
+    -fx-background-color: rgb(241, 197, 255);
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+#btnPasserTour:hover {
+    -fx-background-color: rgb(200, 170, 220);
+    -fx-cursor: hand;
+}
+
+#btnPasserTour:pressed {
+    -fx-background-color: rgb(180, 150, 200);
+}
+
+#destinationButton {
+    -fx-background-color: rgb(241, 197, 255);
+    -fx-text-fill: #000000;
+    -fx-font-size: 10px;
+    -fx-padding: 2px 2px;
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-max-width: 250;
+    -fx-min-width: 250;
+    -fx-min-height: 20;
+    -fx-max-height: 20;
+}
+
+#destinationButton:hover {
+    -fx-background-color: rgb(200, 170, 220);
+    -fx-cursor: hand;
+}
+
+#destinationButton:pressed {
+    -fx-background-color: rgb(180, 150, 200);
+}
+
 
