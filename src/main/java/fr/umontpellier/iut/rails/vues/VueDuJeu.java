@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -46,7 +47,7 @@ public class VueDuJeu extends GridPane {
     @FXML
     private VBox rightVBox;
     @FXML
-    private VBox playerVBox;
+    private HBox bottomHBox;
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
@@ -62,12 +63,11 @@ public class VueDuJeu extends GridPane {
         btnPasserTour = new Button("Passer");
         ActionJoueur = new Label();
         plateau = new VuePlateau();
+        VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu);
         centerBox.getChildren().add(plateau);
         rightVBox.getChildren().addAll(ActionJoueur,btnPasserTour,VboxDestinations);
-        VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu);
         vueJoueurCourant.creerBindings();
-//        playerVBox.getChildren().add(vueJoueurCourant);
-        //
+        bottomHBox.getChildren().add(vueJoueurCourant);
     }
 
     public void creerBindings() {

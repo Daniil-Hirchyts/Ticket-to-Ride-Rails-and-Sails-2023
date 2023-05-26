@@ -55,10 +55,8 @@ public class RailsIHM extends Application {
         }
         jeu = new Jeu(nomsJoueurs.toArray(new String[0]));
         VueDuJeu vueDuJeu = new VueDuJeu(jeu);
-        VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu);
         Scene scene = new Scene(vueDuJeu, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran); // la scene doit être créée avant de mettre en place les bindings
         vueDuJeu.creerBindings();
-        vueJoueurCourant.creerBindings();
         jeu.run(); // le jeu doit être démarré après que les bindings ont été mis en place
         //TODO : A ACTIVER POUR LA VERSION FINALE
         primaryStage.setMinWidth(Screen.getPrimary().getBounds().getWidth() / 2);

@@ -11,7 +11,7 @@ Rectangle {
 }
 
 
-#leftVBox, #deckVBox, #piocheVBox, #playerHBox, #bottomHBox, #rightVBox, #infoVBox, #destinationVBox, #playerVBox, #topHBox, #infoVBox_2, #infoVBox_3 {
+#leftVBox, #deckVBox, #piocheVBox, #playerHBox, #bottomHBox, #rightVBox, #infoVBox, #destinationVBox, #playerVBox, #topHBox, #infoVBox_2, #infoVBox_3, #playerInfo, #playerAction {
     -fx-background-color: rgba(197, 223, 255);
     -fx-border-color: #000000;
     -fx-border-width: 0.25;
@@ -46,7 +46,7 @@ Rectangle {
 
 /*BOTTOM*/
 
-#bottomHBox, #playerHBox, #infoVBox, #playerVBox {
+#bottomHBox, #playerHBox, #infoVBox, #playerVBox, #playerInfo, #playerAction {
     -fx-min-height: 150;
     -fx-max-height: 150;
 }
@@ -56,10 +56,15 @@ Rectangle {
     -fx-max-width: 150;
 }
 
-#playerHBox {
-    -fx-min-width: 500;
-    -fx-max-width: 500;
-}
+/*#playerHBox {*/
+/*    -fx-min-width: 500;*/
+/*    -fx-max-width: 500;*/
+/*}*/
+
+#playerInfo, #playerAction {
+     -fx-min-width: 150;
+     -fx-max-width: 150;
+ }
 
 /*RIGHT*/
 

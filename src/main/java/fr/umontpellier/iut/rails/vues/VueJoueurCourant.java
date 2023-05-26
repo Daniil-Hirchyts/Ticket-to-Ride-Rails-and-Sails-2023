@@ -37,7 +37,7 @@ public class VueJoueurCourant extends GridPane {
     public VueJoueurCourant(IJeu jeu) {
         this.jeu = jeu;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameScene.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/playerInterface.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();
@@ -48,7 +48,6 @@ public class VueJoueurCourant extends GridPane {
         nomJoueur = new Label();
         cartesTransport = new ArrayList<>();
         VboxJoueurCourant.getChildren().add(nomJoueur);
-        playerHBox.getChildren().add(new Label("Cartes Transport :"));
     }
 
     public void creerBindings() {

@@ -3,54 +3,46 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root alignment="CENTER" prefHeight="982.0" prefWidth="1512.0" stylesheets="@../css/style.css" type="GridPane"
-         xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" prefHeight="982.0" prefWidth="1512.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
-        <ColumnConstraints hgrow="NEVER"/>
-        <ColumnConstraints hgrow="ALWAYS"/>
-        <ColumnConstraints hgrow="NEVER"/>
+        <ColumnConstraints hgrow="NEVER" />
+        <ColumnConstraints hgrow="ALWAYS" />
+        <ColumnConstraints hgrow="NEVER" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints/>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
     </rowConstraints>
     <children>
-        <HBox fx:id="topHBox" alignment="CENTER" GridPane.columnIndex="1"/>
-        <VBox fx:id="infoVBox_2"/>
-        <VBox fx:id="infoVBox_3" GridPane.columnIndex="2"/>
-        <HBox fx:id="bottomHBox" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2"
-              GridPane.columnSpan="3">
-            <children>
-                <HBox fx:id="playerHBox" alignment="CENTER"/>
-            </children>
-        </HBox>
+        <HBox fx:id="topHBox" alignment="CENTER" GridPane.columnIndex="1" />
+        <VBox fx:id="infoVBox_2" />
+        <VBox fx:id="infoVBox_3" GridPane.columnIndex="2" />
+        <HBox fx:id="bottomHBox" alignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="2" />
 
-        <VBox fx:id="rightVBox" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <VBox fx:id="rightVBox" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1" />
         <GridPane fx:id="leftVBox" alignment="CENTER" GridPane.rowIndex="1">
             <VBox fx:id="destinationVBox" alignment="CENTER" GridPane.rowIndex="1">
                 <children>
-                    <ImageView fx:id="destinationCard" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true"
-                               preserveRatio="true"/>
+                    <ImageView fx:id="destinationCard" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                 </children>
             </VBox>
             <VBox fx:id="piocheVBox" alignment="CENTER" GridPane.rowIndex="3">
                 <children>
-                    <ImageView fx:id="pileCard" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true"
-                               preserveRatio="true"/>
+                    <ImageView fx:id="pileCard" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                 </children>
             </VBox>
             <columnConstraints>
-                <ColumnConstraints/>
+                <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints/>
-                <RowConstraints/>
-                <RowConstraints/>
-                <RowConstraints/>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
             </rowConstraints>
             <!--            <VBox fx:id="deckVBox" alignment="CENTER" GridPane.rowIndex="2"/>-->
         </GridPane>
-        <VBox fx:id="centerBox" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <VBox fx:id="centerBox" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
     </children>
 </fx:root>
