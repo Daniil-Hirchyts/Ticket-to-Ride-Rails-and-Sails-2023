@@ -4,6 +4,7 @@ import fr.umontpellier.iut.rails.ICarteTransport;
 import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IJoueur;
+import fr.umontpellier.iut.rails.mecanique.data.Couleur;
 import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,15 +12,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Cette classe présente les éléments appartenant au joueur courant.
@@ -29,6 +33,10 @@ import java.util.List;
 public class VueJoueurCourant extends GridPane {
     IJeu jeu;
     List<ICarteTransport> cartesTransport;
+    @FXML
+    private ImageView piocheWagon;
+    @FXML
+    private ImageView piocheBateau;
     @FXML
     private HBox playerHBox;
     @FXML
@@ -53,6 +61,8 @@ public class VueJoueurCourant extends GridPane {
             e.printStackTrace();
         }
         cartesTransport = new ArrayList<>();
+        piocheBateau.setImage(new Image("images/cartesWagons/dos-BATEAU.png"));
+        piocheWagon.setImage(new Image("images/cartesWagons/dos-WAGON.png"));
     }
 
     public VueDestination trouverLabelDestination(IDestination d) {
@@ -71,10 +81,15 @@ public class VueJoueurCourant extends GridPane {
     });
 
     public void creerBindings() {
+        //TODO : creer les bindings pour les des pioches
         btnPasserTour.setOnMouseClicked(actionPasserParDefaut);
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 playerName.setText(newValue.getNom());
+                playerAvatar.setImage(new Image(getClass().getClassLoader().getResourceAsStream("images/Avatar/avatar-" + newValue.getCouleur().toString().toUpperCase() + ".png")));
+                playerAvatar.setFitHeight(70);
+                playerAvatar.setFitWidth(70);
+                infoVBox.setStyle("-fx-background-color: " + getCouleurJoueur(newValue.getCouleur()) + ";");
             }
         });
         for (IJoueur j : jeu.getJoueurs()) j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
@@ -108,5 +123,22 @@ public class VueJoueurCourant extends GridPane {
             }
         });
     }
+
+    private String getCouleurJoueur(IJoueur.CouleurJoueur couleurJoueur) {
+        switch (couleurJoueur) {
+            case ROUGE:
+                return "RED";
+            case VERT:
+                return "GREEN";
+            case BLEU:
+                return "BLUE";
+            case JAUNE:
+                return "YELLOW";
+            case ROSE:
+                return "BLACK";
+        }
+        return "WHITE";
+    }
+
 
 }

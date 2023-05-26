@@ -19,6 +19,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -40,6 +42,11 @@ public class VueDuJeu extends GridPane {
 
     private final IJeu jeu;
     private VuePlateau plateau;
+
+    @FXML
+    private ImageView pileCard;
+    @FXML
+    private ImageView destinationCard;
     @FXML
     private VBox centerBox;
     @FXML
@@ -62,6 +69,7 @@ public class VueDuJeu extends GridPane {
             e.printStackTrace();
         }
         plateau = new VuePlateau();
+        destinationCard.setImage(new Image("images/cartesWagons/destinations.png"));
         VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu);
         centerBox.getChildren().add(plateau);
         vueJoueurCourant.creerBindings();
