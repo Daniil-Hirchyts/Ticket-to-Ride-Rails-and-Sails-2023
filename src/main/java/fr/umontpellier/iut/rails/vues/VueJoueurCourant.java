@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -24,6 +25,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Cette classe présente les éléments appartenant au joueur courant.
@@ -49,6 +53,8 @@ public class VueJoueurCourant extends GridPane {
     private Label playerName;
     @FXML
     private ImageView playerAvatar;
+    @FXML
+    private VBox colorBack;
 
     public VueJoueurCourant(IJeu jeu) {
         this.jeu = jeu;
@@ -86,13 +92,19 @@ public class VueJoueurCourant extends GridPane {
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 playerName.setText(newValue.getNom());
-                playerAvatar.setImage(new Image(getClass().getClassLoader().getResourceAsStream("images/Avatar/avatar-" + newValue.getCouleur().toString().toUpperCase() + ".png")));
-                playerAvatar.setFitHeight(70);
-                playerAvatar.setFitWidth(70);
-                infoVBox.setStyle("-fx-background-color: " + getCouleurJoueur(newValue.getCouleur()) + ";");
+                playerAvatar.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/Avatar/avatar-" + newValue.getCouleur().toString().toUpperCase() + ".png"))));
+                switch (getCouleurJoueur(newValue.getCouleur())) {
+                    case "RED" -> colorBack.setStyle("-fx-background-color: #ff6565");
+                    case "GREEN" -> colorBack.setStyle("-fx-background-color: #65ff65");
+                    case "BLUE" -> colorBack.setStyle("-fx-background-color: #6565ff");
+                    case "YELLOW" -> colorBack.setStyle("-fx-background-color: #ffff65");
+                    case "BLACK" -> colorBack.setStyle("-fx-background-color: #7f7f7f");
+                    default -> colorBack.setStyle("-fx-background-color: #ffffff");
+                }
             }
         });
-        for (IJoueur j : jeu.getJoueurs()) j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
+        for (IJoueur j : jeu.getJoueurs())
+            j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
                 @Override
                 public void onChanged(Change<? extends ICarteTransport> change) {
                     cartesTransport.clear();

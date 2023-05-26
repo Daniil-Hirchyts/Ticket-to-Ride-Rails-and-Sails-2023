@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<fx:root fx:id="vueJoueurCourant" alignment="CENTER" prefHeight="150.0" prefWidth="1920.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="vueJoueurCourant" alignment="CENTER" prefHeight="150.0" prefWidth="1920.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
     <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
@@ -43,10 +38,21 @@
             <VBox fx:id="infoVBox" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" spacing="25.0">
                <children>
                   <Label fx:id="playerName" text="Label" />
-                  <ImageView fx:id="playerAvatar" pickOnBounds="true" preserveRatio="true" />
+                  <VBox fx:id="colorBack" alignment="BOTTOM_CENTER" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
+                     <children>
+                        <ImageView fx:id="playerAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" translateY="4.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ImageView>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </VBox>
                </children>
                <padding>
-                  <Insets top="25.0" />
+                  <Insets top="15.0" />
                </padding></VBox>
          </children>
       </HBox>
