@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<fx:root fx:id="vueJoueurCourant" alignment="CENTER" prefHeight="150.0" prefWidth="1920.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="vueJoueurCourant" alignment="CENTER" prefHeight="150.0" prefWidth="1080.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
     <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
@@ -16,18 +16,17 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox fx:id="playerDestinations" alignment="TOP_CENTER" spacing="10.0">
+      <VBox fx:id="playerDestinations" alignment="TOP_CENTER" spacing="5.0">
          <children>
             <Label fx:id="labelDestination" text="Destinations" />
             <VBox fx:id="vboxDestinations" alignment="CENTER" spacing="2.0" />
          </children>
          <padding>
-            <Insets top="10.0" />
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding></VBox>
-      <HBox fx:id="playerHBox" alignment="CENTER" GridPane.columnIndex="1">
+      <HBox fx:id="centerSection" alignment="CENTER" GridPane.columnIndex="1">
          <children>
-            <ImageView fx:id="piocheWagon" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="piocheBateau" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <HBox fx:id="playerCartesBox" alignment="BOTTOM_CENTER" maxWidth="600.0" minWidth="300.0" prefWidth="600.0" />
          </children></HBox>
       <HBox fx:id="playerInfoBlock" GridPane.columnIndex="2">
          <children>
@@ -146,9 +145,12 @@
                   </GridPane>
                </children>
             </VBox>
-            <VBox fx:id="infoVBox" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" spacing="25.0">
+            <VBox fx:id="infoVBox" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" spacing="20.0">
                <children>
-                  <Label fx:id="playerName" text="Label" />
+                  <Label fx:id="playerName" text="Label" underline="true">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
                   <VBox fx:id="colorBack" alignment="BOTTOM_CENTER" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
                      <children>
                         <ImageView fx:id="playerAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" translateY="4.0">
@@ -163,7 +165,7 @@
                   </VBox>
                </children>
                <padding>
-                  <Insets top="15.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                </padding></VBox>
          </children>
       </HBox>

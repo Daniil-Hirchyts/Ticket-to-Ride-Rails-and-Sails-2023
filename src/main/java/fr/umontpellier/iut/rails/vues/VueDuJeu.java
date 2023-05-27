@@ -4,7 +4,6 @@ import fr.umontpellier.iut.rails.IJeu;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -52,7 +51,10 @@ public class VueDuJeu extends GridPane {
         VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu);
         centerBox.getChildren().add(plateau);
         vueJoueurCourant.creerBindings();
-        bottomHBox.getChildren().add(vueJoueurCourant);
+        setColumnSpan(vueJoueurCourant, 3);
+        setRowIndex(vueJoueurCourant, 2);
+        setColumnIndex(vueJoueurCourant, 0);
+        getChildren().add(vueJoueurCourant);
         ConsoleLogger.getInstance(consoleHistory, consoleScrollPane);
     }
 

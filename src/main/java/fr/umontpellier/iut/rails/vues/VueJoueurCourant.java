@@ -33,10 +33,6 @@ public class VueJoueurCourant extends GridPane {
     IJeu jeu;
     List<ICarteTransport> cartesTransport;
     @FXML
-    private ImageView piocheWagon;
-    @FXML
-    private ImageView piocheBateau;
-    @FXML
     private HBox playerHBox;
     @FXML
     private VBox infoVBox;
@@ -72,8 +68,6 @@ public class VueJoueurCourant extends GridPane {
             e.printStackTrace();
         }
         cartesTransport = new ArrayList<>();
-        piocheBateau.setImage(new Image("images/cartesWagons/dos-BATEAU.png"));
-        piocheWagon.setImage(new Image("images/cartesWagons/dos-WAGON.png"));
     }
 
     public VueDestination trouverLabelDestination(IDestination d) {
@@ -108,7 +102,7 @@ public class VueJoueurCourant extends GridPane {
                     cartesTransport.clear();
                     cartesTransport.addAll(j.getCartesTransport());
                     for (ICarteTransport c : cartesTransport) {
-                        playerHBox.getChildren().add(new VueCarteTransport(c, 1));
+//                        playerHBox.getChildren().add(new VueCarteTransport(c, 1));
 //                        playerHBox.getChildren().add(new Label(c:toString());
                     }
                 }
