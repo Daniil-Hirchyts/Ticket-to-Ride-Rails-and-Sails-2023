@@ -28,8 +28,6 @@ public class VueDuJeu extends GridPane {
     @FXML
     private ImageView pileCard;
     @FXML
-    private ImageView destinationCard;
-    @FXML
     private VBox centerBox;
     @FXML
     private VBox rightVBox;
@@ -51,7 +49,6 @@ public class VueDuJeu extends GridPane {
             e.printStackTrace();
         }
         plateau = new VuePlateau();
-        destinationCard.setImage(new Image("images/cartesWagons/destinations.png"));
         VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu);
         centerBox.getChildren().add(plateau);
         vueJoueurCourant.creerBindings();

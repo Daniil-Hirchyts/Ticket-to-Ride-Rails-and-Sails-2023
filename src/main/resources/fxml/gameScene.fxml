@@ -49,21 +49,22 @@
          </columnConstraints>
          <rowConstraints>
             <RowConstraints vgrow="ALWAYS" />
-            <RowConstraints vgrow="SOMETIMES" />
-            <RowConstraints vgrow="ALWAYS" />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
          </rowConstraints>
          <children>
-            <VBox fx:id="pileBateau" alignment="CENTER">
+            <VBox fx:id="piocheBox" alignment="CENTER" prefHeight="500.0" />
+            <VBox id="pile" fx:id="pileBateau" alignment="CENTER" GridPane.rowIndex="1">
                <children>
                   <ImageView fx:id="destinationCard" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </VBox>
-            <VBox fx:id="pileWagon" alignment="CENTER" GridPane.rowIndex="2">
+            <VBox id="pile" fx:id="pileWagon" alignment="CENTER" GridPane.rowIndex="2">
                <children>
                   <ImageView fx:id="pileCard" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </VBox>
-            <VBox fx:id="piocheBox" alignment="CENTER" GridPane.rowIndex="1" />
          </children>
       </GridPane>
     </children>

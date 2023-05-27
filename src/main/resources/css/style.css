@@ -11,7 +11,7 @@ Rectangle {
 }
 
 
-#leftVBox, #piocheBox, #pileWagon, #playerHBox, #bottomHBox, #rightVBox, #infoVBox, #pileBateau, #playerVBox, #topHBox, #infoVBox_2, #console, #playerInfoBlock, #playerDestinations, #consoleScrollPane {
+#leftVBox, #piocheBox, #pionsGrid, #pile, #playerHBox, #bottomHBox, #rightVBox, #infoVBox, #playerVBox, #topHBox, #infoVBox_2, #console, #playerInfoBlock, #playerDestinations, #consoleScrollPane {
     -fx-background-color: rgba(197, 223, 255);
     -fx-border-color: #000000;
     -fx-border-width: 0.25;
@@ -29,12 +29,12 @@ Rectangle {
     -fx-border-width: 0.25;
 }
 
-#leftVBox, #piocheBox, #pileWagon, #pileBateau {
+#leftVBox, #piocheBox, #pile {
     -fx-min-width: 150;
     -fx-max-width: 150;
 }
 
-#pileWagon, #pileBateau {
+#pile {
     -fx-min-height: 100;
 }
 
