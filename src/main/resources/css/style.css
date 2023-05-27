@@ -6,12 +6,12 @@ Circle {
 }
 
 Rectangle {
-    -fx-fill: "blue"; /*transparent*/
+    -fx-fill: "blue";
     -fx-stroke: "blue";
 }
 
 
-#leftVBox, #deckVBox, #piocheVBox, #playerHBox, #bottomHBox, #rightVBox, #infoVBox, #destinationVBox, #playerVBox, #topHBox, #infoVBox_2, #console, #playerInfoBlock, #playerDestinations, #consoleScrollPane {
+#leftVBox, #piocheBox, #pileWagon, #playerHBox, #bottomHBox, #rightVBox, #infoVBox, #pileBateau, #playerVBox, #topHBox, #infoVBox_2, #console, #playerInfoBlock, #playerDestinations, #consoleScrollPane {
     -fx-background-color: rgba(197, 223, 255);
     -fx-border-color: #000000;
     -fx-border-width: 0.25;
@@ -29,22 +29,14 @@ Rectangle {
     -fx-border-width: 0.25;
 }
 
-/*LEFT*/
-
-#leftVBox, #deckVBox, #piocheVBox, #destinationVBox {
+#leftVBox, #piocheBox, #pileWagon, #pileBateau {
     -fx-min-width: 150;
     -fx-max-width: 150;
 }
 
-#deckVBox {
-    -fx-min-height: 500;
-}
-
-#piocheVBox, #destinationVBox {
+#pileWagon, #pileBateau {
     -fx-min-height: 100;
 }
-
-/*BOTTOM*/
 
 #bottomHBox, #playerHBox, #infoVBox, #playerVBox, #playerInfoBlock, #playerDestinations {
     -fx-min-height: 150;
@@ -56,25 +48,15 @@ Rectangle {
     -fx-max-width: 150;
 }
 
-/*#playerHBox {*/
-/*    -fx-min-width: 500;*/
-/*    -fx-max-width: 500;*/
-/*}*/
-
-
 #playerInfoBlock, #playerDestinations, #console {
     -fx-min-width: 300;
     -fx-max-width: 300;
 }
 
-/*RIGHT*/
-
 #rightVBox {
     -fx-min-width: 150;
     -fx-max-width: 150;
 }
-
-/*TOP*/
 
 #topHBox, #infoVBox_2, #console {
     -fx-min-height: 150;
@@ -90,12 +72,10 @@ Rectangle {
     -fx-background-color: rgba(197, 223, 255);
     -fx-border-color: #000000;
     -fx-border-width: 0.25;
-
-    /* additional customization */
-    -fx-background: rgba(197, 223, 255); /* background color of the viewport */
-    -fx-scrollbar-width: 10px; /* width of the scrollbar */
-    -fx-scrollbar-color: rgba(197, 223, 255); /* color of the scrollbar */
-    -fx-scrollbar-thumb-color: #000000; /* color of the scrollbar thumb */
+    -fx-background: rgba(197, 223, 255);
+    -fx-scrollbar-width: 10px;
+    -fx-scrollbar-color: rgba(197, 223, 255);
+    -fx-scrollbar-thumb-color: #000000;
 }
 
 #consoleScrollPane .scroll-bar:vertical {
@@ -172,5 +152,3 @@ Rectangle {
     -fx-text-fill: rgb(0, 0, 0);
     -fx-padding: 5px;
 }
-
-/**/

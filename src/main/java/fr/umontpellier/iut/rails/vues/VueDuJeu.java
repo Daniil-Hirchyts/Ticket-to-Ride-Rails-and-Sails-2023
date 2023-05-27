@@ -25,7 +25,6 @@ public class VueDuJeu extends GridPane {
 
     private final IJeu jeu;
     private VuePlateau plateau;
-
     @FXML
     private ImageView pileCard;
     @FXML
