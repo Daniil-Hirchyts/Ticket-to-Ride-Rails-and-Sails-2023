@@ -74,6 +74,7 @@ public class VueDuJeu extends GridPane {
         centerBox.getChildren().add(plateau);
         vueJoueurCourant.creerBindings();
         bottomHBox.getChildren().add(vueJoueurCourant);
+        ConsoleLogger.getInstance(consoleHistory, consoleScrollPane);
     }
 
     public void creerBindings() {
@@ -81,14 +82,19 @@ public class VueDuJeu extends GridPane {
         plateau.prefHeightProperty().bind(getScene().heightProperty());
         plateau.creerBindings();
         jeu.instructionProperty().addListener((observable, oldValue, newValue) -> {
-            Label label = new Label(newValue);
-            consoleHistory.getChildren().addAll(label);
-            consoleScrollPane.setVvalue(1);
+            ConsoleLogger.getInstance(null, null).log(newValue);
         });
     }
 
     public IJeu getJeu() {
         return jeu;
+    }
+
+
+    private void consolePrint(String message) {
+        Label label = new Label(message);
+        consoleHistory.getChildren().addAll(label);
+        consoleScrollPane.setVvalue(1);
     }
 
 }

@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import static java.lang.String.valueOf;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -88,7 +89,7 @@ public class VueJoueurCourant extends GridPane {
     }
 
     EventHandler<? super MouseEvent> actionPasserParDefaut = (mouseEvent -> {
-        System.out.println("On a cliqué sur le bouton passer");
+        ConsoleLogger.getInstance(null, null).log("Passage au joueur suivant");
         jeu.passerAEteChoisi();
     });
 
@@ -98,9 +99,9 @@ public class VueJoueurCourant extends GridPane {
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 playerName.setText(newValue.getNom());
-                pionsWagon.setText(String.valueOf(newValue.getNbPionsWagon()));
-                pionsBateau.setText(String.valueOf(newValue.getNbPionsBateau()));
-                pionsPort.setText(String.valueOf(newValue.getNbPorts()));
+                pionsWagon.setText(valueOf(newValue.getNbPionsWagon()));
+                pionsBateau.setText(valueOf(newValue.getNbPionsBateau()));
+                pionsPort.setText(valueOf(newValue.getNbPorts()));
                 playerAvatar.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/Avatar/avatar-" + newValue.getCouleur().toString().toUpperCase() + ".png"))));
                 colorBack.setStyle("-fx-background-color: " + getCouleurJoueur(newValue.getCouleur()) + ";");
             }
@@ -123,13 +124,13 @@ public class VueJoueurCourant extends GridPane {
                 while (change.next()) {
                     if (change.wasAdded()) {
                         for (IDestination destination : change.getAddedSubList()) {
-                            System.out.println("On a ajouté la destination " + destination.getVilles().toString());
+                            ConsoleLogger.getInstance(null, null).log("Ajout de la destination " + destination.getVilles().toString());
                             vboxDestinations.getChildren().add(new VueDestination(destination));
                         }
                     }
                     if (change.wasRemoved()) {
                         for (IDestination destination : change.getRemoved()) {
-                            System.out.println("On a enlevé la destination " + destination.getVilles().toString());
+                            ConsoleLogger.getInstance(null, null).log("Suppression de la destination " + destination.getVilles().toString());
                             vboxDestinations.getChildren().remove(trouverLabelDestination(destination));
                         }
                     }
