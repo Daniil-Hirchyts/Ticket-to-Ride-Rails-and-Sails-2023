@@ -41,7 +41,6 @@
         <VBox fx:id="infoVBox_2" />
 
         <VBox fx:id="rightVBox" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-        <VBox fx:id="centerBox" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <GridPane fx:id="leftVBox" GridPane.rowIndex="1">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -54,14 +53,20 @@
          </rowConstraints>
          <children>
             <VBox fx:id="piocheBox" alignment="CENTER" prefHeight="500.0" />
-            <VBox id="pile" fx:id="pileBateau" alignment="CENTER" GridPane.rowIndex="1">
+            <VBox id="pile" fx:id="pileBateau" alignment="CENTER" maxHeight="100.0" maxWidth="150.0" minHeight="100.0" minWidth="150.0" GridPane.rowIndex="1">
                <children>
-                  <ImageView fx:id="destinationCard" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitWidth="80.0" pickOnBounds="true" preserveRatio="true" rotate="270.0">
+                     <image>
+                        <Image url="@../images/cartesWagons/dos-BATEAU.png" />
+                     </image></ImageView>
                </children>
             </VBox>
             <VBox id="pile" fx:id="pileWagon" alignment="CENTER" GridPane.rowIndex="2">
                <children>
-                  <ImageView fx:id="pileCard" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitWidth="80.0" pickOnBounds="true" preserveRatio="true" rotate="270.0">
+                     <image>
+                        <Image url="@../images/cartesWagons/dos-WAGON.png" />
+                     </image></ImageView>
                </children>
             </VBox>
          </children>

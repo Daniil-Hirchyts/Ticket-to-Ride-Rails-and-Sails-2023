@@ -27,8 +27,6 @@ public class VueDuJeu extends GridPane {
     @FXML
     private ImageView pileCard;
     @FXML
-    private VBox centerBox;
-    @FXML
     private VBox rightVBox;
     @FXML
     private HBox bottomHBox;
@@ -48,13 +46,17 @@ public class VueDuJeu extends GridPane {
             e.printStackTrace();
         }
         plateau = new VuePlateau();
+        setRowIndex(plateau, 1);
+        setColumnIndex(plateau, 1);
+
         VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu);
-        centerBox.getChildren().add(plateau);
-        vueJoueurCourant.creerBindings();
         setColumnSpan(vueJoueurCourant, 3);
         setRowIndex(vueJoueurCourant, 2);
         setColumnIndex(vueJoueurCourant, 0);
-        getChildren().add(vueJoueurCourant);
+        vueJoueurCourant.creerBindings();
+
+        getChildren().addAll(vueJoueurCourant, plateau);
+
         ConsoleLogger.getInstance(consoleHistory, consoleScrollPane);
     }
 
