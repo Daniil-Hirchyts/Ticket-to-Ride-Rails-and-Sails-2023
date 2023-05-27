@@ -17,9 +17,7 @@ public final class DonneesGraphiques {
     public final static Map<String, ArrayList<DonneesSegments>> routes;
     private final static Map<String, DonneesLayout> villes;
     public final static Map<String, DonneesCerclesPorts> ports;
-
     private final static Image map = new Image("images/map.jpg");
-
     public static final double pourcentageEcran = .8, // permet de définir une proportion de la scène par rapport à l'écran de l'utilisateur
             largeurInitialePlateau = map.getWidth(),// 1920.0 largeur de l'image
             hauteurInitialePlateau = map.getHeight(),// 1069.0 hauteur de l'image

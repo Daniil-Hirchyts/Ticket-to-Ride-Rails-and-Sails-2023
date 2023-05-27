@@ -18,9 +18,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import static java.lang.String.valueOf;
 import static java.util.Objects.requireNonNull;
 
@@ -56,6 +58,8 @@ public class VueJoueurCourant extends GridPane {
     private TextField commandField;
     @FXML
     private Button btnSendCommand;
+    @FXML
+    private Label scoreLabel;
 
     public VueJoueurCourant(IJeu jeu) {
         this.jeu = jeu;
@@ -91,6 +95,7 @@ public class VueJoueurCourant extends GridPane {
                 pionsWagon.setText(valueOf(newValue.getNbPionsWagon()));
                 pionsBateau.setText(valueOf(newValue.getNbPionsBateau()));
                 pionsPort.setText(valueOf(newValue.getNbPorts()));
+                scoreLabel.setText(valueOf(newValue.getScore()));
                 playerAvatar.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/Avatar/avatar-" + newValue.getCouleur().toString().toUpperCase() + ".png"))));
                 colorBack.setStyle("-fx-background-color: " + getCouleurJoueur(newValue.getCouleur()) + ";");
             }

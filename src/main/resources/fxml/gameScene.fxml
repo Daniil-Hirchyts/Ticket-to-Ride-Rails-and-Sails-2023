@@ -24,9 +24,9 @@
                         <Label text="Console" />
                         <ScrollPane fx:id="consoleScrollPane" vbarPolicy="ALWAYS">
                             <content>
-                                <VBox fx:id="consoleHistory" prefHeight="111.0" prefWidth="279.0" spacing="10.0">
+                                <VBox fx:id="consoleHistory" prefHeight="111.0" prefWidth="279.0" spacing="5.0">
                                     <padding>
-                                        <Insets top="25.0" />
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                     </padding>
                                 </VBox>
                             </content>

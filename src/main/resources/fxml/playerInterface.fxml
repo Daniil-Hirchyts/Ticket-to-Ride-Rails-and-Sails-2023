@@ -151,18 +151,31 @@
                      <font>
                         <Font size="20.0" />
                      </font></Label>
-                  <VBox fx:id="colorBack" alignment="BOTTOM_CENTER" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
-                     <children>
-                        <ImageView fx:id="playerAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" translateY="4.0">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </ImageView>
-                     </children>
+                  <AnchorPane>
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets />
                      </VBox.margin>
-                  </VBox>
+                     <children>
+                        <VBox fx:id="colorBack" alignment="BOTTOM_CENTER" layoutX="35.0" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
+                           <children>
+                              <ImageView fx:id="playerAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" translateY="4.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                        <Pane id="button-square" layoutX="90.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0">
+                           <children>
+                              <Label fx:id="scoreLabel" layoutX="11.0" layoutY="-1.0" text="0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />

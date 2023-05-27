@@ -12,7 +12,6 @@ public interface IJoueur {
     ObservableList<? extends CarteTransport> cartesTransportPoseesProperty();
     IntegerProperty nbPionsWagonsProperty();
     IntegerProperty nbPionsBateauxProperty();
-
     List<? extends ICarteTransport> getCartesTransport();
     List<? extends IDestination> getDestinations();
     int getNbPionsWagon();
