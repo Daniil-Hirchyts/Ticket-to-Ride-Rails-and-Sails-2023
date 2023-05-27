@@ -3,11 +3,18 @@
 Circle {
     -fx-fill: "red";
     -fx-stroke: "red";
+    -fx-opacity: 0;
+
 }
 
 Rectangle {
     -fx-fill: "blue";
     -fx-stroke: "blue";
+    -fx-opacity: 0;
+}
+
+* {
+-fx-font-family: 'IM Fell English SC', serif;
 }
 
 

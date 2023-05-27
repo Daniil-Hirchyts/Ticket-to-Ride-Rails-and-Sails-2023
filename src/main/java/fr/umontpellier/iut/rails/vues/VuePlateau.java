@@ -40,7 +40,7 @@ public class VuePlateau extends Pane {
     }
 
     EventHandler<MouseEvent> choixRoute = event -> {
-        System.out.println("On a cliqué sur une route");
+        ConsoleLogger.getInstance(null, null).log("On a cliqué sur une route");
     };
 
     EventHandler<MouseEvent> choixPort = event -> {

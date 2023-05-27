@@ -15,9 +15,7 @@ public class ConsoleLogger {
     }
 
     public static ConsoleLogger getInstance(VBox consoleHistory, ScrollPane consoleScrollPane) {
-        if (instance == null) {
-            instance = new ConsoleLogger(consoleHistory, consoleScrollPane);
-        }
+        if (instance == null) instance = new ConsoleLogger(consoleHistory, consoleScrollPane);
         return instance;
     }
 
