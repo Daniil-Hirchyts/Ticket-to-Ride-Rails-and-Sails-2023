@@ -4,7 +4,6 @@ import fr.umontpellier.iut.rails.ICarteTransport;
 import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IJoueur;
-import fr.umontpellier.iut.rails.mecanique.data.Couleur;
 import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,16 +17,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
-
 import static java.lang.String.valueOf;
 import static java.util.Objects.requireNonNull;
 
@@ -84,12 +77,9 @@ public class VueJoueurCourant extends GridPane {
     }
 
     public VueDestination trouverLabelDestination(IDestination d) {
-        for (Node n : vboxDestinations.getChildren()) {
-            if (n instanceof VueDestination) {
-                VueDestination l = (VueDestination) n;
+        for (Node n : vboxDestinations.getChildren())
+            if (n instanceof VueDestination l)
                 if (l.getText().equals(d.getVilles().toString())) return l;
-            }
-        }
         return null;
     }
 

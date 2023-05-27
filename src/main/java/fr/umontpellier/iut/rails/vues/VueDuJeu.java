@@ -1,30 +1,13 @@
 package fr.umontpellier.iut.rails.vues;
 
-import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.IJeu;
-import fr.umontpellier.iut.rails.mecanique.data.Destination;
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -89,12 +72,4 @@ public class VueDuJeu extends GridPane {
     public IJeu getJeu() {
         return jeu;
     }
-
-
-    private void consolePrint(String message) {
-        Label label = new Label(message);
-        consoleHistory.getChildren().addAll(label);
-        consoleScrollPane.setVvalue(1);
-    }
-
 }
