@@ -18,7 +18,7 @@ Rectangle {
 }
 
 
-#leftVBox, #piocheBox, #pionsGrid, #pile, #vueJoueurCourant, #playerCartesBox, #centerSection, #bottomHBox, #rightVBox, #infoVBox, #playerVBox, #topHBox, #infoVBox_2, #console, #playerInfoBlock, #playerDestinations, #consoleScrollPane {
+#leftVBox, #piocheBox, #block, #pile, #vueJoueurCourant, #playerCartesBox, #centerSection, #bottomHBox, #rightVBox, #infoVBox, #playerVBox, #topHBox, #infoVBox_2, #console, #playerInfoBlock, #playerDestinations, #consoleScrollPane {
     -fx-background-color: rgba(197, 223, 255);
     -fx-border-color: #000000;
     -fx-border-width: 0.25;
@@ -138,7 +138,7 @@ Rectangle {
     -fx-background-color: rgb(180, 150, 200);
 }
 
-#colorBack {
+#avatarColor {
     -fx-background-color: rgb(241, 197, 255);
     -fx-text-fill: #000000;
     -fx-font-size: 10px;

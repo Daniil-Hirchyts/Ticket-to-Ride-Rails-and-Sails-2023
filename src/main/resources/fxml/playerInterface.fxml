@@ -32,7 +32,7 @@
          <children>
             <VBox fx:id="playerActions" alignment="CENTER" spacing="2.0">
                <children>
-                  <GridPane id="block" fx:id="pionsGrid">
+                  <GridPane fx:id="pionsGrid">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
@@ -84,7 +84,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </GridPane>
-                  <HBox id="block" spacing="5.0">
+                  <HBox spacing="5.0">
                      <children>
                         <TextField fx:id="commandField" />
                         <Button id="button-square" fx:id="btnSendCommand" mnemonicParsing="false">
@@ -151,12 +151,9 @@
                      <font>
                         <Font size="20.0" />
                      </font></Label>
-                  <AnchorPane>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
+                  <Pane maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
                      <children>
-                        <VBox fx:id="colorBack" alignment="BOTTOM_CENTER" layoutX="35.0" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
+                        <VBox id="avatarColor" fx:id="colorBack" alignment="BOTTOM_CENTER" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
                            <children>
                               <ImageView fx:id="playerAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" translateY="4.0">
                                  <VBox.margin>
@@ -165,7 +162,7 @@
                               </ImageView>
                            </children>
                         </VBox>
-                        <Pane id="button-square" layoutX="90.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0">
+                        <Pane id="button-square" layoutX="50.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0">
                            <children>
                               <Label fx:id="scoreLabel" layoutX="11.0" layoutY="-1.0" text="0">
                                  <font>
@@ -175,7 +172,7 @@
                            </children>
                         </Pane>
                      </children>
-                  </AnchorPane>
+                  </Pane>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
