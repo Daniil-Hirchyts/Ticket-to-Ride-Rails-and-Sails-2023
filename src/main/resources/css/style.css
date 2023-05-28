@@ -14,24 +14,24 @@ Rectangle {
 }
 
 * {
--fx-font-family: 'IM Fell English SC', serif;
+    -fx-font-family: 'IM Fell English SC', serif;
 }
 
 
 #leftVBox, #piocheBox, #block, #pile, #vueJoueurCourant, #playerCartesBox, #centerSection, #bottomHBox, #rightVBox, #infoVBox, #playerVBox, #topHBox, #infoVBox_2, #console, #playerInfoBlock, #playerDestinations, #consoleScrollPane {
-    -fx-background-color: rgba(197, 223, 255);
+    -fx-background-color: rgb(217, 189, 170);
     -fx-border-color: #000000;
     -fx-border-width: 0.25;
 }
 
 #centerBox {
-    -fx-background-color: rgb(241, 197, 255);
+    -fx-background-color: rgb(217, 189, 170);
     -fx-border-color: #000000;
     -fx-border-width: 0.25;
 }
 
 #plateau {
-    -fx-background-color: rgb(186, 255, 119);
+    -fx-background-color: rgb(132, 105, 98);
     -fx-border-color: #000000;
     -fx-border-width: 0.25;
 }
@@ -76,26 +76,26 @@ Rectangle {
 }
 
 #consoleScrollPane {
-    -fx-background-color: rgba(197, 223, 255);
+    -fx-background-color: rgb(217, 189, 170);
     -fx-border-color: #000000;
     -fx-border-width: 0.25;
-    -fx-background: rgba(197, 223, 255);
+    -fx-background: rgb(217, 189, 170);
     -fx-scrollbar-width: 10px;
-    -fx-scrollbar-color: rgba(197, 223, 255);
+    -fx-scrollbar-color: rgb(217, 189, 170);
     -fx-scrollbar-thumb-color: #000000;
 }
 
 #consoleScrollPane .scroll-bar:vertical {
     -fx-pref-width: 10px;
-    -fx-background-color: rgb(186, 255, 119);
+    -fx-background-color: rgb(217, 189, 170);
 }
 
 #consoleScrollPane .scroll-bar:vertical .thumb {
-    -fx-background-color: #ffffff;
+    -fx-background-color: rgb(132, 105, 98);
 }
 
 #button-square {
-    -fx-background-color: rgb(241, 197, 255);
+    -fx-background-color: rgb(225, 194, 151);
     -fx-text-fill: #000000;
     -fx-font-size: 14px;
     -fx-padding: 3px 3px;
@@ -106,16 +106,16 @@ Rectangle {
 }
 
 #button-square:hover {
-    -fx-background-color: rgb(200, 170, 220);
+    -fx-background-color: rgb(200, 169, 126);
     -fx-cursor: hand;
 }
 
 #button-square:pressed {
-    -fx-background-color: rgb(180, 150, 200);
+    -fx-background-color: rgb(180, 149, 106);
 }
 
 #destinationButton {
-    -fx-background-color: rgb(241, 197, 255);
+    -fx-background-color: rgb(225, 194, 151);
     -fx-text-fill: #000000;
     -fx-font-size: 10px;
     -fx-padding: 2px 2px;
@@ -130,16 +130,16 @@ Rectangle {
 }
 
 #destinationButton:hover {
-    -fx-background-color: rgb(200, 170, 220);
+    -fx-background-color: rgb(200, 169, 126);
     -fx-cursor: hand;
 }
 
 #destinationButton:pressed {
-    -fx-background-color: rgb(180, 150, 200);
+    -fx-background-color: rgb(180, 149, 106);
 }
 
 #avatarColor {
-    -fx-background-color: rgb(241, 197, 255);
+    -fx-background-color: rgb(225, 194, 151);
     -fx-text-fill: #000000;
     -fx-font-size: 10px;
     -fx-padding: 2px 2px;
