@@ -157,12 +157,15 @@ Rectangle {
 }
 
 #commandField {
-    -fx-background-color: white;
+    -fx-background-color: -fx-beige-main;
     -fx-border-color: black;
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
     -fx-font-size: 14px;
-    -fx-font-family: Arial;
+    -fx-font-family: 'IM Fell English SC', serif;
     -fx-text-fill: black;
     -fx-padding: 5px;
+    -fx-max-height: 28px;
+    -fx-min-height: 28px;
+    -fx-pref-height: 28px;
 }

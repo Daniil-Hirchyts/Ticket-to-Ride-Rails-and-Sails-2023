@@ -86,7 +86,7 @@
                   </GridPane>
                   <HBox spacing="5.0">
                      <children>
-                        <TextField fx:id="commandField" />
+                        <TextField fx:id="commandField" promptText="Nombre" />
                         <Button id="button-square" fx:id="btnSendCommand" mnemonicParsing="false">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">

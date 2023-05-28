@@ -8,9 +8,6 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 
-import static javafx.geometry.HPos.CENTER;
-
-
 /**
  * Cette classe présente les éléments des joueurs autres que le joueur courant,
  * en cachant ceux que le joueur courant n'a pas à connaitre.
@@ -36,7 +33,6 @@ public class VueAutresJoueurs extends GridPane {
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
             updatePlayerViews(newValue);
         });
-
     }
 
     public void updatePlayerViews(IJoueur joueur) {

@@ -5,6 +5,7 @@ import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IJoueur;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -72,6 +75,30 @@ public class VueJoueurCourant extends GridPane {
             e.printStackTrace();
         }
         cartesTransport = new ArrayList<>();
+        commandField.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                jeu.leNombreDePionsSouhaiteAEteRenseigne(commandField.getText());
+                commandField.setText("");
+                btnSendCommand.fire();
+            }
+        });
+
+        commandField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.ENTER) btnSendCommand.fire();
+            }
+        });
+
+        btnSendCommand.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                jeu.leNombreDePionsSouhaiteAEteRenseigne(commandField.getText());
+                commandField.setText("");
+            }
+        });
+
     }
 
     public VueDestination trouverLabelDestination(IDestination d) {
@@ -87,17 +114,19 @@ public class VueJoueurCourant extends GridPane {
     });
 
     public void creerBindings() {
-        //TODO : creer les bindings pour les des pioches
         btnPasserTour.setOnMouseClicked(actionPasserParDefaut);
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 playerName.setText(newValue.getNom());
-                pionsWagon.setText(valueOf(newValue.getNbPionsWagon()));
-                pionsBateau.setText(valueOf(newValue.getNbPionsBateau()));
+                pionsWagon.textProperty().bind(newValue.nbPionsWagonsProperty().asString());
+                pionsBateau.textProperty().bind(newValue.nbPionsBateauxProperty().asString());
                 pionsPort.setText(valueOf(newValue.getNbPorts()));
                 scoreLabel.setText(valueOf(newValue.getScore()));
                 playerAvatar.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/Avatar/avatar-" + newValue.getCouleur().toString().toUpperCase() + ".png"))));
                 colorBack.setStyle("-fx-background-color: " + getCouleurJoueur(newValue.getCouleur()) + ";");
+            } else {
+                pionsWagon.textProperty().unbind();
+                pionsBateau.textProperty().unbind();
             }
         });
         for (IJoueur j : jeu.getJoueurs())
