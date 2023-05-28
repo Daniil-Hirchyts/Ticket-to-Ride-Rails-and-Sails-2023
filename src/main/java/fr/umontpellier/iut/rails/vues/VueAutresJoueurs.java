@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.rails.vues;
 
 import fr.umontpellier.iut.rails.IJeu;
+import fr.umontpellier.iut.rails.IJoueur;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -32,16 +33,24 @@ public class VueAutresJoueurs extends GridPane {
     }
 
     public void creerBindings() {
-        for (int i = 0; i < jeu.getJoueurs().size(); i++) {
-            getColumnConstraints().add(new ColumnConstraints());
-        }
+        jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
+            updatePlayerViews(newValue);
+        });
 
-        for (int i = 1; i < jeu.getJoueurs().size(); i++) {
+    }
+
+    public void updatePlayerViews(IJoueur joueur) {
+        getChildren().clear();
+        getColumnConstraints().clear();
+        for (int i = 0; i < jeu.getJoueurs().size(); i++) getColumnConstraints().add(new ColumnConstraints());
+        for (int i = 0; i < jeu.getJoueurs().size(); i++) {
+            if (jeu.getJoueurs().get(i) == joueur) continue;
             VuePlayerInfo vuePlayerInfo = new VuePlayerInfo(jeu.getJoueurs().get(i));
-             vuePlayerInfo.creerBindings();
+            vuePlayerInfo.creerBindings();
             add(vuePlayerInfo, i, 0);
             getColumnConstraints().get(i).prefWidthProperty().bind(widthProperty().divide(jeu.getJoueurs().size() - 1));
         }
-
     }
+
+
 }
