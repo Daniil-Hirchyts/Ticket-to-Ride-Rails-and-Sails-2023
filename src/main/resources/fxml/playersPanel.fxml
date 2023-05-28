@@ -3,5 +3,12 @@
 <?import javafx.scene.layout.*?>
 
 
-<fx:root alignment="CENTER" maxHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="200.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" gridLinesVisible="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints halignment="CENTER" />
+      <ColumnConstraints halignment="CENTER" />
+      <ColumnConstraints halignment="CENTER" />
+      <ColumnConstraints halignment="CENTER" />
+      <ColumnConstraints halignment="CENTER" />
+   </columnConstraints>
 </fx:root>

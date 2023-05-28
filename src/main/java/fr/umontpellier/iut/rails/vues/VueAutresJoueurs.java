@@ -6,6 +6,8 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 
+import static javafx.geometry.HPos.CENTER;
+
 
 /**
  * Cette classe présente les éléments des joueurs autres que le joueur courant,
@@ -29,12 +31,11 @@ public class VueAutresJoueurs extends GridPane {
     }
 
     public void creerBindings() {
-        //nb rows = nb joueurs - 1
-//        for (int i = 0; i < jeu.getJoueurs().size() - 1; i++) {
-//            VuePlayerInfo vuePlayerInfo = new VuePlayerInfo(jeu.getJoueurs().get(i));
-////            vuePlayerInfo.creerBindings(jeu.getJoueurs().get(i));
-//            add(vuePlayerInfo, 0, i);
-//        }
+        for (int i = 0; i < jeu.getJoueurs().size() - 1; i++) {
+            VuePlayerInfo vuePlayerInfo = new VuePlayerInfo(jeu.getJoueurs().get(i));
+//            vuePlayerInfo.creerBindings(jeu.getJoueurs().get(i));
+            add(vuePlayerInfo, i, 0);
+        }
 
     }
 }

@@ -20,7 +20,7 @@
       <GridPane fx:id="topGridPane" GridPane.columnIndex="1" GridPane.columnSpan="2">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+            <ColumnConstraints halignment="CENTER" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
