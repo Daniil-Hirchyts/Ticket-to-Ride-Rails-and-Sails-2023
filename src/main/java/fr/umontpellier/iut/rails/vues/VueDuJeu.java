@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -37,6 +38,8 @@ public class VueDuJeu extends GridPane {
     private VBox consoleHistory;
     @FXML
     private GridPane topGridPane;
+    @FXML
+    private GridPane playersGrid;
 
 
     public VueDuJeu(IJeu jeu) {
@@ -73,6 +76,7 @@ public class VueDuJeu extends GridPane {
         jeu.instructionProperty().addListener((observable, oldValue, newValue) -> {
             ConsoleLogger.getInstance(null, null).log(newValue);
         });
+
     }
 
     public IJeu getJeu() {

@@ -2,6 +2,7 @@ package fr.umontpellier.iut.rails.vues;
 
 import fr.umontpellier.iut.rails.IJeu;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
@@ -31,10 +32,15 @@ public class VueAutresJoueurs extends GridPane {
     }
 
     public void creerBindings() {
-        for (int i = 0; i < jeu.getJoueurs().size() - 1; i++) {
+        for (int i = 0; i < jeu.getJoueurs().size(); i++) {
+            getColumnConstraints().add(new ColumnConstraints());
+        }
+
+        for (int i = 1; i < jeu.getJoueurs().size(); i++) {
             VuePlayerInfo vuePlayerInfo = new VuePlayerInfo(jeu.getJoueurs().get(i));
-//            vuePlayerInfo.creerBindings(jeu.getJoueurs().get(i));
+             vuePlayerInfo.creerBindings();
             add(vuePlayerInfo, i, 0);
+            getColumnConstraints().get(i).prefWidthProperty().bind(widthProperty().divide(jeu.getJoueurs().size() - 1));
         }
 
     }

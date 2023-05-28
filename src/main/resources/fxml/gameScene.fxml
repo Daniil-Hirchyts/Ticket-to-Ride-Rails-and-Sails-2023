@@ -26,6 +26,13 @@
             <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
+            <GridPane fx:id="playersGrid">
+              <rowConstraints>
+              </rowConstraints>
+               <columnConstraints>
+                  <ColumnConstraints />
+               </columnConstraints>
+            </GridPane>
                 <VBox fx:id="console" alignment="TOP_CENTER" spacing="10.0" GridPane.columnIndex="1">
                     <children>
                         <Label text="Console" />
