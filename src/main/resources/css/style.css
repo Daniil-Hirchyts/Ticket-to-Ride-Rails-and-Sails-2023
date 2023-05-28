@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 
+.root {
+    -fx-beige-light: rgb(217, 189, 170);
+    -fx-beige-main: rgb(225, 194, 151);
+    -fx-beige-hovered: rgb(200, 169, 126);
+    -fx-beige-pressed: rgb(180, 149, 106);
+}
+
 Circle {
     -fx-fill: "red";
     -fx-stroke: "red";
@@ -19,20 +26,20 @@ Rectangle {
 
 
 #leftVBox, #piocheBox, #block, #pile, #vueJoueurCourant, #playerCartesBox, #centerSection, #bottomHBox, #rightVBox, #infoVBox, #playerVBox, #topGridPane, #infoVBox_2, #console, #playerInfoBlock, #playerDestinations, #consoleScrollPane {
-    -fx-background-color: rgb(217, 189, 170);
-    -fx-border-color: #000000;
+    -fx-background-color: -fx-beige-light;
+    -fx-border-color: black;
     -fx-border-width: 0.25;
 }
 
 #centerBox {
-    -fx-background-color: rgb(217, 189, 170);
-    -fx-border-color: #000000;
+    -fx-background-color: -fx-beige-light;
+    -fx-border-color: black;
     -fx-border-width: 0.25;
 }
 
 #plateau {
-    -fx-background-color: rgb(217, 189, 170);
-    -fx-border-color: #000000;
+    -fx-background-color: -fx-beige-light;
+    -fx-border-color: black;
     -fx-border-width: 0.25;
 }
 
@@ -76,50 +83,50 @@ Rectangle {
 }
 
 #consoleScrollPane {
-    -fx-background-color: rgb(217, 189, 170);
-    -fx-border-color: #000000;
+    -fx-background-color: -fx-beige-light;
+    -fx-border-color: black;
     -fx-border-width: 0.25;
-    -fx-background: rgb(217, 189, 170);
+    -fx-background: -fx-beige-light;
     -fx-scrollbar-width: 10px;
-    -fx-scrollbar-color: rgb(217, 189, 170);
-    -fx-scrollbar-thumb-color: #000000;
+    -fx-scrollbar-color: -fx-beige-light;
+    -fx-scrollbar-thumb-color: black;
 }
 
 #consoleScrollPane .scroll-bar:vertical {
     -fx-pref-width: 10px;
-    -fx-background-color: rgb(217, 189, 170);
+    -fx-background-color: -fx-beige-light;
 }
 
 #consoleScrollPane .scroll-bar:vertical .thumb {
-    -fx-background-color: rgb(132, 105, 98);
+    -fx-background-color: -fx-beige-pressed;
 }
 
 #button-square {
-    -fx-background-color: rgb(225, 194, 151);
-    -fx-text-fill: #000000;
+    -fx-background-color: -fx-beige-main;
+    -fx-text-fill: black;
     -fx-font-size: 14px;
     -fx-padding: 3px 3px;
-    -fx-border-color: #000000;
+    -fx-border-color: black;
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
 }
 
 #button-square:hover {
-    -fx-background-color: rgb(200, 169, 126);
+    -fx-background-color: -fx-beige-hovered;
     -fx-cursor: hand;
 }
 
 #button-square:pressed {
-    -fx-background-color: rgb(180, 149, 106);
+    -fx-background-color: -fx-beige-pressed;
 }
 
 #destinationButton {
-    -fx-background-color: rgb(225, 194, 151);
-    -fx-text-fill: #000000;
+    -fx-background-color: -fx-beige-main;
+    -fx-text-fill: black;
     -fx-font-size: 10px;
     -fx-padding: 2px 2px;
-    -fx-border-color: #000000;
+    -fx-border-color: black;
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
@@ -130,34 +137,32 @@ Rectangle {
 }
 
 #destinationButton:hover {
-    -fx-background-color: rgb(200, 169, 126);
+    -fx-background-color: -fx-beige-hovered;
     -fx-cursor: hand;
 }
 
 #destinationButton:pressed {
-    -fx-background-color: rgb(180, 149, 106);
+    -fx-background-color: -fx-beige-pressed;
 }
 
 #avatarColor {
-    -fx-background-color: rgb(225, 194, 151);
-    -fx-text-fill: #000000;
+    -fx-background-color: -fx-beige-main;
+    -fx-text-fill: black;
     -fx-font-size: 10px;
     -fx-padding: 2px 2px;
-    -fx-border-color: #000000;
+    -fx-border-color: black;
     -fx-border-width: 1px;
     -fx-border-radius: 50%;
     -fx-background-radius: 50%;
 }
 
 #commandField {
-    -fx-background-color: rgb(255, 255, 255);
-    -fx-border-color: rgb(0, 0, 0);
+    -fx-background-color: white;
+    -fx-border-color: black;
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
     -fx-font-size: 14px;
     -fx-font-family: Arial;
-    -fx-text-fill: rgb(0, 0, 0);
+    -fx-text-fill: black;
     -fx-padding: 5px;
 }
-
-/**/
