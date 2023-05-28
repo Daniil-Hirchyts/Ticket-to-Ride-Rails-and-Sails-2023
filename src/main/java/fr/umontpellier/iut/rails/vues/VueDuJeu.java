@@ -35,6 +35,8 @@ public class VueDuJeu extends GridPane {
     private ScrollPane consoleScrollPane;
     @FXML
     private VBox consoleHistory;
+    @FXML
+    private GridPane topGridPane;
 
 
     public VueDuJeu(IJeu jeu) {
@@ -52,12 +54,14 @@ public class VueDuJeu extends GridPane {
         setColumnIndex(plateau, 1);
 
         VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu);
+        add(vueJoueurCourant, 0, 2);
         setColumnSpan(vueJoueurCourant, 3);
-        setRowIndex(vueJoueurCourant, 2);
-        setColumnIndex(vueJoueurCourant, 0);
         vueJoueurCourant.creerBindings();
+        getChildren().addAll(plateau);
 
-        getChildren().addAll(vueJoueurCourant, plateau);
+        VueAutresJoueurs vueAutresJoueurs = new VueAutresJoueurs(jeu);
+        topGridPane.add(vueAutresJoueurs, 0, 0);
+        vueAutresJoueurs.creerBindings();
 
         ConsoleLogger.getInstance(consoleHistory, consoleScrollPane);
     }

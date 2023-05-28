@@ -4,7 +4,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <fx:root alignment="CENTER" prefHeight="800.0" prefWidth="1080.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
@@ -18,7 +17,7 @@
         <RowConstraints />
     </rowConstraints>
     <children>
-      <GridPane fx:id="topHBox" GridPane.columnIndex="1" GridPane.columnSpan="2">
+      <GridPane fx:id="topGridPane" GridPane.columnIndex="1" GridPane.columnSpan="2">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
@@ -44,120 +43,6 @@
                         <Insets top="10.0" />
                     </padding>
                 </VBox>
-            <GridPane>
-              <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <VBox alignment="TOP_CENTER" layoutX="133.0" layoutY="10.0" spacing="20.0">
-                     <children>
-                        <Label text="Label" underline="true">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Pane maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
-                           <children>
-                              <VBox id="avatarColor" alignment="BOTTOM_CENTER" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
-                                 <children>
-                                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" translateY="4.0">
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </ImageView>
-                                 </children>
-                              </VBox>
-                              <Pane id="button-square" layoutX="50.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0">
-                                 <children>
-                                    <Label layoutX="11.0" layoutY="-1.0" text="0">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                           </children>
-                        </Pane>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
-                     </padding>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" layoutX="90.0" layoutY="10.0" spacing="20.0" GridPane.columnIndex="1">
-                     <children>
-                        <Label text="Label" underline="true">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Pane maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
-                           <children>
-                              <VBox id="avatarColor" alignment="BOTTOM_CENTER" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
-                                 <children>
-                                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" translateY="4.0">
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </ImageView>
-                                 </children>
-                              </VBox>
-                              <Pane id="button-square" layoutX="50.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0">
-                                 <children>
-                                    <Label layoutX="11.0" layoutY="-1.0" text="0">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                           </children>
-                        </Pane>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
-                     </padding>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" spacing="20.0" GridPane.columnIndex="2">
-                     <children>
-                        <Label text="Label" underline="true">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Pane maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
-                           <children>
-                              <VBox id="avatarColor" alignment="BOTTOM_CENTER" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
-                                 <children>
-                                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" translateY="4.0">
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </ImageView>
-                                 </children>
-                              </VBox>
-                              <Pane id="button-square" layoutX="50.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0">
-                                 <children>
-                                    <Label layoutX="11.0" layoutY="-1.0" text="0">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                           </children>
-                        </Pane>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
-                     </padding>
-                  </VBox>
-               </children>
-            </GridPane>
          </children>
       </GridPane>
         <VBox fx:id="infoVBox_2" />

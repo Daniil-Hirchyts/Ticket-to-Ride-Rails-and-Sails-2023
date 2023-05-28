@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+
+<fx:root alignment="CENTER" maxHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="200.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+</fx:root>
