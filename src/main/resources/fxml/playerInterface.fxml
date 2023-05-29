@@ -39,7 +39,7 @@
       </VBox>
       <HBox fx:id="centerSection" alignment="CENTER" GridPane.columnIndex="1">
          <children>
-            <HBox fx:id="playerCartesBox" alignment="BOTTOM_CENTER" maxWidth="600.0" minWidth="300.0" prefWidth="600.0" />
+            <HBox fx:id="playerCartesBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="600.0" minHeight="-Infinity" minWidth="300.0" prefHeight="150.0" />
          </children></HBox>
       <HBox fx:id="playerInfoBlock" GridPane.columnIndex="2">
          <children>

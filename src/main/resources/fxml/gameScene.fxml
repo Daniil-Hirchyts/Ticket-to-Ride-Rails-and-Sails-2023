@@ -54,7 +54,6 @@
             </children>
         </GridPane>
         <VBox fx:id="infoVBox_2" />
-
         <VBox fx:id="rightVBox" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1" />
         <GridPane fx:id="leftVBox" GridPane.rowIndex="1">
             <columnConstraints>
@@ -67,7 +66,7 @@
                 <RowConstraints />
             </rowConstraints>
             <children>
-                <VBox fx:id="piocheBox" alignment="CENTER" prefHeight="500.0" />
+                <VBox fx:id="piocheBox" alignment="CENTER" />
                 <VBox id="pile" fx:id="pileBateau" alignment="CENTER" maxHeight="100.0" maxWidth="150.0" minHeight="100.0" minWidth="150.0" GridPane.rowIndex="1">
                     <children>
                         <ImageView fitWidth="80.0" pickOnBounds="true" preserveRatio="true" rotate="270.0">
@@ -77,7 +76,7 @@
                         </ImageView>
                     </children>
                 </VBox>
-                <VBox id="pile" fx:id="pileWagon" alignment="CENTER" GridPane.rowIndex="2">
+                <VBox id="pile" fx:id="pileWagon" alignment="CENTER" maxHeight="100.0" maxWidth="150.0" minHeight="100.0" minWidth="150.0" GridPane.rowIndex="2">
                     <children>
                         <ImageView fitWidth="80.0" pickOnBounds="true" preserveRatio="true" rotate="270.0">
                             <image>

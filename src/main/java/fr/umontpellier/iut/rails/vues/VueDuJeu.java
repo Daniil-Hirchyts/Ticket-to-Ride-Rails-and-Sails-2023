@@ -2,6 +2,7 @@ package fr.umontpellier.iut.rails.vues;
 
 import fr.umontpellier.iut.rails.ICarteTransport;
 import fr.umontpellier.iut.rails.IJeu;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+
+import static javafx.beans.binding.Bindings.when;
 
 /**
  * Cette classe correspond à la fenêtre principale de l'application.
@@ -85,12 +88,18 @@ public class VueDuJeu extends GridPane {
             public void onChanged(Change<? extends ICarteTransport> change) {
                 piocheBox.getChildren().clear();
                 for (ICarteTransport carteTransport : jeu.cartesTransportVisiblesProperty()) {
-                    VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport,1);
+                    VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1);
+                    vueCarteTransport.setId("carte-horizontal");
+                    vueCarteTransport.horizontalLayout();
+
                     piocheBox.getChildren().add(vueCarteTransport);
-                    piocheBox.getChildren().add(vueCarteTransport.getImageView());
+
                 }
             }
         });
+        piocheBox.spacingProperty().bind(heightProperty().divide(when(heightProperty().lessThanOrEqualTo(960)).then(7).otherwise(heightProperty().subtract(1))).multiply(
+                when(heightProperty().lessThanOrEqualTo(960)).then(-1).otherwise(1)));
+
     }
 
     public IJeu getJeu() {

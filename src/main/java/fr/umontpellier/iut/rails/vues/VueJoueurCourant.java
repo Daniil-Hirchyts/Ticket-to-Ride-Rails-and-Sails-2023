@@ -28,6 +28,7 @@ import java.util.List;
 
 import static java.lang.String.valueOf;
 import static java.util.Objects.requireNonNull;
+import static javafx.beans.binding.Bindings.when;
 
 /**
  * Cette classe présente les éléments appartenant au joueur courant.
@@ -38,8 +39,6 @@ public class VueJoueurCourant extends GridPane {
     IJeu jeu;
     List<ICarteTransport> cartesTransport;
     private String nomJoueur;
-    @FXML
-    private HBox playerHBox;
     @FXML
     private VBox infoVBox;
     @FXML
@@ -137,35 +136,34 @@ public class VueJoueurCourant extends GridPane {
                 pionsBateau.textProperty().unbind();
             }
         });
-        for (IJoueur j : jeu.getJoueurs()){
-                j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
-                    @Override
-                    public void onChanged(Change<? extends ICarteTransport> change) {
-                        while (change.next()) {
-                            cartesTransport.clear();
-                            playerCartesBox.getChildren().clear();
-                            if (change.wasAdded()) {
-                                for (ICarteTransport carteTransport : change.getAddedSubList()) {
-                                    ConsoleLogger.getInstance(null, null).log("Ajout de la carte " + carteTransport.getStringCouleur().toString());
-                                    VueCarteTransport v = new VueCarteTransport(carteTransport,1);
-                                    v.getImageView().setRotate(90);
-                                    playerCartesBox.getChildren().add(v);
-                                    playerCartesBox.getChildren().add(v.getImageView());
-                                }
+        for (IJoueur j : jeu.getJoueurs()) {
+            j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
+                @Override
+                public void onChanged(Change<? extends ICarteTransport> change) {
+                    while (change.next()) {
+                        cartesTransport.clear();
+                        playerCartesBox.getChildren().clear();
+                        if (change.wasAdded()) {
+                            for (ICarteTransport carteTransport : change.getAddedSubList()) {
+                                ConsoleLogger.getInstance(null, null).log("Ajout de la carte " + carteTransport.getStringCouleur().toString());
+                                VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1);
+                                vueCarteTransport.verticalLayout();
+                                vueCarteTransport.setId("carte-vertical");
+                                playerCartesBox.getChildren().add(vueCarteTransport);
                             }
-                            if (change.wasRemoved()) {
-                                for (ICarteTransport carteTransport : change.getRemoved()) {
-                                    ConsoleLogger.getInstance(null, null).log("Suppression de la carte " + carteTransport.getStringCouleur().toString());
-                                    VueCarteTransport v = new VueCarteTransport(carteTransport,1);
-                                    v.getImageView().setRotate(90);
-                                    playerCartesBox.getChildren().remove(v);
-                                    playerCartesBox.getChildren().remove(v.getImageView());
-                                }
+                        }
+                        if (change.wasRemoved()) {
+                            for (ICarteTransport carteTransport : change.getRemoved()) {
+                                ConsoleLogger.getInstance(null, null).log("Suppression de la carte " + carteTransport.getStringCouleur().toString());
+                                VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1);
+                                playerCartesBox.getChildren().remove(vueCarteTransport);
                             }
                         }
                     }
-                });
+                }
+            });
         }
+        playerCartesBox.spacingProperty().bind(widthProperty().divide(8).multiply(-1));
         jeu.destinationsInitialesProperty().addListener(new ListChangeListener<IDestination>() {
             @Override
             public void onChanged(Change<? extends IDestination> change) {

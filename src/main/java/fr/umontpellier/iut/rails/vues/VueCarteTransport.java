@@ -1,47 +1,65 @@
 package fr.umontpellier.iut.rails.vues;
 
 import fr.umontpellier.iut.rails.ICarteTransport;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
+
+import java.io.IOException;
 
 /**
  * Cette classe représente la vue d'une carte Transport.
- *
+ * <p>
  * On y définit le listener à exécuter lorsque cette carte a été choisie par l'utilisateur
  */
 public class VueCarteTransport extends Pane {
-    private ImageView imageView;
     private final ICarteTransport carteTransport;
+
+
     public VueCarteTransport(ICarteTransport carteTransport, int nbCartes) {
-        this.carteTransport = carteTransport;
-        if (carteTransport.estBateau()){
-            if (carteTransport.estDouble()){
-                this.imageView = new ImageView(new Image("images/cartesWagons/carte-DOUBLE-"+ carteTransport.getStringCouleur()+".png",140,200,true,true));
-            } else if (carteTransport.getAncre()){
-                this.imageView = new ImageView(new Image("images/cartesWagons/carte-BATEAU-"+ carteTransport.getStringCouleur()+"-A.png",140,200,true,true));
-            } else {
-                this.imageView = new ImageView(new Image("images/cartesWagons/carte-BATEAU-"+ carteTransport.getStringCouleur()+".png",140,200,true,true));
-            }
-        } else if (carteTransport.estWagon()){
-            if (carteTransport.getAncre()){
-                this.imageView = new ImageView(new Image("images/cartesWagons/carte-WAGON-"+ carteTransport.getStringCouleur()+"-A.png",140,200,true,true));
-            } else {
-                this.imageView = new ImageView(new Image("images/cartesWagons/carte-WAGON-"+ carteTransport.getStringCouleur()+".png",140,200,true,true));
-            }
-        } else if (carteTransport.estJoker()){
-            if (carteTransport.getAncre()){
-                this.imageView = new ImageView(new Image("images/cartesWagons/carte-JOKER-"+ carteTransport.getStringCouleur()+"-A.png",140,200,true,true));
-            } else {
-                this.imageView = new ImageView(new Image("images/cartesWagons/carte-JOKER-"+ carteTransport.getStringCouleur()+".png",140,200,true,true));
-            }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/carteTransport.fxml"));
+            loader.setRoot(this);
+            loader.setController(this);
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        this.carteTransport = carteTransport;
+
+        String type;
+        if (carteTransport.estBateau()) {
+            if (carteTransport.estDouble()) type = "DOUBLE";
+            else type = "BATEAU";
+        } else if (carteTransport.estWagon()) type = "WAGON";
+        else if (carteTransport.estJoker()) type = "JOKER";
+        else type = "";
+        String ancre = carteTransport.getAncre() ? "-A" : "";
+        String path = "images/cartesWagons/carte-" + type + "-" + carteTransport.getStringCouleur() + ancre + ".png";
+
+        setStyle("-fx-background-image: url('" + path + "'); " +
+                "-fx-background-position: center center; " +
+                "-fx-background-repeat: stretch; " +
+                "-fx-background-size: cover;");
+
     }
+
     public ICarteTransport getCarteTransport() {
         return carteTransport;
     }
 
-    public ImageView getImageView() {
-        return imageView;
+
+    public void horizontalLayout() {
+        setRotate(0);
     }
+
+    public void verticalLayout() {
+        setRotate(270);
+    }
+
 }

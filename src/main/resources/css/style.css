@@ -8,6 +8,7 @@
     -fx-beige-yellow: rgb(255, 255, 204);
     -fx-beige-yellow-hovered: rgb(255, 255, 153);
     -fx-beige-yellow-pressed: rgb(255, 255, 102);
+    -fx-red-main: #ff6565;
 }
 
 Circle {
@@ -203,4 +204,32 @@ Rectangle {
     -fx-max-height: 28px;
     -fx-min-height: 28px;
     -fx-pref-height: 28px;
+}
+
+#carte-vertical, #carte-horizontal {
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 2, 3);
+}
+
+#carte-horizontal:hover {
+    -fx-cursor: hand;
+    -fx-border-color: -fx-red-main;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 0);
+    -fx-translate-x: 5;
+    -fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
+}
+
+#carte-vertical:hover {
+    -fx-cursor: hand;
+    -fx-border-color: -fx-red-main;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 0);
+    -fx-translate-y: -5;
+    -fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
 }
