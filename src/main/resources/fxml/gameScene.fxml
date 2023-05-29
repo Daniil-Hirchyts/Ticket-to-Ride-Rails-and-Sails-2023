@@ -37,7 +37,7 @@
                 <VBox fx:id="console" alignment="TOP_CENTER" spacing="10.0" GridPane.columnIndex="1">
                     <children>
                         <Label text="Console" />
-                        <ScrollPane fx:id="consoleScrollPane" vbarPolicy="ALWAYS">
+                        <ScrollPane id="scrollPane" fx:id="consoleScrollPane" vbarPolicy="ALWAYS">
                             <content>
                                 <VBox fx:id="consoleHistory" prefHeight="111.0" prefWidth="279.0" spacing="5.0">
                                     <padding>

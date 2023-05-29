@@ -16,14 +16,24 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox fx:id="playerDestinations" alignment="TOP_CENTER" spacing="5.0">
+      <VBox alignment="TOP_CENTER" prefHeight="150.0" prefWidth="300.0">
          <children>
-            <Label fx:id="labelDestination" text="Destinations" />
-            <VBox fx:id="vboxDestinations" alignment="CENTER" spacing="2.0" />
+            <ScrollPane id="scrollPane" fx:id="destinationsScrollPane" hbarPolicy="NEVER" hmax="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" vbarPolicy="ALWAYS">
+               <content>
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0" spacing="5.0">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <children>
+                        <Label text="Destinations" />
+                        <VBox fx:id="vboxDestinations" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="290.0" spacing="2.0" />
+                        <VBox fx:id="playerDestinations" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="290.0" />
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
          </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding></VBox>
+      </VBox>
       <HBox fx:id="centerSection" alignment="CENTER" GridPane.columnIndex="1">
          <children>
             <HBox fx:id="playerCartesBox" alignment="BOTTOM_CENTER" maxWidth="600.0" minWidth="300.0" prefWidth="600.0" />

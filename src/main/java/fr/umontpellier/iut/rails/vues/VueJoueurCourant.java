@@ -116,6 +116,7 @@ public class VueJoueurCourant extends GridPane {
     public void creerBindings() {
         btnPasserTour.setOnMouseClicked(actionPasserParDefaut);
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
+            vboxDestinations.getChildren().clear();
             if (newValue != null) {
                 playerName.setText(newValue.getNom());
                 pionsWagon.textProperty().bind(newValue.nbPionsWagonsProperty().asString());
@@ -124,6 +125,9 @@ public class VueJoueurCourant extends GridPane {
                 scoreLabel.setText(valueOf(newValue.getScore()));
                 playerAvatar.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/Avatar/avatar-" + newValue.getCouleur().toString().toUpperCase() + ".png"))));
                 colorBack.setStyle("-fx-background-color: " + getCouleurJoueur(newValue.getCouleur()) + ";");
+                for (IDestination d : newValue.getDestinations()) {
+                    vboxDestinations.getChildren().add(new VueDestinationChoisi(d));
+                }
             } else {
                 pionsWagon.textProperty().unbind();
                 pionsBateau.textProperty().unbind();
