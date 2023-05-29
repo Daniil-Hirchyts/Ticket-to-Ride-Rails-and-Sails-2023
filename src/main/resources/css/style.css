@@ -28,7 +28,7 @@ Rectangle {
 }
 
 
-#leftVBox, #piocheBox, #block, #pile, #vueJoueurCourant, #playerCartesBox, #centerSection, #bottomHBox, #rightVBox, #infoVBox, #playerVBox, #topGridPane, #infoVBox_2, #console, #playerInfoBlock {
+#leftVBox, #piocheBox, #block, #pile, #vueJoueurCourant, #playerCartesBox, #centerSection, #bottomHBox, #rightVBox, #playerVBox, #topGridPane, #infoVBox_2, #console, #playerInfoBlock {
     -fx-background-color: -fx-beige-light;
     -fx-border-color: black;
     -fx-border-width: 0.25;

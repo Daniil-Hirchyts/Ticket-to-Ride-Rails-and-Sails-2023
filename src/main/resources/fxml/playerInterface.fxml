@@ -18,14 +18,14 @@
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="150.0" prefWidth="300.0">
          <children>
-            <ScrollPane id="scrollPane" fx:id="destinationsScrollPane" hbarPolicy="NEVER" hmax="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" vbarPolicy="ALWAYS">
+            <Label text="Destinations" />
+            <ScrollPane id="scrollPane" fx:id="destinationsScrollPane" hbarPolicy="NEVER" hmax="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0" vbarPolicy="ALWAYS">
                <content>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0" spacing="5.0">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                      <children>
-                        <Label text="Destinations" />
                         <VBox fx:id="vboxDestinations" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="290.0" spacing="2.0" />
                         <VBox fx:id="playerDestinations" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="290.0" />
                      </children>
@@ -33,6 +33,9 @@
                </content>
             </ScrollPane>
          </children>
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
       </VBox>
       <HBox fx:id="centerSection" alignment="CENTER" GridPane.columnIndex="1">
          <children>
@@ -91,7 +94,7 @@
                            </padding></Label>
                      </children>
                      <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </GridPane>
                   <HBox spacing="5.0">
@@ -108,14 +111,14 @@
                         </Button>
                      </children>
                      <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </HBox>
                   <GridPane>
                      <columnConstraints>
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
@@ -150,10 +153,13 @@
                         </Button>
                      </children>
                      <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </GridPane>
                </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
             </VBox>
             <VBox fx:id="infoVBox" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" spacing="20.0">
                <children>
