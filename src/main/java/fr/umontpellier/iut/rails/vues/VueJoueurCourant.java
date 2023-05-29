@@ -187,11 +187,11 @@ public class VueJoueurCourant extends GridPane {
 
     public static String getCouleurJoueur(IJoueur.CouleurJoueur couleurJoueur) {
         return switch (couleurJoueur) {
-            case ROUGE -> "#ff6565";
-            case VERT -> "#65ff65";
-            case BLEU -> "#6565ff";
-            case JAUNE -> "#ffff65";
-            case ROSE -> "#7f7f7f";
+            case ROUGE -> "#d02a1b";
+            case VERT -> "#6fae1e";
+            case BLEU -> "#769799";
+            case JAUNE -> "#f0dc00";
+            case ROSE -> "#b74b97";
         };
     }
 }

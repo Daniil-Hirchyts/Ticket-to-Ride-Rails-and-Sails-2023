@@ -8,7 +8,7 @@
     -fx-beige-yellow: rgb(255, 255, 204);
     -fx-beige-yellow-hovered: rgb(255, 255, 153);
     -fx-beige-yellow-pressed: rgb(255, 255, 102);
-    -fx-red-main: #ff6565;
+    -fx-red-main: #d02a1b;
 }
 
 Circle {
@@ -206,7 +206,7 @@ Rectangle {
     -fx-pref-height: 28px;
 }
 
-#carte-vertical, #carte-horizontal {
+#carte-vertical, #carte-horizontal, #carte {
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
     -fx-border-color: black;
@@ -220,6 +220,7 @@ Rectangle {
     -fx-border-width: 2px;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 0);
     -fx-translate-x: 5;
+    -fx-translate-y: 15;
     -fx-scale-x: 1.15;
     -fx-scale-y: 1.15;
 }
@@ -230,6 +231,7 @@ Rectangle {
     -fx-border-width: 2px;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 0);
     -fx-translate-y: -5;
+    -fx-translate-x: 15;
     -fx-scale-x: 1.15;
     -fx-scale-y: 1.15;
 }

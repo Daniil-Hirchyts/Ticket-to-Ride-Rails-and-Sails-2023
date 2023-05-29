@@ -9,10 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.io.IOException;
 
@@ -47,6 +44,10 @@ public class VueDuJeu extends GridPane {
     private GridPane playersGrid;
     @FXML
     private VBox piocheBox;
+    @FXML
+    private Pane pileBateauCarte;
+    @FXML
+    private Pane pileWagonCarte;
 
 
     public VueDuJeu(IJeu jeu) {
@@ -100,6 +101,16 @@ public class VueDuJeu extends GridPane {
         piocheBox.spacingProperty().bind(heightProperty().divide(when(heightProperty().lessThanOrEqualTo(960)).then(7).otherwise(heightProperty().subtract(1))).multiply(
                 when(heightProperty().lessThanOrEqualTo(960)).then(-1).otherwise(1)));
 
+        pileBateauCarte.setStyle("-fx-background-image: url('images/cartesWagons/dos-BATEAU.png'); " +
+                "-fx-background-position: center center; " +
+                "-fx-background-repeat: stretch; " +
+                "-fx-background-size: cover;")
+        ;
+
+        pileWagonCarte.setStyle("-fx-background-image: url('images/cartesWagons/dos-WAGON.png'); " +
+                "-fx-background-position: center center; " +
+                "-fx-background-repeat: stretch; " +
+                "-fx-background-size: cover;");
     }
 
     public IJeu getJeu() {

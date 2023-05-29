@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <fx:root alignment="CENTER" prefHeight="800.0" prefWidth="1080.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
@@ -57,7 +56,7 @@
         <VBox fx:id="rightVBox" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1" />
         <GridPane fx:id="leftVBox" GridPane.rowIndex="1">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints vgrow="ALWAYS" />
@@ -67,24 +66,14 @@
             </rowConstraints>
             <children>
                 <VBox fx:id="piocheBox" alignment="CENTER" />
-                <VBox id="pile" fx:id="pileBateau" alignment="CENTER" maxHeight="100.0" maxWidth="150.0" minHeight="100.0" minWidth="150.0" GridPane.rowIndex="1">
-                    <children>
-                        <ImageView fitWidth="80.0" pickOnBounds="true" preserveRatio="true" rotate="270.0">
-                            <image>
-                                <Image url="@../images/cartesWagons/dos-BATEAU.png" />
-                            </image>
-                        </ImageView>
-                    </children>
-                </VBox>
-                <VBox id="pile" fx:id="pileWagon" alignment="CENTER" maxHeight="100.0" maxWidth="150.0" minHeight="100.0" minWidth="150.0" GridPane.rowIndex="2">
-                    <children>
-                        <ImageView fitWidth="80.0" pickOnBounds="true" preserveRatio="true" rotate="270.0">
-                            <image>
-                                <Image url="@../images/cartesWagons/dos-WAGON.png" />
-                            </image>
-                        </ImageView>
-                    </children>
-                </VBox>
+                <VBox fx:id="pileBateau" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" GridPane.rowIndex="1">
+               <children>
+                  <Pane id="carte" fx:id="pileBateauCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
+               </children></VBox>
+                <VBox fx:id="pileWagon" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" GridPane.rowIndex="2">
+               <children>
+                  <Pane id="carte" fx:id="pileWagonCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
+               </children></VBox>
             </children>
         </GridPane>
     </children>
