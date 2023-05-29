@@ -37,6 +37,7 @@ import static java.util.Objects.requireNonNull;
 public class VueJoueurCourant extends GridPane {
     IJeu jeu;
     List<ICarteTransport> cartesTransport;
+    private String nomJoueur;
     @FXML
     private HBox playerHBox;
     @FXML
@@ -63,6 +64,8 @@ public class VueJoueurCourant extends GridPane {
     private Button btnSendCommand;
     @FXML
     private Label scoreLabel;
+    @FXML
+    private HBox playerCartesBox;
 
     public VueJoueurCourant(IJeu jeu) {
         this.jeu = jeu;
@@ -119,6 +122,7 @@ public class VueJoueurCourant extends GridPane {
             vboxDestinations.getChildren().clear();
             if (newValue != null) {
                 playerName.setText(newValue.getNom());
+                nomJoueur = newValue.getNom();
                 pionsWagon.textProperty().bind(newValue.nbPionsWagonsProperty().asString());
                 pionsBateau.textProperty().bind(newValue.nbPionsBateauxProperty().asString());
                 pionsPort.setText(valueOf(newValue.getNbPorts()));
@@ -133,18 +137,35 @@ public class VueJoueurCourant extends GridPane {
                 pionsBateau.textProperty().unbind();
             }
         });
-        for (IJoueur j : jeu.getJoueurs())
-            j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
-                @Override
-                public void onChanged(Change<? extends ICarteTransport> change) {
-                    cartesTransport.clear();
-                    cartesTransport.addAll(j.getCartesTransport());
-                    for (ICarteTransport c : cartesTransport) {
-//                        playerHBox.getChildren().add(new VueCarteTransport(c, 1));
-//                        playerHBox.getChildren().add(new Label(c:toString());
+        for (IJoueur j : jeu.getJoueurs()){
+                j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
+                    @Override
+                    public void onChanged(Change<? extends ICarteTransport> change) {
+                        while (change.next()) {
+                            cartesTransport.clear();
+                            playerCartesBox.getChildren().clear();
+                            if (change.wasAdded()) {
+                                for (ICarteTransport carteTransport : change.getAddedSubList()) {
+                                    ConsoleLogger.getInstance(null, null).log("Ajout de la carte " + carteTransport.getStringCouleur().toString());
+                                    VueCarteTransport v = new VueCarteTransport(carteTransport,1);
+                                    v.getImageView().setRotate(90);
+                                    playerCartesBox.getChildren().add(v);
+                                    playerCartesBox.getChildren().add(v.getImageView());
+                                }
+                            }
+                            if (change.wasRemoved()) {
+                                for (ICarteTransport carteTransport : change.getRemoved()) {
+                                    ConsoleLogger.getInstance(null, null).log("Suppression de la carte " + carteTransport.getStringCouleur().toString());
+                                    VueCarteTransport v = new VueCarteTransport(carteTransport,1);
+                                    v.getImageView().setRotate(90);
+                                    playerCartesBox.getChildren().remove(v);
+                                    playerCartesBox.getChildren().remove(v.getImageView());
+                                }
+                            }
+                        }
                     }
-                }
-            });
+                });
+        }
         jeu.destinationsInitialesProperty().addListener(new ListChangeListener<IDestination>() {
             @Override
             public void onChanged(Change<? extends IDestination> change) {

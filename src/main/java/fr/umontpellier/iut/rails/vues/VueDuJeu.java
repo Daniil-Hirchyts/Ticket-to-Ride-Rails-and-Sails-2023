@@ -1,6 +1,8 @@
 package fr.umontpellier.iut.rails.vues;
 
+import fr.umontpellier.iut.rails.ICarteTransport;
 import fr.umontpellier.iut.rails.IJeu;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -40,6 +42,8 @@ public class VueDuJeu extends GridPane {
     private GridPane topGridPane;
     @FXML
     private GridPane playersGrid;
+    @FXML
+    private VBox piocheBox;
 
 
     public VueDuJeu(IJeu jeu) {
@@ -76,7 +80,17 @@ public class VueDuJeu extends GridPane {
         jeu.instructionProperty().addListener((observable, oldValue, newValue) -> {
             ConsoleLogger.getInstance(null, null).log(newValue);
         });
-
+        jeu.cartesTransportVisiblesProperty().addListener(new ListChangeListener<ICarteTransport>() {
+            @Override
+            public void onChanged(Change<? extends ICarteTransport> change) {
+                piocheBox.getChildren().clear();
+                for (ICarteTransport carteTransport : jeu.cartesTransportVisiblesProperty()) {
+                    VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport,1);
+                    piocheBox.getChildren().add(vueCarteTransport);
+                    piocheBox.getChildren().add(vueCarteTransport.getImageView());
+                }
+            }
+        });
     }
 
     public IJeu getJeu() {
