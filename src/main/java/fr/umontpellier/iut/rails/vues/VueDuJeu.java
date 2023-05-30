@@ -2,6 +2,7 @@ package fr.umontpellier.iut.rails.vues;
 
 import fr.umontpellier.iut.rails.ICarteTransport;
 import fr.umontpellier.iut.rails.IJeu;
+import fr.umontpellier.iut.rails.IJoueur;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
@@ -89,7 +90,7 @@ public class VueDuJeu extends GridPane {
             public void onChanged(Change<? extends ICarteTransport> change) {
                 piocheBox.getChildren().clear();
                 for (ICarteTransport carteTransport : jeu.cartesTransportVisiblesProperty()) {
-                    VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1);
+                    VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1, false);
                     vueCarteTransport.setId("carte-horizontal");
                     vueCarteTransport.horizontalLayout();
 
@@ -98,6 +99,14 @@ public class VueDuJeu extends GridPane {
                 }
             }
         });
+
+        pileBateauCarte.setOnMouseClicked(mouseEvent -> {
+            jeu.uneCarteBateauAEtePiochee();
+        });
+        pileWagonCarte.setOnMouseClicked(mouseEvent -> {
+            jeu.uneCarteWagonAEtePiochee();
+        });
+
         piocheBox.spacingProperty().bind(heightProperty().divide(when(heightProperty().lessThanOrEqualTo(960)).then(7).otherwise(heightProperty().subtract(1))).multiply(
                 when(heightProperty().lessThanOrEqualTo(960)).then(-1).otherwise(1)));
 

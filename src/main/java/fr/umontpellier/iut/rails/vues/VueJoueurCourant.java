@@ -143,21 +143,12 @@ public class VueJoueurCourant extends GridPane {
                     while (change.next()) {
                         cartesTransport.clear();
                         playerCartesBox.getChildren().clear();
-                        if (change.wasAdded()) {
-                            for (ICarteTransport carteTransport : change.getAddedSubList()) {
-                                ConsoleLogger.getInstance(null, null).log("Ajout de la carte " + carteTransport.getStringCouleur().toString());
-                                VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1);
-                                vueCarteTransport.verticalLayout();
-                                vueCarteTransport.setId("carte-vertical");
-                                playerCartesBox.getChildren().add(vueCarteTransport);
-                            }
-                        }
-                        if (change.wasRemoved()) {
-                            for (ICarteTransport carteTransport : change.getRemoved()) {
-                                ConsoleLogger.getInstance(null, null).log("Suppression de la carte " + carteTransport.getStringCouleur().toString());
-                                VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1);
-                                playerCartesBox.getChildren().remove(vueCarteTransport);
-                            }
+                        for (ICarteTransport carteTransport : change.getList()) {
+                            ConsoleLogger.getInstance(null, null).log("Ajout de la carte " + carteTransport.getStringCouleur().toString());
+                            VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1,true);
+                            vueCarteTransport.verticalLayout();
+                            vueCarteTransport.setId("carte-vertical");
+                            playerCartesBox.getChildren().add(vueCarteTransport);
                         }
                     }
                 }

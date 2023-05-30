@@ -20,7 +20,7 @@ public class VueCarteTransport extends Pane {
     private final ICarteTransport carteTransport;
 
 
-    public VueCarteTransport(ICarteTransport carteTransport, int nbCartes) {
+    public VueCarteTransport(ICarteTransport carteTransport, int nbCartes, boolean dansDeck) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/carteTransport.fxml"));
             loader.setRoot(this);
@@ -46,6 +46,12 @@ public class VueCarteTransport extends Pane {
                 "-fx-background-position: center center; " +
                 "-fx-background-repeat: stretch; " +
                 "-fx-background-size: cover;");
+
+        if (!dansDeck) {
+        setOnMouseClicked(event -> {
+            ((VueDuJeu) getScene().getRoot()).getJeu().uneCarteTransportAEteChoisie(carteTransport);
+        });
+        }
 
     }
 
