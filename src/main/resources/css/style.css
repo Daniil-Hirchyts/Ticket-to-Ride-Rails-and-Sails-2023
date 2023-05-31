@@ -15,7 +15,7 @@
 Circle {
     -fx-fill: -fx-red-main;
     -fx-stroke: -fx-red-main;
-    -fx-opacity: 0;
+    /*-fx-opacity: 0;*/
 
 }
 

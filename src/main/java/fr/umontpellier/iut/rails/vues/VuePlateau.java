@@ -1,12 +1,16 @@
 package fr.umontpellier.iut.rails.vues;
 
 import fr.umontpellier.iut.rails.IJeu;
+import fr.umontpellier.iut.rails.IJoueur;
 import fr.umontpellier.iut.rails.IRoute;
+import fr.umontpellier.iut.rails.IVille;
+import fr.umontpellier.iut.rails.mecanique.data.Couleur;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.ObjectBinding;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -48,10 +52,25 @@ public class VuePlateau extends Pane {
     EventHandler<MouseEvent> choixRoute = event -> {
         ConsoleLogger.getInstance(null, null).log("On a cliqué sur une route");
         jeu.uneRouteAEteChoisie(event.getPickResult().getIntersectedNode().getId());
+        for (IRoute route : jeu.getRoutes()) {
+            if (route.getNom().equals(event.getPickResult().getIntersectedNode().getId())) {
+                for (DonneesGraphiques.DonneesSegments segment : DonneesGraphiques.routes.get(route.getNom())) {
+                    //creer une image View avec l'image des pions correspondant au joueur
+                    IJoueur.CouleurJoueur couleurJoueur = jeu.joueurCourantProperty().get().getCouleur();
+                    ImageView pionsPosee = new ImageView(new Image("images/wagons/image-wagon-"+ couleurJoueur +".png"));
+                    //setX and setY to the center of the segment
+                    pionsPosee.setX(segment.getXHautGauche() + DonneesGraphiques.largeurRectangle / 2 - 10);
+                    pionsPosee.setY(segment.getYHautGauche() + DonneesGraphiques.hauteurRectangle / 2 - 10);
+                    pionsPosee.setId("pionsPoseeW");
+                    getChildren().add(pionsPosee);
+                }
+            }
+        }
     };
 
     EventHandler<MouseEvent> choixPort = event -> {
         System.out.println("On a cliqué sur un port");
+        jeu.unPortAEteChoisi(event.getPickResult().getIntersectedNode().getId());
     };
 
     public void creerBindings() {
@@ -61,12 +80,14 @@ public class VuePlateau extends Pane {
     }
 
     private void ajouterPorts() {
+        List<? extends IVille> listePorts = ((VueDuJeu) getScene().getRoot()).getJeu().getPorts();
         for (String nomPort : DonneesGraphiques.ports.keySet()) {
             DonneesGraphiques.DonneesCerclesPorts positionPortSurPlateau = DonneesGraphiques.ports.get(nomPort);
+            IVille ville = listePorts.stream().filter(v -> v.getNom().equals(nomPort)).findAny().orElse(null);
             Circle cerclePort = new Circle(positionPortSurPlateau.centreX(), positionPortSurPlateau.centreY(), DonneesGraphiques.rayonInitial);
             cerclePort.setId(nomPort);
             getChildren().add(cerclePort);
-            bindCerclePortAuPlateau(positionPortSurPlateau, cerclePort);
+            bindCerclePortAuPlateau(positionPortSurPlateau, cerclePort, ville);
             cerclePort.setOnMouseClicked(choixPort);
         }
     }
@@ -102,7 +123,7 @@ public class VuePlateau extends Pane {
         });
     }
 
-    private void bindCerclePortAuPlateau(DonneesGraphiques.DonneesCerclesPorts port, Circle cerclePort) {
+    private void bindCerclePortAuPlateau(DonneesGraphiques.DonneesCerclesPorts port, Circle cerclePort, IVille ville) {
         cerclePort.centerXProperty().bind(new DoubleBinding() {
             {
                 super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty());
@@ -131,6 +152,27 @@ public class VuePlateau extends Pane {
             @Override
             protected double computeValue() {
                 return DonneesGraphiques.rayonInitial * mapMonde.getLayoutBounds().getWidth() / DonneesGraphiques.largeurInitialePlateau;
+            }
+        });
+        cerclePort.fillProperty().bind(new ObjectBinding<Paint>() {
+            {
+                super.bind(ville.proprietaireProperty());
+            }
+
+            @Override
+            protected Paint computeValue() {
+                Paint couleur = Color.TRANSPARENT;
+                if (ville.proprietaireProperty().getValue() != null) {
+                    return switch (ville.proprietaireProperty().get().getCouleur()) {
+                        case ROUGE -> Color.valueOf("#d02a1b");
+                        case VERT -> Color.valueOf("#6fae1e");
+                        case BLEU -> Color.valueOf("#769799");
+                        case JAUNE -> Color.valueOf("#f0dc00");
+                        case ROSE -> Color.valueOf("#b74b97");
+                    };
+
+                }
+                return couleur;
             }
         });
     }
@@ -219,5 +261,4 @@ public class VuePlateau extends Pane {
             }
         });
     }
-
 }

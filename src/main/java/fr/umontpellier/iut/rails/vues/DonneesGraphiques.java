@@ -25,6 +25,7 @@ public final class DonneesGraphiques {
             hauteurRectangle = 14,
             rayonInitial = 12;
 
+
     static {
         routes = new LinkedHashMap<>();
         routes.put("R1", new ArrayList<>(){{
