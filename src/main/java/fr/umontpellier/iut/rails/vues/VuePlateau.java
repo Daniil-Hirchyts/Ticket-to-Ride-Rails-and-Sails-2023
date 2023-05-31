@@ -7,6 +7,8 @@ import fr.umontpellier.iut.rails.IVille;
 import fr.umontpellier.iut.rails.mecanique.data.Couleur;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -52,20 +54,6 @@ public class VuePlateau extends Pane {
     EventHandler<MouseEvent> choixRoute = event -> {
         ConsoleLogger.getInstance(null, null).log("On a cliqué sur une route");
         jeu.uneRouteAEteChoisie(event.getPickResult().getIntersectedNode().getId());
-        for (IRoute route : jeu.getRoutes()) {
-            if (route.getNom().equals(event.getPickResult().getIntersectedNode().getId())) {
-                for (DonneesGraphiques.DonneesSegments segment : DonneesGraphiques.routes.get(route.getNom())) {
-                    //creer une image View avec l'image des pions correspondant au joueur
-                    IJoueur.CouleurJoueur couleurJoueur = jeu.joueurCourantProperty().get().getCouleur();
-                    ImageView pionsPosee = new ImageView(new Image("images/wagons/image-wagon-"+ couleurJoueur +".png"));
-                    //setX and setY to the center of the segment
-                    pionsPosee.setX(segment.getXHautGauche() + DonneesGraphiques.largeurRectangle / 2 - 10);
-                    pionsPosee.setY(segment.getYHautGauche() + DonneesGraphiques.hauteurRectangle / 2 - 10);
-                    pionsPosee.setId("pionsPoseeW");
-                    getChildren().add(pionsPosee);
-                }
-            }
-        }
     };
 
     EventHandler<MouseEvent> choixPort = event -> {
@@ -163,13 +151,25 @@ public class VuePlateau extends Pane {
             protected Paint computeValue() {
                 Paint couleur = Color.TRANSPARENT;
                 if (ville.proprietaireProperty().getValue() != null) {
-                    return switch (ville.proprietaireProperty().get().getCouleur()) {
+                        if (ville.proprietaireProperty().getValue() != null) {
+                            IJoueur.CouleurJoueur couleurJoueur = ville.proprietaireProperty().get().getCouleur();
+                            ImageView pionsPosee = new ImageView(new Image("images/gares/gare-" + couleurJoueur + ".png"));
+                            System.out.println(cerclePort.centerXProperty().getValue() + " " + cerclePort.centerXProperty().getValue() + " " + cerclePort.radiusProperty().getValue());
+                            //bind la position de l'image view à la position du rectangle
+                            pionsPosee.layoutXProperty().bind(cerclePort.centerXProperty().subtract(10));
+                            pionsPosee.layoutYProperty().bind(cerclePort.centerYProperty().subtract(20));
+                            pionsPosee.fitHeightProperty().bind(cerclePort.radiusProperty().add(20));
+                            pionsPosee.fitWidthProperty().bind(cerclePort.radiusProperty().add(10));
+                            pionsPosee.setId("pionsPoseeW");
+                            getChildren().add(pionsPosee);
+                        }
+                        return switch (ville.proprietaireProperty().get().getCouleur()) {
                         case ROUGE -> Color.valueOf("#d02a1b");
                         case VERT -> Color.valueOf("#6fae1e");
                         case BLEU -> Color.valueOf("#769799");
                         case JAUNE -> Color.valueOf("#f0dc00");
                         case ROSE -> Color.valueOf("#b74b97");
-                    };
+                        };
 
                 }
                 return couleur;
@@ -248,6 +248,24 @@ public class VuePlateau extends Pane {
             protected Paint computeValue() {
                 Paint couleur = Color.TRANSPARENT;
                 if (route.proprietaireProperty().getValue() != null) {
+
+                    for (DonneesGraphiques.DonneesSegments segment : DonneesGraphiques.routes.get(route.getNom())) {
+                        //creer une image View avec l'image des pions correspondant au joueur
+                        if (route.proprietaireProperty().getValue() != null) {
+                            IJoueur.CouleurJoueur couleurJoueur = route.proprietaireProperty().get().getCouleur();
+                            ImageView pionsPosee = new ImageView(new Image("images/wagons/image-wagon-" + couleurJoueur + ".png"));
+                            System.out.println(rect.layoutXProperty().getValue() + " " + rect.layoutYProperty().getValue() + " " + rect.rotateProperty().getValue());
+                            //bind la position de l'image view à la position du rectangle
+                            pionsPosee.layoutXProperty().bind(rect.layoutXProperty());
+                            pionsPosee.layoutYProperty().bind(rect.layoutYProperty());
+                            pionsPosee.rotateProperty().bind(rect.rotateProperty());
+                            pionsPosee.fitHeightProperty().bind(rect.heightProperty().add(4));
+                            pionsPosee.fitWidthProperty().bind(rect.widthProperty());
+                            pionsPosee.setId("pionsPoseeW");
+                            getChildren().add(pionsPosee);
+                        }
+                    }
+
                     return switch (route.proprietaireProperty().get().getCouleur()) {
                         case ROUGE -> Color.valueOf("#d02a1b");
                         case VERT -> Color.valueOf("#6fae1e");
