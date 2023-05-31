@@ -71,7 +71,9 @@ public class VueJoueurCourant extends GridPane {
     private Button btnPionsBateau;
     @FXML
     private Button btnPionsWagon;
-    //
+
+    @FXML
+    private Button btnDestination;
     public VueJoueurCourant(IJeu jeu) {
         this.jeu = jeu;
         try {
@@ -82,29 +84,6 @@ public class VueJoueurCourant extends GridPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        commandField.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                jeu.leNombreDePionsSouhaiteAEteRenseigne(commandField.getText());
-                commandField.setText("");
-                btnSendCommand.fire();
-            }
-        });
-
-        commandField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ENTER) btnSendCommand.fire();
-            }
-        });
-
-        btnSendCommand.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                jeu.leNombreDePionsSouhaiteAEteRenseigne(commandField.getText());
-                commandField.setText("");
-            }
-        });
     }
 
     public VueDestination trouverLabelDestination(IDestination d) {
@@ -188,6 +167,51 @@ public class VueJoueurCourant extends GridPane {
                     vueCarteTransport.setId("carte-vertical");
                     playerCartesBox.getChildren().add(vueCarteTransport);
                 }
+            }
+        });
+
+        commandField.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                jeu.leNombreDePionsSouhaiteAEteRenseigne(commandField.getText());
+                commandField.setText("");
+                btnSendCommand.fire();
+            }
+        });
+
+        commandField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.ENTER) btnSendCommand.fire();
+            }
+        });
+
+        btnSendCommand.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                jeu.leNombreDePionsSouhaiteAEteRenseigne(commandField.getText());
+                commandField.setText("");
+            }
+        });
+
+        btnPionsWagon.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                jeu.nouveauxPionsWagonsDemandes();
+            }
+        });
+
+        btnPionsBateau.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                jeu.nouveauxPionsBateauxDemandes();
+            }
+        });
+
+        btnDestination.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                jeu.nouvelleDestinationDemandee();
             }
         });
     }
