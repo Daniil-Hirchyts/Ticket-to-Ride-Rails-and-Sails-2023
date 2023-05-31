@@ -19,7 +19,7 @@
       <VBox alignment="TOP_CENTER" prefHeight="150.0" prefWidth="300.0">
          <children>
             <Label text="Destinations" />
-            <ScrollPane id="scrollPane" fx:id="destinationsScrollPane" hbarPolicy="NEVER" hmax="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0" vbarPolicy="ALWAYS">
+            <ScrollPane id="scrollPane" fx:id="destinationsScrollPane" hbarPolicy="NEVER" hmax="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="118.0" prefWidth="300.0" vbarPolicy="ALWAYS">
                <content>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0" spacing="5.0">
                      <padding>
