@@ -132,29 +132,35 @@ public class VueJoueurCourant extends GridPane {
                 for (IDestination d : newValue.getDestinations()) {
                     vboxDestinations.getChildren().add(new VueDestinationChoisi(d));
                 }
+//                playerCartesBox.getChildren().clear();
+//                for (ICarteTransport c : newValue.getCartesTransport()) {
+//                    VueCarteTransport vueCarteTransport = new VueCarteTransport(c, 1, true);
+//                    vueCarteTransport.verticalLayout();
+//                    vueCarteTransport.setId("carte-vertical");
+//                    playerCartesBox.getChildren().add(vueCarteTransport);
+//                }
             } else {
                 pionsWagon.textProperty().unbind();
                 pionsBateau.textProperty().unbind();
             }
         });
-//        for (IJoueur j : jeu.getJoueurs()) {
-//            j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
-//                @Override
-//                public void onChanged(Change<? extends ICarteTransport> change) {
-//                    while (change.next()) {
-//                        cartesTransport.clear();
-//                        playerCartesBox.getChildren().clear();
-//                        for (ICarteTransport carteTransport : change.getList()) {
-//                            ConsoleLogger.getInstance(null, null).log("Ajout de la carte " + carteTransport.getStringCouleur().toString());
-//                            VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1,true);
-//                            vueCarteTransport.verticalLayout();
-//                            vueCarteTransport.setId("carte-vertical");
-//                            playerCartesBox.getChildren().add(vueCarteTransport);
-//                        }
-//                    }
-//                }
-//            });
-//        }
+        for (IJoueur j : jeu.getJoueurs()) {
+            j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
+                @Override
+                public void onChanged(Change<? extends ICarteTransport> change) {
+                    while (change.next()) {
+                        playerCartesBox.getChildren().clear();
+                        for (ICarteTransport carteTransport : change.getList()) {
+                            ConsoleLogger.getInstance(null, null).log("Ajout de la carte " + carteTransport.getStringCouleur().toString());
+                            VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1,true);
+                            vueCarteTransport.verticalLayout();
+                            vueCarteTransport.setId("carte-vertical");
+                            playerCartesBox.getChildren().add(vueCarteTransport);
+                        }
+                    }
+                }
+            });
+        }
         playerCartesBox.spacingProperty().bind(widthProperty().divide(8).multiply(-1));
         jeu.destinationsInitialesProperty().addListener(new ListChangeListener<IDestination>() {
             @Override
