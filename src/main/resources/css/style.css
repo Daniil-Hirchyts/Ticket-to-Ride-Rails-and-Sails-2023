@@ -15,14 +15,14 @@
 Circle {
     -fx-fill: -fx-red-main;
     -fx-stroke: -fx-red-main;
-    /*-fx-opacity: 0;*/
+    -fx-opacity: 0;
 
 }
 
 Rectangle {
     -fx-fill: -fx-brown-main;
     -fx-stroke: -fx-brown-main;
-    /*-fx-opacity: 0;*/
+    -fx-opacity: 0;
 }
 
 * {
