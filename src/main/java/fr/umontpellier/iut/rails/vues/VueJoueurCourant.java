@@ -67,7 +67,10 @@ public class VueJoueurCourant extends GridPane {
     private Label scoreLabel;
     @FXML
     private HBox playerCartesBox;
-
+    @FXML
+    private Button btnPionsBateau;
+    @FXML
+    private Button btnPionsWagon;
     public VueJoueurCourant(IJeu jeu) {
         this.jeu = jeu;
         try {

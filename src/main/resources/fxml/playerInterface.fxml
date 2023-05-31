@@ -56,16 +56,24 @@
                       <RowConstraints vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/bouton-pions-wagon.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-                           <image>
-                              <Image url="@../images/bouton-pions-bateau.png" />
-                           </image>
-                        </ImageView>
+                        <Button id="button-round" fx:id="btnPionsWagon" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/bouton-pions-wagon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button id="button-round" fx:id="btnPionsBateau" layoutX="20.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" GridPane.columnIndex="1">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/bouton-pions-bateau.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="33.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                            <image>
                               <Image url="@../images/port.png" />
@@ -116,9 +124,8 @@
                   </HBox>
                   <GridPane>
                      <columnConstraints>
-                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
@@ -133,16 +140,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button id="button-square" fx:id="btnChangerPions" mnemonicParsing="false" GridPane.columnIndex="1">
-                           <graphic>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/icons/arrow-swap.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button id="button-square" fx:id="btnPasserTour" mnemonicParsing="false" GridPane.columnIndex="2">
+                        <Button id="button-square" fx:id="btnPasserTour" mnemonicParsing="false" GridPane.columnIndex="1">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
