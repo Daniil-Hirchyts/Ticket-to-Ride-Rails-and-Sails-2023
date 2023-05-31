@@ -9,19 +9,20 @@
     -fx-beige-yellow-hovered: rgb(255, 255, 153);
     -fx-beige-yellow-pressed: rgb(255, 255, 102);
     -fx-red-main: #d02a1b;
+    -fx-brown-main: #845d46;
 }
 
 Circle {
-    -fx-fill: "red";
-    -fx-stroke: "red";
-    -fx-opacity: 0;
+    -fx-fill: -fx-red-main;
+    -fx-stroke: -fx-red-main;
+    /*-fx-opacity: 0;*/
 
 }
 
 Rectangle {
-    -fx-fill: "blue";
-    -fx-stroke: "blue";
-    -fx-opacity: 0;
+    -fx-fill: -fx-brown-main;
+    -fx-stroke: -fx-brown-main;
+    /*-fx-opacity: 0;*/
 }
 
 * {
