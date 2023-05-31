@@ -67,7 +67,10 @@ public class VueJoueurCourant extends GridPane {
     private Label scoreLabel;
     @FXML
     private HBox playerCartesBox;
-
+    @FXML
+    private Button btnDestination;
+    @FXML
+    private Button ;
     public VueJoueurCourant(IJeu jeu) {
         this.jeu = jeu;
         try {
@@ -101,7 +104,6 @@ public class VueJoueurCourant extends GridPane {
                 commandField.setText("");
             }
         });
-
     }
 
     public VueDestination trouverLabelDestination(IDestination d) {
@@ -132,13 +134,6 @@ public class VueJoueurCourant extends GridPane {
                 for (IDestination d : newValue.getDestinations()) {
                     vboxDestinations.getChildren().add(new VueDestinationChoisi(d));
                 }
-//                playerCartesBox.getChildren().clear();
-//                for (ICarteTransport c : newValue.getCartesTransport()) {
-//                    VueCarteTransport vueCarteTransport = new VueCarteTransport(c, 1, true);
-//                    vueCarteTransport.verticalLayout();
-//                    vueCarteTransport.setId("carte-vertical");
-//                    playerCartesBox.getChildren().add(vueCarteTransport);
-//                }
             } else {
                 pionsWagon.textProperty().unbind();
                 pionsBateau.textProperty().unbind();
