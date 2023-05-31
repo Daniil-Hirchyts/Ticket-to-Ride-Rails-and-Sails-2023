@@ -124,14 +124,14 @@
                   </HBox>
                   <GridPane>
                      <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Button id="button-square" fx:id="btnDestination" mnemonicParsing="false">
+                        <Button id="button-square" fx:id="btnDestination" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="60.0">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -140,7 +140,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button id="button-square" fx:id="btnPasserTour" mnemonicParsing="false" GridPane.columnIndex="1">
+                        <Button id="button-square" fx:id="btnPasserTour" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="1">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

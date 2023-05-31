@@ -141,15 +141,18 @@ Rectangle {
     -fx-border-width: 1px;
     -fx-border-radius: 50px;
     -fx-background-radius: 50px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 5, 0, 0, 0);
 }
 
-#button-square:hover {
+#button-square:hover, #button-round:hover {
     -fx-background-color: -fx-beige-hovered;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 3, 0, 0, 0);
 }
 
-#button-square:pressed {
+#button-square:pressed, #button-round:pressed {
     -fx-background-color: -fx-beige-pressed;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 2, 0, 0, 0);
 }
 
 #destinationButton {
