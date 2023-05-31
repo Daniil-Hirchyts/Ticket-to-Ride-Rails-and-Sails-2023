@@ -22,7 +22,7 @@ Circle {
 Rectangle {
     -fx-fill: -fx-brown-main;
     -fx-stroke: -fx-brown-main;
-    -fx-opacity: 0;
+    /*-fx-opacity: 0;*/
 }
 
 * {

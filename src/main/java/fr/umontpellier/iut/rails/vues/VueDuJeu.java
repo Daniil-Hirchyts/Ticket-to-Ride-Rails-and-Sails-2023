@@ -61,7 +61,7 @@ public class VueDuJeu extends GridPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        plateau = new VuePlateau();
+        plateau = new VuePlateau(jeu);
         setRowIndex(plateau, 1);
         setColumnIndex(plateau, 1);
 

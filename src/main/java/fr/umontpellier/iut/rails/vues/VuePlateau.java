@@ -1,13 +1,17 @@
 package fr.umontpellier.iut.rails.vues;
 
+import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IRoute;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.binding.ObjectBinding;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
@@ -24,12 +28,14 @@ import java.util.List;
  */
 public class VuePlateau extends Pane {
 
+    private IJeu jeu;
     @FXML
     private ImageView mapMonde;
 
-    public VuePlateau() {
+    public VuePlateau(IJeu jeu) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/plateau.fxml"));
+            this.jeu = jeu;
             loader.setRoot(this);
             loader.setController(this);
             loader.load();
@@ -41,6 +47,7 @@ public class VuePlateau extends Pane {
 
     EventHandler<MouseEvent> choixRoute = event -> {
         ConsoleLogger.getInstance(null, null).log("On a cliqué sur une route");
+        jeu.uneRouteAEteChoisie(event.getPickResult().getIntersectedNode().getId());
     };
 
     EventHandler<MouseEvent> choixPort = event -> {
@@ -75,7 +82,7 @@ public class VuePlateau extends Pane {
                 rectangleSegment.setRotate(unSegment.getAngle());
                 getChildren().add(rectangleSegment);
                 rectangleSegment.setOnMouseClicked(choixRoute);
-                bindRectangle(rectangleSegment, unSegment.getXHautGauche(), unSegment.getYHautGauche());
+                bindRectangle(rectangleSegment, unSegment.getXHautGauche(), unSegment.getYHautGauche(), route);
             }
         }
     }
@@ -128,7 +135,7 @@ public class VuePlateau extends Pane {
         });
     }
 
-    private void bindRectangle(Rectangle rect, double layoutX, double layoutY) {
+    private void bindRectangle(Rectangle rect, double layoutX, double layoutY, IRoute route) {
         rect.widthProperty().bind(new DoubleBinding() {
             {
                 super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty());
@@ -187,6 +194,28 @@ public class VuePlateau extends Pane {
             @Override
             protected double computeValue() {
                 return mapMonde.getLayoutBounds().getHeight() / DonneesGraphiques.hauteurInitialePlateau;
+            }
+        });
+        //bind la couleur du rectangle à la couleur du joueur qui a construit la route
+        rect.fillProperty().bind(new ObjectBinding<Paint>() {
+            {
+                super.bind(route.proprietaireProperty());
+            }
+
+            @Override
+            protected Paint computeValue() {
+                Paint couleur = Color.TRANSPARENT;
+                if (route.proprietaireProperty().getValue() != null) {
+                    return switch (route.proprietaireProperty().get().getCouleur()) {
+                        case ROUGE -> Color.valueOf("#d02a1b");
+                        case VERT -> Color.valueOf("#6fae1e");
+                        case BLEU -> Color.valueOf("#769799");
+                        case JAUNE -> Color.valueOf("#f0dc00");
+                        case ROSE -> Color.valueOf("#b74b97");
+                    };
+
+                }
+                return couleur;
             }
         });
     }
