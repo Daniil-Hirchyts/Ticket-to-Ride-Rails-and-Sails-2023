@@ -124,10 +124,12 @@ public class VueDuJeu extends GridPane {
         });
 
         pileBateauCarte.setOnMouseClicked(mouseEvent -> {
-            jeu.uneCarteBateauAEtePiochee();
+            if (!jeu.piocheBateauVideProperty().get()) jeu.uneCarteBateauAEtePiochee();
+            else ConsoleLogger.getInstance(null, null).log("La pioche de bateau est vide");
         });
         pileWagonCarte.setOnMouseClicked(mouseEvent -> {
-            jeu.uneCarteWagonAEtePiochee();
+            if (!jeu.piocheWagonVideProperty().get()) jeu.uneCarteWagonAEtePiochee();
+            else ConsoleLogger.getInstance(null, null).log("La pioche de wagon est vide");
         });
 
         piocheBox.spacingProperty().bind(heightProperty().divide(when(heightProperty().lessThanOrEqualTo(960)).then(7).otherwise(heightProperty().subtract(1))).multiply(
