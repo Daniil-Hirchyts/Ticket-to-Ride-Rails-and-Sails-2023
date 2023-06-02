@@ -28,6 +28,7 @@ import static javafx.beans.binding.Bindings.when;
 public class VueDuJeu extends GridPane {
 
     private final IJeu jeu;
+
     private VuePlateau plateau;
     @FXML
     private ImageView pileCard;
@@ -55,6 +56,10 @@ public class VueDuJeu extends GridPane {
     @FXML
     private Pane borderDown;
 
+    @FXML
+    private Pane bottomColor;
+    public static final String PNG = ".png";
+
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
@@ -71,6 +76,13 @@ public class VueDuJeu extends GridPane {
 
         borderTop.prefWidthProperty().bind(this.widthProperty());
         borderDown.prefWidthProperty().bind(this.widthProperty());
+        bottomColor.prefWidthProperty().bind(this.widthProperty());
+
+        jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
+            String bottom = "bottom-";
+            bottomColor.setStyle("-fx-background-image: url('/images/background/bottom-colors/" + bottom + newValue.getCouleur().toString() + PNG + "');");
+
+        });
 
         plateau = new VuePlateau(jeu);
         setRowIndex(plateau, 1);

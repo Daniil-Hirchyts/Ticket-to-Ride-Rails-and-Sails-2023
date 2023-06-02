@@ -14,11 +14,15 @@
     <rowConstraints>
         <RowConstraints valignment="TOP" />
         <RowConstraints />
-        <RowConstraints valignment="BOTTOM" />
+        <RowConstraints maxHeight="-Infinity" prefHeight="150.0" valignment="BOTTOM" />
     </rowConstraints>
     <children>
       <Pane fx:id="borderTop" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" GridPane.columnSpan="3" />
-      <Pane fx:id="borderDown" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+      <Pane fx:id="bottomColor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
+         <children>
+            <Pane fx:id="borderDown" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" />
+         </children>
+      </Pane>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" GridPane.rowIndex="2">
          <children>
             <Pane fx:id="cornerLB2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="190.0" />
