@@ -1,12 +1,14 @@
 package fr.umontpellier.iut.rails.vues;
 
 import fr.umontpellier.iut.rails.ICarteTransport;
+import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IJoueur;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -32,8 +34,6 @@ public class VueDuJeu extends GridPane {
     private VuePlateau plateau;
     @FXML
     private ImageView pileCard;
-    @FXML
-    private VBox rightVBox;
     @FXML
     private HBox bottomHBox;
     @FXML
@@ -63,7 +63,8 @@ public class VueDuJeu extends GridPane {
     private Pane pileBateauCarteImage;
     @FXML
     private Pane pileWagonCarteImage;
-
+    @FXML
+    private VBox pileCartesDestinations;
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
@@ -83,9 +84,31 @@ public class VueDuJeu extends GridPane {
         bottomColor.prefWidthProperty().bind(this.widthProperty());
 
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
+            pileCartesDestinations.getChildren().clear();
             String bottom = "bottom-";
             bottomColor.setStyle("-fx-background-image: url('/images/background/bottom-colors/" + bottom + newValue.getCouleur().toString() + PNG + "');");
-
+            for (IDestination d : newValue.getDestinations()) {
+                pileCartesDestinations.getChildren().add(new VueDestinationChoisi(d));
+            }
+        });
+        jeu.destinationsInitialesProperty().addListener(new ListChangeListener<IDestination>() {
+            @Override
+            public void onChanged(Change<? extends IDestination> change) {
+                while (change.next()) {
+                    if (change.wasAdded()) {
+                        for (IDestination destination : change.getAddedSubList()) {
+                            ConsoleLogger.getInstance(null, null).log("Ajout de la destination " + destination.getVilles().toString());
+                            pileCartesDestinations.getChildren().add(new VueDestination(destination));
+                        }
+                    }
+                    if (change.wasRemoved()) {
+                        for (IDestination destination : change.getRemoved()) {
+                            ConsoleLogger.getInstance(null, null).log("Suppression de la destination " + destination.getVilles().toString());
+                            pileCartesDestinations.getChildren().remove(trouverLabelDestination(destination));
+                        }
+                    }
+                }
+            }
         });
 
         plateau = new VuePlateau(jeu);
@@ -103,6 +126,13 @@ public class VueDuJeu extends GridPane {
         vueAutresJoueurs.creerBindings();
 
         ConsoleLogger.getInstance(consoleHistory, consoleScrollPane);
+    }
+
+    public VueDestination trouverLabelDestination(IDestination d) {
+        for (Node n : pileCartesDestinations.getChildren())
+            if (n instanceof VueDestination l)
+                if (l.getText().equals(d.getVilles().toString())) return l;
+        return null;
     }
 
     public void creerBindings() {

@@ -85,13 +85,6 @@ public class VueJoueurCourant extends GridPane {
         }
     }
 
-    public VueDestination trouverLabelDestination(IDestination d) {
-        for (Node n : vboxDestinations.getChildren())
-            if (n instanceof VueDestination l)
-                if (l.getText().equals(d.getVilles().toString())) return l;
-        return null;
-    }
-
     EventHandler<? super MouseEvent> actionPasserParDefaut = (mouseEvent -> {
         ConsoleLogger.getInstance(null, null).log("Passage au joueur suivant");
         jeu.passerAEteChoisi();
@@ -100,7 +93,6 @@ public class VueJoueurCourant extends GridPane {
     public void creerBindings() {
         btnPasserTour.setOnMouseClicked(actionPasserParDefaut);
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
-            vboxDestinations.getChildren().clear();
             if (newValue != null) {
                 playerName.setText(newValue.getNom());
                 nomJoueur = newValue.getNom();
@@ -110,9 +102,6 @@ public class VueJoueurCourant extends GridPane {
                 scoreLabel.setText(valueOf(newValue.getScore()));
                 playerAvatar.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/Avatar/avatar-" + newValue.getCouleur().toString().toUpperCase() + ".png"))));
                 colorBack.setStyle("-fx-background-color: " + getCouleurJoueur(newValue.getCouleur()) + ";");
-                for (IDestination d : newValue.getDestinations()) {
-                    vboxDestinations.getChildren().add(new VueDestinationChoisi(d));
-                }
             } else {
                 pionsWagon.textProperty().unbind();
                 pionsBateau.textProperty().unbind();
@@ -136,25 +125,7 @@ public class VueJoueurCourant extends GridPane {
             });
         }
         playerCartesBox.spacingProperty().bind(widthProperty().divide(8).multiply(-1));
-        jeu.destinationsInitialesProperty().addListener(new ListChangeListener<IDestination>() {
-            @Override
-            public void onChanged(Change<? extends IDestination> change) {
-                while (change.next()) {
-                    if (change.wasAdded()) {
-                        for (IDestination destination : change.getAddedSubList()) {
-                            ConsoleLogger.getInstance(null, null).log("Ajout de la destination " + destination.getVilles().toString());
-                            vboxDestinations.getChildren().add(new VueDestination(destination));
-                        }
-                    }
-                    if (change.wasRemoved()) {
-                        for (IDestination destination : change.getRemoved()) {
-                            ConsoleLogger.getInstance(null, null).log("Suppression de la destination " + destination.getVilles().toString());
-                            vboxDestinations.getChildren().remove(trouverLabelDestination(destination));
-                        }
-                    }
-                }
-            }
-        });
+
         jeu.joueurCourantProperty().addListener(new ChangeListener<IJoueur>() {
             @Override
             public void changed(ObservableValue<? extends IJoueur> observableValue, IJoueur iJoueur, IJoueur iJoueur2) {
