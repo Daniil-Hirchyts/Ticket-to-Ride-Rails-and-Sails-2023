@@ -1,16 +1,16 @@
 package fr.umontpellier.iut.rails;
 
 import fr.umontpellier.iut.rails.mecanique.Jeu;
-import fr.umontpellier.iut.rails.vues.DonneesGraphiques;
-import fr.umontpellier.iut.rails.vues.VueChoixJoueurs;
-import fr.umontpellier.iut.rails.vues.VueDuJeu;
-import fr.umontpellier.iut.rails.vues.VueJoueurCourant;
+import fr.umontpellier.iut.rails.vues.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -20,10 +20,12 @@ import java.util.Optional;
 
 public class RailsIHM extends Application {
 
+    private List<ImageView> avatars;
     private VueChoixJoueurs vueChoixJoueurs;
     private Stage primaryStage;
     private Jeu jeu;
-    private final boolean avecVueChoixJoueurs = false;
+    private BooleanProperty partieTerminee;
+    private final boolean avecVueChoixJoueurs = true;
 
     @Override
     public void start(Stage primaryStage) {
@@ -66,15 +68,23 @@ public class RailsIHM extends Application {
         primaryStage.setMaxWidth(Screen.getPrimary().getBounds().getWidth());
         primaryStage.setMaxHeight(Screen.getPrimary().getBounds().getHeight());
 //        TODO : A ACTIVER POUR LA VERSION FINALE
-//        primaryStage.setOnCloseRequest(event -> {
-//            this.arreterJeu();
-//            event.consume();
-//        });
+        primaryStage.setOnCloseRequest(event -> {
+            this.arreterJeu();
+            event.consume();
+        });
+        jeu.finDePartieProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                VueResultats vueResultats = new VueResultats(this);
+                Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
+                primaryStage.setScene(sceneResultats);
+            }
+        });
         primaryStage.show();
     }
 
     private final ListChangeListener<String> quandLesNomsJoueursSontDefinis = change -> {
         if (!vueChoixJoueurs.getNomsJoueurs().isEmpty())
+            avatars = vueChoixJoueurs.getAvatars();
             demarrerPartie();
     };
 

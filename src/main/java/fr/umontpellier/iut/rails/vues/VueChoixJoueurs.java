@@ -1,12 +1,19 @@
 package fr.umontpellier.iut.rails.vues;
 
+import fr.umontpellier.iut.rails.IJoueur;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -24,11 +31,13 @@ import java.util.List;
 public class VueChoixJoueurs extends Stage {
 
     private final ObservableList<String> nomsJoueurs;
+    private ObservableList<ImageView> avatarsJoueurs;
     private int nbJoueurs;
-    private Spinner<Integer> spinnerBox;
-    private VBox spinnerVBox;
+    private List<Integer> compteursCouleurs;
     private VBox vboxJoueurs;
     private Button validation;
+
+    private IntegerProperty nbJoueursProperty;
     private ObservableList<TextField> textFields;
 
 
@@ -38,21 +47,19 @@ public class VueChoixJoueurs extends Stage {
     }
 
     public VueChoixJoueurs() {
+        nbJoueursProperty = new SimpleIntegerProperty(5);
+        avatarsJoueurs = FXCollections.observableArrayList();
         nomsJoueurs = FXCollections.observableArrayList();
         textFields = FXCollections.observableArrayList();
+        compteursCouleurs = new ArrayList<>(5);
         vboxJoueurs = new VBox();
-        spinnerVBox = new VBox();
         validation = new Button("Valider");
-
-        spinnerBox = new Spinner();
-        spinnerBox.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 5, 2));
-        spinnerVBox.getChildren().add(spinnerBox);
-        spinnerVBox.getChildren().add(vboxJoueurs);
         creerBinding();
-        Scene scene = new Scene(spinnerVBox);
+        genererChampsJoueurs(nbJoueursProperty.get());
+        Scene scene = new Scene(vboxJoueurs);
         //change la taille de la fenêtre
         this.setWidth(300);
-        this.setHeight(300);
+        this.setHeight(500);
         this.setScene(scene);
         this.setTitle("Choix des joueurs");
         this.show();
@@ -62,26 +69,33 @@ public class VueChoixJoueurs extends Stage {
         validation.setOnAction(event -> {
             nomsJoueurs.clear();
             for (TextField textField : textFields) {
-                nomsJoueurs.add(textField.getText());
+                if (!textField.getText().equals("")) nomsJoueurs.add(textField.getText());
             }
             setListeDesNomsDeJoueurs();
-        });
-        spinnerBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            vboxJoueurs.getChildren().clear();
-            textFields.clear();
-            int nbJoueurs = newValue.toString().charAt(0) - '0';
-            genererChampsJoueurs(nbJoueurs);
         });
     }
 
     protected void genererChampsJoueurs(int nbJoueurs) {
         for (int i = 0; i < nbJoueurs; i++) {
+            int finalI = i;
             HBox playerTextField = new HBox();
+            IJoueur.CouleurJoueur couleur = IJoueur.CouleurJoueur.values()[i];
+            int position = i+1;
+            compteursCouleurs.add(i, position);
+            ImageView avatar = new ImageView(new Image("images/avatars/" + couleur +"/avatar-"+position+".png"));
+            avatar.setOnMouseClicked(event -> {
+                if (compteursCouleurs.get(finalI) == 5) compteursCouleurs.set(finalI, 1);
+                else compteursCouleurs.set(finalI, compteursCouleurs.get(finalI)+1);
+                avatar.setImage(new Image("images/avatars/" + couleur +"/avatar-"+compteursCouleurs.get(finalI)+".png"));
+            });
+            avatar.setFitHeight(60);
+            avatar.setFitWidth(50);
             Label Joueurs = new Label();
             TextField nomJoueur = new TextField();
-            Joueurs.setText("Joueur " + (i+1) + " : ");
-            playerTextField.getChildren().addAll(Joueurs, nomJoueur);
+            Joueurs.setText("Joueur " + position + " : ");
+            playerTextField.getChildren().addAll(avatar, Joueurs, nomJoueur);
             textFields.add(nomJoueur);
+            avatarsJoueurs.add(avatar);
             vboxJoueurs.getChildren().add(playerTextField);
         }
         vboxJoueurs.getChildren().add(validation);
@@ -101,7 +115,9 @@ public class VueChoixJoueurs extends Stage {
     /**
      * Définit l'action à exécuter lorsque le nombre de participants change
      */
-    protected void setChangementDuNombreDeJoueursListener(ChangeListener<Integer> quandLeNombreDeJoueursChange) {}
+    protected void setChangementDuNombreDeJoueursListener(ChangeListener<Integer> quandLeNombreDeJoueursChange) {
+        nbJoueursProperty.addListener((InvalidationListener) quandLeNombreDeJoueursChange);
+    }
 
     /**
      * Vérifie que tous les noms des participants sont renseignés
@@ -138,6 +154,10 @@ public class VueChoixJoueurs extends Stage {
      */
     protected String getJoueurParNumero(int playerNumber) {
         return getNomsJoueurs().get(playerNumber-1);
+    }
+
+    public List<ImageView> getAvatars(){
+        return avatarsJoueurs;
     }
 
 }
