@@ -90,7 +90,7 @@ public class VueDuJeu extends GridPane {
             for (IDestination d : newValue.getDestinations()) {
                 pileCartesDestinations.getChildren().add(new VueDestinationChoisi(d));
             }
-            pileCartesDestinations.setSpacing(-20);
+            pileCartesDestinations.setSpacing(-10);
         });
         jeu.destinationsInitialesProperty().addListener(new ListChangeListener<IDestination>() {
             @Override
