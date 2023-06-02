@@ -50,6 +50,11 @@ public class VueDuJeu extends GridPane {
     @FXML
     private Pane pileWagonCarte;
 
+    @FXML
+    private Pane borderTop;
+    @FXML
+    private Pane borderDown;
+
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
@@ -61,6 +66,12 @@ public class VueDuJeu extends GridPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        setId("gameScene");
+
+        borderTop.prefWidthProperty().bind(this.widthProperty());
+        borderDown.prefWidthProperty().bind(this.widthProperty());
+
         plateau = new VuePlateau(jeu);
         setRowIndex(plateau, 1);
         setColumnIndex(plateau, 1);

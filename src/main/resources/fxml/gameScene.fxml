@@ -3,6 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <fx:root alignment="CENTER" prefHeight="800.0" prefWidth="1080.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
@@ -11,11 +12,19 @@
         <ColumnConstraints hgrow="NEVER" />
     </columnConstraints>
     <rowConstraints>
+        <RowConstraints valignment="TOP" />
         <RowConstraints />
-        <RowConstraints />
-        <RowConstraints />
+        <RowConstraints valignment="BOTTOM" />
     </rowConstraints>
     <children>
+      <Pane fx:id="borderTop" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" GridPane.columnSpan="3" />
+      <Pane fx:id="borderDown" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" GridPane.rowIndex="2">
+         <children>
+            <Pane fx:id="cornerLB2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="190.0" />
+            <Pane fx:id="cornerLB" layoutY="63.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="87.0" prefWidth="236.0" />
+         </children>
+      </Pane>
         <GridPane fx:id="topGridPane" GridPane.columnIndex="1" GridPane.columnSpan="2">
             <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
@@ -33,22 +42,31 @@
                         <ColumnConstraints />
                     </columnConstraints>
                 </GridPane>
-                <VBox fx:id="console" alignment="TOP_CENTER" spacing="10.0" GridPane.columnIndex="1">
+                <VBox fx:id="console" alignment="TOP_CENTER" spacing="5.0" GridPane.columnIndex="1">
                     <children>
-                        <Label text="Console" />
+                        <Label text="Console" textFill="WHITE" translateY="-7.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
                         <ScrollPane id="scrollPane" fx:id="consoleScrollPane" hbarPolicy="NEVER" hmax="0.0" vbarPolicy="ALWAYS">
                             <content>
-                                <VBox fx:id="consoleHistory" prefWidth="300.0" spacing="5.0">
+                                <VBox fx:id="consoleHistory" spacing="5.0">
                                     <padding>
-                                        <Insets left="5.0" right="15.0" />
+                                        <Insets right="20.0" />
                                     </padding>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                                 </VBox>
                             </content>
                         </ScrollPane>
                     </children>
                     <padding>
-                        <Insets top="5.0" />
+                        <Insets bottom="25.0" left="20.0" right="10.0" top="30.0" />
                     </padding>
+               <opaqueInsets>
+                  <Insets bottom="30.0" />
+               </opaqueInsets>
                 </VBox>
             </children>
         </GridPane>
@@ -76,5 +94,10 @@
                </children></VBox>
             </children>
         </GridPane>
+      <Pane fx:id="cornerLT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="190.0">
+         <children>
+            <Button fx:id="btnExit" layoutX="18.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" />
+         </children>
+      </Pane>
     </children>
 </fx:root>

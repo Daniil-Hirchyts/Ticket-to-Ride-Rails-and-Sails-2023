@@ -23,5 +23,6 @@ public class ConsoleLogger {
         Label label = new Label(message);
         consoleHistory.getChildren().addAll(label);
         consoleScrollPane.setVvalue(1);
+        label.setId("consoleText");
     }
 }

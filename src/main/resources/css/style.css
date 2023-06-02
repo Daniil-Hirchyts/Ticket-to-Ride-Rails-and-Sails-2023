@@ -9,7 +9,8 @@
     -fx-beige-yellow-hovered: rgb(255, 255, 153);
     -fx-beige-yellow-pressed: rgb(255, 255, 102);
     -fx-red-main: #d02a1b;
-    -fx-brown-main: #845d46;
+    -fx-brown-main: #6f2400;
+    -fx-brown-hovered: #5a1e00;
 }
 
 Circle {
@@ -30,20 +31,87 @@ Rectangle {
 }
 
 
-#leftVBox, #piocheBox, #block, #pile, #vueJoueurCourant, #playerCartesBox, #centerSection, #bottomHBox, #rightVBox, #playerVBox, #topGridPane, #infoVBox_2, #console, #playerInfoBlock {
-    -fx-background-color: -fx-beige-light;
+#leftVBox, #piocheBox, #block, #pile, #vueJoueurCourant, #playerCartesBox, #centerSection, #bottomHBox, #rightVBox, #playerVBox, #topGridPane, #infoVBox_2, #playerInfoBlock {
+    -fx-background-color: transparent;
     -fx-border-color: black;
     -fx-border-width: 0.25;
 }
 
+#gameScene {
+    -fx-background-image: url("/images/background/background-pattern.png");
+    -fx-background-repeat: repeat;
+    -fx-background-position: center;
+    -fx-background-size: 25% 60%;
+}
+
+#borderTop {
+    -fx-background-image: url("/images/background/border-top.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left top;
+    -fx-background-size: 100% 100%;
+}
+
+#borderDown {
+    -fx-background-image: url("/images/background/border-down.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left bottom;
+    -fx-background-size: 100% 100%;
+}
+
+#cornerLB {
+    -fx-background-image: url("/images/background/corner-lb.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left bottom;
+    -fx-background-size: 100% 100%;
+}
+
+#cornerLB2 {
+    -fx-background-image: url("/images/background/corner-lb2.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left bottom;
+    -fx-background-size: 100% 100%;
+}
+
+#cornerLT {
+    -fx-background-image: url("/images/background/corner-lt.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left top;
+    -fx-background-size: 100% 100%;
+}
+
+#btnExit {
+    -fx-background-image: url("/images/buttons/btn-exit.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+#console {
+    -fx-background-image: url("/images/elements/console.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+}
+
+#consoleText {
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+}
+
+#btnExit:hover {
+    -fx-background-image: url("/images/buttons/btn-exit-hover.png");
+}
+
 #centerBox {
-    -fx-background-color: -fx-beige-light;
+    -fx-background-color: transparent;
     -fx-border-color: black;
     -fx-border-width: 0.25;
 }
 
 #plateau {
-    -fx-background-color: -fx-beige-light;
+    -fx-background-color: transparent;
     -fx-border-color: black;
     -fx-border-width: 0.25;
 }
@@ -88,37 +156,37 @@ Rectangle {
 }
 
 #scrollPane {
-    -fx-background-color: -fx-beige-light;
-    -fx-background: -fx-beige-light;
+    -fx-background-color: transparent;
+    -fx-background: transparent;
     -fx-scrollbar-width: 10px;
-    -fx-scrollbar-color: -fx-beige-light;
+    -fx-scrollbar-color: transparent;
     -fx-scrollbar-thumb-color: black;
 }
 
 #scrollPane .scroll-bar:vertical {
     -fx-pref-width: 10px;
-    -fx-background-color: -fx-beige-light;
+    -fx-background-color: transparent;
 }
 
 #scrollPane .scroll-bar:vertical .thumb {
-    -fx-background-color: -fx-beige-pressed;
+    -fx-background-color: -fx-brown-main;
 }
 
 #scrollPane .scroll-bar:horizontal {
     -fx-pref-height: 10px;
-    -fx-background-color: -fx-beige-light;
+    -fx-background-color: transparent
 }
 
 #scrollPane .scroll-bar:horizontal .thumb {
-    -fx-background-color: -fx-beige-pressed;
+    -fx-background-color: -fx-brown-main;
 }
 
 #scrollPane .scroll-bar:horizontal .thumb:hover {
-    -fx-background-color: -fx-beige-hovered;
+    -fx-background-color: -fx-brown-hovered;
 }
 
 #scrollPane .scroll-bar:vertical .thumb:hover {
-    -fx-background-color: -fx-beige-hovered;
+    -fx-background-color: -fx-brown-hovered;
 }
 
 
@@ -142,18 +210,18 @@ Rectangle {
     -fx-border-width: 1px;
     -fx-border-radius: 50px;
     -fx-background-radius: 50px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 5, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 5, 0, 0, 0);
 }
 
 #button-square:hover, #button-round:hover {
     -fx-background-color: -fx-beige-hovered;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 3, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 3, 0, 0, 0);
 }
 
 #button-square:pressed, #button-round:pressed {
     -fx-background-color: -fx-beige-pressed;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 2, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 2, 0, 0, 0);
 }
 
 #destinationButton {
