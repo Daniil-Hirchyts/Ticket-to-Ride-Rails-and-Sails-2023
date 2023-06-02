@@ -80,19 +80,19 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
             <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ScrollPane id="scrollPane" fx:id="destinationsScrollPane" hbarPolicy="NEVER" hmax="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="118.0" prefWidth="150.0" vbarPolicy="ALWAYS">
+            <ScrollPane id="scrollPane" fx:id="destinationsScrollPane" hbarPolicy="NEVER" hmax="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="-Infinity" prefWidth="150.0" vbarPolicy="ALWAYS">
                <content>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" spacing="5.0">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                      <children>
-                        <VBox fx:id="pileCartesDestinations" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="140.0" spacing="2.0" />
-                        <VBox fx:id="playerDestinations" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="140.0" />
+                        <VBox fx:id="pileCartesDestinations" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="140.0" spacing="2.0" />
+                        <VBox fx:id="playerDestinations" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="140.0" />
                      </children>
                   </VBox>
                </content>
