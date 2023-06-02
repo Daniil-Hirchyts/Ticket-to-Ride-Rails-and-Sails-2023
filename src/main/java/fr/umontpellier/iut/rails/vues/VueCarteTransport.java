@@ -19,6 +19,8 @@ import java.io.IOException;
 public class VueCarteTransport extends Pane {
     private final ICarteTransport carteTransport;
 
+    @FXML
+    private Pane carteImage;
 
     public VueCarteTransport(ICarteTransport carteTransport, int nbCartes, boolean dansDeck) {
         try {
@@ -42,7 +44,7 @@ public class VueCarteTransport extends Pane {
         String ancre = carteTransport.getAncre() ? "-A" : "";
         String path = "images/cartesWagons/carte-" + type + "-" + carteTransport.getStringCouleur() + ancre + ".png";
 
-        setStyle("-fx-background-image: url('" + path + "'); " +
+        carteImage.setStyle("-fx-background-image: url('" + path + "'); " +
                 "-fx-background-position: center center; " +
                 "-fx-background-repeat: stretch; " +
                 "-fx-background-size: cover;");

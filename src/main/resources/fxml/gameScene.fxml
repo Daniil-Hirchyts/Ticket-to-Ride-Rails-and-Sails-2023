@@ -90,11 +90,19 @@
                 <VBox fx:id="piocheBox" alignment="CENTER" />
                 <VBox fx:id="pileBateau" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" GridPane.rowIndex="1">
                <children>
-                  <Pane id="carte" fx:id="pileBateauCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
+                  <Pane id="carte" fx:id="pileBateauCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="130.0">
+                     <children>
+                        <Pane fx:id="pileBateauCarteImage" layoutX="28.0" layoutY="-18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
+                     </children>
+                  </Pane>
                </children></VBox>
                 <VBox fx:id="pileWagon" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" GridPane.rowIndex="2">
                <children>
-                  <Pane id="carte" fx:id="pileWagonCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
+                  <Pane id="carte" fx:id="pileWagonCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="130.0">
+                     <children>
+                        <Pane fx:id="pileWagonCarteImage" layoutX="28.0" layoutY="-18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
+                     </children>
+                  </Pane>
                </children></VBox>
             </children>
         </GridPane>

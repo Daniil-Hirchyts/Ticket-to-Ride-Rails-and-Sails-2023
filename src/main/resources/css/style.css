@@ -11,6 +11,7 @@
     -fx-red-main: #d02a1b;
     -fx-brown-main: #6f2400;
     -fx-brown-hovered: #5a1e00;
+    -fx-white-carte: #e7edf1;
 }
 
 Circle {
@@ -298,16 +299,20 @@ Rectangle {
 #carte-vertical, #carte-horizontal, #carte {
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
-    -fx-border-color: black;
+    -fx-background-color: -fx-white-carte;
+    -fx-border-color: -fx-brown-main;
     -fx-border-width: 1px;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 2, 3);
 }
 
-#carte-horizontal:hover {
+#carte:hover {
     -fx-cursor: hand;
     -fx-border-color: -fx-red-main;
     -fx-border-width: 2px;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 0);
+}
+
+#carte-horizontal:hover {
     -fx-translate-x: 5;
     -fx-translate-y: 15;
     -fx-scale-x: 1.15;
@@ -315,10 +320,6 @@ Rectangle {
 }
 
 #carte-vertical:hover {
-    -fx-cursor: hand;
-    -fx-border-color: -fx-red-main;
-    -fx-border-width: 2px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 0);
     -fx-translate-y: -5;
     -fx-translate-x: 15;
     -fx-scale-x: 1.15;

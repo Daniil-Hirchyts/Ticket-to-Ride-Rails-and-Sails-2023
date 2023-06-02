@@ -59,6 +59,10 @@ public class VueDuJeu extends GridPane {
     @FXML
     private Pane bottomColor;
     public static final String PNG = ".png";
+    @FXML
+    private Pane pileBateauCarteImage;
+    @FXML
+    private Pane pileWagonCarteImage;
 
 
     public VueDuJeu(IJeu jeu) {
@@ -135,13 +139,13 @@ public class VueDuJeu extends GridPane {
         piocheBox.spacingProperty().bind(heightProperty().divide(when(heightProperty().lessThanOrEqualTo(960)).then(7).otherwise(heightProperty().subtract(1))).multiply(
                 when(heightProperty().lessThanOrEqualTo(960)).then(-1).otherwise(1)));
 
-        pileBateauCarte.setStyle("-fx-background-image: url('images/cartesWagons/dos-BATEAU.png'); " +
+        pileBateauCarteImage.setStyle("-fx-background-image: url('images/cartesWagons/dos-BATEAU.png'); " +
                 "-fx-background-position: center center; " +
                 "-fx-background-repeat: stretch; " +
                 "-fx-background-size: cover;")
         ;
 
-        pileWagonCarte.setStyle("-fx-background-image: url('images/cartesWagons/dos-WAGON.png'); " +
+        pileWagonCarteImage.setStyle("-fx-background-image: url('images/cartesWagons/dos-WAGON.png'); " +
                 "-fx-background-position: center center; " +
                 "-fx-background-repeat: stretch; " +
                 "-fx-background-size: cover;");

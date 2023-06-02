@@ -71,7 +71,6 @@ public class VueJoueurCourant extends GridPane {
     private Button btnPionsBateau;
     @FXML
     private Button btnPionsWagon;
-
     @FXML
     private Button btnDestination;
     public VueJoueurCourant(IJeu jeu) {
