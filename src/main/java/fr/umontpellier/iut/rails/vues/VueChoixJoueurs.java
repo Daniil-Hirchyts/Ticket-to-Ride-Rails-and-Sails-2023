@@ -20,7 +20,9 @@ import javafx.stage.Stage;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Cette classe correspond à une nouvelle fenêtre permettant de choisir le nombre et les noms des joueurs de la partie.
@@ -31,7 +33,7 @@ import java.util.List;
 public class VueChoixJoueurs extends Stage {
 
     private final ObservableList<String> nomsJoueurs;
-    private ObservableList<ImageView> avatarsJoueurs;
+    private Map<IJoueur.CouleurJoueur, ImageView> avatarsJoueurs;
     private int nbJoueurs;
     private List<Integer> compteursCouleurs;
     private VBox vboxJoueurs;
@@ -42,13 +44,14 @@ public class VueChoixJoueurs extends Stage {
 
 
 
+
     public ObservableList<String> nomsJoueursProperty() {
         return nomsJoueurs;
     }
 
     public VueChoixJoueurs() {
         nbJoueursProperty = new SimpleIntegerProperty(5);
-        avatarsJoueurs = FXCollections.observableArrayList();
+        avatarsJoueurs = FXCollections.observableHashMap();
         nomsJoueurs = FXCollections.observableArrayList();
         textFields = FXCollections.observableArrayList();
         compteursCouleurs = new ArrayList<>(5);
@@ -68,9 +71,6 @@ public class VueChoixJoueurs extends Stage {
     private void creerBinding() {
         validation.setOnAction(event -> {
             nomsJoueurs.clear();
-            for (TextField textField : textFields) {
-                if (!textField.getText().equals("")) nomsJoueurs.add(textField.getText());
-            }
             setListeDesNomsDeJoueurs();
         });
     }
@@ -95,7 +95,7 @@ public class VueChoixJoueurs extends Stage {
             Joueurs.setText("Joueur " + position + " : ");
             playerTextField.getChildren().addAll(avatar, Joueurs, nomJoueur);
             textFields.add(nomJoueur);
-            avatarsJoueurs.add(avatar);
+            avatarsJoueurs.put(couleur, avatar);
             vboxJoueurs.getChildren().add(playerTextField);
         }
         vboxJoueurs.getChildren().add(validation);
@@ -145,7 +145,11 @@ public class VueChoixJoueurs extends Stage {
      * Retourne le nombre de participants à la partie que l'utilisateur a renseigné
      */
     protected int getNombreDeJoueurs() {
-        return  nomsJoueurs.size();
+        int nbJoueurs = 0;
+        for (TextField textField : textFields) {
+            if (!textField.getText().equals("")) nbJoueurs++;
+        }
+        return nbJoueurs;
     }
 
     /**
@@ -153,10 +157,10 @@ public class VueChoixJoueurs extends Stage {
      * @param playerNumber : le numéro du participant
      */
     protected String getJoueurParNumero(int playerNumber) {
-        return getNomsJoueurs().get(playerNumber-1);
+        return textFields.get(playerNumber-1).getText();
     }
 
-    public List<ImageView> getAvatars(){
+    public Map<IJoueur.CouleurJoueur, ImageView> getAvatars(){
         return avatarsJoueurs;
     }
 

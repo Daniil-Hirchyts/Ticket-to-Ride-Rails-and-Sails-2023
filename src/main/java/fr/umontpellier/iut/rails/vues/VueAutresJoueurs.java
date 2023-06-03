@@ -3,10 +3,14 @@ package fr.umontpellier.iut.rails.vues;
 import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IJoueur;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
+import java.util.IllegalFormatCodePointException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Cette classe présente les éléments des joueurs autres que le joueur courant,
@@ -16,9 +20,10 @@ import java.io.IOException;
  */
 public class VueAutresJoueurs extends GridPane {
     IJeu jeu;
-
-    public VueAutresJoueurs(IJeu jeu) {
+    private Map<IJoueur.CouleurJoueur,ImageView> avatarList;
+    public VueAutresJoueurs(IJeu jeu, Map<IJoueur.CouleurJoueur,ImageView> avatarList) {
         this.jeu = jeu;
+        this.avatarList = avatarList;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/playersPanel.fxml"));
             loader.setRoot(this);
@@ -41,7 +46,7 @@ public class VueAutresJoueurs extends GridPane {
         for (int i = 0; i < jeu.getJoueurs().size(); i++) getColumnConstraints().add(new ColumnConstraints());
         for (int i = 0; i < jeu.getJoueurs().size(); i++) {
             if (jeu.getJoueurs().get(i) == joueur) continue;
-            VuePlayerInfo vuePlayerInfo = new VuePlayerInfo(jeu.getJoueurs().get(i));
+            VuePlayerInfo vuePlayerInfo = new VuePlayerInfo(jeu.getJoueurs().get(i), avatarList.get(jeu.getJoueurs().get(i).getCouleur()));
             vuePlayerInfo.creerBindings();
             add(vuePlayerInfo, i, 0);
             getColumnConstraints().get(i).prefWidthProperty().bind(widthProperty().divide(jeu.getJoueurs().size() - 1));

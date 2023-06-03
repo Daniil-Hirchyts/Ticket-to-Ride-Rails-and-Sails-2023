@@ -27,6 +27,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.String.valueOf;
 import static java.util.Objects.requireNonNull;
@@ -73,8 +74,11 @@ public class VueJoueurCourant extends GridPane {
     private Button btnPionsWagon;
     @FXML
     private Button btnDestination;
-    public VueJoueurCourant(IJeu jeu) {
+
+    private Map<IJoueur.CouleurJoueur,ImageView> avatarList;
+    public VueJoueurCourant(IJeu jeu, Map<IJoueur.CouleurJoueur,ImageView> avatarList) {
         this.jeu = jeu;
+        this.avatarList = avatarList;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/playerInterface.fxml"));
             loader.setRoot(this);
@@ -100,7 +104,7 @@ public class VueJoueurCourant extends GridPane {
                 pionsBateau.textProperty().bind(newValue.nbPionsBateauxProperty().asString());
                 pionsPort.setText(valueOf(newValue.getNbPorts()));
                 scoreLabel.setText(valueOf(newValue.getScore()));
-                playerAvatar.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/Avatar/avatar-" + newValue.getCouleur().toString().toUpperCase() + ".png"))));
+                playerAvatar.setImage(avatarList.get(newValue.getCouleur()).getImage());
                 colorBack.setStyle("-fx-background-color: " + getCouleurJoueur(newValue.getCouleur()) + ";");
             } else {
                 pionsWagon.textProperty().unbind();

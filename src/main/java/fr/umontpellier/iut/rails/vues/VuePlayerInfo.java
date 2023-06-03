@@ -24,9 +24,11 @@ public class VuePlayerInfo extends HBox {
     private ImageView playerAvatar;
     @FXML
     private VBox playerColor;
+    private ImageView avatar;
 
-    public VuePlayerInfo(IJoueur joueur) {
+    public VuePlayerInfo(IJoueur joueur, ImageView avatar) {
         this.joueur = joueur;
+        this.avatar = avatar;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/playerInfo.fxml"));
             loader.setRoot(this);
@@ -40,7 +42,7 @@ public class VuePlayerInfo extends HBox {
     public void creerBindings() {
         playerName.textProperty().set(joueur.getNom());
         playerScore.textProperty().set(String.valueOf(joueur.getScore()));
-        playerAvatar.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/Avatar/avatar-" + joueur.getCouleur().toString().toUpperCase() + ".png"))));
+        playerAvatar.setImage(avatar.getImage());
         playerColor.setStyle("-fx-background-color: " + VueJoueurCourant.getCouleurJoueur(joueur.getCouleur()) + ";");
     }
 }

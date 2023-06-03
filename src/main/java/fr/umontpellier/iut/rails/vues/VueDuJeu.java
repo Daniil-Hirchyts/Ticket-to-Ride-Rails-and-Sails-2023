@@ -15,6 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import static javafx.beans.binding.Bindings.when;
 
@@ -66,7 +68,7 @@ public class VueDuJeu extends GridPane {
     @FXML
     private VBox pileCartesDestinations;
 
-    public VueDuJeu(IJeu jeu) {
+    public VueDuJeu(IJeu jeu, Map<IJoueur.CouleurJoueur,ImageView> avatarList) {
         this.jeu = jeu;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameScene.fxml"));
@@ -115,13 +117,13 @@ public class VueDuJeu extends GridPane {
         setRowIndex(plateau, 1);
         setColumnIndex(plateau, 1);
 
-        VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu);
+        VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu, avatarList);
         add(vueJoueurCourant, 0, 2);
         setColumnSpan(vueJoueurCourant, 3);
         vueJoueurCourant.creerBindings();
         getChildren().addAll(plateau);
 
-        VueAutresJoueurs vueAutresJoueurs = new VueAutresJoueurs(jeu);
+        VueAutresJoueurs vueAutresJoueurs = new VueAutresJoueurs(jeu, avatarList);
         topGridPane.add(vueAutresJoueurs, 0, 0);
         vueAutresJoueurs.creerBindings();
 

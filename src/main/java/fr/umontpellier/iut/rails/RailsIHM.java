@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.rails;
 
 import fr.umontpellier.iut.rails.mecanique.Jeu;
+import fr.umontpellier.iut.rails.mecanique.data.Couleur;
 import fr.umontpellier.iut.rails.vues.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -16,11 +17,12 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class RailsIHM extends Application {
 
-    private List<ImageView> avatars;
+    private Map<IJoueur.CouleurJoueur, ImageView> avatars;
     private VueChoixJoueurs vueChoixJoueurs;
     private Stage primaryStage;
     private Jeu jeu;
@@ -55,7 +57,8 @@ public class RailsIHM extends Application {
             nomsJoueurs.add("Elaine");
         }
         jeu = new Jeu(nomsJoueurs.toArray(new String[0]));
-        VueDuJeu vueDuJeu = new VueDuJeu(jeu);
+        avatars = vueChoixJoueurs.getAvatars();
+        VueDuJeu vueDuJeu = new VueDuJeu(jeu, avatars);
         Scene scene = new Scene(vueDuJeu, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran); // la scene doit être créée avant de mettre en place les bindings
         vueDuJeu.creerBindings();
         jeu.run(); // le jeu doit être démarré après que les bindings ont été mis en place
@@ -84,7 +87,6 @@ public class RailsIHM extends Application {
 
     private final ListChangeListener<String> quandLesNomsJoueursSontDefinis = change -> {
         if (!vueChoixJoueurs.getNomsJoueurs().isEmpty())
-            avatars = vueChoixJoueurs.getAvatars();
             demarrerPartie();
     };
 
