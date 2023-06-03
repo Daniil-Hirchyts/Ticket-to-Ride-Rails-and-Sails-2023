@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
@@ -68,7 +69,7 @@ public class VueDuJeu extends GridPane {
     @FXML
     private VBox pileCartesDestinations;
 
-    public VueDuJeu(IJeu jeu, Map<IJoueur.CouleurJoueur,ImageView> avatarList) {
+    public VueDuJeu(IJeu jeu, Map<IJoueur.CouleurJoueur, ImageView> avatarList) {
         this.jeu = jeu;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameScene.fxml"));
@@ -176,13 +177,19 @@ public class VueDuJeu extends GridPane {
         pileBateauCarteImage.setStyle("-fx-background-image: url('images/cartesWagons/dos-BATEAU.png'); " +
                 "-fx-background-position: center center; " +
                 "-fx-background-repeat: stretch; " +
-                "-fx-background-size: cover;")
-        ;
+                "-fx-background-size: cover;");
 
         pileWagonCarteImage.setStyle("-fx-background-image: url('images/cartesWagons/dos-WAGON.png'); " +
                 "-fx-background-position: center center; " +
                 "-fx-background-repeat: stretch; " +
                 "-fx-background-size: cover;");
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setSaturation(0.1);
+        colorAdjust.setContrast(0.13);
+        colorAdjust.setBrightness(0.1);
+        pileBateauCarteImage.setEffect(colorAdjust);
+        pileWagonCarteImage.setEffect(colorAdjust);
     }
 
     public IJeu getJeu() {

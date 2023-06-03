@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -49,6 +50,11 @@ public class VuePlateau extends Pane {
             e.printStackTrace();
         }
         setMinSize(Screen.getPrimary().getBounds().getWidth() / 3, Screen.getPrimary().getBounds().getHeight() / 3);
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setSaturation(0.1);
+        colorAdjust.setContrast(0.11);
+        colorAdjust.setBrightness(0.1);
+        mapMonde.setEffect(colorAdjust);
     }
 
     EventHandler<MouseEvent> choixRoute = event -> {
@@ -103,6 +109,7 @@ public class VuePlateau extends Pane {
             {
                 super.bind(widthProperty(), heightProperty());
             }
+
             @Override
             protected double computeValue() {
                 double imageViewWidth = mapMonde.getLayoutBounds().getWidth();
@@ -151,25 +158,25 @@ public class VuePlateau extends Pane {
             protected Paint computeValue() {
                 Paint couleur = Color.TRANSPARENT;
                 if (ville.proprietaireProperty().getValue() != null) {
-                        if (ville.proprietaireProperty().getValue() != null) {
-                            IJoueur.CouleurJoueur couleurJoueur = ville.proprietaireProperty().get().getCouleur();
-                            ImageView pionsPosee = new ImageView(new Image("images/gares/gare-" + couleurJoueur + ".png"));
-                            System.out.println(cerclePort.centerXProperty().getValue() + " " + cerclePort.centerXProperty().getValue() + " " + cerclePort.radiusProperty().getValue());
-                            //bind la position de l'image view à la position du rectangle
-                            pionsPosee.layoutXProperty().bind(cerclePort.centerXProperty().subtract(10));
-                            pionsPosee.layoutYProperty().bind(cerclePort.centerYProperty().subtract(20));
-                            pionsPosee.fitHeightProperty().bind(cerclePort.radiusProperty().add(20));
-                            pionsPosee.fitWidthProperty().bind(cerclePort.radiusProperty().add(10));
-                            pionsPosee.setId("pionsPoseeW");
-                            getChildren().add(pionsPosee);
-                        }
-                        return switch (ville.proprietaireProperty().get().getCouleur()) {
+                    if (ville.proprietaireProperty().getValue() != null) {
+                        IJoueur.CouleurJoueur couleurJoueur = ville.proprietaireProperty().get().getCouleur();
+                        ImageView pionsPosee = new ImageView(new Image("images/gares/gare-" + couleurJoueur + ".png"));
+                        System.out.println(cerclePort.centerXProperty().getValue() + " " + cerclePort.centerXProperty().getValue() + " " + cerclePort.radiusProperty().getValue());
+                        //bind la position de l'image view à la position du rectangle
+                        pionsPosee.layoutXProperty().bind(cerclePort.centerXProperty().subtract(10));
+                        pionsPosee.layoutYProperty().bind(cerclePort.centerYProperty().subtract(20));
+                        pionsPosee.fitHeightProperty().bind(cerclePort.radiusProperty().add(20));
+                        pionsPosee.fitWidthProperty().bind(cerclePort.radiusProperty().add(10));
+                        pionsPosee.setId("pionsPoseeW");
+                        getChildren().add(pionsPosee);
+                    }
+                    return switch (ville.proprietaireProperty().get().getCouleur()) {
                         case ROUGE -> Color.valueOf("#d02a1b");
                         case VERT -> Color.valueOf("#6fae1e");
                         case BLEU -> Color.valueOf("#769799");
                         case JAUNE -> Color.valueOf("#f0dc00");
                         case ROSE -> Color.valueOf("#b74b97");
-                        };
+                    };
 
                 }
                 return couleur;

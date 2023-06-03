@@ -15,15 +15,23 @@
 }
 
 Circle {
-    -fx-fill: -fx-red-main;
-    -fx-stroke: -fx-red-main;
+    /*-fx-fill: -fx-red-main;*/
     /*-fx-opacity: 0;*/
+}
 
+Circle:hover {
+    -fx-stroke: -fx-red-main;
+    -fx-stroke-width: 2;
 }
 
 Rectangle {
-    -fx-fill: -fx-brown-main;
-    -fx-stroke: -fx-brown-main;
+    /*-fx-fill: -fx-brown-main;*/
+    /*-fx-opacity: 0;*/
+}
+
+Rectangle:hover {
+    -fx-stroke: white;
+    -fx-stroke-width: 2;
     /*-fx-opacity: 0;*/
 }
 
@@ -31,18 +39,16 @@ Rectangle {
     -fx-font-family: 'IM Fell English SC', serif;
 }
 
-
-#leftVBox, #piocheBox, #block, #pile, #vueJoueurCourant, #centerSection, #bottomHBox, #rightVBox, #playerVBox, #topGridPane, #infoVBox_2, #playerInfoBlock {
+#centerBox, #plateau, #scrollPane, #btnExit {
     -fx-background-color: transparent;
-    -fx-border-color: black;
-    -fx-border-width: 0.25;
+    -fx-background: transparent;
 }
 
 #gameScene {
     -fx-background-image: url("/images/background/background-pattern.png");
     -fx-background-repeat: repeat;
     -fx-background-position: center;
-    -fx-background-size: 25% 60%;
+    -fx-background-size: 20% 60%;
 }
 
 #borderTop {
@@ -85,8 +91,6 @@ Rectangle {
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: 100% 100%;
-    -fx-background-color: transparent;
-    -fx-background: transparent;
 }
 
 #console {
@@ -111,19 +115,8 @@ Rectangle {
     -fx-background-image: url("/images/buttons/btn-exit-hover.png");
 }
 
-#centerBox {
-    -fx-background-color: transparent;
-    -fx-border-color: black;
-    -fx-border-width: 0.25;
-}
 
-#plateau {
-    -fx-background-color: transparent;
-    -fx-border-color: black;
-    -fx-border-width: 0.25;
-}
-
-#leftVBox, #piocheBox, #pile {
+#piocheBox, #pile {
     -fx-min-width: 150;
     -fx-max-width: 150;
 }
@@ -147,12 +140,7 @@ Rectangle {
     -fx-max-width: 300;
 }
 
-#rightVBox {
-    -fx-min-width: 150;
-    -fx-max-width: 150;
-}
-
-#topGridPane, #infoVBox_2, #console {
+#infoVBox_2, #console {
     -fx-min-height: 150;
     -fx-max-height: 150;
 }
@@ -163,8 +151,6 @@ Rectangle {
 }
 
 #scrollPane {
-    -fx-background-color: transparent;
-    -fx-background: transparent;
     -fx-scrollbar-width: 10px;
     -fx-scrollbar-color: transparent;
     -fx-scrollbar-thumb-color: black;

@@ -3,6 +3,7 @@ package fr.umontpellier.iut.rails.vues;
 import fr.umontpellier.iut.rails.ICarteTransport;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -49,10 +50,18 @@ public class VueCarteTransport extends Pane {
                 "-fx-background-repeat: stretch; " +
                 "-fx-background-size: cover;");
 
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setSaturation(0.1);
+        colorAdjust.setContrast(0.11);
+        colorAdjust.setBrightness(0.1);
+        carteImage.setEffect(colorAdjust);
+
+
         if (!dansDeck) {
-        setOnMouseClicked(event -> {
-            ((VueDuJeu) getScene().getRoot()).getJeu().uneCarteTransportAEteChoisie(carteTransport);
-        });
+            setOnMouseClicked(event -> {
+                ((VueDuJeu) getScene().getRoot()).getJeu().uneCarteTransportAEteChoisie(carteTransport);
+            });
         } else {
             setOnMouseClicked(event -> {
                 ((VueDuJeu) getScene().getRoot()).getJeu().uneCarteDuJoueurEstJouee(carteTransport);

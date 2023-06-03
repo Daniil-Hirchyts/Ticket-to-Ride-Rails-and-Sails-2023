@@ -5,157 +5,131 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<fx:root alignment="CENTER" prefHeight="800.0" prefWidth="1080.0" stylesheets="@../css/style.css" type="GridPane"
-         xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" prefHeight="800.0" prefWidth="1080.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
-        <ColumnConstraints hgrow="NEVER"/>
-        <ColumnConstraints hgrow="ALWAYS"/>
-        <ColumnConstraints hgrow="NEVER"/>
+        <ColumnConstraints hgrow="NEVER" />
+        <ColumnConstraints hgrow="ALWAYS" />
+        <ColumnConstraints hgrow="NEVER" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints valignment="TOP"/>
-        <RowConstraints/>
-        <RowConstraints maxHeight="-Infinity" prefHeight="150.0" valignment="BOTTOM"/>
+        <RowConstraints valignment="TOP" />
+        <RowConstraints />
+        <RowConstraints maxHeight="-Infinity" prefHeight="150.0" valignment="BOTTOM" />
     </rowConstraints>
     <children>
-        <Pane fx:id="borderTop" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-              prefHeight="150.0" GridPane.columnSpan="3"/>
-        <Pane fx:id="bottomColor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-              prefHeight="170.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
+        <Pane fx:id="borderTop" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" GridPane.columnSpan="3" />
+        <Pane fx:id="bottomColor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
             <children>
-                <Pane fx:id="borderDown" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                      minWidth="-Infinity" prefHeight="150.0"/>
+                <Pane fx:id="borderDown" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" />
             </children>
         </Pane>
-        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0"
-              prefWidth="150.0" GridPane.rowIndex="2">
+        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" GridPane.rowIndex="2">
             <children>
-                <Pane fx:id="cornerLB2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                      minWidth="-Infinity" prefHeight="36.0" prefWidth="190.0"/>
-                <Pane fx:id="cornerLB" layoutY="63.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                      minWidth="-Infinity" prefHeight="87.0" prefWidth="236.0"/>
+                <Pane fx:id="cornerLB2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="190.0" />
+                <Pane fx:id="cornerLB" layoutY="63.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="87.0" prefWidth="236.0" />
             </children>
         </Pane>
-        <GridPane fx:id="topGridPane" GridPane.columnIndex="1" GridPane.columnSpan="2">
+        <GridPane fx:id="topGridPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
             <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
-                <ColumnConstraints halignment="CENTER"/>
+                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                <ColumnConstraints halignment="CENTER" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints valignment="CENTER" vgrow="SOMETIMES"/>
+                <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <GridPane fx:id="playersGrid" gridLinesVisible="true">
                     <rowConstraints>
-                        <RowConstraints/>
+                        <RowConstraints />
                     </rowConstraints>
                     <columnConstraints>
-                        <ColumnConstraints/>
+                        <ColumnConstraints />
                     </columnConstraints>
                 </GridPane>
                 <VBox fx:id="console" alignment="TOP_CENTER" spacing="5.0" GridPane.columnIndex="1">
                     <children>
                         <Label text="Console" textFill="WHITE" translateY="-7.0">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
-                        <ScrollPane id="scrollPane" fx:id="consoleScrollPane" hbarPolicy="NEVER" hmax="0.0"
-                                    vbarPolicy="ALWAYS">
+                        <ScrollPane id="scrollPane" fx:id="consoleScrollPane" hbarPolicy="NEVER" hmax="0.0" vbarPolicy="ALWAYS">
                             <content>
                                 <VBox fx:id="consoleHistory" spacing="5.0">
                                     <padding>
-                                        <Insets right="20.0"/>
+                                        <Insets right="20.0" />
                                     </padding>
                                     <opaqueInsets>
-                                        <Insets/>
+                                        <Insets />
                                     </opaqueInsets>
                                 </VBox>
                             </content>
                         </ScrollPane>
                     </children>
                     <padding>
-                        <Insets bottom="25.0" left="20.0" right="10.0" top="30.0"/>
+                        <Insets bottom="25.0" left="20.0" right="10.0" top="30.0" />
                     </padding>
                     <opaqueInsets>
-                        <Insets bottom="30.0"/>
+                        <Insets bottom="30.0" />
                     </opaqueInsets>
                 </VBox>
             </children>
         </GridPane>
-        <VBox fx:id="infoVBox_2"/>
-        <GridPane fx:id="leftVBox" GridPane.rowIndex="1">
+        <GridPane fx:id="leftVBox" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.rowIndex="1">
             <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="ALWAYS"/>
-                <RowConstraints vgrow="NEVER"/>
+                <RowConstraints vgrow="NEVER" />
+                <RowConstraints vgrow="ALWAYS" />
+                <RowConstraints vgrow="NEVER" />
             </rowConstraints>
             <children>
-                <VBox fx:id="pileWagon" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                      minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0">
+                <VBox fx:id="pileWagon" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0">
                     <children>
-                        <Pane id="carte" fx:id="pileWagonCarte" maxHeight="-Infinity" maxWidth="-Infinity"
-                              minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="130.0">
+                        <Pane id="carte" fx:id="pileWagonCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="130.0">
                             <children>
-                                <Pane fx:id="pileWagonCarteImage" layoutX="28.0" layoutY="-18.0" maxHeight="-Infinity"
-                                      maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0"
-                                      prefWidth="75.0" rotate="270.0"/>
+                                <Pane fx:id="pileWagonCarteImage" layoutX="28.0" layoutY="-18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
                             </children>
                         </Pane>
                     </children>
                 </VBox>
-                <VBox fx:id="piocheBox" alignment="CENTER" GridPane.rowIndex="1"/>
-                <VBox fx:id="pileBateau" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                      minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0"
-                      GridPane.rowIndex="2">
+                <VBox fx:id="piocheBox" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.rowIndex="1" />
+                <VBox fx:id="pileBateau" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" GridPane.rowIndex="2">
                     <children>
-                        <Pane id="carte" fx:id="pileBateauCarte" maxHeight="-Infinity" maxWidth="-Infinity"
-                              minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="130.0">
+                        <Pane id="carte" fx:id="pileBateauCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="130.0">
                             <children>
-                                <Pane fx:id="pileBateauCarteImage" layoutX="28.0" layoutY="-18.0" maxHeight="-Infinity"
-                                      maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0"
-                                      prefWidth="75.0" rotate="270.0"/>
+                                <Pane fx:id="pileBateauCarteImage" layoutX="28.0" layoutY="-18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
                             </children>
                         </Pane>
                     </children>
                 </VBox>
             </children>
         </GridPane>
-        <Pane fx:id="cornerLT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-              prefHeight="125.0" prefWidth="190.0">
+        <Pane fx:id="cornerLT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="190.0">
             <children>
-                <Button fx:id="btnExit" layoutX="18.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0"
-                        prefWidth="40.0"/>
+                <Button fx:id="btnExit" layoutX="18.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" />
             </children>
         </Pane>
-        <GridPane fx:id="rightVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                  minWidth="-Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1">
+        <GridPane fx:id="rightVBox" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints valignment="CENTER" vgrow="ALWAYS"/>
-                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES"/>
+                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                      minWidth="-Infinity" prefWidth="150.0" spacing="5.0">
+                <VBox fx:id="pilesRightDestination" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" spacing="5.0">
                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                     <children>
-                        <VBox fx:id="pileCartesDestinations" alignment="CENTER" maxHeight="-Infinity"
-                              maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="140.0"/>
-                        <VBox fx:id="playerDestinations" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                              minHeight="-Infinity" minWidth="-Infinity" prefWidth="140.0"/>
+                        <VBox fx:id="pileCartesDestinations" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                        <VBox fx:id="playerDestinations" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
                     </children>
                 </VBox>
-                <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                      minWidth="-Infinity" prefWidth="150.0" GridPane.rowIndex="1"/>
+                <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.rowIndex="1" />
             </children>
         </GridPane>
     </children>
