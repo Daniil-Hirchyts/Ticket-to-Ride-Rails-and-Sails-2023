@@ -93,6 +93,19 @@ Rectangle:hover {
     -fx-background-size: 100% 100%;
 }
 
+#playerBackground, #playerBackgroundAvatarColor, #playerLabelScoreImage {
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+}
+
+#playerBackgroundAvatar {
+    -fx-background-image: url("/images/elements/player-interface/avatar/background.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+}
+
 #console {
     -fx-background-image: url("/images/elements/console.png");
     -fx-background-repeat: no-repeat;

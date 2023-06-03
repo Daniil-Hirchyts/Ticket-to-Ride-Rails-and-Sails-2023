@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="40.0" type="Pane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="rubanFlag" fitHeight="80.0" fitWidth="40.0" layoutX="-2.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/elements/player-interface/ruban/BLEU.png" />
+         </image>
+      </ImageView>
+      <Circle fx:id="circleFlag" fill="#3f1a0a" layoutX="20.0" layoutY="20.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <ImageView fx:id="iconFlag" fitHeight="20.0" fitWidth="20.0" layoutX="10.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/elements/player-interface/train.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="57.0" fitWidth="58.0" layoutX="-9.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/elements/player-interface/ring-button.png" />
+         </image>
+      </ImageView>
+      <HBox alignment="CENTER" layoutX="5.0" layoutY="40.0" prefHeight="15.0" prefWidth="30.0">
+         <children>
+            <Label alignment="CENTER" stylesheets="@../css/style.css" text="0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</fx:root>

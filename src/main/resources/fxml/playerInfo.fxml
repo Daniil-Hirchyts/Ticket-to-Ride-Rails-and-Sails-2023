@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -8,75 +9,34 @@
 
 <fx:root alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="200.0" stylesheets="@../css/style.css" type="HBox" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0">
-         <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
-         </rowConstraints>
+      <Pane id="playerBackground" fx:id="playerBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="200.0">
          <children>
-            <Label fx:id="playerName" text="Label" underline="true" GridPane.columnIndex="1">
+            <Group layoutX="10.0" layoutY="10.0">
+               <children>
+                  <Pane id="playerBackgroundAvatar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="65.0" />
+                  <Pane id="playerBackgroundAvatarColor" fx:id="playerBackgroundAvatarColor" layoutX="7.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" />
+                  <ImageView id="playerBackgroundAvatarImage" fx:id="playerBackgroundAvatarImage" fitHeight="55.0" fitWidth="55.0" layoutX="10.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Group>
+            <Label fx:id="playerNameLabel" layoutX="94.0" layoutY="15.0" text="Label" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <HBox alignment="TOP_CENTER" spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <HBox id="playerLabelScoreImage" fx:id="playerLabelScoreImage" alignment="CENTER" layoutX="12.0" layoutY="54.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="65.0">
                <children>
-                  <Pane id="button-square" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="40.0">
-                     <children>
-                        <Label fx:id="playerScore111" layoutX="17.0" layoutY="-1.0" text="0">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <Pane id="button-square" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="40.0">
-                     <children>
-                        <Label fx:id="playerScore11" layoutX="17.0" layoutY="-1.0" text="0">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
+                  <Label fx:id="playerLabelScore" alignment="TOP_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="65.0" text="Label" textAlignment="CENTER" textFill="WHITE" translateY="-2.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
                </children>
             </HBox>
-            <Pane maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" GridPane.rowSpan="2">
-               <children>
-                  <VBox id="avatarColor" fx:id="playerColor" alignment="BOTTOM_CENTER" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
-                     <children>
-                        <ImageView fx:id="playerAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" translateY="4.0">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </ImageView>
-                     </children>
-                  </VBox>
-                  <Pane id="button-square" layoutX="10.0" layoutY="55.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="50.0">
-                     <children>
-                        <Label fx:id="playerScore" layoutX="22.0" layoutY="-2.0" text="0">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <Pane id="button-round" layoutX="51.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0">
-                     <children>
-                        <Label fx:id="playerScore1" layoutX="9.0" layoutY="1.0" text="0">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-               </children>
-            </Pane>
+            <HBox fx:id="flagsBox" alignment="CENTER" layoutX="102.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="60.0" />
          </children>
-      </GridPane>
+      </Pane>
    </children>
 </fx:root>
