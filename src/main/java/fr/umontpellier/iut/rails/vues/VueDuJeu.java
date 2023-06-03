@@ -90,7 +90,7 @@ public class VueDuJeu extends GridPane {
             String bottom = "bottom-";
             bottomColor.setStyle("-fx-background-image: url('/images/background/bottom-colors/" + bottom + newValue.getCouleur().toString() + PNG + "');");
             for (IDestination d : newValue.getDestinations()) {
-                pileCartesDestinations.getChildren().add(new VueDestinationChoisi(d));
+                pileCartesDestinations.getChildren().add(new VueDestination(d));
             }
             pileCartesDestinations.setSpacing(-10);
         });
@@ -101,7 +101,7 @@ public class VueDuJeu extends GridPane {
                     if (change.wasAdded()) {
                         for (IDestination destination : change.getAddedSubList()) {
                             ConsoleLogger.getInstance(null, null).log("Ajout de la destination " + destination.getVilles().toString());
-                            pileCartesDestinations.getChildren().add(new VueDestination(destination));
+                            pileCartesDestinations.getChildren().add(new VueDestination(destination, true));
                         }
                     }
                     if (change.wasRemoved()) {
@@ -134,7 +134,8 @@ public class VueDuJeu extends GridPane {
     public VueDestination trouverLabelDestination(IDestination d) {
         for (Node n : pileCartesDestinations.getChildren())
             if (n instanceof VueDestination l)
-                if (l.getText().equals(d.getVilles().toString())) return l;
+                if (l.getDestination().equals(d))
+                    return l;
         return null;
     }
 

@@ -231,32 +231,7 @@ Rectangle {
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 2, 0, 0, 0);
 }
 
-#destinationButton {
-    -fx-background-color: -fx-beige-yellow;
-    -fx-text-fill: black;
-    -fx-font-size: 10px;
-    -fx-padding: 2px 2px;
-    -fx-border-color: black;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-max-width: 250;
-    -fx-min-width: 250;
-    -fx-min-height: 20;
-    -fx-max-height: 20;
-}
-
-#destinationButton:hover {
-    -fx-background-color: -fx-beige-yellow-hovered;
-    -fx-cursor: hand;
-}
-
-#destinationButton:pressed {
-    -fx-background-color: -fx-beige-yellow-pressed;
-}
-
-#destinationTicket {
-    -fx-background-image: url("/images/elements/destination.png");
+#destinationTicket, #destinationTicketChoix {
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: 100% 100%;
@@ -269,12 +244,25 @@ Rectangle {
     -fx-spacing: -2;
 }
 
-#destinationTicket:hover {
+#destinationTicket {
+    -fx-background-image: url("/images/elements/destination.png");
+}
+
+#destinationTicket:hover, #destinationTicketChoix:hover {
     -fx-translate-y: -4;
     -fx-translate-x: -24;
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 3, 0, 0, -3);
+}
+
+#destinationTicketChoix:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+#destinationTicketChoix {
+    -fx-background-image: url("/images/elements/destination-choix.png");
 }
 
 #destinationLabel {
