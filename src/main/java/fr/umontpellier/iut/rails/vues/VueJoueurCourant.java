@@ -45,22 +45,12 @@ public class VueJoueurCourant extends GridPane {
     private IJeu jeu;
     private IJoueur joueur;
     private Map<IJoueur.CouleurJoueur, ImageView> avatarList;
-    //    @FXML
-//    private VBox infoVBox;
-    //    @FXML
-//    private VBox vboxDestinations;
     @FXML
     private Label playerName;
     @FXML
     private ImageView playerAvatar;
     @FXML
     private ImageView playerLabelColorBackground;
-    //    @FXML
-//    private Label pionsWagon;
-//    @FXML
-//    private Label pionsBateau;
-//    @FXML
-//    private Label pionsPort;
     @FXML
     private Label scoreLabel;
     @FXML
@@ -89,34 +79,26 @@ public class VueJoueurCourant extends GridPane {
             e.printStackTrace();
         }
         creerBindings();
+
     }
 
     public void creerBindings() {
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                flagsBox.getChildren().clear();
-                wagons.bind(newValue.nbPionsWagonsProperty());
-                bateaux.bind(newValue.nbPionsBateauxProperty());
-                ports = newValue.getNbPorts();
-                VueFlag pionsWagon = new VueFlag(newValue, wagons, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/train.png"))), "wagons");
-                VueFlag pionsBateau = new VueFlag(newValue, bateaux, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/ship.png"))), "bateaux");
-                VueFlag pionsPort = new VueFlag(newValue, ports, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/ancor.png"))), "ports");
-                pionsWagon.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
-                pionsBateau.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
-                pionsPort.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
-                flagsBox.getChildren().addAll(pionsWagon, pionsBateau, pionsPort);
-                playerName.setText(newValue.getNom());
-//                pionsWagon.textProperty().bind(newValue.nbPionsWagonsProperty().asString());
-//                pionsBateau.textProperty().bind(newValue.nbPionsBateauxProperty().asString());
-//                pionsPort.setText(valueOf(newValue.getNbPorts()));
-                scoreLabel.setText(valueOf(newValue.getScore()));
-                playerAvatar.setImage(avatarList.get(newValue.getCouleur()).getImage());
-                playerLabelColorBackground.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/current-player/score-background/" + newValue.getCouleur().toString() + ".png"))));
-            }
-//            else {
-//                pionsWagon.textProperty().unbind();
-//                pionsBateau.textProperty().unbind();
-//            }
+            flagsBox.getChildren().clear();
+            wagons.bind(newValue.nbPionsWagonsProperty());
+            bateaux.bind(newValue.nbPionsBateauxProperty());
+            ports = newValue.getNbPorts();
+            VueFlag pionsWagon = new VueFlag(newValue, wagons, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/train.png"))), "wagons");
+            VueFlag pionsBateau = new VueFlag(newValue, bateaux, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/ship.png"))), "bateaux");
+            VueFlag pionsPort = new VueFlag(newValue, ports, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/ancor.png"))), "ports");
+            pionsWagon.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
+            pionsBateau.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
+            pionsPort.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
+            flagsBox.getChildren().addAll(pionsWagon, pionsBateau, pionsPort);
+            playerName.setText(newValue.getNom());
+            scoreLabel.setText(valueOf(newValue.getScore()));
+            playerAvatar.setImage(avatarList.get(newValue.getCouleur()).getImage());
+            playerLabelColorBackground.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/current-player/score-background/" + newValue.getCouleur().toString() + ".png"))));
         });
 
         for (IJoueur j : jeu.getJoueurs()) {
@@ -165,15 +147,5 @@ public class VueJoueurCourant extends GridPane {
 //                jeu.nouveauxPionsBateauxDemandes();
 //            }
 //        });
-    }
-
-    public static String getCouleurJoueur(IJoueur.CouleurJoueur couleurJoueur) {
-        return switch (couleurJoueur) {
-            case ROUGE -> "#d02a1b";
-            case VERT -> "#6fae1e";
-            case BLEU -> "#769799";
-            case JAUNE -> "#f0dc00";
-            case ROSE -> "#b74b97";
-        };
     }
 }

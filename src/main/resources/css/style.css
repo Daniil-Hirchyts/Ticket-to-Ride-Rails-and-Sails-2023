@@ -181,38 +181,13 @@ Label {
 }
 
 
-#piocheBox, #pile {
-    -fx-min-width: 150;
-    -fx-max-width: 150;
-}
-
 #pile {
     -fx-min-height: 100;
-}
-
-#bottomHBox, #infoVBox, #playerVBox, #playerInfoBlock, #centerSection {
-    -fx-min-height: 150;
-    -fx-max-height: 150;
-}
-
-#infoVBox, #playerVBox, #playerActions {
-    -fx-min-width: 150;
-    -fx-max-width: 150;
 }
 
 #playerInfoBlock, #console {
     -fx-min-width: 300;
     -fx-max-width: 300;
-}
-
-#infoVBox_2, #console {
-    -fx-min-height: 150;
-    -fx-max-height: 150;
-}
-
-#infoVBox_2 {
-    -fx-min-width: 150;
-    -fx-max-width: 150;
 }
 
 #scrollPane {

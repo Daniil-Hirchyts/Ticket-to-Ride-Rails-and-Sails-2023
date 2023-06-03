@@ -8,7 +8,7 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="40.0" type="Pane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="rubanFlag" fitHeight="80.0" fitWidth="40.0" layoutX="-2.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="rubanFlag" fitHeight="80.0" fitWidth="40.0" layoutX="-2.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/elements/player-interface/ruban/BLEU.png" />
          </image>
@@ -28,14 +28,10 @@
             <Image url="@../images/elements/player-interface/ring-button.png" />
          </image>
       </ImageView>
-      <HBox alignment="CENTER" layoutX="5.0" layoutY="40.0" prefHeight="15.0" prefWidth="30.0">
-         <children>
-            <Label fx:id="valueFlag" alignment="CENTER" stylesheets="@../css/style.css" text="0" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
+      <Label fx:id="valueFlag" alignment="CENTER" contentDisplay="CENTER" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="40.0" stylesheets="@../css/style.css" text="0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </fx:root>

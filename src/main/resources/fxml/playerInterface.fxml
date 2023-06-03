@@ -38,12 +38,17 @@
             </Pane>
             <Group layoutY="-98.0">
                <children>
+                  <ImageView fitHeight="213.0" fitWidth="214.0" layoutX="123.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/elements/current-player/shadow.png" />
+                     </image>
+                  </ImageView>
                   <ImageView fitHeight="167.0" fitWidth="246.0" layoutX="53.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/elements/current-player/background.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="playerAvatar" fitHeight="150.0" fitWidth="119.0" layoutX="158.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="playerAvatar" fitHeight="150.0" fitWidth="119.0" layoutX="158.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/avatars/VERT/avatar-1.png" />
                      </image>
@@ -53,7 +58,7 @@
                         <Image url="@../images/elements/current-player/score-background/local-player-support-score-Green.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="scoreLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="177.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="80.0" text="10" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="scoreLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="167.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="80.0" text="10" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="40.0" />
                      </font>
