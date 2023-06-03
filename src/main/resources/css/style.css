@@ -14,25 +14,15 @@
     -fx-white-carte: #e7edf1;
 }
 
-Circle {
-    /*-fx-fill: -fx-red-main;*/
-    /*-fx-opacity: 0;*/
-}
 
 Circle:hover {
     -fx-stroke: -fx-red-main;
     -fx-stroke-width: 2;
 }
 
-Rectangle {
-    /*-fx-fill: -fx-brown-main;*/
-    /*-fx-opacity: 0;*/
-}
-
 Rectangle:hover {
     -fx-stroke: white;
     -fx-stroke-width: 2;
-    /*-fx-opacity: 0;*/
 }
 
 Label {
