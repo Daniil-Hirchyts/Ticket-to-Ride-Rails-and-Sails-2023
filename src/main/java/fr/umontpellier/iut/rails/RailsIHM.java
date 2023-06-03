@@ -6,6 +6,7 @@ import fr.umontpellier.iut.rails.vues.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -55,9 +56,17 @@ public class RailsIHM extends Application {
             nomsJoueurs.add("Largo");
             nomsJoueurs.add("LeChuck");
             nomsJoueurs.add("Elaine");
+            //pour chacun des joueurs on ajoute son avatar dans la liste des avatars
         }
         jeu = new Jeu(nomsJoueurs.toArray(new String[0]));
-        avatars = vueChoixJoueurs.getAvatars();
+        if (avecVueChoixJoueurs) avatars = vueChoixJoueurs.getAvatars();
+        else {
+            avatars = FXCollections.observableHashMap();
+            int i = 1;
+            for (IJoueur.CouleurJoueur couleur : IJoueur.CouleurJoueur.values()) {
+                avatars.put(couleur, new ImageView(new Image("images/avatars/" + couleur.name() + "/avatar-"+(i++)+".png")));
+            }
+        }
         VueDuJeu vueDuJeu = new VueDuJeu(jeu, avatars);
         Scene scene = new Scene(vueDuJeu, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran); // la scene doit être créée avant de mettre en place les bindings
         vueDuJeu.creerBindings();
