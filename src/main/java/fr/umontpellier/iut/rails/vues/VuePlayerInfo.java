@@ -74,8 +74,6 @@ public class VuePlayerInfo extends HBox {
         pionsWagon.setStyle("-fx-scale-x: 0.7; -fx-scale-y: 0.7;");
         pionsBateau.setStyle("-fx-scale-x: 0.7; -fx-scale-y: 0.7;");
         pionsPort.setStyle("-fx-scale-x: 0.7; -fx-scale-y: 0.7;");
-        flagsBox.getChildren().
-
-                addAll(pionsWagon, pionsBateau, pionsPort);
+        flagsBox.getChildren().addAll(pionsWagon, pionsBateau, pionsPort);
     }
 }

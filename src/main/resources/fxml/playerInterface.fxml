@@ -1,176 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<fx:root fx:id="vueJoueurCourant" alignment="CENTER" prefHeight="150.0" prefWidth="1080.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="vueJoueurCourant" alignment="CENTER" prefWidth="1080.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
     <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
       <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+    <RowConstraints prefHeight="150.0" valignment="BOTTOM" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <HBox fx:id="centerSection" alignment="CENTER" GridPane.columnIndex="1">
+      <HBox fx:id="centerSection" alignment="CENTER" GridPane.columnSpan="2">
          <children>
             <HBox fx:id="playerCartesBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="600.0" minHeight="-Infinity" minWidth="300.0" prefHeight="150.0" />
          </children></HBox>
-      <HBox fx:id="playerInfoBlock" GridPane.columnIndex="2">
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" GridPane.columnIndex="2">
          <children>
-            <VBox fx:id="playerActions" alignment="CENTER" spacing="2.0">
+            <Pane layoutX="-55.0" layoutY="-5.0" prefHeight="124.0" prefWidth="248.0">
                <children>
-                  <GridPane fx:id="pionsGrid">
-                    <columnConstraints>
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints vgrow="SOMETIMES" />
-                      <RowConstraints vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  <Group>
                      <children>
-                        <Button id="button-round" fx:id="btnPionsWagon" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/bouton-pions-wagon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button id="button-round" fx:id="btnPionsBateau" layoutX="20.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" GridPane.columnIndex="1">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/bouton-pions-bateau.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="33.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                        <ImageView fitHeight="127.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/port.png" />
+                              <Image url="@../images/elements/current-player/flags-background.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="pionsWagon" text="Label" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding></Label>
-                        <Label fx:id="pionsBateau" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding></Label>
-                        <Label fx:id="pionsPort" layoutX="108.0" layoutY="47.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding></Label>
+                        <HBox fx:id="flagsBox" alignment="CENTER" layoutX="27.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="164.0" spacing="22.0" />
                      </children>
-                     <padding>
-                        <Insets bottom="5.0" top="5.0" />
-                     </padding>
-                  </GridPane>
-                  <HBox spacing="5.0">
-                     <children>
-                        <TextField fx:id="commandField" promptText="Nombre" />
-                        <Button id="button-square" fx:id="btnSendCommand" mnemonicParsing="false">
-                           <graphic>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/icons/arrow-right.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" top="5.0" />
-                     </padding>
-                  </HBox>
-                  <GridPane>
-                     <columnConstraints>
-                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
-                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Button id="button-square" fx:id="btnDestination" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="60.0">
-                           <graphic>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/icons/map.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button id="button-square" fx:id="btnPasserTour" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="1">
-                           <graphic>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/icons/passer.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" top="5.0" />
-                     </padding>
-                  </GridPane>
+                  </Group>
                </children>
-               <padding>
-                  <Insets left="10.0" right="10.0" />
-               </padding>
-            </VBox>
-            <VBox fx:id="infoVBox" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" spacing="20.0">
+            </Pane>
+            <Group layoutY="-98.0">
                <children>
-                  <Label fx:id="playerName" text="Label" underline="true">
+                  <ImageView fitHeight="167.0" fitWidth="246.0" layoutX="53.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/elements/current-player/background.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="playerAvatar" fitHeight="150.0" fitWidth="119.0" layoutX="158.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/avatars/VERT/avatar-1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="playerLabelColorBackground" fitHeight="56.0" fitWidth="140.0" layoutX="152.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/elements/current-player/score-background/local-player-support-score-Green.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="scoreLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="177.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="80.0" text="10" textAlignment="CENTER" textFill="WHITE">
                      <font>
-                        <Font size="20.0" />
-                     </font></Label>
-                  <Pane maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
-                     <children>
-                        <VBox id="avatarColor" fx:id="colorBack" alignment="BOTTOM_CENTER" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0">
-                           <children>
-                              <ImageView fx:id="playerAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" translateY="4.0">
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </ImageView>
-                           </children>
-                        </VBox>
-                        <Pane id="button-square" layoutX="50.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0">
-                           <children>
-                              <Label fx:id="scoreLabel" layoutX="11.0" layoutY="-1.0" text="0">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </Pane>
-                     </children>
-                  </Pane>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
                </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
-               </padding></VBox>
+            </Group>
+            <Pane layoutX="-50.0" layoutY="95.0" prefHeight="57.0" prefWidth="165.0">
+               <children>
+                  <ImageView fitHeight="57.0" fitWidth="172.0" layoutX="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/elements/current-player/name-background.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="playerName" alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="4.0" prefHeight="41.0" prefWidth="144.0" text="Name" textAlignment="CENTER">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
          </children>
-      </HBox>
+      </Pane>
    </children>
 </fx:root>

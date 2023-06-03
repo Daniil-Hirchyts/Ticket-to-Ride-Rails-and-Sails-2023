@@ -43,7 +43,7 @@ Label {
     -fx-font-family: 'IM Fell English SC', serif;
 }
 
-#centerBox, #plateau, #scrollPane, #btnExit {
+#centerBox, #plateau, .hideBG {
     -fx-background-color: transparent;
     -fx-background: transparent;
 }
@@ -97,6 +97,13 @@ Label {
     -fx-background-size: 100% 100%;
 }
 
+#actionPanel {
+    -fx-background-image: url("/images/elements/current-player/actions-background.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+}
+
 #playerBackground, #playerBackgroundAvatarColor, #playerLabelScoreImage {
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
@@ -123,6 +130,46 @@ Label {
     -fx-background-size: 100% 100%;
 }
 
+#btnPasser {
+    -fx-background-image: url("/images/buttons/btn-passer/passer.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+    -fx-backround-color: transparent;
+    -fx-font-size: 16px;
+}
+
+#btnPasser:hover {
+    -fx-background-image: url("/images/buttons/btn-passer/passer-hover.png");
+    -fx-backround-color: transparent;
+}
+
+#btnPasser:pressed {
+    -fx-background-image: url("/images/buttons/btn-passer/passer-pressed.png");
+    -fx-backround-color: transparent;
+
+}
+
+#btnDestination {
+    -fx-background-image: url("/images/buttons/btn-destinations/destination.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+    -fx-backround-color: transparent;
+}
+
+#btnDestination:hover {
+    -fx-background-image: url("/images/buttons/btn-destinations/destination-hover.png");
+    -fx-backround-color: transparent;
+
+}
+
+#btnDestination:pressed {
+    -fx-background-image: url("/images/buttons/btn-destinations/destination-pressed.png");
+    -fx-backround-color: transparent;
+
+}
+
 #consoleText {
     -fx-font-size: 12;
     -fx-text-fill: black;
@@ -143,7 +190,7 @@ Label {
     -fx-min-height: 100;
 }
 
-#bottomHBox, #infoVBox, #playerVBox, #playerInfoBlock, #centerSection, #vueJoueurCourant {
+#bottomHBox, #infoVBox, #playerVBox, #playerInfoBlock, #centerSection {
     -fx-min-height: 150;
     -fx-max-height: 150;
 }
@@ -202,7 +249,7 @@ Label {
 
 
 #button-square {
-    -fx-background-color: -fx-beige-main;
+    -fx-background-color: transparent;
     -fx-text-fill: black;
     -fx-font-size: 14px;
     -fx-padding: 3px 3px;
@@ -212,28 +259,28 @@ Label {
     -fx-background-radius: 5px;
 }
 
-#button-round {
-    -fx-background-color: -fx-beige-main;
-    -fx-text-fill: black;
-    -fx-font-size: 14px;
-    -fx-padding: 3px 3px;
-    -fx-border-color: black;
-    -fx-border-width: 1px;
-    -fx-border-radius: 50px;
-    -fx-background-radius: 50px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 5, 0, 0, 0);
-}
+/*#button-round {*/
+/*    -fx-background-color: -fx-beige-main;*/
+/*    -fx-text-fill: black;*/
+/*    -fx-font-size: 14px;*/
+/*    -fx-padding: 3px 3px;*/
+/*    -fx-border-color: black;*/
+/*    -fx-border-width: 1px;*/
+/*    -fx-border-radius: 50px;*/
+/*    -fx-background-radius: 50px;*/
+/*    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 5, 0, 0, 0);*/
+/*}*/
 
-#button-square:hover, #button-round:hover {
-    -fx-background-color: -fx-beige-hovered;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 3, 0, 0, 0);
-}
+/*#button-square:hover, #button-round:hover {*/
+/*    -fx-background-color: -fx-beige-hovered;*/
+/*    -fx-cursor: hand;*/
+/*    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 3, 0, 0, 0);*/
+/*}*/
 
-#button-square:pressed, #button-round:pressed {
-    -fx-background-color: -fx-beige-pressed;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 2, 0, 0, 0);
-}
+/*#button-square:pressed, #button-round:pressed {*/
+/*    -fx-background-color: -fx-beige-pressed;*/
+/*    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 2, 0, 0, 0);*/
+/*}*/
 
 #destinationTicket, #destinationTicketChoix {
     -fx-background-repeat: no-repeat;
@@ -287,20 +334,6 @@ Label {
     -fx-border-width: 1px;
     -fx-border-radius: 50%;
     -fx-background-radius: 50%;
-}
-
-#commandField {
-    -fx-background-color: -fx-beige-main;
-    -fx-border-color: black;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-    -fx-font-size: 14px;
-    -fx-font-family: 'IM Fell English SC', serif;
-    -fx-text-fill: black;
-    -fx-padding: 5px;
-    -fx-max-height: 28px;
-    -fx-min-height: 28px;
-    -fx-pref-height: 28px;
 }
 
 #carte-vertical, #carte-horizontal, #carte {

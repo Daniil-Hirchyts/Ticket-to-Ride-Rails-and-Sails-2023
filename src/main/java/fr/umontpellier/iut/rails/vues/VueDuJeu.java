@@ -6,13 +6,18 @@ import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IJoueur;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
@@ -32,8 +37,7 @@ import static javafx.beans.binding.Bindings.when;
  */
 public class VueDuJeu extends GridPane {
 
-    private final IJeu jeu;
-
+    private IJeu jeu;
     private VuePlateau plateau;
     @FXML
     private ImageView pileCard;
@@ -66,6 +70,12 @@ public class VueDuJeu extends GridPane {
     private Pane pileWagonCarteImage;
     @FXML
     private VBox pileCartesDestinations;
+    @FXML
+    private TextField commandField;
+    @FXML
+    private Button btnPasser;
+    @FXML
+    private Button btnDestination;
 
     public VueDuJeu(IJeu jeu, Map<IJoueur.CouleurJoueur, ImageView> avatarList) {
         this.jeu = jeu;
@@ -120,13 +130,11 @@ public class VueDuJeu extends GridPane {
         VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu, avatarList);
         add(vueJoueurCourant, 0, 2);
         setColumnSpan(vueJoueurCourant, 3);
-        vueJoueurCourant.creerBindings();
         getChildren().addAll(plateau);
-
+        plateau.toBack();
         VueAutresJoueurs vueAutresJoueurs = new VueAutresJoueurs(jeu, avatarList);
         topGridPane.add(vueAutresJoueurs, 0, 0);
         vueAutresJoueurs.creerBindings();
-
         ConsoleLogger.getInstance(consoleHistory, consoleScrollPane);
     }
 
@@ -138,7 +146,27 @@ public class VueDuJeu extends GridPane {
         return null;
     }
 
+    EventHandler<? super MouseEvent> actionPasserParDefaut = (mouseEvent -> {
+        ConsoleLogger.getInstance(null, null).log("Passage au joueur suivant");
+        jeu.passerAEteChoisi();
+    });
+
     public void creerBindings() {
+
+        commandField.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                jeu.leNombreDePionsSouhaiteAEteRenseigne(commandField.getText());
+                commandField.setText("");
+            }
+        });
+        btnPasser.setOnMouseClicked(actionPasserParDefaut);
+        btnDestination.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                jeu.nouvelleDestinationDemandee();
+            }
+        });
         plateau.prefWidthProperty().bind(getScene().widthProperty());
         plateau.prefHeightProperty().bind(getScene().heightProperty());
         plateau.creerBindings();
@@ -188,6 +216,7 @@ public class VueDuJeu extends GridPane {
         colorAdjust.setBrightness(0.1);
         pileBateauCarteImage.setEffect(colorAdjust);
         pileWagonCarteImage.setEffect(colorAdjust);
+
     }
 
     public IJeu getJeu() {

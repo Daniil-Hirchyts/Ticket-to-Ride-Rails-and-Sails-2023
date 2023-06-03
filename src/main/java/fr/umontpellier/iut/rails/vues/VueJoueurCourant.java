@@ -4,6 +4,8 @@ import fr.umontpellier.iut.rails.ICarteTransport;
 import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IJoueur;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -22,6 +24,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -41,42 +44,40 @@ import static javafx.beans.binding.Bindings.when;
 public class VueJoueurCourant extends GridPane {
     private IJeu jeu;
     private IJoueur joueur;
-    private String nomJoueur;
-    @FXML
-    private VBox infoVBox;
-    @FXML
-    private VBox vboxDestinations;
-    @FXML
-    private Button btnPasserTour;
+    private Map<IJoueur.CouleurJoueur, ImageView> avatarList;
+    //    @FXML
+//    private VBox infoVBox;
+    //    @FXML
+//    private VBox vboxDestinations;
     @FXML
     private Label playerName;
     @FXML
     private ImageView playerAvatar;
     @FXML
-    private VBox colorBack;
-    @FXML
-    private Label pionsWagon;
-    @FXML
-    private Label pionsBateau;
-    @FXML
-    private Label pionsPort;
-    @FXML
-    private TextField commandField;
-    @FXML
-    private Button btnSendCommand;
+    private ImageView playerLabelColorBackground;
+    //    @FXML
+//    private Label pionsWagon;
+//    @FXML
+//    private Label pionsBateau;
+//    @FXML
+//    private Label pionsPort;
     @FXML
     private Label scoreLabel;
     @FXML
     private HBox playerCartesBox;
+    //    @FXML
+//    private Button btnPionsBateau;
+//    @FXML
+//    private Button btnPionsWagon;
     @FXML
-    private Button btnPionsBateau;
-    @FXML
-    private Button btnPionsWagon;
-    @FXML
-    private Button btnDestination;
+    private HBox flagsBox;
 
-    private Map<IJoueur.CouleurJoueur,ImageView> avatarList;
-    public VueJoueurCourant(IJeu jeu, Map<IJoueur.CouleurJoueur,ImageView> avatarList) {
+    private IntegerProperty wagons = new SimpleIntegerProperty();
+    private IntegerProperty bateaux = new SimpleIntegerProperty();
+    private int ports;
+
+
+    public VueJoueurCourant(IJeu jeu, Map<IJoueur.CouleurJoueur, ImageView> avatarList) {
         this.jeu = jeu;
         this.avatarList = avatarList;
         try {
@@ -87,30 +88,37 @@ public class VueJoueurCourant extends GridPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        creerBindings();
     }
 
-    EventHandler<? super MouseEvent> actionPasserParDefaut = (mouseEvent -> {
-        ConsoleLogger.getInstance(null, null).log("Passage au joueur suivant");
-        jeu.passerAEteChoisi();
-    });
-
     public void creerBindings() {
-        btnPasserTour.setOnMouseClicked(actionPasserParDefaut);
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
+                flagsBox.getChildren().clear();
+                wagons.bind(newValue.nbPionsWagonsProperty());
+                bateaux.bind(newValue.nbPionsBateauxProperty());
+                ports = newValue.getNbPorts();
+                VueFlag pionsWagon = new VueFlag(newValue, wagons, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/train.png"))), "wagons");
+                VueFlag pionsBateau = new VueFlag(newValue, bateaux, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/ship.png"))), "bateaux");
+                VueFlag pionsPort = new VueFlag(newValue, ports, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/ancor.png"))), "ports");
+                pionsWagon.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
+                pionsBateau.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
+                pionsPort.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
+                flagsBox.getChildren().addAll(pionsWagon, pionsBateau, pionsPort);
                 playerName.setText(newValue.getNom());
-                nomJoueur = newValue.getNom();
-                pionsWagon.textProperty().bind(newValue.nbPionsWagonsProperty().asString());
-                pionsBateau.textProperty().bind(newValue.nbPionsBateauxProperty().asString());
-                pionsPort.setText(valueOf(newValue.getNbPorts()));
+//                pionsWagon.textProperty().bind(newValue.nbPionsWagonsProperty().asString());
+//                pionsBateau.textProperty().bind(newValue.nbPionsBateauxProperty().asString());
+//                pionsPort.setText(valueOf(newValue.getNbPorts()));
                 scoreLabel.setText(valueOf(newValue.getScore()));
                 playerAvatar.setImage(avatarList.get(newValue.getCouleur()).getImage());
-                colorBack.setStyle("-fx-background-color: " + getCouleurJoueur(newValue.getCouleur()) + ";");
-            } else {
-                pionsWagon.textProperty().unbind();
-                pionsBateau.textProperty().unbind();
+                playerLabelColorBackground.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/current-player/score-background/" + newValue.getCouleur().toString() + ".png"))));
             }
+//            else {
+//                pionsWagon.textProperty().unbind();
+//                pionsBateau.textProperty().unbind();
+//            }
         });
+
         for (IJoueur j : jeu.getJoueurs()) {
             j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
                 @Override
@@ -119,7 +127,7 @@ public class VueJoueurCourant extends GridPane {
                         playerCartesBox.getChildren().clear();
                         for (ICarteTransport carteTransport : change.getList()) {
                             ConsoleLogger.getInstance(null, null).log("Ajout de la carte " + carteTransport.getStringCouleur().toString());
-                            VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1,true);
+                            VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1, true);
                             vueCarteTransport.verticalLayout();
                             vueCarteTransport.setId("carte-vertical");
                             playerCartesBox.getChildren().add(vueCarteTransport);
@@ -144,50 +152,19 @@ public class VueJoueurCourant extends GridPane {
             }
         });
 
-        commandField.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                jeu.leNombreDePionsSouhaiteAEteRenseigne(commandField.getText());
-                commandField.setText("");
-                btnSendCommand.fire();
-            }
-        });
-
-        commandField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ENTER) btnSendCommand.fire();
-            }
-        });
-
-        btnSendCommand.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                jeu.leNombreDePionsSouhaiteAEteRenseigne(commandField.getText());
-                commandField.setText("");
-            }
-        });
-
-        btnPionsWagon.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                jeu.nouveauxPionsWagonsDemandes();
-            }
-        });
-
-        btnPionsBateau.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                jeu.nouveauxPionsBateauxDemandes();
-            }
-        });
-
-        btnDestination.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                jeu.nouvelleDestinationDemandee();
-            }
-        });
+//        btnPionsWagon.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                jeu.nouveauxPionsWagonsDemandes();
+//            }
+//        });
+//
+//        btnPionsBateau.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                jeu.nouveauxPionsBateauxDemandes();
+//            }
+//        });
     }
 
     public static String getCouleurJoueur(IJoueur.CouleurJoueur couleurJoueur) {

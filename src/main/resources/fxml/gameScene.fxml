@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <fx:root alignment="CENTER" prefHeight="800.0" prefWidth="1080.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
@@ -17,6 +20,51 @@
         <RowConstraints maxHeight="-Infinity" prefHeight="150.0" valignment="BOTTOM" />
     </rowConstraints>
     <children>
+        <GridPane fx:id="rightVBox" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                <RowConstraints valignment="BOTTOM" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" GridPane.rowIndex="1">
+               <children>
+                  <Pane prefHeight="100.0" prefWidth="150.0">
+                     <children>
+                        <Group>
+                           <children>
+                              <ImageView fitHeight="91.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/elements/current-player/stack.png" />
+                                 </image>
+                              </ImageView>
+                              <Circle layoutX="129.0" layoutY="46.0" radius="21.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                           </children>
+                        </Group>
+                        <Button fx:id="btnPasser" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="35.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="65.0" styleClass="hideBG" text="Passer" textAlignment="CENTER" textFill="WHITE" />
+                        <Button id="btnDestination" fx:id="btnDestination" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="27.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" styleClass="hideBG" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="1.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="commandField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" />
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+                <VBox fx:id="pilesRightDestination" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" spacing="5.0">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <children>
+                        <VBox fx:id="pileCartesDestinations" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                        <VBox fx:id="playerDestinations" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                    </children>
+                </VBox>
+            </children>
+        </GridPane>
         <Pane fx:id="borderTop" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" GridPane.columnSpan="3" />
         <Pane fx:id="bottomColor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
             <children>
@@ -45,7 +93,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <ScrollPane id="scrollPane" fx:id="consoleScrollPane" hbarPolicy="NEVER" hmax="0.0" vbarPolicy="ALWAYS">
+                        <ScrollPane id="scrollPane" fx:id="consoleScrollPane" hbarPolicy="NEVER" hmax="0.0" styleClass="hideBG" vbarPolicy="ALWAYS">
                             <content>
                                 <VBox fx:id="consoleHistory" spacing="5.0">
                                     <padding>
@@ -67,6 +115,11 @@
                 </VBox>
             </children>
         </GridPane>
+        <Pane fx:id="cornerLT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="190.0">
+            <children>
+                <Button fx:id="btnExit" layoutX="18.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="hideBG" />
+            </children>
+        </Pane>
         <GridPane fx:id="leftVBox" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.rowIndex="1">
             <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
@@ -96,32 +149,6 @@
                         </Pane>
                     </children>
                 </VBox>
-            </children>
-        </GridPane>
-        <Pane fx:id="cornerLT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="190.0">
-            <children>
-                <Button fx:id="btnExit" layoutX="18.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" />
-            </children>
-        </Pane>
-        <GridPane fx:id="rightVBox" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-                <VBox fx:id="pilesRightDestination" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" spacing="5.0">
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </padding>
-                    <children>
-                        <VBox fx:id="pileCartesDestinations" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
-                        <VBox fx:id="playerDestinations" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
-                    </children>
-                </VBox>
-                <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.rowIndex="1" />
             </children>
         </GridPane>
     </children>
