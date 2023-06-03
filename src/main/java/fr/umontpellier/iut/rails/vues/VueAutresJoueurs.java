@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 import java.io.IOException;
 import java.util.IllegalFormatCodePointException;
@@ -18,10 +20,11 @@ import java.util.Map;
  * <p>
  * On y définit les bindings sur le joueur courant, ainsi que le listener à exécuter lorsque ce joueur change
  */
-public class VueAutresJoueurs extends GridPane {
+public class VueAutresJoueurs extends HBox {
     IJeu jeu;
-    private Map<IJoueur.CouleurJoueur,ImageView> avatarList;
-    public VueAutresJoueurs(IJeu jeu, Map<IJoueur.CouleurJoueur,ImageView> avatarList) {
+    private Map<IJoueur.CouleurJoueur, ImageView> avatarList;
+
+    public VueAutresJoueurs(IJeu jeu, Map<IJoueur.CouleurJoueur, ImageView> avatarList) {
         this.jeu = jeu;
         this.avatarList = avatarList;
         try {
@@ -42,16 +45,14 @@ public class VueAutresJoueurs extends GridPane {
 
     public void updatePlayerViews(IJoueur joueur) {
         getChildren().clear();
-        getColumnConstraints().clear();
-        for (int i = 0; i < jeu.getJoueurs().size(); i++) getColumnConstraints().add(new ColumnConstraints());
-        for (int i = 0; i < jeu.getJoueurs().size(); i++) {
+        int nnJoueurs = jeu.getJoueurs().size();
+        for (int i = 0; i < nnJoueurs; i++) {
             if (jeu.getJoueurs().get(i) == joueur) continue;
             VuePlayerInfo vuePlayerInfo = new VuePlayerInfo(jeu.getJoueurs().get(i), avatarList.get(jeu.getJoueurs().get(i).getCouleur()));
             vuePlayerInfo.creerBindings();
-            add(vuePlayerInfo, i, 0);
-            getColumnConstraints().get(i).prefWidthProperty().bind(widthProperty().divide(jeu.getJoueurs().size() - 1));
+            if (nnJoueurs > 3) HBox.setHgrow(vuePlayerInfo, Priority.ALWAYS);
+            getChildren().add(vuePlayerInfo);
         }
     }
-
 
 }

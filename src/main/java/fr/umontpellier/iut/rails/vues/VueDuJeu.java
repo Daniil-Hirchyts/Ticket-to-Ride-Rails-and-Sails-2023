@@ -46,8 +46,6 @@ public class VueDuJeu extends GridPane {
     @FXML
     private GridPane topGridPane;
     @FXML
-    private GridPane playersGrid;
-    @FXML
     private VBox piocheBox;
     @FXML
     private Pane pileBateauCarte;

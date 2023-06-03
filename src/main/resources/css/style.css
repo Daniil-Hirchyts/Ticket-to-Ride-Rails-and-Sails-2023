@@ -35,6 +35,10 @@ Rectangle:hover {
     /*-fx-opacity: 0;*/
 }
 
+Label {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
+}
+
 * {
     -fx-font-family: 'IM Fell English SC', serif;
 }
@@ -122,6 +126,7 @@ Rectangle:hover {
 #consoleText {
     -fx-font-size: 12;
     -fx-text-fill: black;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0), 0, 0, 0, 1);
 }
 
 #btnExit:hover {
@@ -269,6 +274,7 @@ Rectangle:hover {
     -fx-font-size: 10px;
     -fx-alignment: center;
     -fx-translate-x: 9;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0), 0, 0, 0, 1);
 }
 
 
