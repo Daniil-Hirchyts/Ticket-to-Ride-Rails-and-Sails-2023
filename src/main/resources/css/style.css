@@ -255,21 +255,35 @@ Rectangle {
     -fx-background-color: -fx-beige-yellow-pressed;
 }
 
+#destinationTicket {
+    -fx-background-image: url("/images/elements/destination.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+    -fx-min-width: 110;
+    -fx-max-width: 110;
+    -fx-min-height: 52;
+    -fx-max-height: 52;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 5, 0, 0, -5);
+    -fx-alignment: center-left;
+    -fx-spacing: -2;
+}
+
+#destinationTicket:hover {
+    -fx-translate-y: -4;
+    -fx-translate-x: -24;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 3, 0, 0, -3);
+}
+
 #destinationLabel {
-    -fx-background-color: -fx-beige-main;
     -fx-text-fill: black;
     -fx-font-size: 10px;
-    -fx-padding: 2px 2px;
-    -fx-border-color: black;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-max-width: 250;
-    -fx-min-width: 250;
-    -fx-min-height: 20;
-    -fx-max-height: 20;
     -fx-alignment: center;
+    -fx-translate-x: 9;
 }
+
 
 #avatarColor {
     -fx-background-color: -fx-beige-main;

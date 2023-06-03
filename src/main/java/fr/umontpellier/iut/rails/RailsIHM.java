@@ -27,7 +27,7 @@ public class RailsIHM extends Application {
     private Stage primaryStage;
     private Jeu jeu;
     private BooleanProperty partieTerminee;
-    private final boolean avecVueChoixJoueurs = true;
+    private final boolean avecVueChoixJoueurs = false;
 
     @Override
     public void start(Stage primaryStage) {
