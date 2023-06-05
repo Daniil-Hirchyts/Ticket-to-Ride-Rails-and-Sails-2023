@@ -38,12 +38,15 @@ public class VuePlateau extends Pane {
     @FXML
     private ImageView mapMonde;
 
+    private IDestination destinationListened;
+
     private HashSet<Rectangle> RectangleDeLaRoute;
 
     public VuePlateau(IJeu jeu) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/plateau.fxml"));
             this.jeu = jeu;
+            this.destinationListened = null;
             this.RectangleDeLaRoute = new HashSet<>();
             loader.setRoot(this);
             loader.setController(this);
@@ -101,7 +104,6 @@ public class VuePlateau extends Pane {
                 rectangleSegment.setOnMouseClicked(choixRoute);
                 bindRectangle(rectangleSegment, unSegment.getXHautGauche(), unSegment.getYHautGauche(), route);
                 RectangleDeLaRoute.add(rectangleSegment);
-
             }
         }
     }
@@ -162,18 +164,16 @@ public class VuePlateau extends Pane {
             protected Paint computeValue() {
                 Paint couleur = Color.TRANSPARENT;
                 if (ville.proprietaireProperty().getValue() != null) {
-                    if (ville.proprietaireProperty().getValue() != null) {
-                        IJoueur.CouleurJoueur couleurJoueur = ville.proprietaireProperty().get().getCouleur();
-                        ImageView pionsPosee = new ImageView(new Image("images/gares/gare-" + couleurJoueur + ".png"));
-                        System.out.println(cerclePort.centerXProperty().getValue() + " " + cerclePort.centerXProperty().getValue() + " " + cerclePort.radiusProperty().getValue());
-                        //bind la position de l'image view à la position du rectangle
-                        pionsPosee.layoutXProperty().bind(cerclePort.centerXProperty().subtract(10));
-                        pionsPosee.layoutYProperty().bind(cerclePort.centerYProperty().subtract(20));
-                        pionsPosee.fitHeightProperty().bind(cerclePort.radiusProperty().add(20));
-                        pionsPosee.fitWidthProperty().bind(cerclePort.radiusProperty().add(10));
-                        pionsPosee.setId("pionsPoseeW");
-                        getChildren().add(pionsPosee);
-                    }
+                    IJoueur.CouleurJoueur couleurJoueur = ville.proprietaireProperty().get().getCouleur();
+                    ImageView pionsPosee = new ImageView(new Image("images/gares/gare-" + couleurJoueur + ".png"));
+                    System.out.println(cerclePort.centerXProperty().getValue() + " " + cerclePort.centerXProperty().getValue() + " " + cerclePort.radiusProperty().getValue());
+                    //bind la position de l'image view à la position du rectangle
+                    pionsPosee.layoutXProperty().bind(cerclePort.centerXProperty().subtract(10));
+                    pionsPosee.layoutYProperty().bind(cerclePort.centerYProperty().subtract(20));
+                    pionsPosee.fitHeightProperty().bind(cerclePort.radiusProperty().add(20));
+                    pionsPosee.fitWidthProperty().bind(cerclePort.radiusProperty().add(10));
+                    pionsPosee.setId("pionsPoseeW");
+                    getChildren().add(pionsPosee);
                     return switch (ville.proprietaireProperty().get().getCouleur()) {
                         case ROUGE -> Color.valueOf("#d02a1b");
                         case VERT -> Color.valueOf("#6fae1e");
@@ -181,14 +181,13 @@ public class VuePlateau extends Pane {
                         case JAUNE -> Color.valueOf("#f0dc00");
                         case ROSE -> Color.valueOf("#b74b97");
                     };
-
                 }
                 return couleur;
             }
         });
     }
 
-    private void bindRectangle(Rectangle rect, double layoutX, double layoutY, IRoute route, IDestination destination) {
+    private void bindRectangle(Rectangle rect, double layoutX, double layoutY, IRoute route) {
         rect.widthProperty().bind(new DoubleBinding() {
             {
                 super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty());
@@ -258,16 +257,14 @@ public class VuePlateau extends Pane {
             @Override
             protected Paint computeValue() {
                 //si destination est over
-                Paint couleur = new Color(0, 0, 0, 0);
-                if (destination != null)  couleur = Color.BLACK;
-                else couleur = Color.TRANSPARENT;
-
+                Paint couleur = Color.TRANSPARENT;
+                if (destinationListened != null)  couleur = Color.BLACK;
                 if (route.proprietaireProperty().getValue() != null) {
 
                     for (DonneesGraphiques.DonneesSegments segment : DonneesGraphiques.routes.get(route.getNom())) {
                         //creer une image View avec l'image des pions correspondant au joueur
-                        if (route.proprietaireProperty().getValue() != null) {
                             IJoueur.CouleurJoueur couleurJoueur = route.proprietaireProperty().get().getCouleur();
+                            rect.setId("rectPosee");
                             ImageView pionsPosee = new ImageView(new Image("images/wagons/image-wagon-" + couleurJoueur + ".png"));
                             System.out.println(rect.layoutXProperty().getValue() + " " + rect.layoutYProperty().getValue() + " " + rect.rotateProperty().getValue());
                             //bind la position de l'image view à la position du rectangle
@@ -276,9 +273,7 @@ public class VuePlateau extends Pane {
                             pionsPosee.rotateProperty().bind(rect.rotateProperty());
                             pionsPosee.fitHeightProperty().bind(rect.heightProperty().add(4));
                             pionsPosee.fitWidthProperty().bind(rect.widthProperty());
-                            pionsPosee.setId("pionsPoseeW");
                             getChildren().add(pionsPosee);
-                        }
                     }
 
                     return switch (route.proprietaireProperty().get().getCouleur()) {
@@ -297,6 +292,10 @@ public class VuePlateau extends Pane {
 
     public HashSet<Rectangle> getRectangleDeLaRoute() {
         return RectangleDeLaRoute;
+    }
+
+    public void setDestination(IDestination destinationListened) {
+        this.destinationListened = destinationListened;
     }
 
 }

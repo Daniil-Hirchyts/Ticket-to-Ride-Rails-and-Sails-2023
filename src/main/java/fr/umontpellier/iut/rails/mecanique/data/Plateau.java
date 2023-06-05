@@ -2,15 +2,9 @@ package fr.umontpellier.iut.rails.mecanique.data;
 
 import fr.umontpellier.iut.rails.IRoute;
 import fr.umontpellier.iut.rails.IVille;
-import fr.umontpellier.iut.rails.mecanique.Route;
-import fr.umontpellier.iut.rails.mecanique.RouteMaritime;
-import fr.umontpellier.iut.rails.mecanique.RoutePaire;
-import fr.umontpellier.iut.rails.mecanique.RouteTerrestre;
+import fr.umontpellier.iut.rails.mecanique.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -240,6 +234,5 @@ public class Plateau {
         }
         return new Plateau(new ArrayList<>(villes.values()), routes);
     }
-
 
 }

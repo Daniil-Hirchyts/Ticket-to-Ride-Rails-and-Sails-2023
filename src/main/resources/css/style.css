@@ -330,8 +330,11 @@ Label {
 }
 
 #routeGlow {
-    -fx-background-color: -fx-red-main;
-    -fx-background-radius: 5px;
-    -fx-border-radius: 5px;
-    -fx-opacity: 0.5;
+    -fx-stroke: white;
+    -fx-stroke-width: 2;
+}
+
+#rectPosee{
+    -fx-stroke: none;
+    -fx-stroke-width: 0;
 }

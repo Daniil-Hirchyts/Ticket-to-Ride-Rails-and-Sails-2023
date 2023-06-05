@@ -149,4 +149,8 @@ public abstract class Route implements IRoute {
         return longueur;
     }
 
+    public Route getRouteParallele() {
+        return routeParallele;
+    }
+
 }

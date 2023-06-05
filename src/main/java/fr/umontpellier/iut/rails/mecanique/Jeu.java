@@ -21,6 +21,7 @@ import java.util.List;
 
 public class Jeu implements IJeu {
 
+    public static Graphe graphe;
     /**
      * Liste des joueurs
      */
@@ -134,6 +135,7 @@ public class Jeu implements IJeu {
         ports = plateau.getIPorts();
         routesLibres = plateau.getRoutes();
         routes = plateau.getIRoutes();
+        graphe = new Graphe(plateau.getRoutes());
 
         // création des piles de pioche et défausses des cartes Transport (wagon et
         // bateau)
@@ -234,6 +236,10 @@ public class Jeu implements IJeu {
     }
     public List<CarteTransport> getCartesTransportVisibles() {
         return new ArrayList<>(cartesTransportVisibles);
+    }
+
+    public Graphe getGraphe() {
+        return graphe;
     }
 
     /**

@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.rails;
 
+import fr.umontpellier.iut.rails.mecanique.Graphe;
 import fr.umontpellier.iut.rails.mecanique.Jeu;
 import fr.umontpellier.iut.rails.mecanique.data.Couleur;
 import fr.umontpellier.iut.rails.vues.*;
@@ -79,6 +80,7 @@ public class RailsIHM extends Application {
         primaryStage.centerOnScreen();
         primaryStage.setMaxWidth(Screen.getPrimary().getBounds().getWidth());
         primaryStage.setMaxHeight(Screen.getPrimary().getBounds().getHeight());
+        Graphe graphe = new Graphe(jeu.getRoutesLibres());
 //        TODO : A ACTIVER POUR LA VERSION FINALE
         primaryStage.setOnCloseRequest(event -> {
             this.arreterJeu();

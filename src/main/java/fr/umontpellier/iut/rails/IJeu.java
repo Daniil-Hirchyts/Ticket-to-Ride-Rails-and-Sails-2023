@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.rails;
 
+import fr.umontpellier.iut.rails.mecanique.Graphe;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
@@ -23,6 +24,7 @@ public interface IJeu {
     List<? extends IJoueur> getJoueurs();
     List<? extends IVille> getPorts();
     List<? extends IRoute> getRoutes();
+    Graphe getGraphe();
 
     void passerAEteChoisi();
     void uneCarteWagonAEtePiochee();

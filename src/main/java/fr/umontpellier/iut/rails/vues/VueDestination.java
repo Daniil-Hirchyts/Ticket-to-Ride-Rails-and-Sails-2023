@@ -12,7 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Cette classe représente la vue d'une carte Destination.
@@ -43,19 +45,26 @@ public class VueDestination extends VBox {
         } else setId("destinationTicket");
 
         this.setOnMouseEntered(event -> {
-            //TODO : DETERMINE LE CHEMIN LE PLUS COURT ENTRE LES VILLES DE LA DESTINATION ET MET EN SURBRILLANCE LES ROUTES CORRESPONDANTES
-            for(Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute()){
-                rectangle.setStyle("-fx-fill: #000000");
-                rectangle.setStyle("-fx-opacity: 1");
+            List<Integer> villeToInteger = new ArrayList<>();
+            //remove V from string
+            for (String ville : destination.getVilles()) {
+
             }
+            for (String route : vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger)) {
+                for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute()) {
+                    if (rectangle.getId().equals(route)) {
+                        rectangle.setId("routeGlow");
+                    }
+                }
+            }
+        });
 
-//            String ville1 = destination.getVilles().get(0);
-//            String ville2 = destination.getVilles().get(1);
-//            HashSet<String> villeCapacite = new HashSet<>();
-//            for (String ville : DonneesGraphiques.getVilles().keySet()) {
-//
-//            }
-
+        this.setOnMouseExited(event -> {
+            for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute()) {
+                if (rectangle.getId().equals("routeGlow")) {
+                    rectangle.setId("rectPosee");
+                }
+            }
         });
     }
 
