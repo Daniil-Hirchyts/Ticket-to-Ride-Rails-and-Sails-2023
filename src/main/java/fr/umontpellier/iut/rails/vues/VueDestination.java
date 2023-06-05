@@ -3,6 +3,7 @@ package fr.umontpellier.iut.rails.vues;
 import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IRoute;
+import fr.umontpellier.iut.rails.mecanique.Graphe;
 import fr.umontpellier.iut.rails.mecanique.data.Ville;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -45,10 +46,10 @@ public class VueDestination extends VBox {
         } else setId("destinationTicket");
 
         this.setOnMouseEntered(event -> {
+            Graphe graphe = vueDuJeu.getJeu().getGraphe();
             List<Integer> villeToInteger = new ArrayList<>();
-            //remove V from string
             for (String ville : destination.getVilles()) {
-
+                if (vueDuJeu.getJeu().getIdVille(ville) != -1){villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));}
             }
             for (String route : vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger)) {
                 for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute()) {

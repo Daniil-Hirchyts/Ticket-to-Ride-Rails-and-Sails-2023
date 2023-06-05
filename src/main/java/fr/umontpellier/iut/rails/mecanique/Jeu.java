@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Jeu implements IJeu {
+    private Plateau plateau;
 
     public static Graphe graphe;
     /**
@@ -130,7 +131,7 @@ public class Jeu implements IJeu {
     public Jeu(String[] nomJoueurs) {
         // création des villes et des routes
         Route.resetCompteur();
-        Plateau plateau = Plateau.makePlateauMonde();
+        plateau = Plateau.makePlateauMonde();
         portsLibres = plateau.getPorts();
         ports = plateau.getIPorts();
         routesLibres = plateau.getRoutes();
@@ -236,6 +237,15 @@ public class Jeu implements IJeu {
     }
     public List<CarteTransport> getCartesTransportVisibles() {
         return new ArrayList<>(cartesTransportVisibles);
+    }
+
+    public int getIdVille(String nom) {
+        for(Ville ville : plateau.getVilles()) {
+            if(ville.nom().equals(nom)) {
+                return ville.getId();
+            }
+        }
+        return -1;
     }
 
     public Graphe getGraphe() {

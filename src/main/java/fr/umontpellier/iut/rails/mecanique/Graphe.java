@@ -141,7 +141,7 @@ public class Graphe implements IGraphe {
             sommetsVisites.addAll(sousChemin);
         }
 
-        chemin.add(listeSommets.get(0), 0);
+        chemin.add(0, listeSommets.get(0));
         List<String> returnthis = new ArrayList<>();
         for (int i = 0; i < chemin.size(); i++) {
             returnthis.add("R" + chemin.get(i));

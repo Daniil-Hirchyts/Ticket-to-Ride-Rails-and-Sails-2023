@@ -25,6 +25,7 @@ public interface IJeu {
     List<? extends IVille> getPorts();
     List<? extends IRoute> getRoutes();
     Graphe getGraphe();
+    int getIdVille(String ville);
 
     void passerAEteChoisi();
     void uneCarteWagonAEtePiochee();

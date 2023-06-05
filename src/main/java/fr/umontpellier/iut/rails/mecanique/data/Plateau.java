@@ -31,6 +31,8 @@ public class Plateau {
         return villes.stream().filter(Ville::estPort).map(v -> (IVille) v).collect(Collectors.toList());
     }
 
+    public List<Ville> getVilles() {return villes;}
+
     public List<Route> getRoutes() {
         return routes;
     }
