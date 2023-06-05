@@ -836,4 +836,7 @@ public final class DonneesGraphiques {
     public record DonneesLayout(double layoutX, double layoutY) {
     }
 
+    public static Map<String, DonneesLayout> getVilles() {
+        return villes;
+    }
 }

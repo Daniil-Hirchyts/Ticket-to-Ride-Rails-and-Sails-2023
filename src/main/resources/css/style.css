@@ -328,3 +328,10 @@ Label {
     -fx-translate-y: -5;
     -fx-translate-x: 15;
 }
+
+#routeGlow {
+    -fx-background-color: -fx-red-main;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-opacity: 0.5;
+}

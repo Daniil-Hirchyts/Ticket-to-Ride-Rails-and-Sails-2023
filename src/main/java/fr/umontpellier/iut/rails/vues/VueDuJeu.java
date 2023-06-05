@@ -1,9 +1,6 @@
 package fr.umontpellier.iut.rails.vues;
 
-import fr.umontpellier.iut.rails.ICarteTransport;
-import fr.umontpellier.iut.rails.IDestination;
-import fr.umontpellier.iut.rails.IJeu;
-import fr.umontpellier.iut.rails.IJoueur;
+import fr.umontpellier.iut.rails.*;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
@@ -99,7 +96,7 @@ public class VueDuJeu extends GridPane {
             String bottom = "bottom-";
             bottomColor.setStyle("-fx-background-image: url('/images/background/bottom-colors/" + bottom + newValue.getCouleur().toString() + PNG + "');");
             for (IDestination d : newValue.getDestinations()) {
-                pileCartesDestinations.getChildren().add(new VueDestination(d));
+                pileCartesDestinations.getChildren().add(new VueDestination(d, this));
             }
             pileCartesDestinations.setSpacing(-10);
         });
@@ -110,7 +107,7 @@ public class VueDuJeu extends GridPane {
                     if (change.wasAdded()) {
                         for (IDestination destination : change.getAddedSubList()) {
                             ConsoleLogger.getInstance(null, null).log("Ajout de la destination " + destination.getVilles().toString());
-                            pileCartesDestinations.getChildren().add(new VueDestination(destination, true));
+                            pileCartesDestinations.getChildren().add(new VueDestination(destination, true, VueDuJeu.this));
                         }
                     }
                     if (change.wasRemoved()) {
@@ -122,7 +119,6 @@ public class VueDuJeu extends GridPane {
                 }
             }
         });
-
         plateau = new VuePlateau(jeu);
         setRowIndex(plateau, 1);
         setColumnIndex(plateau, 1);
@@ -219,6 +215,13 @@ public class VueDuJeu extends GridPane {
 
     }
 
+    public VuePlateau getPlateau() {
+        return plateau;
+    }
+
+    public VueDuJeu getVueDuJeu() {
+        return this;
+    }
     public IJeu getJeu() {
         return jeu;
     }

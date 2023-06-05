@@ -1,9 +1,6 @@
 package fr.umontpellier.iut.rails.vues;
 
-import fr.umontpellier.iut.rails.IJeu;
-import fr.umontpellier.iut.rails.IJoueur;
-import fr.umontpellier.iut.rails.IRoute;
-import fr.umontpellier.iut.rails.IVille;
+import fr.umontpellier.iut.rails.*;
 import fr.umontpellier.iut.rails.mecanique.data.Couleur;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.ObjectBinding;
@@ -25,7 +22,9 @@ import javafx.stage.Screen;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Cette classe présente les routes et les villes sur le plateau.
@@ -39,10 +38,13 @@ public class VuePlateau extends Pane {
     @FXML
     private ImageView mapMonde;
 
+    private HashSet<Rectangle> RectangleDeLaRoute;
+
     public VuePlateau(IJeu jeu) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/plateau.fxml"));
             this.jeu = jeu;
+            this.RectangleDeLaRoute = new HashSet<>();
             loader.setRoot(this);
             loader.setController(this);
             loader.load();
@@ -98,6 +100,8 @@ public class VuePlateau extends Pane {
                 getChildren().add(rectangleSegment);
                 rectangleSegment.setOnMouseClicked(choixRoute);
                 bindRectangle(rectangleSegment, unSegment.getXHautGauche(), unSegment.getYHautGauche(), route);
+                RectangleDeLaRoute.add(rectangleSegment);
+
             }
         }
     }
@@ -184,7 +188,7 @@ public class VuePlateau extends Pane {
         });
     }
 
-    private void bindRectangle(Rectangle rect, double layoutX, double layoutY, IRoute route) {
+    private void bindRectangle(Rectangle rect, double layoutX, double layoutY, IRoute route, IDestination destination) {
         rect.widthProperty().bind(new DoubleBinding() {
             {
                 super.bind(mapMonde.fitWidthProperty(), mapMonde.fitHeightProperty());
@@ -253,7 +257,11 @@ public class VuePlateau extends Pane {
 
             @Override
             protected Paint computeValue() {
-                Paint couleur = Color.TRANSPARENT;
+                //si destination est over
+                Paint couleur = new Color(0, 0, 0, 0);
+                if (destination != null)  couleur = Color.BLACK;
+                else couleur = Color.TRANSPARENT;
+
                 if (route.proprietaireProperty().getValue() != null) {
 
                     for (DonneesGraphiques.DonneesSegments segment : DonneesGraphiques.routes.get(route.getNom())) {
@@ -286,4 +294,9 @@ public class VuePlateau extends Pane {
             }
         });
     }
+
+    public HashSet<Rectangle> getRectangleDeLaRoute() {
+        return RectangleDeLaRoute;
+    }
+
 }
