@@ -1,5 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Notable&display=swap');
+@font-face {
+    src: url('../../../src/main/resources/fonts/OrchardStreetNFW01-Regular.ttf');
+}
+
+@font-face {
+    src: url('../../../src/main/resources/fonts/IMFeENsc28P.ttf');
+}
+
+@font-face {
+    src: url('../../../src/main/resources/fonts/Notable-Regular.ttf');
+}
 
 .root {
     -fx-beige-light: rgb(217, 189, 170);
@@ -31,21 +40,41 @@ Label {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
 }
 
-/** {*/
-/*    -fx-font-family: 'IM Fell English SC', serif;*/
-/*}*/
+.labelsIMFellEnglish {
+    -fx-font-family: 'IM Fell English SC', serif;
+}
+
+.labelsOrchardStreetNFW01Regular {
+    -fx-font-family: 'OrchardStreetNFW01-Regular';
+}
+
+.labelsNotable {
+    -fx-font-family: 'Notable';
+}
+
+.labelNomsCreator {
+    -fx-font-size: 20px;
+
+}
+
 
 #centerBox, #plateau, .hideBG {
     -fx-background-color: transparent;
     -fx-background: transparent;
 }
 
-#titleText2 {
-    -fx-font-size: 30px;
+#titleText1 {
+    -fx-font-size: 60px;
     -fx-text-fill: -fx-title-color;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, #060603, 2, 1, 2, 2);
+}
 
+#titleText2 {
+    -fx-font-size: 45px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, #060603, 2, 1, 1, 1);
 }
 
 #choixJoueursContainer {
@@ -53,6 +82,24 @@ Label {
     -fx-background-repeat: no-repeat;
     -fx-background-position: left center;
     -fx-background-size: 100% 100%;
+}
+
+.btnMenu {
+    -fx-background-image: url("/images/buttons/btn-choix/button.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+    -fx-font-size: 40px;
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.btnMenu:hover {
+    -fx-background-image: url("/images/buttons/btn-choix/button-hover.png");
+}
+
+.btnMenu:pressed {
+    -fx-background-image: url("/images/buttons/btn-choix/button-pressed.png");
 }
 
 #background-bar {

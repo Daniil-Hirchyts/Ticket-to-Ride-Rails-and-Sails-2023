@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -7,11 +9,11 @@
 <fx:root prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" />
+    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="575.0" />
+      <ColumnConstraints />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="100.0" vgrow="SOMETIMES" />
+    <RowConstraints vgrow="SOMETIMES" />
     <RowConstraints minHeight="100.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="100.0" vgrow="SOMETIMES" />
   </rowConstraints>
@@ -25,23 +27,53 @@
          <children>
             <HBox id="top-bar-background" fx:id="topBarBackground" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" prefWidth="1280.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" translateY="-5.0">
                      <children>
-                        <Label text="Garro Clement" />
-                        <Label text="Hirchyts Daniil" />
+                        <Label prefWidth="162.0" text="Garro Clement" textFill="WHITE">
+                           <styleClass>
+                              <String fx:value="labelsIMFellEnglish" />
+                              <String fx:value="labelNomsCreator" />
+                           </styleClass></Label>
+                        <Label text="Hirchyts Daniil" textFill="WHITE">
+                           <styleClass>
+                              <String fx:value="labelsIMFellEnglish" />
+                              <String fx:value="labelNomsCreator" />
+                           </styleClass></Label>
                      </children>
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin>
                   </VBox>
                </children>
             </HBox>
          </children></HBox>
-      <VBox alignment="BOTTOM_CENTER" GridPane.columnIndex="2">
+      <VBox alignment="BOTTOM_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <VBox>
+            <VBox alignment="CENTER_RIGHT" maxWidth="-Infinity" prefWidth="600.0">
                <children>
-                  <Label fx:id="title" text="Les Aventuriers du Rail" />
-                  <Label id="titleText2" text="Autour du Monde" />
+                  <Label id="titleText1" maxWidth="-Infinity" minWidth="-Infinity" styleClass="labelsOrchardStreetNFW01Regular" text="Les Aventuriers du Rail" />
+                  <Label id="titleText2" maxWidth="-Infinity" minWidth="-Infinity" styleClass="labelsIMFellEnglish" text="Autour du Monde" />
                </children>
             </VBox>
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </VBox>
+      <VBox alignment="CENTER" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="110.0" prefWidth="250.0" text="Jouer" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="btnMenu" />
+                  <String fx:value="labelsOrchardStreetNFW01Regular" />
+               </styleClass>
+            </Button>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="110.0" prefWidth="250.0" text="Quitter" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="btnMenu" />
+                  <String fx:value="labelsOrchardStreetNFW01Regular" />
+               </styleClass>
+            </Button>
          </children>
       </VBox>
    </children>
