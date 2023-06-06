@@ -78,6 +78,7 @@ public class RailsIHM extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Rails");
         primaryStage.centerOnScreen();
+        primaryStage.setFullScreen(true);
         primaryStage.setMaxWidth(Screen.getPrimary().getBounds().getWidth());
         primaryStage.setMaxHeight(Screen.getPrimary().getBounds().getHeight());
         Graphe graphe = new Graphe(jeu.getRoutesLibres());
