@@ -21,10 +21,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Cette classe présente les routes et les villes sur le plateau.
@@ -40,14 +37,14 @@ public class VuePlateau extends Pane {
 
     private IDestination destinationListened;
 
-    private HashSet<Rectangle> RectangleDeLaRoute;
+    private Map<String, List<Rectangle>> RectangleDeLaRoute;
 
     public VuePlateau(IJeu jeu) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/plateau.fxml"));
             this.jeu = jeu;
             this.destinationListened = null;
-            this.RectangleDeLaRoute = new HashSet<>();
+            this.RectangleDeLaRoute = new HashMap<>();
             loader.setRoot(this);
             loader.setController(this);
             loader.load();
@@ -94,6 +91,7 @@ public class VuePlateau extends Pane {
     private void ajouterRoutes() {
         List<? extends IRoute> listeRoutes = ((VueDuJeu) getScene().getRoot()).getJeu().getRoutes();
         for (String nomRoute : DonneesGraphiques.routes.keySet()) {
+            ArrayList<Rectangle> rectanglesRoute = new ArrayList<>();
             ArrayList<DonneesGraphiques.DonneesSegments> segmentsRoute = DonneesGraphiques.routes.get(nomRoute);
             IRoute route = listeRoutes.stream().filter(r -> r.getNom().equals(nomRoute)).findAny().orElse(null);
             for (DonneesGraphiques.DonneesSegments unSegment : segmentsRoute) {
@@ -103,8 +101,10 @@ public class VuePlateau extends Pane {
                 getChildren().add(rectangleSegment);
                 rectangleSegment.setOnMouseClicked(choixRoute);
                 bindRectangle(rectangleSegment, unSegment.getXHautGauche(), unSegment.getYHautGauche(), route);
-                RectangleDeLaRoute.add(rectangleSegment);
+                rectanglesRoute.add(rectangleSegment);
             }
+            RectangleDeLaRoute.put(nomRoute, new ArrayList<>(rectanglesRoute));
+            rectanglesRoute.clear();
         }
     }
 
@@ -290,8 +290,9 @@ public class VuePlateau extends Pane {
         });
     }
 
-    public HashSet<Rectangle> getRectangleDeLaRoute() {
-        return RectangleDeLaRoute;
+    public List<Rectangle> getRectangleDeLaRoute(String route) {
+        List<Rectangle> Rectangles = RectangleDeLaRoute.get(route);
+        return RectangleDeLaRoute.get(route);
     }
 
     public void setDestination(IDestination destinationListened) {

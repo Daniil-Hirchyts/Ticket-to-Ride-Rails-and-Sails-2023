@@ -3,6 +3,7 @@ package fr.umontpellier.iut.rails.vues;
 import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IRoute;
+import fr.umontpellier.iut.rails.mecanique.Arete;
 import fr.umontpellier.iut.rails.mecanique.Graphe;
 import fr.umontpellier.iut.rails.mecanique.data.Ville;
 import javafx.scene.Node;
@@ -23,6 +24,7 @@ import java.util.List;
  * On y définit le listener à exécuter lorsque cette carte a été choisie par l'utilisateur
  */
 public class VueDestination extends VBox {
+    private Graphe graphe;
     protected final IDestination destination;
     private VueDuJeu vueDuJeu;
 
@@ -32,6 +34,7 @@ public class VueDestination extends VBox {
 
     public VueDestination(IDestination destination, boolean clickable,VueDuJeu vueDuJeu) {
         this.destination = destination;
+        this.graphe = vueDuJeu.getJeu().getGraphe();
         for (String ville : destination.getVilles()) {
             Label label = new Label(ville);
             label.setId("destinationLabel");
@@ -46,27 +49,45 @@ public class VueDestination extends VBox {
         } else setId("destinationTicket");
 
         this.setOnMouseEntered(event -> {
-            Graphe graphe = vueDuJeu.getJeu().getGraphe();
             List<Integer> villeToInteger = new ArrayList<>();
             for (String ville : destination.getVilles()) {
+                int idVIlle = vueDuJeu.getJeu().getIdVille(ville);
                 if (vueDuJeu.getJeu().getIdVille(ville) != -1){villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));}
             }
-            for (String route : vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger)) {
-                for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute()) {
-                    if (rectangle.getId().equals(route)) {
-                        rectangle.setId("routeGlow");
+            for (String route : constructListRoute(vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger))) {
+                for (Arete arete : graphe.getAretes()) {
+                    if (arete.route().getNom().equals(route)) {
+                        for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)) {
+                            rectangle.setStyle("-fx-stroke: #ff0000; -fx-stroke-width: 5;");
+                        }
                     }
                 }
             }
         });
 
         this.setOnMouseExited(event -> {
-            for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute()) {
-                if (rectangle.getId().equals("routeGlow")) {
-                    rectangle.setId("rectPosee");
+            List<Integer> villeToInteger = new ArrayList<>();
+            for (String ville : destination.getVilles()) {
+                if (vueDuJeu.getJeu().getIdVille(ville) != -1){villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));}
+            }
+            for (String route : constructListRoute(vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger))) {
+                for (Arete arete : graphe.getAretes()) {
+                    if (arete.route().getNom().equals(route)) {
+                        for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)) {
+                            rectangle.setStyle("-fx-stroke: none; -fx-stroke-width: 0;");
+                        }
+                    }
                 }
             }
         });
+    }
+
+    public List<String> constructListRoute(List<Integer> listeSommets){
+        List<String> listeRoute = new ArrayList<>();
+        for (Integer route : listeSommets) {
+            listeRoute.add("R"+route);
+        }
+        return listeRoute;
     }
 
     public IDestination getDestination() {

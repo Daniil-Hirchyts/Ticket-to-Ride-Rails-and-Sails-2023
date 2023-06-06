@@ -8,6 +8,9 @@ public class Graphe implements IGraphe {
 
     private Map<Integer, HashSet<Arete>> mapAretes;
 
+    private static final int MAX_POIDS = Integer.MAX_VALUE;
+    private static final int PAS_DE_PERE = -1;
+
     //return le chemin en nomDeRoute entre depart et arrivee
 
     public Graphe() {
@@ -25,6 +28,9 @@ public class Graphe implements IGraphe {
             }
         }
     }
+    public int nbSommets() {
+        return mapAretes.size();
+    }
 
     public void ajouterArete(Arete a) {
         if (!existeArete(a)) {
@@ -40,113 +46,164 @@ public class Graphe implements IGraphe {
     public void ajouterSommet(Integer v) {
         mapAretes.putIfAbsent(v, new HashSet<>());
     }
+
+    public boolean contientSommet(Integer v) {
+        return mapAretes.containsKey(v);
+    }
+    public Set<Integer> getVoisins(int v) {
+        if (contientSommet(v)) {
+            HashSet<Integer> voisins = new HashSet<>();
+            for (Arete a : mapAretes.get(v)) voisins.add(a.getAutreSommet(v));
+            return voisins;
+        }
+        return Collections.emptySet();
+    }
     public List<Integer> parcoursSansRepetition(int depart, int arrivee, boolean pondere) {
-        if (!mapAretes.containsKey(depart) || !mapAretes.containsKey(arrivee)) {
-            return null; // Sommet de départ ou d'arrivée non trouvé
+        return pondere
+                ? parcoursPondere(depart, arrivee)
+                : parcoursNonPondere(depart, arrivee);
+    }
+
+    private List<Integer> parcoursPondere(int depart, int arrivee) {
+        List<Integer> chemin = initialiserChemin();
+        if (depart == arrivee) {
+            chemin.add(depart);
+            return chemin;
         }
+        List<Integer> sommetstous = initialiserSommetsTous();
+        int[] pere = initialiserPere();
+        int[] poids = initialiserPoids();
+        poids[sommetstous.indexOf(depart)] = 0;
+        PriorityQueue<Integer> file = new PriorityQueue<>(Comparator.comparingInt(v -> poids[sommetstous.indexOf(v)]));
+        file.add(depart);
+        while (!file.isEmpty()) {
+            int sommet = file.poll();
+            if (sommet == arrivee) break;
 
-        Map<Integer, Integer> distances = new HashMap<>();
-        Map<Integer, Integer> predecesseurs = new HashMap<>();
-        Set<Integer> visites = new HashSet<>();
-
-        for (Integer sommet : mapAretes.keySet()) {
-            distances.put(sommet, Integer.MAX_VALUE);
+            mettreAJourVoisins(sommet, file, poids, pere, sommetstous);
         }
+        return construireChemin(depart, arrivee, chemin, sommetstous, pere);
+    }
 
-        distances.put(depart, 0);
-
-        while (!visites.contains(arrivee)) {
-            Integer courant = obtenirSommetPlusProche(distances, visites);
-
-            if (courant == null) {
-                break; // Pas de chemin trouvé
-            }
-
-            visites.add(courant);
-
-            if (!mapAretes.containsKey(courant)) {
-                continue;
-            }
-
-            HashSet<Arete> aretes = mapAretes.get(courant);
-            for (Arete arete : aretes) {
-                int voisin = arete.j();
-                int poids = pondere ? arete.route().getLongueur() : 1;
-                int distance = distances.get(courant) + poids;
-
-                if (distance < distances.get(voisin)) {
-                    distances.put(voisin, distance);
-                    predecesseurs.put(voisin, courant);
+    public Set<Integer> ensembleSommets() {
+        return mapAretes.keySet();
+    }
+    private List<Integer> parcoursNonPondere(int depart, int arrivee) {
+        List<Integer> chemin = initialiserChemin();
+        if (depart == arrivee) {
+            chemin.add(depart);
+            return chemin;
+        }
+        boolean[] marque = new boolean[nbSommets()];
+        int[] pere = initialiserPere();
+        Queue<Integer> file = new LinkedList<>();
+        file.add(depart);
+        List<Integer> sommetstous = new ArrayList<>(ensembleSommets());
+        marque[sommetstous.indexOf(depart)] = true;
+        while (!file.isEmpty()) {
+            int sommet = file.poll();
+            for (int voisin : getVoisins(sommet)) {
+                if (!marque[sommetstous.indexOf(voisin)]) {
+                    marque[sommetstous.indexOf(voisin)] = true;
+                    pere[sommetstous.indexOf(voisin)] = sommet;
+                    file.add(voisin);
                 }
             }
         }
-
-        return construireChemin(depart, arrivee, predecesseurs);
+        return getIntegers(depart, arrivee, chemin, sommetstous, pere);
     }
 
-    private Integer obtenirSommetPlusProche(Map<Integer, Integer> distances, Set<Integer> visites) {
-        int distanceMin = Integer.MAX_VALUE;
-        Integer sommetPlusProche = null;
+    private List<Integer> initialiserChemin() {
+        return new ArrayList<>();
+    }
 
-        for (Map.Entry<Integer, Integer> entry : distances.entrySet()) {
-            Integer sommet = entry.getKey();
-            int distance = entry.getValue();
+    private List<Integer> initialiserSommetsTous() {
+        List<Integer> sommetstous = new ArrayList<>();
+        for (int i : ensembleSommets()) sommetstous.add(i);
+        return sommetstous;
+    }
 
-            if (!visites.contains(sommet) && distance < distanceMin) {
-                distanceMin = distance;
-                sommetPlusProche = sommet;
+    private int[] initialiserPere() {
+        int[] pere = new int[nbSommets()];
+        Arrays.fill(pere, PAS_DE_PERE);
+        return pere;
+    }
+
+    private int[] initialiserPoids() {
+        int[] poids = new int[nbSommets()];
+        Arrays.fill(poids, MAX_POIDS);
+        return poids;
+    }
+
+    public Arete getArete(int sommetDepart, int sommetArrivee) {
+        Set<Arete> aretes = mapAretes.get(sommetDepart);
+        if (aretes != null)
+            for (Arete arete : aretes)
+                if (arete.incidenteA(sommetArrivee)) return arete;
+        return null;
+    }
+
+    private void mettreAJourVoisins(int sommet, PriorityQueue<Integer> file, int[] poids, int[] pere, List<Integer> sommetstous) {
+        for (int voisin : getVoisins(sommet)) {
+            int poidsVoisin = poids[sommetstous.indexOf(sommet)] + getArete(sommet, voisin).route().getLongueur();
+            if (poidsVoisin < poids[sommetstous.indexOf(voisin)]) {
+                pere[sommetstous.indexOf(voisin)] = sommet;
+                poids[sommetstous.indexOf(voisin)] = poidsVoisin;
+                file.remove(voisin);
+                file.add(voisin);
             }
         }
-
-        return sommetPlusProche;
     }
 
-    private List<Integer> construireChemin(int depart, int arrivee, Map<Integer, Integer> predecesseurs) {
-        List<Integer> chemin = new ArrayList<>();
-        Integer courant = arrivee;
-
-        while (courant != null && !courant.equals(depart)) {
-            chemin.add(courant);
-            courant = predecesseurs.get(courant);
+    private List<Integer> construireChemin(int depart, int arrivee, List<Integer> chemin, List<Integer> sommetstous, int[] pere) {
+        if (pere[sommetstous.indexOf(arrivee)] == PAS_DE_PERE) return chemin;
+        int sommet = arrivee;
+        while (sommet != depart) {
+            chemin.add(sommet);
+            sommet = pere[sommetstous.indexOf(sommet)];
         }
-
-        if (courant != null && courant.equals(depart)) {
-            chemin.add(depart);
-            Collections.reverse(chemin);
-        }
-
+        chemin.add(depart);
+        Collections.reverse(chemin);
         return chemin;
     }
 
-    public List<String> parcoursSansRepetition(List<Integer> listeSommets) {
-        if (listeSommets == null || listeSommets.isEmpty()) {
-            return new ArrayList<>();
-        }
 
+    private List<Integer> getIntegers(int depart, int arrivee, List<Integer> chemin, List<Integer> sommetstous, int[] pere) {
+        if (pere[sommetstous.indexOf(arrivee)] == -1) return chemin;
+        else {
+            int sommet = arrivee;
+            while (sommet != depart) {
+                chemin.add(sommet);
+                sommet = pere[sommetstous.indexOf(sommet)];
+            }
+            chemin.add(depart);
+            Collections.reverse(chemin);
+            return chemin;
+        }
+    }
+
+    public List<Integer> parcoursSansRepetition(List<Integer> listeSommets) {
+        if (listeSommets == null || listeSommets.isEmpty()) return new ArrayList<>();
         List<Integer> chemin = new ArrayList<>();
         Set<Integer> sommetsVisites = new HashSet<>();
-
         for (int i = 0; i < listeSommets.size() - 1; i++) {
             int depart = listeSommets.get(i);
             int arrivee = listeSommets.get(i + 1);
-
             List<Integer> sousChemin = parcoursSansRepetition(depart, arrivee, false);
-
-            if (sousChemin.isEmpty()) {
-                return new ArrayList<>();
-            }
-
-            sousChemin.remove(0);
+            if (sousChemin.isEmpty()) return new ArrayList<>();
+            if (sousChemin.size() > 1) sousChemin.remove(0);
             chemin.addAll(sousChemin);
             sommetsVisites.addAll(sousChemin);
         }
-
         chemin.add(0, listeSommets.get(0));
-        List<String> returnthis = new ArrayList<>();
-        for (int i = 0; i < chemin.size(); i++) {
-            returnthis.add("R" + chemin.get(i));
-        }
-        return returnthis;
+        return chemin;
     }
 
+    public HashSet<Arete> getAretes() {
+        HashSet<Arete> aretes = new HashSet<>();
+        for (HashSet<Arete> hashSet : mapAretes.values()) {
+            aretes.addAll(hashSet);
+        }
+        return aretes;
+    }
 }

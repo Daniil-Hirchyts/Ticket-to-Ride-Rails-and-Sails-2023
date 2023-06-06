@@ -25,6 +25,9 @@ public final class DonneesGraphiques {
             hauteurRectangle = 14,
             rayonInitial = 12;
 
+    public static Map<String, ArrayList<DonneesSegments>> getRoutes() {
+        return routes;
+    }
 
     static {
         routes = new LinkedHashMap<>();
@@ -839,4 +842,6 @@ public final class DonneesGraphiques {
     public static Map<String, DonneesLayout> getVilles() {
         return villes;
     }
+
+
 }
