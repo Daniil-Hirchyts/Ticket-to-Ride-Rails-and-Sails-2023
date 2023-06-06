@@ -7,6 +7,7 @@ import fr.umontpellier.iut.rails.vues.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Scene;
@@ -24,12 +25,13 @@ import java.util.Optional;
 
 public class RailsIHM extends Application {
 
+    private static final double ASPECT_RATIO = 16.0/9.0;
     private Map<IJoueur.CouleurJoueur, ImageView> avatars;
     private VueChoixJoueurs vueChoixJoueurs;
     private Stage primaryStage;
     private Jeu jeu;
     private BooleanProperty partieTerminee;
-    private final boolean avecVueChoixJoueurs = true;
+    private final boolean avecVueChoixJoueurs = false;
 
     @Override
     public void start(Stage primaryStage) {
@@ -38,6 +40,18 @@ public class RailsIHM extends Application {
     }
 
     public void debuterJeu() {
+
+        ChangeListener<Number> dimensionListener = (observable, oldValue, newValue) -> {
+            if (observable == primaryStage.widthProperty()) {
+                primaryStage.setHeight(primaryStage.getWidth() / ASPECT_RATIO);
+            } else if (observable == primaryStage.heightProperty()) {
+                primaryStage.setWidth(primaryStage.getHeight() * ASPECT_RATIO);
+            }
+        };
+
+        primaryStage.widthProperty().addListener(dimensionListener);
+        primaryStage.heightProperty().addListener(dimensionListener);
+
         if (avecVueChoixJoueurs) {
             vueChoixJoueurs = new VueChoixJoueurs();
             vueChoixJoueurs.setNomsDesJoueursDefinisListener(quandLesNomsJoueursSontDefinis);
@@ -86,13 +100,16 @@ public class RailsIHM extends Application {
             this.arreterJeu();
             event.consume();
         });
-        jeu.finDePartieProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                VueResultats vueResultats = new VueResultats(this);
-                Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
-                primaryStage.setScene(sceneResultats);
-            }
-        });
+        VueResultats vueResultats = new VueResultats(this, avatars);
+        Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
+        primaryStage.setScene(sceneResultats);
+//        jeu.finDePartieProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue) {
+//                VueResultats vueResultats = new VueResultats(this, avatars);
+//                Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
+//                primaryStage.setScene(sceneResultats);
+//            }
+//        });
         primaryStage.show();
     }
 
