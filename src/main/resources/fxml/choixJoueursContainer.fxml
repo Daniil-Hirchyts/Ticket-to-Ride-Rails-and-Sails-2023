@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <fx:root prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
@@ -15,6 +16,11 @@
     <RowConstraints minHeight="100.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
+      <ImageView fitHeight="366.0" fitWidth="603.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+         <image>
+            <Image url="@../images/elements/player-choose/train.png" />
+         </image>
+      </ImageView>
       <HBox id="background-bar" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowSpan="3">
          <children>
             <HBox id="top-bar-background" fx:id="topBarBackground" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" prefWidth="1280.0">
