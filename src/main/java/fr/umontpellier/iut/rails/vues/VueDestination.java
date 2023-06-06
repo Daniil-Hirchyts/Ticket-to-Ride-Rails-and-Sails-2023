@@ -55,12 +55,8 @@ public class VueDestination extends VBox {
                 if (vueDuJeu.getJeu().getIdVille(ville) != -1){villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));}
             }
             for (String route : constructListRoute(vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger))) {
-                for (Arete arete : graphe.getAretes()) {
-                    if (arete.route().getNom().equals(route)) {
-                        for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)) {
-                            rectangle.setStyle("-fx-stroke: #ff0000; -fx-stroke-width: 5;");
-                        }
-                    }
+                for(Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)){
+                    rectangle.setStyle("-fx-stroke: #fffffff; -fx-stroke-width: 2;");
                 }
             }
         });
@@ -71,12 +67,8 @@ public class VueDestination extends VBox {
                 if (vueDuJeu.getJeu().getIdVille(ville) != -1){villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));}
             }
             for (String route : constructListRoute(vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger))) {
-                for (Arete arete : graphe.getAretes()) {
-                    if (arete.route().getNom().equals(route)) {
-                        for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)) {
-                            rectangle.setStyle("-fx-stroke: none; -fx-stroke-width: 0;");
-                        }
-                    }
+                for(Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)){
+                    rectangle.setStyle("-fx-stroke: transparent; -fx-stroke-width: 0;");
                 }
             }
         });
