@@ -9,6 +9,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.lang.reflect.Field;
@@ -32,6 +34,7 @@ import java.util.Map;
  */
 public class VueChoixJoueurs extends Stage {
 
+    private static final double ASPECT_RATIO = 16.0/9.0;
     private final ObservableList<String> nomsJoueurs;
     private Map<IJoueur.CouleurJoueur, ImageView> avatarsJoueurs;
     private int nbJoueurs;
@@ -54,6 +57,9 @@ public class VueChoixJoueurs extends Stage {
         VueChoixJoueursContainer root = new VueChoixJoueursContainer();
         vboxJoueurs = new VBox();
         validation = new Button("Valider");
+        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+        setMinWidth(visualBounds.getHeight() * ASPECT_RATIO);
+        setMinHeight(visualBounds.getWidth() / ASPECT_RATIO);
         creerBinding();
         genererChampsJoueurs(nbJoueursProperty.get());
         setScene(new Scene(root, 1280, 800));
@@ -62,6 +68,17 @@ public class VueChoixJoueurs extends Stage {
     }
 
     private void creerBinding() {
+        ChangeListener<Number> dimensionListener = (observable, oldValue, newValue) -> {
+            if (observable == this.widthProperty()) {
+                setHeight(this.getWidth() / ASPECT_RATIO);
+            } else if (observable == this.heightProperty()) {
+                setWidth(this.getHeight() * ASPECT_RATIO);
+            }
+        };
+
+        this.widthProperty().addListener(dimensionListener);
+        this.heightProperty().addListener(dimensionListener);
+
         validation.setOnAction(event -> {
             nomsJoueurs.clear();
             setListeDesNomsDeJoueurs();
