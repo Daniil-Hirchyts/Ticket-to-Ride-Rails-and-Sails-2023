@@ -23,8 +23,6 @@ public class VueChoixJoueursContainer extends GridPane {
     private ImageView finalTrain;
     @FXML
     private HBox topBarBackground;
-    @FXML
-    private Label title;
     public VueChoixJoueursContainer() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/choixJoueursContainer.fxml"));
@@ -39,25 +37,7 @@ public class VueChoixJoueursContainer extends GridPane {
 
         startAnimationTrain();
         createBindings();
-        setCustomFont();
 
-    }
-
-
-    private void setCustomFont() {
-        try {
-            Font customFont = Font.loadFont(new FileInputStream(new File("src/main/resources/fonts/OrchardStreetNFW01-Regular.ttf")), 20);
-            if (customFont == null) {
-                throw new IllegalArgumentException("Could not create font");
-            } else {
-                title.setFont(customFont);
-                System.out.println("Font is loaded successfully");
-                System.out.println(customFont.getName());
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
     private void createBindings() {
         finalTrain.fitHeightProperty().bind(this.heightProperty().divide(2));
@@ -66,7 +46,7 @@ public class VueChoixJoueursContainer extends GridPane {
 
     private void startAnimationTrain() {
         TranslateTransition translateTransition = new TranslateTransition();
-        translateTransition.setDuration(javafx.util.Duration.seconds(5));
+        translateTransition.setDuration(javafx.util.Duration.seconds(3));
         translateTransition.setNode(finalTrain);
         translateTransition.setFromX(-finalTrain.getFitWidth());
         translateTransition.setToX(finalTrain.getX());
