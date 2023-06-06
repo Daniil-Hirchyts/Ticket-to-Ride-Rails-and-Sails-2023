@@ -24,6 +24,8 @@ public interface IJeu {
     List<? extends IJoueur> getJoueurs();
     List<? extends IVille> getPorts();
     List<? extends IRoute> getRoutes();
+
+    List<? extends  IVille> getIVilles();
     Graphe getGraphe();
     int getIdVille(String ville);
 

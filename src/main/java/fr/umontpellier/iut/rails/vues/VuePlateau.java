@@ -303,12 +303,14 @@ public class VuePlateau extends Pane {
 
 
 private void ajouterVilles() {
+    List<? extends IVille> listeVilles = ((VueDuJeu) getScene().getRoot()).getJeu().getIVilles();
     for (String nomVille : DonneesGraphiques.villes.keySet()) {
+        IVille ville = listeVilles.stream().filter(r -> r.getNom().equals(nomVille)).findAny().orElse(null);
         DonneesGraphiques.DonneesCerclesPorts positionVilleSurPlateau = DonneesGraphiques.villes.get(nomVille);
         Circle cercleVille = new Circle(positionVilleSurPlateau.centreX(), positionVilleSurPlateau.centreY(), DonneesGraphiques.rayonInitial);
         cercleVille.setId(nomVille);
         getChildren().add(cercleVille);
-        bindCerclePortAuPlateau(positionVilleSurPlateau, cercleVille);
+        bindCerclePortAuPlateau(positionVilleSurPlateau, cercleVille, ville);
         cercleVille.setOnMouseClicked(choixPort);
     }
 }

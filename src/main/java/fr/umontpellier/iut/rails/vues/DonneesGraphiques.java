@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.rails.vues;
 
+import fr.umontpellier.iut.rails.IVille;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;

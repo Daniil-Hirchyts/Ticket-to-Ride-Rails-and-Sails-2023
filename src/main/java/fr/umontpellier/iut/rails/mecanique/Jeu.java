@@ -248,6 +248,10 @@ public class Jeu implements IJeu {
         return -1;
     }
 
+    public List<IVille> getIVilles() {
+        return plateau.getIVilles();
+    }
+
     public Graphe getGraphe() {
         return graphe;
     }

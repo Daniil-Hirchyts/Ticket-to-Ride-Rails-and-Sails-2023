@@ -58,8 +58,6 @@ public class VueChoixJoueurs extends Stage {
         vboxJoueurs = new VBox();
         validation = new Button("Valider");
         Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
-        setMinWidth(visualBounds.getHeight() * ASPECT_RATIO);
-        setMinHeight(visualBounds.getWidth() / ASPECT_RATIO);
         creerBinding();
         genererChampsJoueurs(nbJoueursProperty.get());
         setScene(new Scene(root, 1280, 800));

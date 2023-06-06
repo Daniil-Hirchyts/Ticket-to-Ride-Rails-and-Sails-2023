@@ -33,6 +33,10 @@ public class Plateau {
 
     public List<Ville> getVilles() {return villes;}
 
+    public List<IVille> getIVilles() {
+        return villes.stream().map(v -> (IVille) v).collect(Collectors.toList());
+    }
+
     public List<Route> getRoutes() {
         return routes;
     }
