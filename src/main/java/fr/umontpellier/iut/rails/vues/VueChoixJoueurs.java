@@ -61,6 +61,7 @@ public class VueChoixJoueurs extends Stage {
         creerBinding();
         genererChampsJoueurs(nbJoueursProperty.get());
         setScene(new Scene(root, 1280, 800));
+//        setFullScreen(true);
         setTitle("Choix des joueurs");
         show();
     }

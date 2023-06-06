@@ -10,7 +10,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
+
+import static javafx.scene.text.Font.loadFont;
 
 public class VueChoixJoueursContainer extends GridPane {
 
@@ -34,8 +39,26 @@ public class VueChoixJoueursContainer extends GridPane {
 
         startAnimationTrain();
         createBindings();
+        setCustomFont();
+
     }
 
+
+    private void setCustomFont() {
+        try {
+            Font customFont = Font.loadFont(new FileInputStream(new File("src/main/resources/fonts/OrchardStreetNFW01-Regular.ttf")), 20);
+            if (customFont == null) {
+                throw new IllegalArgumentException("Could not create font");
+            } else {
+                title.setFont(customFont);
+                System.out.println("Font is loaded successfully");
+                System.out.println(customFont.getName());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private void createBindings() {
         finalTrain.fitHeightProperty().bind(this.heightProperty().divide(2));
         finalTrain.fitWidthProperty().bind(this.widthProperty().divide(2));

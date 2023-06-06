@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
-
-
-@font-face {
-    font-family: 'OrchardStreetNFW01-Regular';
-    src: url('OrchardStreetNFW01-Regular.ttf');
-}
+@import url('https://fonts.googleapis.com/css2?family=Notable&display=swap');
 
 .root {
     -fx-beige-light: rgb(217, 189, 170);
@@ -36,19 +31,13 @@ Label {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
 }
 
-* {
-    -fx-font-family: 'IM Fell English SC', serif;
-}
+/** {*/
+/*    -fx-font-family: 'IM Fell English SC', serif;*/
+/*}*/
 
 #centerBox, #plateau, .hideBG {
     -fx-background-color: transparent;
     -fx-background: transparent;
-}
-
-#titleText1 {
-    -fx-font-size: 40px;
-    -fx-text-fill: -fx-title-color;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
 }
 
 #titleText2 {
