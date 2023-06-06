@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * Cette classe correspond à une nouvelle fenêtre permettant de choisir le nombre et les noms des joueurs de la partie.
- *
+ * <p>
  * Sa présentation graphique peut automatiquement être actualisée chaque fois que le nombre de joueurs change.
  * Lorsque l'utilisateur a fini de saisir les noms de joueurs, il demandera à démarrer la partie.
  */
@@ -38,12 +38,8 @@ public class VueChoixJoueurs extends Stage {
     private List<Integer> compteursCouleurs;
     private VBox vboxJoueurs;
     private Button validation;
-
     private IntegerProperty nbJoueursProperty;
     private ObservableList<TextField> textFields;
-
-
-
 
     public ObservableList<String> nomsJoueursProperty() {
         return nomsJoueurs;
@@ -55,17 +51,14 @@ public class VueChoixJoueurs extends Stage {
         nomsJoueurs = FXCollections.observableArrayList();
         textFields = FXCollections.observableArrayList();
         compteursCouleurs = new ArrayList<>(5);
+        VueChoixJoueursContainer root = new VueChoixJoueursContainer();
         vboxJoueurs = new VBox();
         validation = new Button("Valider");
         creerBinding();
         genererChampsJoueurs(nbJoueursProperty.get());
-        Scene scene = new Scene(vboxJoueurs);
-        //change la taille de la fenêtre
-        this.setWidth(300);
-        this.setHeight(500);
-        this.setScene(scene);
-        this.setTitle("Choix des joueurs");
-        this.show();
+        setScene(new Scene(root, 1280, 800));
+        setTitle("Choix des joueurs");
+        show();
     }
 
     private void creerBinding() {
@@ -80,13 +73,13 @@ public class VueChoixJoueurs extends Stage {
             int finalI = i;
             HBox playerTextField = new HBox();
             IJoueur.CouleurJoueur couleur = IJoueur.CouleurJoueur.values()[i];
-            int position = i+1;
+            int position = i + 1;
             compteursCouleurs.add(i, position);
-            ImageView avatar = new ImageView(new Image("images/avatars/" + couleur +"/avatar-"+position+".png"));
+            ImageView avatar = new ImageView(new Image("images/avatars/" + couleur + "/avatar-" + position + ".png"));
             avatar.setOnMouseClicked(event -> {
                 if (compteursCouleurs.get(finalI) == 5) compteursCouleurs.set(finalI, 1);
-                else compteursCouleurs.set(finalI, compteursCouleurs.get(finalI)+1);
-                avatar.setImage(new Image("images/avatars/" + couleur +"/avatar-"+compteursCouleurs.get(finalI)+".png"));
+                else compteursCouleurs.set(finalI, compteursCouleurs.get(finalI) + 1);
+                avatar.setImage(new Image("images/avatars/" + couleur + "/avatar-" + compteursCouleurs.get(finalI) + ".png"));
             });
             avatar.setFitHeight(60);
             avatar.setFitWidth(50);
@@ -125,13 +118,12 @@ public class VueChoixJoueurs extends Stage {
      */
     protected void setListeDesNomsDeJoueurs() {
         ArrayList<String> tempNamesList = new ArrayList<>();
-        for (int i = 1; i <= getNombreDeJoueurs() ; i++) {
+        for (int i = 1; i <= getNombreDeJoueurs(); i++) {
             String name = getJoueurParNumero(i);
             if (name == null || name.equals("")) {
                 tempNamesList.clear();
                 break;
-            }
-            else
+            } else
                 tempNamesList.add(name);
         }
         if (!tempNamesList.isEmpty()) {
@@ -154,13 +146,14 @@ public class VueChoixJoueurs extends Stage {
 
     /**
      * Retourne le nom que l'utilisateur a renseigné pour le ième participant à la partie
+     *
      * @param playerNumber : le numéro du participant
      */
     protected String getJoueurParNumero(int playerNumber) {
-        return textFields.get(playerNumber-1).getText();
+        return textFields.get(playerNumber - 1).getText();
     }
 
-    public Map<IJoueur.CouleurJoueur, ImageView> getAvatars(){
+    public Map<IJoueur.CouleurJoueur, ImageView> getAvatars() {
         return avatarsJoueurs;
     }
 

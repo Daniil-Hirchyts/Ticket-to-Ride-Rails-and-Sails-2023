@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 
+
+@font-face {
+    font-family: 'OrchardStreetNFW01-Regular';
+    src: url('OrchardStreetNFW01-Regular.ttf');
+}
+
 .root {
     -fx-beige-light: rgb(217, 189, 170);
     -fx-beige-main: rgb(225, 194, 151);
@@ -12,6 +18,7 @@
     -fx-brown-main: #6f2400;
     -fx-brown-hovered: #5a1e00;
     -fx-white-carte: #e7edf1;
+    -fx-title-color: #C50B25;
 }
 
 
@@ -36,6 +43,41 @@ Label {
 #centerBox, #plateau, .hideBG {
     -fx-background-color: transparent;
     -fx-background: transparent;
+}
+
+#titleText1 {
+    -fx-font-size: 40px;
+    -fx-text-fill: -fx-title-color;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
+}
+
+#titleText2 {
+    -fx-font-size: 30px;
+    -fx-text-fill: -fx-title-color;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
+
+}
+
+#choixJoueursContainer {
+    -fx-background-image: url("/images/elements/player-choose/background-page.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left center;
+    -fx-background-size: 100% 100%;
+}
+
+#background-bar {
+    -fx-background-image: url("/images/elements/player-choose/bar.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left center;
+    -fx-background-size: 100% 100%;
+}
+
+#top-bar-background {
+    -fx-background-image: url("/images/elements/player-choose/top-bar-Red.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left center;
+    -fx-background-size: 100% 100%;
 }
 
 #gameScene {
@@ -334,7 +376,7 @@ Label {
     -fx-stroke-width: 2;
 }
 
-#rectPosee{
+#rectPosee {
     -fx-stroke: none;
     -fx-stroke-width: 0;
 }
