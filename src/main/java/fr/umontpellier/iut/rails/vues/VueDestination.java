@@ -56,7 +56,7 @@ public class VueDestination extends VBox {
             }
             for (String route : constructListRoute(vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger))) {
                 for(Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)){
-                    rectangle.setStyle("-fx-stroke: #fffffff; -fx-stroke-width: 2;");
+                    rectangle.setStyle("-fx-stroke: #000000; -fx-stroke-width: 2;");
                 }
             }
         });
@@ -76,8 +76,8 @@ public class VueDestination extends VBox {
 
     public List<String> constructListRoute(List<Integer> listeSommets){
         List<String> listeRoute = new ArrayList<>();
-        for (Integer route : listeSommets) {
-            listeRoute.add("R"+route);
+        for (int i = 0; i < listeSommets.size()-1; i++) {
+            listeRoute.add(graphe.getArete(listeSommets.get(i),listeSommets.get(i+1)).route().getNom());
         }
         return listeRoute;
     }

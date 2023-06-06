@@ -189,7 +189,7 @@ public class Graphe implements IGraphe {
         for (int i = 0; i < listeSommets.size() - 1; i++) {
             int depart = listeSommets.get(i);
             int arrivee = listeSommets.get(i + 1);
-            List<Integer> sousChemin = parcoursSansRepetition(depart, arrivee, false);
+            List<Integer> sousChemin = parcoursSansRepetition(depart, arrivee, true);
             if (sousChemin.isEmpty()) return new ArrayList<>();
             if (sousChemin.size() > 1) sousChemin.remove(0);
             chemin.addAll(sousChemin);
