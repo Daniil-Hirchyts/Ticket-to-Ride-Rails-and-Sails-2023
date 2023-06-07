@@ -170,8 +170,6 @@ public class VuePlateau extends Pane {
                 if (ville.proprietaireProperty().getValue() != null) {
                     IJoueur.CouleurJoueur couleurJoueur = ville.proprietaireProperty().get().getCouleur();
                     ImageView pionsPosee = new ImageView(new Image("images/gares/gare-" + couleurJoueur + ".png"));
-                    System.out.println(cerclePort.centerXProperty().getValue() + " " + cerclePort.centerXProperty().getValue() + " " + cerclePort.radiusProperty().getValue());
-                    //bind la position de l'image view à la position du rectangle
                     cerclePort.setId("circlePosee");
                     pionsPosee.layoutXProperty().bind(cerclePort.centerXProperty().subtract(10));
                     pionsPosee.layoutYProperty().bind(cerclePort.centerYProperty().subtract(20));
@@ -252,7 +250,6 @@ public class VuePlateau extends Pane {
                 return mapMonde.getLayoutBounds().getHeight() / DonneesGraphiques.hauteurInitialePlateau;
             }
         });
-        //bind la couleur du rectangle à la couleur du joueur qui a construit la route
         rect.fillProperty().bind(new ObjectBinding<Paint>() {
             {
                 super.bind(route.proprietaireProperty());
@@ -264,18 +261,15 @@ public class VuePlateau extends Pane {
                 if (route.proprietaireProperty().getValue() != null) {
 
                     for (DonneesGraphiques.DonneesSegments segment : DonneesGraphiques.routes.get(route.getNom())) {
-                        //creer une image View avec l'image des pions correspondant au joueur
-                            IJoueur.CouleurJoueur couleurJoueur = route.proprietaireProperty().get().getCouleur();
-                            rect.setId("rectPosee");
-                            ImageView pionsPosee = new ImageView(new Image("images/wagons/image-wagon-" + couleurJoueur + ".png"));
-                            System.out.println(rect.layoutXProperty().getValue() + " " + rect.layoutYProperty().getValue() + " " + rect.rotateProperty().getValue());
-                            //bind la position de l'image view à la position du rectangle
-                            pionsPosee.layoutXProperty().bind(rect.layoutXProperty());
-                            pionsPosee.layoutYProperty().bind(rect.layoutYProperty());
-                            pionsPosee.rotateProperty().bind(rect.rotateProperty());
-                            pionsPosee.fitHeightProperty().bind(rect.heightProperty().add(4));
-                            pionsPosee.fitWidthProperty().bind(rect.widthProperty());
-                            getChildren().add(pionsPosee);
+                        IJoueur.CouleurJoueur couleurJoueur = route.proprietaireProperty().get().getCouleur();
+                        rect.setId("rectPosee");
+                        ImageView pionsPosee = new ImageView(new Image("images/wagons/image-wagon-" + couleurJoueur + ".png"));
+                        pionsPosee.layoutXProperty().bind(rect.layoutXProperty());
+                        pionsPosee.layoutYProperty().bind(rect.layoutYProperty());
+                        pionsPosee.rotateProperty().bind(rect.rotateProperty());
+                        pionsPosee.fitHeightProperty().bind(rect.heightProperty().add(4));
+                        pionsPosee.fitWidthProperty().bind(rect.widthProperty());
+                        getChildren().add(pionsPosee);
                     }
 
                     return switch (route.proprietaireProperty().get().getCouleur()) {

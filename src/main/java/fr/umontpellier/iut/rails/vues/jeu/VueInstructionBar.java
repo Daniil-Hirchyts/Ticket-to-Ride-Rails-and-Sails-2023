@@ -39,7 +39,7 @@ public class VueInstructionBar extends Pane {
         }
         this.instructionBarArrow.setImage(new Image("images/instructionPopUp/instructionBarArrowDown.png"));
         this.instructionBar.setImage(new Image("images/instructionPopUp/instructionBar.png"));
-        this.labelInstruciton.setVisible(false);
+        this.labelInstruciton.setId("instructionLabel");
         creerBindings();
     }
 
@@ -55,9 +55,9 @@ public class VueInstructionBar extends Pane {
                 tt.setNode(instructionBar);
                 tt3.setNode(labelInstruciton);
 
-                tt2.setDuration(javafx.util.Duration.millis(2000));
-                tt3.setDuration(javafx.util.Duration.millis(2000));
-                tt.setDuration(javafx.util.Duration.millis(2000));
+                tt2.setDuration(javafx.util.Duration.millis(700));
+                tt3.setDuration(javafx.util.Duration.millis(700));
+                tt.setDuration(javafx.util.Duration.millis(700));
 
                 tt2.setByY(-50);
                 tt3.setByY(-50);
@@ -66,7 +66,6 @@ public class VueInstructionBar extends Pane {
                 tt.setOnFinished(actionEvent -> {
                     System.out.println(instructionBarArrowDown);
                     instructionBarArrow.setImage(instructionBarArrowDown);
-                    labelInstruciton.setVisible(false);
                 });
 
                 tt.play();
@@ -84,9 +83,9 @@ public class VueInstructionBar extends Pane {
                 tt.setNode(instructionBar);
                 tt3.setNode(labelInstruciton);
 
-                tt2.setDuration(javafx.util.Duration.millis(2000));
-                tt3.setDuration(javafx.util.Duration.millis(2000));
-                tt.setDuration(javafx.util.Duration.millis(2000));
+                tt2.setDuration(javafx.util.Duration.millis(700));
+                tt3.setDuration(javafx.util.Duration.millis(700));
+                tt.setDuration(javafx.util.Duration.millis(700));
 
 
                 tt2.setByY(50);
@@ -96,7 +95,6 @@ public class VueInstructionBar extends Pane {
                 tt.setOnFinished(actionEvent -> {
                     System.out.println(instructionBarArrowUp);
                     instructionBarArrow.setImage(instructionBarArrowUp);
-                    labelInstruciton.setVisible(true);
                 });
 
                 tt.play();
