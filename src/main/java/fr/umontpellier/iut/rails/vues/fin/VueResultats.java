@@ -2,10 +2,8 @@ package fr.umontpellier.iut.rails.vues.fin;
 
 import fr.umontpellier.iut.rails.IJoueur;
 import fr.umontpellier.iut.rails.RailsIHM;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 import java.util.Map;
@@ -25,7 +23,7 @@ public class VueResultats extends Pane {
         this.ihm = ihm;
         this.avatarsJoueurs = avatarsJoueurs;
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/resultatPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/fin/VueResultats.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();

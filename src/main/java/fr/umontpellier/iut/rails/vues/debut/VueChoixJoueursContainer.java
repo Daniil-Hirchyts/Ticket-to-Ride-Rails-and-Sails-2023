@@ -38,7 +38,7 @@ public class VueChoixJoueursContainer extends GridPane {
 
     public VueChoixJoueursContainer() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/choixJoueursContainer.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/debut/VueChoixJoueursContainer.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();

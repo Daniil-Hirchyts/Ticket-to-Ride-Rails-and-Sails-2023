@@ -72,7 +72,7 @@ public class VueDuJeu extends GridPane {
     public VueDuJeu(IJeu jeu, Map<IJoueur.CouleurJoueur, ImageView> avatarList) {
         this.jeu = jeu;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/VueDuJeu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/jeu/VueDuJeu.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();

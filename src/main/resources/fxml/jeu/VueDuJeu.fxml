@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<fx:root alignment="CENTER" prefHeight="800.0" prefWidth="1080.0" stylesheets="@../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" prefHeight="800.0" prefWidth="1080.0" stylesheets="@../../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
         <ColumnConstraints hgrow="ALWAYS" />
@@ -37,7 +37,7 @@
                            <children>
                               <ImageView fitHeight="91.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/elements/current-player/stack.png" />
+                                    <Image url="@../../images/elements/current-player/stack.png" />
                                  </image>
                               </ImageView>
                               <Circle layoutX="129.0" layoutY="46.0" radius="21.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />

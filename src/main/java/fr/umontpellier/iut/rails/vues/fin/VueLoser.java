@@ -7,7 +7,7 @@ public class VueLoser extends Pane {
 
     public VueLoser() {
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/templatePlayerLoser.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/fin/VueLoser.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();

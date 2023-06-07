@@ -74,7 +74,7 @@ public class VueJoueurCourant extends GridPane {
         this.jeu = jeu;
         this.avatarList = avatarList;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/playerInterface.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/jeu/VueJoueurCourant.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();

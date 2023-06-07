@@ -43,7 +43,7 @@ public class VuePlayerInfo extends HBox {
         this.joueur = joueur;
         this.avatar = avatar;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/playerInfo.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/jeu/VuePlayerInfo.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();

@@ -34,7 +34,7 @@ public class VueFlag extends Pane {
     public VueFlag(IJoueur joueur, Object o, Image icon, String type) {
         this.joueur = joueur;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/VueFlag.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/jeu/VueFlag.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();

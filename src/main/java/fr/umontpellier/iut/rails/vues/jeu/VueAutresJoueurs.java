@@ -24,7 +24,7 @@ public class VueAutresJoueurs extends HBox {
         this.jeu = jeu;
         this.avatarList = avatarList;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/VueAutresJoueurs.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/jeu/VueAutresJoueurs.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();

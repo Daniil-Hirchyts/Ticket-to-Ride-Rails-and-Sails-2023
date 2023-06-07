@@ -21,7 +21,7 @@ public class VueCarteTransport extends Pane {
 
     public VueCarteTransport(ICarteTransport carteTransport, int nbCartes, boolean dansDeck) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/VueCarteTransport.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/jeu/VueCarteTransport.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();

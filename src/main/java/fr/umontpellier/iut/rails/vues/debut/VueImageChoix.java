@@ -19,7 +19,7 @@ public class VueImageChoix extends GridPane {
 
     public VueImageChoix() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/playerImageChoix.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/debut/VueImageChoix.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();

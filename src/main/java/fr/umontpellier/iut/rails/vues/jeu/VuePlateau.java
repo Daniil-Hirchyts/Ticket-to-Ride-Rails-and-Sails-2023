@@ -40,7 +40,7 @@ public class VuePlateau extends Pane {
 
     public VuePlateau(IJeu jeu) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/plateau.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/jeu/VuePlateau.fxml"));
             this.jeu = jeu;
             this.destinationListened = null;
             this.RectangleDeLaRoute = new HashMap<>();
