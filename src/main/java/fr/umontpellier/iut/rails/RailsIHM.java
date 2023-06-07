@@ -39,6 +39,7 @@ public class RailsIHM extends Application {
         this.primaryStage = primaryStage;
 //        primaryStage.setFullScreen(true);
         debuterJeu();
+        //
     }
 
     public void debuterJeu() {
