@@ -33,6 +33,8 @@ public class VueChoixJoueursContainer extends GridPane {
     private Button validation;
     @FXML
     private ImageView finalTrain;
+    @FXML
+    private HBox backgroundBarBlur;
 
     public VueChoixJoueursContainer() {
         try {
@@ -47,6 +49,8 @@ public class VueChoixJoueursContainer extends GridPane {
         topBarBackground.prefWidthProperty().bind(this.widthProperty());
 
         interfaceOfChoose.setVisible(false);
+        backgroundBarBlur.setVisible(false);
+
         startAnimationTrain();
         createBindings();
     }
@@ -63,6 +67,7 @@ public class VueChoixJoueursContainer extends GridPane {
             interfaceOfChoose.setVisible(true);
             titleBox.setVisible(false);
             btnBox.setVisible(false);
+            backgroundBarBlur.setVisible(true);
         });
     }
 

@@ -33,12 +33,14 @@
                            <styleClass>
                               <String fx:value="labelsIMFellEnglish" />
                               <String fx:value="labelNomsCreator" />
-                           </styleClass></Label>
+                           </styleClass>
+                        </Label>
                         <Label text="Hirchyts Daniil" textFill="WHITE">
                            <styleClass>
                               <String fx:value="labelsIMFellEnglish" />
                               <String fx:value="labelNomsCreator" />
-                           </styleClass></Label>
+                           </styleClass>
+                        </Label>
                      </children>
                      <HBox.margin>
                         <Insets left="25.0" />
@@ -46,7 +48,9 @@
                   </VBox>
                </children>
             </HBox>
-         </children></HBox>
+         </children>
+      </HBox>
+      <HBox fx:id="backgroundBarBlur" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="3" />
       <VBox fx:id="titleBox" alignment="BOTTOM_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <VBox alignment="CENTER_RIGHT" maxWidth="-Infinity" prefWidth="600.0">
