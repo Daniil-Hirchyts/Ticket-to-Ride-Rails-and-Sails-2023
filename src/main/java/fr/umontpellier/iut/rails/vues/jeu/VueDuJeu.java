@@ -53,6 +53,8 @@ public class VueDuJeu extends GridPane {
     @FXML
     private Pane borderTop;
     @FXML
+    private Pane borderTopMask;
+    @FXML
     private Pane borderDown;
     @FXML
     private Pane bottomColor;
@@ -82,6 +84,7 @@ public class VueDuJeu extends GridPane {
 
         setId("gameScene");
         borderTop.prefWidthProperty().bind(this.widthProperty());
+        borderTopMask.prefWidthProperty().bind(this.widthProperty());
         borderDown.prefWidthProperty().bind(this.widthProperty());
         bottomColor.prefWidthProperty().bind(this.widthProperty());
 
@@ -218,6 +221,7 @@ public class VueDuJeu extends GridPane {
     public VueDuJeu getVueDuJeu() {
         return this;
     }
+
     public IJeu getJeu() {
         return jeu;
     }

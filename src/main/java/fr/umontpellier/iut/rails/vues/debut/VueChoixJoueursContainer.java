@@ -77,7 +77,6 @@ public class VueChoixJoueursContainer extends GridPane {
             System.exit(0);
         });
 
-
         btnStartChoix.setOnAction(event -> {
             switchEtat(false);
         });
