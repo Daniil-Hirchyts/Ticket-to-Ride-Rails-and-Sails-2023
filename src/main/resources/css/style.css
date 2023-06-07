@@ -177,6 +177,11 @@ Label {
     -fx-font-family: 'OrchardStreetNFW01-Regular';
 }
 
+#textFieldChangePions{
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
 #gameScene {
     -fx-background-image: url("/images/background/background-pattern.png");
     -fx-background-repeat: repeat;

@@ -33,5 +33,6 @@
             <Font size="20.0" />
          </font>
       </Label>
+      <TextField fx:id="textFieldChangePions" layoutX="4.0" layoutY="4.0" prefHeight="32.0" prefWidth="33.0" />
    </children>
 </fx:root>
