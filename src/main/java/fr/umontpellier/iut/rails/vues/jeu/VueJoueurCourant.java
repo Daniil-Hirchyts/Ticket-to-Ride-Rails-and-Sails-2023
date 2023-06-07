@@ -1,9 +1,10 @@
-package fr.umontpellier.iut.rails.vues;
+package fr.umontpellier.iut.rails.vues.jeu;
 
 import fr.umontpellier.iut.rails.ICarteTransport;
 import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IJoueur;
+import fr.umontpellier.iut.rails.vues.layout.ConsoleLogger;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
