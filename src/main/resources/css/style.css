@@ -502,3 +502,8 @@ Label {
     -fx-stroke: #1f9e1f;
     -fx-stroke-width: 2;
 }
+
+#instructionLabel {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
