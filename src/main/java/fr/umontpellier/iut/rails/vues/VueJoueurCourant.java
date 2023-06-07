@@ -60,8 +60,6 @@ public class VueJoueurCourant extends GridPane {
     private VueFlag pionsBateau;
     private VueFlag pionsPort;
 
-    private TextField btnPionsBateau;
-    private TextField btnPionsWagon;
     @FXML
     private HBox flagsBox;
 
@@ -73,10 +71,6 @@ public class VueJoueurCourant extends GridPane {
     public VueJoueurCourant(IJeu jeu, Map<IJoueur.CouleurJoueur, ImageView> avatarList) {
         this.jeu = jeu;
         this.avatarList = avatarList;
-        btnPionsWagon.setDisable(true);
-        btnPionsWagon.setVisible(false);
-        btnPionsBateau.setDisable(true);
-        btnPionsBateau.setVisible(false);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/playerInterface.fxml"));
             loader.setRoot(this);
@@ -101,6 +95,39 @@ public class VueJoueurCourant extends GridPane {
             pionsWagon.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
             pionsBateau.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
             pionsPort.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
+
+            pionsWagon.getIcon().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Button btnDestination = ((VueDuJeu) getScene().getRoot()).getBtnDestination();
+                btnDestination.setVisible(false);
+                TextField txtDestination = new TextField();
+                txtDestination.layoutXProperty().bind(btnDestination.layoutXProperty());
+                txtDestination.layoutYProperty().bind(btnDestination.layoutYProperty());
+                txtDestination.prefWidthProperty().bind(btnDestination.widthProperty());
+                txtDestination.prefHeightProperty().bind(btnDestination.heightProperty());
+                txtDestination.setVisible(true);
+                txtDestination.setDisable(false);
+                jeu.nouveauxPionsWagonsDemandes();
+            }
+        });
+        pionsBateau.getIcon().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Button btnDestination = ((VueDuJeu) getScene().getRoot()).getBtnDestination();
+                TextField txtDestination = new TextField();
+                btnDestination.setVisible(false);
+                //resize du textfield pour qu'il soit de la même taille que le bouton
+                txtDestination.layoutXProperty().bind(btnDestination.layoutXProperty());
+                txtDestination.layoutYProperty().bind(btnDestination.layoutYProperty());
+                txtDestination.prefWidthProperty().bind(btnDestination.widthProperty());
+                txtDestination.prefHeightProperty().bind(btnDestination.heightProperty());
+                txtDestination.setVisible(true);
+                txtDestination.setDisable(false);
+                jeu.nouveauxPionsBateauxDemandes();
+            }
+        });
+
             flagsBox.getChildren().addAll(pionsWagon, pionsBateau, pionsPort);
             playerName.setText(newValue.getNom());
             scoreLabel.setText(valueOf(newValue.getScore()));
@@ -108,31 +135,6 @@ public class VueJoueurCourant extends GridPane {
             playerLabelColorBackground.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/current-player/score-background/" + newValue.getCouleur().toString() + ".png"))));
         });
 
-        pionsWagon.getIcon().setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                Button btnDestination = ((VueDuJeu) getScene().getRoot()).getBtnDestination();
-                btnDestination.setVisible(false);
-                btnPionsWagon.layoutXProperty().bind(btnDestination.layoutXProperty());
-                btnPionsWagon.layoutYProperty().bind(btnDestination.layoutYProperty());
-                btnPionsWagon.setVisible(true);
-                btnPionsWagon.setDisable(false);
-                jeu.nouveauxPionsWagonsDemandes();
-            }
-        });
-
-        pionsBateau.getIcon().setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                Button btnDestination = ((VueDuJeu) getScene().getRoot()).getBtnDestination();
-                btnDestination.setVisible(false);
-                btnPionsBateau.layoutXProperty().bind(btnDestination.layoutXProperty());
-                btnPionsBateau.layoutYProperty().bind(btnDestination.layoutYProperty());
-                btnPionsBateau.setVisible(true);
-                btnPionsBateau.setDisable(false);
-                jeu.nouveauxPionsBateauxDemandes();
-            }
-        });
 
         for (IJoueur j : jeu.getJoueurs()) {
             j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
