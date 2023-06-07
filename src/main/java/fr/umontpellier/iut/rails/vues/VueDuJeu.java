@@ -86,7 +86,6 @@ public class VueDuJeu extends GridPane {
         }
 
         setId("gameScene");
-
         borderTop.prefWidthProperty().bind(this.widthProperty());
         borderDown.prefWidthProperty().bind(this.widthProperty());
         bottomColor.prefWidthProperty().bind(this.widthProperty());

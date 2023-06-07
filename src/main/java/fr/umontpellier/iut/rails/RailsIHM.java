@@ -36,6 +36,8 @@ public class RailsIHM extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        primaryStage.setFullScreen(true);
+        primaryStage.setTitle("Les Aventuriers du Rail");
         debuterJeu();
     }
 
