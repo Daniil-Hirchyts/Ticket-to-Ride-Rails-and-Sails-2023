@@ -15,7 +15,7 @@ import java.util.Map;
  * On peut éventuellement proposer de rejouer, et donc de revenir à la fenêtre principale
  *
  */
-public class VueResultats extends GridPane {
+public class VueResultats extends Pane {
 
     private static final double ASPECT_RATIO = 16.0/9.0;
     private Map<IJoueur.CouleurJoueur, ImageView> avatarsJoueurs;

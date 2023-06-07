@@ -4,6 +4,7 @@ import fr.umontpellier.iut.rails.IJoueur;
 import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,6 +27,7 @@ public class VueFlag extends Pane {
     private ImageView iconFlag;
     @FXML
     private Label valueFlag;
+
 
     IJoueur joueur;
 
@@ -54,5 +56,9 @@ public class VueFlag extends Pane {
 //        circleFlag.setStyle("-fx-fill: " + joueur.getCouleur() + ";");
 //        iconFlag.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/flag/icon/" + joueur.getCouleur() + ".png"))));
 //        valueFlag.textProperty().set(String.valueOf(joueur.getNbWagons()));
+    }
+
+    public Node getIcon() {
+        return iconFlag;
     }
 }

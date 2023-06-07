@@ -224,4 +224,8 @@ public class VueDuJeu extends GridPane {
     public IJeu getJeu() {
         return jeu;
     }
+
+    public Button getBtnDestination() {
+        return btnDestination;
+    }
 }

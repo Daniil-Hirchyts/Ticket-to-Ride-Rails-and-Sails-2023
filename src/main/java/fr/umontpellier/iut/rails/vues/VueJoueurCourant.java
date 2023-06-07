@@ -55,10 +55,13 @@ public class VueJoueurCourant extends GridPane {
     private Label scoreLabel;
     @FXML
     private HBox playerCartesBox;
-    //    @FXML
-//    private Button btnPionsBateau;
-//    @FXML
-//    private Button btnPionsWagon;
+
+    private VueFlag pionsWagon;
+    private VueFlag pionsBateau;
+    private VueFlag pionsPort;
+
+    private TextField btnPionsBateau;
+    private TextField btnPionsWagon;
     @FXML
     private HBox flagsBox;
 
@@ -70,6 +73,10 @@ public class VueJoueurCourant extends GridPane {
     public VueJoueurCourant(IJeu jeu, Map<IJoueur.CouleurJoueur, ImageView> avatarList) {
         this.jeu = jeu;
         this.avatarList = avatarList;
+        btnPionsWagon.setDisable(true);
+        btnPionsWagon.setVisible(false);
+        btnPionsBateau.setDisable(true);
+        btnPionsBateau.setVisible(false);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/playerInterface.fxml"));
             loader.setRoot(this);
@@ -88,9 +95,9 @@ public class VueJoueurCourant extends GridPane {
             wagons.bind(newValue.nbPionsWagonsProperty());
             bateaux.bind(newValue.nbPionsBateauxProperty());
             ports = newValue.getNbPorts();
-            VueFlag pionsWagon = new VueFlag(newValue, wagons, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/train.png"))), "wagons");
-            VueFlag pionsBateau = new VueFlag(newValue, bateaux, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/ship.png"))), "bateaux");
-            VueFlag pionsPort = new VueFlag(newValue, ports, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/ancor.png"))), "ports");
+            pionsWagon = new VueFlag(newValue, wagons, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/train.png"))), "wagons");
+            pionsBateau = new VueFlag(newValue, bateaux, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/ship.png"))), "bateaux");
+            pionsPort = new VueFlag(newValue, ports, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/ancor.png"))), "ports");
             pionsWagon.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
             pionsBateau.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
             pionsPort.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
@@ -99,6 +106,32 @@ public class VueJoueurCourant extends GridPane {
             scoreLabel.setText(valueOf(newValue.getScore()));
             playerAvatar.setImage(avatarList.get(newValue.getCouleur()).getImage());
             playerLabelColorBackground.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/current-player/score-background/" + newValue.getCouleur().toString() + ".png"))));
+        });
+
+        pionsWagon.getIcon().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Button btnDestination = ((VueDuJeu) getScene().getRoot()).getBtnDestination();
+                btnDestination.setVisible(false);
+                btnPionsWagon.layoutXProperty().bind(btnDestination.layoutXProperty());
+                btnPionsWagon.layoutYProperty().bind(btnDestination.layoutYProperty());
+                btnPionsWagon.setVisible(true);
+                btnPionsWagon.setDisable(false);
+                jeu.nouveauxPionsWagonsDemandes();
+            }
+        });
+
+        pionsBateau.getIcon().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Button btnDestination = ((VueDuJeu) getScene().getRoot()).getBtnDestination();
+                btnDestination.setVisible(false);
+                btnPionsBateau.layoutXProperty().bind(btnDestination.layoutXProperty());
+                btnPionsBateau.layoutYProperty().bind(btnDestination.layoutYProperty());
+                btnPionsBateau.setVisible(true);
+                btnPionsBateau.setDisable(false);
+                jeu.nouveauxPionsBateauxDemandes();
+            }
         });
 
         for (IJoueur j : jeu.getJoueurs()) {
