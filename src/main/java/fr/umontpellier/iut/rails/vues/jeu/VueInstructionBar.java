@@ -59,9 +59,9 @@ public class VueInstructionBar extends Pane {
                 tt3.setDuration(javafx.util.Duration.millis(2000));
                 tt.setDuration(javafx.util.Duration.millis(2000));
 
-                tt2.setByY(-62);
-                tt3.setByY(-62);
-                tt.setByY(-62);
+                tt2.setByY(-50);
+                tt3.setByY(-50);
+                tt.setByY(-50);
 
                 tt.setOnFinished(actionEvent -> {
                     System.out.println(instructionBarArrowDown);
@@ -89,9 +89,9 @@ public class VueInstructionBar extends Pane {
                 tt.setDuration(javafx.util.Duration.millis(2000));
 
 
-                tt2.setByY(62);
-                tt3.setByY(62);
-                tt.setByY(62);
+                tt2.setByY(50);
+                tt3.setByY(50);
+                tt.setByY(50);
 
                 tt.setOnFinished(actionEvent -> {
                     System.out.println(instructionBarArrowUp);

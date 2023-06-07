@@ -11,7 +11,7 @@
             <Image url="@../../images/instructionPopUp/instructionBar.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="instructionBarArrow" fitHeight="52.0" fitWidth="270.0" layoutX="354.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="instructionBarArrow" fitHeight="24.0" fitWidth="244.0" layoutX="415.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/instructionPopUp/instructionBarArrowUp.png" />
          </image>

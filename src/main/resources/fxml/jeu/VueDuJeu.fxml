@@ -21,6 +21,7 @@
         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" valignment="BOTTOM" />
     </rowConstraints>
     <children>
+      <VBox fx:id="containerInstruction" alignment="BOTTOM_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" GridPane.columnSpan="3" />
         <GridPane fx:id="rightVBox" minHeight="-Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" />
@@ -71,8 +72,6 @@
             </children>
         </GridPane>
         <Pane fx:id="borderTop" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" GridPane.columnSpan="3" />
-      <VBox fx:id="containerInstruction" alignment="BOTTOM_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="140.0" GridPane.columnSpan="3" />
-      <Pane fx:id="borderTopMask" layoutX="10.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" GridPane.columnSpan="3" />
         <Pane fx:id="bottomColor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
             <children>
                 <Pane fx:id="borderDown" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" />
@@ -90,10 +89,10 @@
                 <ColumnConstraints halignment="CENTER" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <VBox fx:id="console" alignment="TOP_CENTER" spacing="5.0" GridPane.columnIndex="1">
+                <VBox fx:id="console" alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" spacing="5.0" GridPane.columnIndex="1">
                     <children>
                         <Label styleClass="labelsIMFellEnglish" text="Console" textFill="WHITE" translateY="-7.0">
                             <font>

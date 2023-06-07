@@ -88,7 +88,7 @@ public class VueDuJeu extends GridPane {
 
         setId("gameScene");
         borderTop.prefWidthProperty().bind(this.widthProperty());
-        borderTopMask.prefWidthProperty().bind(this.widthProperty());
+//        borderTopMask.prefWidthProperty().bind(this.widthProperty());
         borderDown.prefWidthProperty().bind(this.widthProperty());
         bottomColor.prefWidthProperty().bind(this.widthProperty());
 
@@ -130,11 +130,15 @@ public class VueDuJeu extends GridPane {
         setColumnSpan(vueJoueurCourant, 3);
         instructionBar = new VueInstructionBar(this);
         containerInstruction.getChildren().add(instructionBar);
+        instructionBar.setTranslateY(20);
         getChildren().addAll(plateau);
         plateau.toBack();
         VueAutresJoueurs vueAutresJoueurs = new VueAutresJoueurs(jeu, avatarList);
         topGridPane.add(vueAutresJoueurs, 0, 0);
         vueAutresJoueurs.creerBindings();
+        vueAutresJoueurs.setTranslateY(-15);
+        vueAutresJoueurs.setScaleX(1.1);
+        vueAutresJoueurs.setScaleY(1.1);
         ConsoleLogger.getInstance(consoleHistory, consoleScrollPane);
     }
 
