@@ -36,8 +36,7 @@ public class RailsIHM extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        primaryStage.setFullScreen(true);
-        primaryStage.setTitle("Les Aventuriers du Rail");
+//        primaryStage.setFullScreen(true);
         debuterJeu();
     }
 
@@ -93,7 +92,6 @@ public class RailsIHM extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Rails");
         primaryStage.centerOnScreen();
-//        primaryStage.setFullScreen(true);
         primaryStage.setMaxWidth(Screen.getPrimary().getBounds().getWidth());
         primaryStage.setMaxHeight(Screen.getPrimary().getBounds().getHeight());
         Graphe graphe = new Graphe(jeu.getRoutesLibres());

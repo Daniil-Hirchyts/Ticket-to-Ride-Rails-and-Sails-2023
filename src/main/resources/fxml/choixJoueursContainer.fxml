@@ -23,7 +23,9 @@
             <Image url="@../images/elements/player-choose/train.png" />
          </image>
       </ImageView>
-      <HBox id="background-bar" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowSpan="3">
+      <HBox id="background-bar" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="3" />
+      <HBox fx:id="backgroundBarBlur" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="3" />
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowSpan="3">
          <children>
             <HBox id="top-bar-background" fx:id="topBarBackground" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" prefWidth="1280.0">
                <children>
@@ -50,7 +52,6 @@
             </HBox>
          </children>
       </HBox>
-      <HBox fx:id="backgroundBarBlur" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="3" />
       <VBox fx:id="titleBox" alignment="BOTTOM_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <VBox alignment="CENTER_RIGHT" maxWidth="-Infinity" prefWidth="600.0">

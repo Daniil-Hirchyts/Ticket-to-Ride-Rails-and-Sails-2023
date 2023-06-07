@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
@@ -33,7 +34,6 @@ public class VueChoixJoueurs extends Stage {
     private static final double ASPECT_RATIO = 16.0/9.0;
     private final ObservableList<String> nomsJoueurs;
     private Map<IJoueur.CouleurJoueur, ImageView> avatarsJoueurs;
-    private int nbJoueurs;
     private List<Integer> compteursCouleurs = new ArrayList<>(5);
     private IntegerProperty nbJoueursProperty = new SimpleIntegerProperty(5);
     private ObservableList<TextField> textFields;
@@ -54,7 +54,7 @@ public class VueChoixJoueurs extends Stage {
         genererChampsJoueurs(nbJoueursProperty.get());
 
         setScene(new Scene(root, 1280, 800));
-        setFullScreen(true);
+//        setFullScreen(true);
         setTitle("Choix des joueurs");
         show();
     }
@@ -86,33 +86,23 @@ public class VueChoixJoueurs extends Stage {
             IJoueur.CouleurJoueur couleur = IJoueur.CouleurJoueur.values()[i];
 
             String PNG = ".png";
-            HBox playerTextField = new HBox();
-            playerTextField.setId("playerChoiceBackground");
-            playerTextField.setStyle("-fx-background-image: url('/images/elements/player-choose/background/" + couleur + PNG + "');");
-            playerTextField.prefWidthProperty().bind(root.getVboxJoueurs().prefWidthProperty().divide(1.8));
-            playerTextField.prefHeightProperty().bind(root.getVboxJoueurs().prefHeightProperty().divide(5).divide(1.2));
-            playerTextField.setMaxHeight(USE_PREF_SIZE);
-            playerTextField.setMaxWidth(USE_PREF_SIZE);
-            playerTextField.setMinHeight(USE_PREF_SIZE);
-            playerTextField.setMinWidth(USE_PREF_SIZE);
-
             int position = i + 1;
             compteursCouleurs.add(i, position);
 
-            ImageView avatar = new ImageView(new Image("images/avatars/" + couleur + "/avatar-" + position + ".png"));
+            VueImageChoix avatar = new VueImageChoix();
+            avatar.changeBackgroundImage("/images/elements/player-choose/background/" + couleur + PNG);
+            avatar.getAvatar().setImage(new Image("images/avatars/" + couleur + "/avatar-" + position + PNG));
+            avatar.getBackgroundColorAvatar().setImage(new Image("images/elements/player-interface/avatar/back-color/" + couleur + PNG));
+            avatar.getTextFieldJoueur().setId("playerChoiceTextField");
+
             avatar.setOnMouseClicked(event -> {
                 if (compteursCouleurs.get(finalI) == 5) compteursCouleurs.set(finalI, 1);
                 else compteursCouleurs.set(finalI, compteursCouleurs.get(finalI) + 1);
-                avatar.setImage(new Image("images/avatars/" + couleur + "/avatar-" + compteursCouleurs.get(finalI) + ".png"));
+                avatar.getAvatar().setImage(new Image("images/avatars/" + couleur + "/avatar-" + compteursCouleurs.get(finalI) + ".png"));
             });
-            avatar.setFitHeight(90);
-            avatar.setFitWidth(75);
-            TextField nomJoueur = new TextField();
-            nomJoueur.setId("playerChoiceTextField");
-            playerTextField.getChildren().addAll(avatar, nomJoueur);
-            textFields.add(nomJoueur);
-            avatarsJoueurs.put(couleur, avatar);
-            root.getVboxJoueurs().getChildren().add(playerTextField);
+            textFields.add(avatar.getTextFieldJoueur());
+            avatarsJoueurs.put(couleur, avatar.getAvatar());
+            root.getVboxJoueurs().getChildren().add(avatar);
         }
     }
 
