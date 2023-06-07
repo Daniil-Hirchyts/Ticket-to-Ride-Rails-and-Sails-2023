@@ -25,13 +25,13 @@ import java.util.Optional;
 
 public class RailsIHM extends Application {
 
-    private static final double ASPECT_RATIO = 16.0/9.0;
+    private static final double ASPECT_RATIO = 16.0 / 9.0;
     private Map<IJoueur.CouleurJoueur, ImageView> avatars;
     private VueChoixJoueurs vueChoixJoueurs;
     private Stage primaryStage;
     private Jeu jeu;
     private BooleanProperty partieTerminee;
-    private final boolean avecVueChoixJoueurs = false;
+    private final boolean avecVueChoixJoueurs = true;
 
     @Override
     public void start(Stage primaryStage) {
@@ -79,38 +79,45 @@ public class RailsIHM extends Application {
             avatars = FXCollections.observableHashMap();
             int i = 1;
             for (IJoueur.CouleurJoueur couleur : IJoueur.CouleurJoueur.values()) {
-                avatars.put(couleur, new ImageView(new Image("images/avatars/" + couleur.name() + "/avatar-"+(i++)+".png")));
+                avatars.put(couleur, new ImageView(new Image("images/avatars/" + couleur.name() + "/avatar-" + (i++) + ".png")));
             }
         }
         VueDuJeu vueDuJeu = new VueDuJeu(jeu, avatars);
         Scene scene = new Scene(vueDuJeu, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran); // la scene doit être créée avant de mettre en place les bindings
         vueDuJeu.creerBindings();
-        jeu.run(); // le jeu doit être démarré après que les bindings ont été mis en place
-        //TODO : A ACTIVER POUR LA VERSION FINALE
+        jeu.run();
         primaryStage.setMinWidth(Screen.getPrimary().getBounds().getWidth() / 2);
         primaryStage.setMinHeight(Screen.getPrimary().getBounds().getHeight() / 2);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Rails");
         primaryStage.centerOnScreen();
-        primaryStage.setFullScreen(true);
+//        primaryStage.setFullScreen(true);
         primaryStage.setMaxWidth(Screen.getPrimary().getBounds().getWidth());
         primaryStage.setMaxHeight(Screen.getPrimary().getBounds().getHeight());
         Graphe graphe = new Graphe(jeu.getRoutesLibres());
+
+//        TODO : A DESACTIVER POUR LA VERSION FINALE
+//        VueResultats vueResultats = new VueResultats(this, avatars);
+//        Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
+//        primaryStage.setScene(sceneResultats);
+
 //        TODO : A ACTIVER POUR LA VERSION FINALE
-        primaryStage.setOnCloseRequest(event -> {
-            this.arreterJeu();
-            event.consume();
-        });
-        VueResultats vueResultats = new VueResultats(this, avatars);
-        Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
-        primaryStage.setScene(sceneResultats);
-//        jeu.finDePartieProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue) {
-//                VueResultats vueResultats = new VueResultats(this, avatars);
-//                Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
-//                primaryStage.setScene(sceneResultats);
-//            }
+
+        primaryStage.setScene(scene);
+
+//        primaryStage.setOnCloseRequest(event -> {
+//            this.arreterJeu();
+//            event.consume();
 //        });
+
+        jeu.finDePartieProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                VueResultats vueResultats = new VueResultats(this, avatars);
+                Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
+                primaryStage.setScene(sceneResultats);
+            }
+        });
+
         primaryStage.show();
     }
 

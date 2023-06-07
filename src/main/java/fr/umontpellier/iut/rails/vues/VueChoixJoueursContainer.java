@@ -3,26 +3,37 @@ package fr.umontpellier.iut.rails.vues;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
+import javafx.scene.layout.VBox;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
 
 import static javafx.scene.text.Font.loadFont;
 
 public class VueChoixJoueursContainer extends GridPane {
 
     @FXML
-    private ImageView finalTrain;
+    private GridPane interfaceOfChoose;
     @FXML
     private HBox topBarBackground;
+    @FXML
+    private VBox titleBox;
+    @FXML
+    private VBox vboxJoueurs;
+    @FXML
+    private VBox btnBox;
+    @FXML
+    private Button btnStartChoix;
+    @FXML
+    private Button btnQuitter;
+    @FXML
+    private Button validation;
+    @FXML
+    private ImageView finalTrain;
+
     public VueChoixJoueursContainer() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/choixJoueursContainer.fxml"));
@@ -35,13 +46,24 @@ public class VueChoixJoueursContainer extends GridPane {
         setId("choixJoueursContainer");
         topBarBackground.prefWidthProperty().bind(this.widthProperty());
 
+        interfaceOfChoose.setVisible(false);
         startAnimationTrain();
         createBindings();
-
     }
+
     private void createBindings() {
         finalTrain.fitHeightProperty().bind(this.heightProperty().divide(2));
         finalTrain.fitWidthProperty().bind(this.widthProperty().divide(2));
+
+        btnQuitter.setOnAction(event -> {
+            System.exit(0);
+        });
+
+        btnStartChoix.setOnAction(event -> {
+            interfaceOfChoose.setVisible(true);
+            titleBox.setVisible(false);
+            btnBox.setVisible(false);
+        });
     }
 
     private void startAnimationTrain() {
@@ -51,5 +73,13 @@ public class VueChoixJoueursContainer extends GridPane {
         translateTransition.setFromX(-finalTrain.getFitWidth());
         translateTransition.setToX(finalTrain.getX());
         translateTransition.play();
+    }
+
+    public VBox getVboxJoueurs() {
+        return vboxJoueurs;
+    }
+
+    public Button getValidation() {
+        return validation;
     }
 }

@@ -5,26 +5,22 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 /**
  * Cette classe correspond à une nouvelle fenêtre permettant de choisir le nombre et les noms des joueurs de la partie.
@@ -38,28 +34,25 @@ public class VueChoixJoueurs extends Stage {
     private final ObservableList<String> nomsJoueurs;
     private Map<IJoueur.CouleurJoueur, ImageView> avatarsJoueurs;
     private int nbJoueurs;
-    private List<Integer> compteursCouleurs;
-    private VBox vboxJoueurs;
-    private Button validation;
-    private IntegerProperty nbJoueursProperty;
+    private List<Integer> compteursCouleurs = new ArrayList<>(5);
+    private IntegerProperty nbJoueursProperty = new SimpleIntegerProperty(5);
     private ObservableList<TextField> textFields;
+    private VueChoixJoueursContainer root;
 
     public ObservableList<String> nomsJoueursProperty() {
         return nomsJoueurs;
     }
 
     public VueChoixJoueurs() {
-        nbJoueursProperty = new SimpleIntegerProperty(5);
         avatarsJoueurs = FXCollections.observableHashMap();
         nomsJoueurs = FXCollections.observableArrayList();
         textFields = FXCollections.observableArrayList();
-        compteursCouleurs = new ArrayList<>(5);
-        VueChoixJoueursContainer root = new VueChoixJoueursContainer();
-        vboxJoueurs = new VBox();
-        validation = new Button("Valider");
-        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+
+        root = new VueChoixJoueursContainer();
+
         creerBinding();
         genererChampsJoueurs(nbJoueursProperty.get());
+
         setScene(new Scene(root, 1280, 800));
         setFullScreen(true);
         setTitle("Choix des joueurs");
@@ -68,46 +61,59 @@ public class VueChoixJoueurs extends Stage {
 
     private void creerBinding() {
         ChangeListener<Number> dimensionListener = (observable, oldValue, newValue) -> {
-            if (observable == this.widthProperty()) {
-                setHeight(this.getWidth() / ASPECT_RATIO);
-            } else if (observable == this.heightProperty()) {
-                setWidth(this.getHeight() * ASPECT_RATIO);
-            }
+            if (observable == this.widthProperty()) setHeight(this.getWidth() / ASPECT_RATIO);
+            else if (observable == this.heightProperty()) setWidth(this.getHeight() * ASPECT_RATIO);
         };
-
         this.widthProperty().addListener(dimensionListener);
         this.heightProperty().addListener(dimensionListener);
-
-        validation.setOnAction(event -> {
+        root.getValidation().setOnAction(event -> {
             nomsJoueurs.clear();
             setListeDesNomsDeJoueurs();
+        });
+        root.getVboxJoueurs().prefWidthProperty().bind(this.widthProperty().divide(3));
+        root.getVboxJoueurs().prefHeightProperty().bind(this.heightProperty().divide(1.5));
+        this.heightProperty().addListener((observable, oldValue, newValue) -> {
+            if (observable == this.heightProperty()) {
+                if (this.getHeight() < 600) root.getValidation().setStyle("-fx-scale-x: 0.75;" + "-fx-scale-y: 0.75");
+                else root.getValidation().setStyle("-fx-scale-x: 1;" + "-fx-scale-y: 1");
+            }
         });
     }
 
     protected void genererChampsJoueurs(int nbJoueurs) {
         for (int i = 0; i < nbJoueurs; i++) {
             int finalI = i;
-            HBox playerTextField = new HBox();
             IJoueur.CouleurJoueur couleur = IJoueur.CouleurJoueur.values()[i];
+
+            String PNG = ".png";
+            HBox playerTextField = new HBox();
+            playerTextField.setId("playerChoiceBackground");
+            playerTextField.setStyle("-fx-background-image: url('/images/elements/player-choose/background/" + couleur + PNG + "');");
+            playerTextField.prefWidthProperty().bind(root.getVboxJoueurs().prefWidthProperty().divide(1.8));
+            playerTextField.prefHeightProperty().bind(root.getVboxJoueurs().prefHeightProperty().divide(5).divide(1.2));
+            playerTextField.setMaxHeight(USE_PREF_SIZE);
+            playerTextField.setMaxWidth(USE_PREF_SIZE);
+            playerTextField.setMinHeight(USE_PREF_SIZE);
+            playerTextField.setMinWidth(USE_PREF_SIZE);
+
             int position = i + 1;
             compteursCouleurs.add(i, position);
+
             ImageView avatar = new ImageView(new Image("images/avatars/" + couleur + "/avatar-" + position + ".png"));
             avatar.setOnMouseClicked(event -> {
                 if (compteursCouleurs.get(finalI) == 5) compteursCouleurs.set(finalI, 1);
                 else compteursCouleurs.set(finalI, compteursCouleurs.get(finalI) + 1);
                 avatar.setImage(new Image("images/avatars/" + couleur + "/avatar-" + compteursCouleurs.get(finalI) + ".png"));
             });
-            avatar.setFitHeight(60);
-            avatar.setFitWidth(50);
-            Label Joueurs = new Label();
+            avatar.setFitHeight(90);
+            avatar.setFitWidth(75);
             TextField nomJoueur = new TextField();
-            Joueurs.setText("Joueur " + position + " : ");
-            playerTextField.getChildren().addAll(avatar, Joueurs, nomJoueur);
+            nomJoueur.setId("playerChoiceTextField");
+            playerTextField.getChildren().addAll(avatar, nomJoueur);
             textFields.add(nomJoueur);
             avatarsJoueurs.put(couleur, avatar);
-            vboxJoueurs.getChildren().add(playerTextField);
+            root.getVboxJoueurs().getChildren().add(playerTextField);
         }
-        vboxJoueurs.getChildren().add(validation);
     }
 
     public List<String> getNomsJoueurs() {

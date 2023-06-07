@@ -123,6 +123,37 @@ Label {
     -fx-background-size: 100% 100%;
 }
 
+#vboxJoueurs {
+    -fx-background-image: url("/images/elements/player-choose/background.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(6, 6, 3, 0.25), 2, 0, 3, 3);
+}
+
+#playerChoiceBackground {
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+}
+
+#playerChoiceTextField {
+    -fx-background-image: url("/images/elements/player-choose/textField.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-font-size: 20px;
+    -fx-text-fill: black;
+    -fx-font-family: 'IM Fell English SC', serif;
+    -fx-max-height: 20px;
+    -fx-max-width: 175px;
+    -fx-translate-y: 20px;
+
+}
+
 #gameScene {
     -fx-background-image: url("/images/background/background-pattern.png");
     -fx-background-repeat: repeat;
