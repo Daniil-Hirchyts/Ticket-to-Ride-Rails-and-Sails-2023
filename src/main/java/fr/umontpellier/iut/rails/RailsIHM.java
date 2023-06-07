@@ -3,6 +3,7 @@ package fr.umontpellier.iut.rails;
 import fr.umontpellier.iut.rails.mecanique.Graphe;
 import fr.umontpellier.iut.rails.mecanique.Jeu;
 import fr.umontpellier.iut.rails.vues.debut.VueChoixJoueurs;
+import fr.umontpellier.iut.rails.vues.fin.VueResultats;
 import fr.umontpellier.iut.rails.vues.jeu.VueDuJeu;
 import fr.umontpellier.iut.rails.vues.layout.DonneesGraphiques;
 import javafx.application.Application;
@@ -25,6 +26,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class RailsIHM extends Application {
+
     private static final double ASPECT_RATIO = 16.0 / 9.0;
     private Map<IJoueur.CouleurJoueur, ImageView> avatars;
     private VueChoixJoueurs vueChoixJoueurs;
@@ -38,6 +40,7 @@ public class RailsIHM extends Application {
         this.primaryStage = primaryStage;
 //        this.primaryStage.setFullScreen(true);
         debuterJeu();
+        //
     }
 
     public void debuterJeu() {
@@ -103,18 +106,18 @@ public class RailsIHM extends Application {
 //        Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
 //        primaryStage.setScene(sceneResultats);
 //        TODO : A ACTIVER POUR LA VERSION FINALE
-//        primaryStage.setOnCloseRequest(event -> {
-//            this.arreterJeu();
-//            event.consume();
-//        });
+        primaryStage.setOnCloseRequest(event -> {
+            this.arreterJeu();
+            event.consume();
+        });
 
-//        jeu.finDePartieProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue) {
-//                VueResultats vueResultats = new VueResultats(this, avatars);
-//                Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
-//                primaryStage.setScene(sceneResultats);
-//            }
-//        });
+        jeu.finDePartieProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                VueResultats vueResultats = new VueResultats(this, avatars);
+                Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
+                primaryStage.setScene(sceneResultats);
+            }
+        });
 
         primaryStage.show();
     }

@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -33,6 +34,7 @@ import static javafx.beans.binding.Bindings.when;
 public class VueDuJeu extends GridPane {
 
     private IJeu jeu;
+    private VueInstructionBar instructionBar;
     private final VuePlateau plateau;
     @FXML
     private ImageView pileCard;
@@ -121,11 +123,11 @@ public class VueDuJeu extends GridPane {
         plateau = new VuePlateau(jeu);
         setRowIndex(plateau, 1);
         setColumnIndex(plateau, 1);
-
         VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu, avatarList);
         add(vueJoueurCourant, 0, 2);
         setColumnSpan(vueJoueurCourant, 3);
-        getChildren().addAll(plateau);
+        instructionBar = new VueInstructionBar(this);
+        getChildren().addAll(plateau, instructionBar);
         plateau.toBack();
         VueAutresJoueurs vueAutresJoueurs = new VueAutresJoueurs(jeu, avatarList);
         topGridPane.add(vueAutresJoueurs, 0, 0);
@@ -229,4 +231,5 @@ public class VueDuJeu extends GridPane {
     public Button getBtnDestination() {
         return btnDestination;
     }
+
 }

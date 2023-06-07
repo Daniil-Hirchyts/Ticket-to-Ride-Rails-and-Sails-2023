@@ -84,6 +84,7 @@ public class VueChoixJoueurs extends Stage {
                 else compteursCouleurs.set(finalI, compteursCouleurs.get(finalI) + 1);
                 avatar.getAvatar().setImage(new Image("images/avatars/" + couleur + "/avatar-" + compteursCouleurs.get(finalI) + ".png"));
             });
+
             textFields.add(avatar.getTextFieldJoueur());
             avatarsJoueurs.put(couleur, avatar.getAvatar());
             root.getVboxJoueurs().getChildren().add(avatar);
