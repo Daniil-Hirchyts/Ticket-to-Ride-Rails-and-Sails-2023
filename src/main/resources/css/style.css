@@ -475,7 +475,23 @@ Label {
     -fx-stroke-width: 2;
 }
 
+#circlePosee {
+    -fx-stroke: none;
+    -fx-stroke-width: 0;
+}
+
 #rectPosee {
     -fx-stroke: none;
     -fx-stroke-width: 0;
+}
+
+.rectangleGlow {
+    -fx-stroke: #000000;
+    -fx-stroke-width: 2;
+}
+
+.cercleVilleGlow{
+    -fx-effect: dropshadow(three-pass-box, lightgreen, 2, 1, 0, 0);
+    -fx-stroke: #1f9e1f;
+    -fx-stroke-width: 2;
 }

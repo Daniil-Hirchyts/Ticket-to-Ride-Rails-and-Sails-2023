@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -37,6 +38,7 @@ public class VuePlateau extends Pane {
     private IDestination destinationListened;
 
     private Map<String, List<Rectangle>> RectangleDeLaRoute;
+    private Map<String , Circle> cercleDesVilles;
 
     public VuePlateau(IJeu jeu) {
         try {
@@ -44,6 +46,7 @@ public class VuePlateau extends Pane {
             this.jeu = jeu;
             this.destinationListened = null;
             this.RectangleDeLaRoute = new HashMap<>();
+            this.cercleDesVilles = new HashMap<>();
             loader.setRoot(this);
             loader.setController(this);
             loader.load();
@@ -85,6 +88,7 @@ public class VuePlateau extends Pane {
             getChildren().add(cerclePort);
             bindCerclePortAuPlateau(positionPortSurPlateau, cerclePort, ville);
             cerclePort.setOnMouseClicked(choixPort);
+            cercleDesVilles.put(nomPort, cerclePort);
         }
     }
 
@@ -168,11 +172,11 @@ public class VuePlateau extends Pane {
                     ImageView pionsPosee = new ImageView(new Image("images/gares/gare-" + couleurJoueur + ".png"));
                     System.out.println(cerclePort.centerXProperty().getValue() + " " + cerclePort.centerXProperty().getValue() + " " + cerclePort.radiusProperty().getValue());
                     //bind la position de l'image view à la position du rectangle
+                    cerclePort.setId("circlePosee");
                     pionsPosee.layoutXProperty().bind(cerclePort.centerXProperty().subtract(10));
                     pionsPosee.layoutYProperty().bind(cerclePort.centerYProperty().subtract(20));
                     pionsPosee.fitHeightProperty().bind(cerclePort.radiusProperty().add(20));
                     pionsPosee.fitWidthProperty().bind(cerclePort.radiusProperty().add(10));
-                    pionsPosee.setId("pionsPoseeW");
                     getChildren().add(pionsPosee);
                     return switch (ville.proprietaireProperty().get().getCouleur()) {
                         case ROUGE -> Color.valueOf("#d02a1b");
@@ -256,9 +260,7 @@ public class VuePlateau extends Pane {
 
             @Override
             protected Paint computeValue() {
-                //si destination est over
                 Paint couleur = Color.TRANSPARENT;
-                if (destinationListened != null)  couleur = Color.BLACK;
                 if (route.proprietaireProperty().getValue() != null) {
 
                     for (DonneesGraphiques.DonneesSegments segment : DonneesGraphiques.routes.get(route.getNom())) {
@@ -295,6 +297,10 @@ public class VuePlateau extends Pane {
         return RectangleDeLaRoute.get(route);
     }
 
+    public Circle getCercleDeLaVille(String ville) {
+        return cercleDesVilles.get(ville);
+    }
+
     public void setDestination(IDestination destinationListened) {
         this.destinationListened = destinationListened;
     }
@@ -311,6 +317,7 @@ private void ajouterVilles() {
         getChildren().add(cercleVille);
         bindCerclePortAuPlateau(positionVilleSurPlateau, cercleVille, ville);
         cercleVille.setOnMouseClicked(choixPort);
+        cercleDesVilles.put(nomVille, cercleVille);
     }
 }
 }

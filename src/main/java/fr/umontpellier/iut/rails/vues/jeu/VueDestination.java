@@ -3,6 +3,7 @@ package fr.umontpellier.iut.rails.vues.jeu;
 import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.mecanique.Graphe;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Glow;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
@@ -42,22 +43,29 @@ public class VueDestination extends VBox {
         this.setOnMouseEntered(event -> {
             List<Integer> villeToInteger = new ArrayList<>();
             for (String ville : destination.getVilles()) {
-                int idVIlle = vueDuJeu.getJeu().getIdVille(ville);
-                if (vueDuJeu.getJeu().getIdVille(ville) != -1) villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));
+                if (vueDuJeu.getJeu().getIdVille(ville) != -1) {
+                    vueDuJeu.getPlateau().getCercleDeLaVille(ville).getStyleClass().add("cercleVilleGlow");
+                    villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));
+                }
             }
             for (String route : constructListRoute(vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger)))
-                for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route))
-                    rectangle.setStyle("-fx-stroke: #000000; -fx-stroke-width: 2;");
-
+                for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)) {
+                    rectangle.getStyleClass().add("rectangleGlow");
+                }
         });
 
         this.setOnMouseExited(event -> {
             List<Integer> villeToInteger = new ArrayList<>();
             for (String ville : destination.getVilles())
-                if (vueDuJeu.getJeu().getIdVille(ville) != -1) villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));
+                if (vueDuJeu.getJeu().getIdVille(ville) != -1){
+                    vueDuJeu.getPlateau().getCercleDeLaVille(ville).getStyleClass().remove("cercleVilleGlow");
+                    villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));
+                }
             for (String route : constructListRoute(vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger)))
-                for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route))
-                    rectangle.setStyle("-fx-stroke: transparent; -fx-stroke-width: 0;");
+                for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)){
+                    rectangle.getStyleClass().remove("rectangleGlow");
+                }
+
         });
     }
 
