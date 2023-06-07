@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.rails.vues;
+package fr.umontpellier.iut.rails.vues.layout;
 
 import fr.umontpellier.iut.rails.IVille;
 import javafx.scene.image.Image;

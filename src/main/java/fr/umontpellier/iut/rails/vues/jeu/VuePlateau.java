@@ -1,11 +1,10 @@
-package fr.umontpellier.iut.rails.vues;
+package fr.umontpellier.iut.rails.vues.jeu;
 
 import fr.umontpellier.iut.rails.*;
-import fr.umontpellier.iut.rails.mecanique.data.Couleur;
+import fr.umontpellier.iut.rails.vues.layout.ConsoleLogger;
+import fr.umontpellier.iut.rails.vues.layout.DonneesGraphiques;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.ObjectBinding;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

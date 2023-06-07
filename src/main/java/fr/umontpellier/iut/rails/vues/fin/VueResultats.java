@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.rails.vues;
+package fr.umontpellier.iut.rails.vues.fin;
 
 import fr.umontpellier.iut.rails.IJoueur;
 import fr.umontpellier.iut.rails.RailsIHM;

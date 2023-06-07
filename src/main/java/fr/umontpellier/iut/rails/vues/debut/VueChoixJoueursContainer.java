@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.rails.vues;
+package fr.umontpellier.iut.rails.vues.debut;
 
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;

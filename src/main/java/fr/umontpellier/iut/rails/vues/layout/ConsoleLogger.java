@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.rails.vues;
+package fr.umontpellier.iut.rails.vues.layout;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
