@@ -58,7 +58,7 @@
                         <Image url="@../images/elements/current-player/score-background/local-player-support-score-Green.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="scoreLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="167.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="80.0" text="10" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="scoreLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="167.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="80.0" styleClass="labelsIMFellEnglish" text="10" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -72,7 +72,7 @@
                         <Image url="@../../images/elements/current-player/name-background.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="playerName" alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="4.0" prefHeight="41.0" prefWidth="144.0" text="Name" textAlignment="CENTER">
+                  <Label fx:id="playerName" alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="4.0" prefHeight="41.0" prefWidth="144.0" styleClass="labelsOrchardStreetNFW01Regular" text="Name" textAlignment="CENTER">
                      <font>
                         <Font size="25.0" />
                      </font>

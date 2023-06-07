@@ -45,7 +45,6 @@ public class VueAutresJoueurs extends HBox {
         for (int i = 0; i < nnJoueurs; i++) {
             if (jeu.getJoueurs().get(i) == joueur) continue;
             VuePlayerInfo vuePlayerInfo = new VuePlayerInfo(jeu.getJoueurs().get(i), avatarList.get(jeu.getJoueurs().get(i).getCouleur()));
-            vuePlayerInfo.creerBindings();
             if (nnJoueurs > 3) HBox.setHgrow(vuePlayerInfo, Priority.ALWAYS);
             getChildren().add(vuePlayerInfo);
         }

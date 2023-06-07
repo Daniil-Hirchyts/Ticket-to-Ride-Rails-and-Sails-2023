@@ -46,22 +46,6 @@ public class VueChoixJoueurs extends Stage {
         setTitle("Choix des joueurs");
         creerBinding();
         show();
-
-        //add a button to the left top corner
-        Button buttonExit = new Button("");
-        buttonExit.setOnAction(e -> Platform.exit());
-        root.getChildren().add(buttonExit);
-        buttonExit.setLayoutX(0);
-        buttonExit.setLayoutY(0);
-        buttonExit.setTranslateY(40);
-        buttonExit.setTranslateX(20);
-        buttonExit.setId("btnExit");
-        buttonExit.setPrefHeight(50);
-        buttonExit.setPrefWidth(50);
-        buttonExit.setMaxHeight(Region.USE_PREF_SIZE);
-        buttonExit.setMaxWidth(Region.USE_PREF_SIZE);
-        buttonExit.setMinHeight(Region.USE_PREF_SIZE);
-        buttonExit.setMinWidth(Region.USE_PREF_SIZE);
     }
 
     private void creerBinding() {

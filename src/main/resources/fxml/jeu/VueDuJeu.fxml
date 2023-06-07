@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -43,7 +44,11 @@
                               <Circle layoutX="129.0" layoutY="46.0" radius="21.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                            </children>
                         </Group>
-                        <Button fx:id="btnPasser" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="35.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="65.0" styleClass="hideBG" text="Passer" textAlignment="CENTER" textFill="WHITE" />
+                        <Button fx:id="btnPasser" alignment="CENTER" contentDisplay="CENTER" layoutX="35.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="65.0" text="Passer" textFill="WHITE">
+                           <styleClass>
+                              <String fx:value="hideBG" />
+                              <String fx:value="labelsOrchardStreetNFW01Regular" />
+                           </styleClass></Button>
                         <Button id="btnDestination" fx:id="btnDestination" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="27.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" styleClass="hideBG" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="1.0" />
@@ -88,7 +93,7 @@
             <children>
                 <VBox fx:id="console" alignment="TOP_CENTER" spacing="5.0" GridPane.columnIndex="1">
                     <children>
-                        <Label text="Console" textFill="WHITE" translateY="-7.0">
+                        <Label styleClass="labelsIMFellEnglish" text="Console" textFill="WHITE" translateY="-7.0">
                             <font>
                                 <Font size="18.0" />
                             </font>

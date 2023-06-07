@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -35,6 +36,8 @@ public class VueChoixJoueursContainer extends GridPane {
     private ImageView finalTrain;
     @FXML
     private HBox backgroundBarBlur;
+    private Button backButton = new Button("");
+
 
     public VueChoixJoueursContainer() {
         try {
@@ -47,12 +50,23 @@ public class VueChoixJoueursContainer extends GridPane {
         }
         setId("choixJoueursContainer");
         topBarBackground.prefWidthProperty().bind(this.widthProperty());
-
-        interfaceOfChoose.setVisible(false);
-        backgroundBarBlur.setVisible(false);
-
         startAnimationTrain();
         createBindings();
+
+        backButton.setLayoutX(0);
+        backButton.setLayoutY(0);
+        backButton.setTranslateY(40);
+        backButton.setTranslateX(20);
+        backButton.setId("btnExit");
+        backButton.setPrefHeight(50);
+        backButton.setPrefWidth(50);
+        backButton.setMaxHeight(Region.USE_PREF_SIZE);
+        backButton.setMaxWidth(Region.USE_PREF_SIZE);
+        backButton.setMinHeight(Region.USE_PREF_SIZE);
+        backButton.setMinWidth(Region.USE_PREF_SIZE);
+
+        switchEtat(true);
+        getChildren().add(backButton);
     }
 
     private void createBindings() {
@@ -63,11 +77,13 @@ public class VueChoixJoueursContainer extends GridPane {
             System.exit(0);
         });
 
+
         btnStartChoix.setOnAction(event -> {
-            interfaceOfChoose.setVisible(true);
-            titleBox.setVisible(false);
-            btnBox.setVisible(false);
-            backgroundBarBlur.setVisible(true);
+            switchEtat(false);
+        });
+
+        backButton.setOnAction(event -> {
+            switchEtat(true);
         });
     }
 
@@ -86,5 +102,13 @@ public class VueChoixJoueursContainer extends GridPane {
 
     public Button getValidation() {
         return validation;
+    }
+
+    private void switchEtat(boolean etat) {
+        interfaceOfChoose.setVisible(!etat);
+        titleBox.setVisible(etat);
+        btnBox.setVisible(etat);
+        backgroundBarBlur.setVisible(!etat);
+        backButton.setVisible(!etat);
     }
 }

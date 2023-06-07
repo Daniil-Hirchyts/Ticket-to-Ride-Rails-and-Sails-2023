@@ -50,21 +50,19 @@ public class VuePlayerInfo extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        creerBindings();
     }
 
     public void creerBindings() {
         wagons.bind(joueur.nbPionsWagonsProperty());
         bateaux.bind(joueur.nbPionsBateauxProperty());
         ports = joueur.getNbPorts();
-
         playerBackground.setStyle("-fx-background-image: url('/images/elements/player-interface/background/" + joueur.getCouleur() + PNG + "');");
         playerBackgroundAvatarColor.setStyle("-fx-background-image: url('/images/elements/player-interface/avatar/back-color/" + joueur.getCouleur() + PNG + "');");
-        playerNameLabel.textProperty().
-
-                set(joueur.getNom());
-        playerLabelScore.textProperty().
-
-                set(String.valueOf(joueur.getScore()));
+        playerNameLabel.textProperty().set(joueur.getNom());
+        playerNameLabel.getStyleClass().add("labelsIMFellEnglish");
+        playerLabelScore.textProperty().set(String.valueOf(joueur.getScore()));
+        playerLabelScore.getStyleClass().add("labelsIMFellEnglish");
         playerLabelScoreImage.setStyle("-fx-background-image: url('/images/elements/player-interface/label/" + joueur.getCouleur() + PNG + "');");
         playerBackgroundAvatarImage.setImage(avatar.getImage());
         VueFlag pionsWagon = new VueFlag(joueur, wagons, new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/train.png"))), "wagons");

@@ -25,21 +25,19 @@ import java.util.Map;
 import java.util.Optional;
 
 public class RailsIHM extends Application {
-
     private static final double ASPECT_RATIO = 16.0 / 9.0;
     private Map<IJoueur.CouleurJoueur, ImageView> avatars;
     private VueChoixJoueurs vueChoixJoueurs;
     private Stage primaryStage;
     private Jeu jeu;
     private BooleanProperty partieTerminee;
-    private final boolean avecVueChoixJoueurs = false;
+    private final boolean avecVueChoixJoueurs = true;
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-//        primaryStage.setFullScreen(true);
+//        this.primaryStage.setFullScreen(true);
         debuterJeu();
-        //
     }
 
     public void debuterJeu() {
@@ -58,6 +56,7 @@ public class RailsIHM extends Application {
         if (avecVueChoixJoueurs) {
             vueChoixJoueurs = new VueChoixJoueurs();
             vueChoixJoueurs.setNomsDesJoueursDefinisListener(quandLesNomsJoueursSontDefinis);
+//            vueChoixJoueurs.setFullScreen(true);
             vueChoixJoueurs.show();
         } else {
             demarrerPartie();
