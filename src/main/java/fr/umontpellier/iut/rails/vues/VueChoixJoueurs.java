@@ -39,20 +39,13 @@ public class VueChoixJoueurs extends Stage {
     private ObservableList<TextField> textFields;
     private VueChoixJoueursContainer root;
 
-    public ObservableList<String> nomsJoueursProperty() {
-        return nomsJoueurs;
-    }
-
     public VueChoixJoueurs() {
         avatarsJoueurs = FXCollections.observableHashMap();
         nomsJoueurs = FXCollections.observableArrayList();
         textFields = FXCollections.observableArrayList();
-
         root = new VueChoixJoueursContainer();
-
         creerBinding();
         genererChampsJoueurs(nbJoueursProperty.get());
-
         setScene(new Scene(root, 1280, 800));
 //        setFullScreen(true);
         setTitle("Choix des joueurs");
@@ -115,13 +108,6 @@ public class VueChoixJoueurs extends Stage {
      */
     public void setNomsDesJoueursDefinisListener(ListChangeListener<String> quandLesNomsDesJoueursSontDefinis) {
         nomsJoueurs.addListener(quandLesNomsDesJoueursSontDefinis);
-    }
-
-    /**
-     * Définit l'action à exécuter lorsque le nombre de participants change
-     */
-    protected void setChangementDuNombreDeJoueursListener(ChangeListener<Integer> quandLeNombreDeJoueursChange) {
-        nbJoueursProperty.addListener((InvalidationListener) quandLeNombreDeJoueursChange);
     }
 
     /**

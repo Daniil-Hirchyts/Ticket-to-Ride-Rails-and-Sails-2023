@@ -14,7 +14,7 @@
          </image>
       </ImageView>
       <Circle fx:id="circleFlag" fill="#3f1a0a" layoutX="20.0" layoutY="20.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <HBox alignment="CENTER" layoutX="5.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0">
+      <HBox fx:id="clickableFlag" alignment="CENTER" layoutX="5.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0">
          <children>
             <ImageView fx:id="iconFlag" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
