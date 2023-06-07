@@ -26,6 +26,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -96,35 +97,48 @@ public class VueJoueurCourant extends GridPane {
             pionsBateau.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
             pionsPort.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
 
-            pionsWagon.getIcon().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            pionsWagon.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                Button btnDestination = ((VueDuJeu) getScene().getRoot()).getBtnDestination();
-                btnDestination.setVisible(false);
-                TextField txtDestination = new TextField();
-                txtDestination.layoutXProperty().bind(btnDestination.layoutXProperty());
-                txtDestination.layoutYProperty().bind(btnDestination.layoutYProperty());
-                txtDestination.prefWidthProperty().bind(btnDestination.widthProperty());
-                txtDestination.prefHeightProperty().bind(btnDestination.heightProperty());
-                txtDestination.setVisible(true);
-                txtDestination.setDisable(false);
+                pionsWagon.getTextFieldChangePions().requestFocus();
+                pionsWagon.getIconFlag().setVisible(false);
+                pionsWagon.getCircleFlag().setFill(Color.WHITE);
                 jeu.nouveauxPionsWagonsDemandes();
+                pionsWagon.getTextField().setOnKeyPressed(new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent keyEvent) {
+                        if (keyEvent.getCode() == KeyCode.ENTER) {
+                            jeu.leNombreDePionsSouhaiteAEteRenseigne(pionsWagon.getTextField().getText());
+                            pionsWagon.getIconFlag().setVisible(true);
+                            pionsWagon.getCircleFlag().setStyle("-fx-fill: -fx-brown-flag;");
+                            pionsWagon.getTextField().setText("");
+                            pionsWagon.getTextField().setDisable(true);
+                            pionsWagon.getTextField().setVisible(false);
+                        }
+                    }
+                });
             }
         });
-        pionsBateau.getIcon().setOnMouseClicked(new EventHandler<MouseEvent>() {
+        pionsBateau.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                Button btnDestination = ((VueDuJeu) getScene().getRoot()).getBtnDestination();
-                TextField txtDestination = new TextField();
-                btnDestination.setVisible(false);
-                //resize du textfield pour qu'il soit de la même taille que le bouton
-                txtDestination.layoutXProperty().bind(btnDestination.layoutXProperty());
-                txtDestination.layoutYProperty().bind(btnDestination.layoutYProperty());
-                txtDestination.prefWidthProperty().bind(btnDestination.widthProperty());
-                txtDestination.prefHeightProperty().bind(btnDestination.heightProperty());
-                txtDestination.setVisible(true);
-                txtDestination.setDisable(false);
+                pionsBateau.getTextFieldChangePions().requestFocus();
+                pionsBateau.getIconFlag().setVisible(false);
+                pionsBateau.getCircleFlag().setFill(Color.WHITE);
                 jeu.nouveauxPionsBateauxDemandes();
+                pionsBateau.getTextField().setOnKeyPressed(new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent keyEvent) {
+                        if (keyEvent.getCode() == KeyCode.ENTER) {
+                            jeu.leNombreDePionsSouhaiteAEteRenseigne(pionsBateau.getTextField().getText());
+                            pionsBateau.getIconFlag().setVisible(true);
+                            pionsBateau.getCircleFlag().setStyle("-fx-fill: -fx-brown-flag;");
+                            pionsBateau.getTextField().setText("");
+                            pionsBateau.getTextField().setDisable(true);
+                            pionsBateau.getTextField().setVisible(false);
+                        }
+                    }
+                });
             }
         });
 

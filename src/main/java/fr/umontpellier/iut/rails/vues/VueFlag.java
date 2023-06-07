@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -24,6 +25,8 @@ public class VueFlag extends Pane {
     @FXML
     private Circle circleFlag;
     @FXML
+    private TextField textFieldChangePions;
+    @FXML
     private ImageView iconFlag;
     @FXML
     private Label valueFlag;
@@ -41,6 +44,8 @@ public class VueFlag extends Pane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        textFieldChangePions.setDisable(true);
+        textFieldChangePions.setVisible(false);
         iconFlag.setImage(icon);
         if (type.equals("wagons"))
             valueFlag.textProperty().bind(((IntegerProperty) o).asString());
@@ -58,7 +63,21 @@ public class VueFlag extends Pane {
 //        valueFlag.textProperty().set(String.valueOf(joueur.getNbWagons()));
     }
 
-    public Node getIcon() {
+    public TextField getTextFieldChangePions() {
+        textFieldChangePions.setDisable(false);
+        textFieldChangePions.setVisible(true);
+        return textFieldChangePions;
+    }
+
+    public TextField getTextField() {
+        return textFieldChangePions;
+    }
+
+    public ImageView getIconFlag() {
         return iconFlag;
+    }
+
+    public Circle getCircleFlag() {
+        return circleFlag;
     }
 }
