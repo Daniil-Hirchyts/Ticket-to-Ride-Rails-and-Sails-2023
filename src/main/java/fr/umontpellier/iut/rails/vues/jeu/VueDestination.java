@@ -23,15 +23,15 @@ public class VueDestination extends VBox {
         this(destination, false, vueDuJeu);
     }
 
-    public VueDestination(IDestination destination, boolean clickable,VueDuJeu vueDuJeu) {
+    public VueDestination(IDestination destination, boolean clickable, VueDuJeu vueDuJeu) {
         this.destination = destination;
         this.graphe = vueDuJeu.getJeu().getGraphe();
         for (String ville : destination.getVilles()) {
-            Label label = new Label(ville);
+            Label label = new Label("➤ " + ville);
             label.setId("destinationLabel");
+            label.getStyleClass().add("labelsIMFellEnglish");
             getChildren().add(label);
         }
-
         if (clickable) {
             this.setOnMouseClicked(event -> {
                 ((VueDuJeu) getScene().getRoot()).getJeu().uneDestinationAEteChoisie(destination);
@@ -43,33 +43,27 @@ public class VueDestination extends VBox {
             List<Integer> villeToInteger = new ArrayList<>();
             for (String ville : destination.getVilles()) {
                 int idVIlle = vueDuJeu.getJeu().getIdVille(ville);
-                if (vueDuJeu.getJeu().getIdVille(ville) != -1){villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));}
+                if (vueDuJeu.getJeu().getIdVille(ville) != -1) villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));
             }
-            for (String route : constructListRoute(vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger))) {
-                for(Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)){
+            for (String route : constructListRoute(vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger)))
+                for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route))
                     rectangle.setStyle("-fx-stroke: #000000; -fx-stroke-width: 2;");
-                }
-            }
+
         });
 
         this.setOnMouseExited(event -> {
             List<Integer> villeToInteger = new ArrayList<>();
-            for (String ville : destination.getVilles()) {
-                if (vueDuJeu.getJeu().getIdVille(ville) != -1){villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));}
-            }
-            for (String route : constructListRoute(vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger))) {
-                for(Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)){
+            for (String ville : destination.getVilles())
+                if (vueDuJeu.getJeu().getIdVille(ville) != -1) villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));
+            for (String route : constructListRoute(vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger)))
+                for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route))
                     rectangle.setStyle("-fx-stroke: transparent; -fx-stroke-width: 0;");
-                }
-            }
         });
     }
 
-    public List<String> constructListRoute(List<Integer> listeSommets){
+    public List<String> constructListRoute(List<Integer> listeSommets) {
         List<String> listeRoute = new ArrayList<>();
-        for (int i = 0; i < listeSommets.size()-1; i++) {
-            listeRoute.add(graphe.getArete(listeSommets.get(i),listeSommets.get(i+1)).route().getNom());
-        }
+        for (int i = 0; i < listeSommets.size() - 1; i++) listeRoute.add(graphe.getArete(listeSommets.get(i), listeSommets.get(i + 1)).route().getNom());
         return listeRoute;
     }
 

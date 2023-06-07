@@ -24,5 +24,6 @@ public class ConsoleLogger {
         consoleHistory.getChildren().addAll(label);
         consoleScrollPane.setVvalue(1);
         label.setId("consoleText");
+        label.getStyleClass().add("labelsIMFellEnglish");
     }
 }

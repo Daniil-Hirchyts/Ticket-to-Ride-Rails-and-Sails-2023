@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.rails.vues.debut;
 
 import fr.umontpellier.iut.rails.IJoueur;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -38,12 +40,28 @@ public class VueChoixJoueurs extends Stage {
         nomsJoueurs = FXCollections.observableArrayList();
         textFields = FXCollections.observableArrayList();
         root = new VueChoixJoueursContainer();
-        creerBinding();
         genererChampsJoueurs(nbJoueursProperty.get());
         setScene(new Scene(root, 1280, 800));
 //        setFullScreen(true);
         setTitle("Choix des joueurs");
+        creerBinding();
         show();
+
+        //add a button to the left top corner
+        Button buttonExit = new Button("");
+        buttonExit.setOnAction(e -> Platform.exit());
+        root.getChildren().add(buttonExit);
+        buttonExit.setLayoutX(0);
+        buttonExit.setLayoutY(0);
+        buttonExit.setTranslateY(40);
+        buttonExit.setTranslateX(20);
+        buttonExit.setId("btnExit");
+        buttonExit.setPrefHeight(50);
+        buttonExit.setPrefWidth(50);
+        buttonExit.setMaxHeight(Region.USE_PREF_SIZE);
+        buttonExit.setMaxWidth(Region.USE_PREF_SIZE);
+        buttonExit.setMinHeight(Region.USE_PREF_SIZE);
+        buttonExit.setMinWidth(Region.USE_PREF_SIZE);
     }
 
     private void creerBinding() {
@@ -57,14 +75,9 @@ public class VueChoixJoueurs extends Stage {
             nomsJoueurs.clear();
             setListeDesNomsDeJoueurs();
         });
-        root.getVboxJoueurs().prefWidthProperty().bind(this.widthProperty().divide(3));
-        root.getVboxJoueurs().prefHeightProperty().bind(this.heightProperty().divide(1.5));
-        this.heightProperty().addListener((observable, oldValue, newValue) -> {
-            if (observable == this.heightProperty()) {
-                if (this.getHeight() < 600) root.getValidation().setStyle("-fx-scale-x: 0.75;" + "-fx-scale-y: 0.75");
-                else root.getValidation().setStyle("-fx-scale-x: 1;" + "-fx-scale-y: 1");
-            }
-        });
+
+        root.getVboxJoueurs().scaleXProperty().bind(this.widthProperty().divide(1600));
+        root.getVboxJoueurs().scaleYProperty().bind(this.heightProperty().divide(900));
     }
 
     protected void genererChampsJoueurs(int nbJoueurs) {

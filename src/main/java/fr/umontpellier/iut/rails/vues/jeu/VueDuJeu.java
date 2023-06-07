@@ -33,7 +33,7 @@ import static javafx.beans.binding.Bindings.when;
 public class VueDuJeu extends GridPane {
 
     private IJeu jeu;
-    private VuePlateau plateau;
+    private final VuePlateau plateau;
     @FXML
     private ImageView pileCard;
     @FXML
@@ -50,15 +50,12 @@ public class VueDuJeu extends GridPane {
     private Pane pileBateauCarte;
     @FXML
     private Pane pileWagonCarte;
-
     @FXML
     private Pane borderTop;
     @FXML
     private Pane borderDown;
-
     @FXML
     private Pane bottomColor;
-    public static final String PNG = ".png";
     @FXML
     private Pane pileBateauCarteImage;
     @FXML
@@ -75,7 +72,7 @@ public class VueDuJeu extends GridPane {
     public VueDuJeu(IJeu jeu, Map<IJoueur.CouleurJoueur, ImageView> avatarList) {
         this.jeu = jeu;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameScene.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/VueDuJeu.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();
@@ -87,6 +84,8 @@ public class VueDuJeu extends GridPane {
         borderTop.prefWidthProperty().bind(this.widthProperty());
         borderDown.prefWidthProperty().bind(this.widthProperty());
         bottomColor.prefWidthProperty().bind(this.widthProperty());
+
+        String PNG = ".png";
 
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
             pileCartesDestinations.getChildren().clear();

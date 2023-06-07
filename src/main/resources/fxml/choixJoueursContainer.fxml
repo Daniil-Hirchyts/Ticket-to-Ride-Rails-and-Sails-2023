@@ -86,8 +86,8 @@
           <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
-          <RowConstraints valignment="CENTER" />
+          <RowConstraints valignment="BOTTOM" vgrow="ALWAYS" />
+          <RowConstraints minHeight="150.0" valignment="CENTER" />
         </rowConstraints>
          <children>
             <Button fx:id="validation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="110.0" prefWidth="250.0" text="Valider" textFill="WHITE" GridPane.rowIndex="1">
@@ -95,8 +95,14 @@
                   <String fx:value="btnMenu" />
                   <String fx:value="labelsOrchardStreetNFW01Regular" />
                </styleClass>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </Button>
-            <VBox fx:id="vboxJoueurs" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
+            <VBox fx:id="vboxJoueurs" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+               <padding>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+               </padding></VBox>
          </children>
       </GridPane>
    </children>

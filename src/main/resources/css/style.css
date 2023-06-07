@@ -171,10 +171,6 @@ Label {
     -fx-background-color: transparent;
     -fx-background: transparent;
     -fx-font-size: 15px;
-    -fx-text-fill: black;
-    -fx-max-height: 15px;
-    -fx-max-width: 160px;
-    -fx-translate-y: 20px;
     -fx-font-family: 'OrchardStreetNFW01-Regular';
 }
 
@@ -230,6 +226,8 @@ Label {
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: 100% 100%;
+    -fx-background-color: transparent;
+    -fx-background: transparent;
 }
 
 #actionPanel {

@@ -27,6 +27,7 @@ public class VueImageChoix extends GridPane {
             e.printStackTrace();
         }
         setId("playerChoiceBackground");
+        createBindings();
     }
 
     public ImageView getAvatar() {
@@ -43,5 +44,10 @@ public class VueImageChoix extends GridPane {
 
     public void changeBackgroundImage(String url) {
         setStyle("-fx-background-image: url('" + url + "' )");
+    }
+
+
+    private void createBindings() {
+        this.maxWidthProperty().bind(this.prefHeightProperty().multiply(3));
     }
 }

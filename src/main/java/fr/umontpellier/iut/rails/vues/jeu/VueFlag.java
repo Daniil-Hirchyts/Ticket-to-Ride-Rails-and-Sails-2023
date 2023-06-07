@@ -4,14 +4,11 @@ import fr.umontpellier.iut.rails.IJoueur;
 import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
@@ -37,7 +34,7 @@ public class VueFlag extends Pane {
     public VueFlag(IJoueur joueur, Object o, Image icon, String type) {
         this.joueur = joueur;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/flag.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/VueFlag.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();
@@ -54,6 +51,8 @@ public class VueFlag extends Pane {
         else if (type.equals("ports"))
             valueFlag.setText(String.valueOf(o));
         creerBindings();
+        valueFlag.getStyleClass().add("labelsIMFellEnglish");
+
     }
 
     public void creerBindings() {
