@@ -72,6 +72,8 @@ public class VueDuJeu extends GridPane {
     private Button btnPasser;
     @FXML
     private Button btnDestination;
+    @FXML
+    private VBox containerInstruction;
 
     public VueDuJeu(IJeu jeu, Map<IJoueur.CouleurJoueur, ImageView> avatarList) {
         this.jeu = jeu;
@@ -127,7 +129,8 @@ public class VueDuJeu extends GridPane {
         add(vueJoueurCourant, 0, 2);
         setColumnSpan(vueJoueurCourant, 3);
         instructionBar = new VueInstructionBar(this);
-        getChildren().addAll(plateau, instructionBar);
+        containerInstruction.getChildren().add(instructionBar);
+        getChildren().addAll(plateau);
         plateau.toBack();
         VueAutresJoueurs vueAutresJoueurs = new VueAutresJoueurs(jeu, avatarList);
         topGridPane.add(vueAutresJoueurs, 0, 0);

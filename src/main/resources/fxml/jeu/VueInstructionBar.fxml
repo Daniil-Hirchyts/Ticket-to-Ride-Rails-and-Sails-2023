@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="978.0" stylesheets="@../../css/style.css" type="Pane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="978.0" stylesheets="@../../css/style.css" type="Pane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="instructionBar" fitHeight="62.0" fitWidth="978.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/instructionPopUp/instructionBar.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="instructionBarArrow" fitHeight="18.0" fitWidth="115.0" layoutX="432.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="instructionBarArrow" fitHeight="52.0" fitWidth="270.0" layoutX="354.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/instructionPopUp/instructionBarArrowUp.png" />
          </image>
