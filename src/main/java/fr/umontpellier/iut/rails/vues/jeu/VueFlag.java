@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.rails.vues;
+package fr.umontpellier.iut.rails.vues.jeu;
 
 import fr.umontpellier.iut.rails.IJoueur;
 import javafx.beans.property.IntegerProperty;

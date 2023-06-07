@@ -1,17 +1,13 @@
-package fr.umontpellier.iut.rails.vues;
+package fr.umontpellier.iut.rails.vues.jeu;
 
 import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IJoueur;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 import java.io.IOException;
-import java.util.IllegalFormatCodePointException;
-import java.util.List;
 import java.util.Map;
 
 /**

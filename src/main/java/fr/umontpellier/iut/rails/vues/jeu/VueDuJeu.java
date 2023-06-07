@@ -1,7 +1,7 @@
-package fr.umontpellier.iut.rails.vues;
+package fr.umontpellier.iut.rails.vues.jeu;
 
 import fr.umontpellier.iut.rails.*;
-import javafx.beans.binding.Bindings;
+import fr.umontpellier.iut.rails.vues.layout.ConsoleLogger;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
@@ -18,7 +17,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import static javafx.beans.binding.Bindings.when;

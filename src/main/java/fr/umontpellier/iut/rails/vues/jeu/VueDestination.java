@@ -1,21 +1,12 @@
-package fr.umontpellier.iut.rails.vues;
+package fr.umontpellier.iut.rails.vues.jeu;
 
 import fr.umontpellier.iut.rails.IDestination;
-import fr.umontpellier.iut.rails.IJeu;
-import fr.umontpellier.iut.rails.IRoute;
-import fr.umontpellier.iut.rails.mecanique.Arete;
 import fr.umontpellier.iut.rails.mecanique.Graphe;
-import fr.umontpellier.iut.rails.mecanique.data.Ville;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 /**

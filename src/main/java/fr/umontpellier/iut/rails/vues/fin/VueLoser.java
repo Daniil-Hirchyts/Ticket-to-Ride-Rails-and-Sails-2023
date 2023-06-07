@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.rails.vues;
+package fr.umontpellier.iut.rails.vues.fin;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;

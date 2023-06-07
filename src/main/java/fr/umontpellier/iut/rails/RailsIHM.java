@@ -2,8 +2,9 @@ package fr.umontpellier.iut.rails;
 
 import fr.umontpellier.iut.rails.mecanique.Graphe;
 import fr.umontpellier.iut.rails.mecanique.Jeu;
-import fr.umontpellier.iut.rails.mecanique.data.Couleur;
-import fr.umontpellier.iut.rails.vues.*;
+import fr.umontpellier.iut.rails.vues.debut.VueChoixJoueurs;
+import fr.umontpellier.iut.rails.vues.jeu.VueDuJeu;
+import fr.umontpellier.iut.rails.vues.layout.DonneesGraphiques;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -38,6 +39,7 @@ public class RailsIHM extends Application {
         this.primaryStage = primaryStage;
 //        primaryStage.setFullScreen(true);
         debuterJeu();
+        //
     }
 
     public void debuterJeu() {
