@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="110.0" stylesheets="@../css/style.css" type="Pane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="backgroundMedal" fitHeight="200.0" fitWidth="110.0" layoutX="11.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/resultatPage/loser/BLEU.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="68.0" fitWidth="68.0" layoutX="22.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/elements/player-interface/avatar/background.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="backgroundColorRondelle" fitHeight="51.0" fitWidth="51.0" layoutX="29.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/elements/player-interface/avatar/back-color/BLEU.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="playerAvatarLoserColor" fitHeight="62.0" fitWidth="49.0" layoutX="31.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/avatars/BLEU/avatar-2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="110.0" layoutX="1.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/resultatPage/backgroundLabel.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="labelRank" layoutX="50.0" layoutY="16.0" styleClass="labelsIMFellEnglish" text="2" textFill="WHITE" />
+      <Label fx:id="labelScore" layoutX="46.0" layoutY="175.0" styleClass="labelsIMFellEnglish" text="27" textFill="WHITE" />
+   </children>
+</fx:root>
