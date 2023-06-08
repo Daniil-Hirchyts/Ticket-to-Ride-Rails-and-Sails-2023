@@ -75,7 +75,7 @@ public class VueResultats extends Pane {
         lumiereGagnant.fitHeightProperty().bind(this.heightProperty().divide(1.2));
         lumiereGagnant.fitWidthProperty().bind(this.widthProperty().divide(3));
         lumiereGagnant.layoutXProperty().bind(this.widthProperty().subtract(avatarGagnant.fitWidthProperty()));
-        lumiereGagnant.layoutYProperty().bind(this.heightProperty().divide(2));
+        lumiereGagnant.layoutYProperty().bind(this.heightProperty().divide(12));
 
 
         RotateTransition rt = new RotateTransition();
@@ -85,7 +85,7 @@ public class VueResultats extends Pane {
         rt.setDuration(javafx.util.Duration.millis(10000));
         rt.play();
 
-        this.getChildren().addAll(lumiereGagnant, avatarGagnant);
+        this.getChildren().addAll(avatarGagnant);
     }
 
 }
