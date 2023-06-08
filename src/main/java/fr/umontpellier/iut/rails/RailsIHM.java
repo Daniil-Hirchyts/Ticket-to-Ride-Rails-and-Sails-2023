@@ -107,18 +107,18 @@ public class RailsIHM extends Application {
 //        Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
 //        primaryStage.setScene(sceneResultats);
 //        TODO : A ACTIVER POUR LA VERSION FINALE
-//        primaryStage.setOnCloseRequest(event -> {
-//            this.arreterJeu();
-//            event.consume();
-//        });
-//
-//        jeu.finDePartieProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue) {
-//                VueResultats vueResultats = new VueResultats(this, avatars);
-//                Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
-//                primaryStage.setScene(sceneResultats);
-//            }
-//        });
+        primaryStage.setOnCloseRequest(event -> {
+            this.arreterJeu();
+            event.consume();
+        });
+
+        jeu.finDePartieProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                VueResultats vueResultats = new VueResultats(this, avatars);
+                Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
+                primaryStage.setScene(sceneResultats);
+            }
+        });
 
         primaryStage.show();
     }

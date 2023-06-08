@@ -31,7 +31,6 @@ public abstract class EtatJoueur {
     public void finDuTour() {
         if (getJeu().getEtatCourant().finPhase()) {
             getJeu().calculerScoresFinaux();
-            System.exit(0);
         } else {
             if (getJeu().getEtatCourant() instanceof FinDePartie) {
                 getJeu().getEtatCourant().prochainTour();
