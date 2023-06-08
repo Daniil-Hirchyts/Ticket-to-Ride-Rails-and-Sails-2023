@@ -6,6 +6,7 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -112,5 +113,9 @@ public class VueCarteTransport extends Pane {
         setId("carte-vertical");
         setRotate(270);
         setupHoverTransition(0, -35);
+    }
+
+    public Pane getCarteImage() {
+        return carteImage;
     }
 }
