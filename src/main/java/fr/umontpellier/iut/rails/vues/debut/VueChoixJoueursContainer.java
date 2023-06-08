@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -15,7 +17,6 @@ import static javafx.scene.text.Font.loadFont;
 
 public class VueChoixJoueursContainer extends GridPane {
 
-    private AudioClip audioClip;
     @FXML
     private Pane interfaceOfChoose;
     @FXML
@@ -37,6 +38,8 @@ public class VueChoixJoueursContainer extends GridPane {
     @FXML
     private HBox backgroundBarBlur;
     private Button backButton = new Button("");
+    @FXML
+    private AudioClip audioClip;
 
 
     public VueChoixJoueursContainer() {
@@ -51,8 +54,7 @@ public class VueChoixJoueursContainer extends GridPane {
         setId("choixJoueursContainer");
         topBarBackground.prefWidthProperty().bind(this.widthProperty());
         startAnimationTrain();
-        audioClip = new AudioClip(Objects.requireNonNull(getClass().getResource("/music/peutEtreAppuyeButton.mp3")).toExternalForm());
-        audioClip.setVolume(100);
+        audioClip = new AudioClip(new File("src/main/resources/music/peutEtreAppuyeButton.mp3").toURI().toString());
         createBindings();
         backButton.setLayoutX(0);
         backButton.setLayoutY(0);
@@ -95,6 +97,7 @@ public class VueChoixJoueursContainer extends GridPane {
 
         backButton.setOnAction(event -> {
             audioClip.play();
+            System.out.println("Audio clip loaded: " + audioClip.isPlaying());
             switchEtat(true);
         });
     }
