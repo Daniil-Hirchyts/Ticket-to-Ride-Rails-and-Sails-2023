@@ -5,7 +5,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="110.0" stylesheets="@../../css/style.css" type="Pane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="backgroundMedal" fitHeight="200.0" fitWidth="110.0" layoutX="11.0" pickOnBounds="true" preserveRatio="true">
@@ -35,5 +34,6 @@
       </ImageView>
       <Label fx:id="labelRank" layoutX="50.0" layoutY="16.0" styleClass="labelsIMFellEnglish" text="2" textFill="WHITE" />
       <Label fx:id="labelScore" layoutX="46.0" layoutY="175.0" styleClass="labelsIMFellEnglish" text="27" textFill="WHITE" />
+      <Label fx:id="labelPseudo" alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="121.0" prefHeight="25.0" prefWidth="73.0" styleClass="labelsIMFellEnglish" text="Joueur" textAlignment="CENTER" textFill="WHITE" />
    </children>
 </fx:root>

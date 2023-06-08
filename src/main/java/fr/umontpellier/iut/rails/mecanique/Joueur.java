@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.rails.mecanique;
 
+import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.IJoueur;
 import fr.umontpellier.iut.rails.mecanique.data.*;
 import fr.umontpellier.iut.rails.mecanique.etatsJoueur.DebutTour;
@@ -136,6 +137,11 @@ public class Joueur implements IJoueur {
     @Override
     public int getNbPionsBateau() {
         return nbPionsBateau.getValue();
+    }
+
+    @Override
+    public boolean destinationEstComplete(IDestination d) {
+        return destinationEstComplete((Destination) d);
     }
     @Override
     public int getScore() {
