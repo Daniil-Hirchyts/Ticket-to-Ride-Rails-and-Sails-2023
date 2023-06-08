@@ -36,6 +36,27 @@ public class VueDestination extends VBox {
             label.getStyleClass().add("labelsIMFellEnglish");
             getChildren().add(label);
         }
+
+        ScaleTransition scaleTransitionHover = new ScaleTransition(Duration.millis(200), this);
+        scaleTransitionHover.setFromX(1);
+        scaleTransitionHover.setFromY(1);
+        scaleTransitionHover.setToX(1.25);
+        scaleTransitionHover.setToY(1.25);
+
+        TranslateTransition translateTransitionHover = new TranslateTransition(Duration.millis(200), this);
+        translateTransitionHover.setFromX(0);
+        translateTransitionHover.setFromY(0);
+        translateTransitionHover.setToX(-35);
+        translateTransitionHover.setToY(0);
+
+        ScaleTransition scaleTransitionRestore = new ScaleTransition(Duration.millis(200), this);
+        scaleTransitionRestore.setToX(1);
+        scaleTransitionRestore.setToY(1);
+
+        TranslateTransition translateTransitionRestore = new TranslateTransition(Duration.millis(200), this);
+        translateTransitionRestore.setToX(0);
+        translateTransitionRestore.setToY(0);
+
         if (clickable) {
             this.setOnMouseClicked(event -> {
                 ((VueDuJeu) getScene().getRoot()).getJeu().uneDestinationAEteChoisie(destination);
@@ -55,6 +76,8 @@ public class VueDestination extends VBox {
                 for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)) {
                     rectangle.getStyleClass().add("rectangleGlow");
                 }
+            scaleTransitionHover.playFromStart();
+            translateTransitionHover.playFromStart();
         });
 
         this.setOnMouseExited(event -> {
@@ -68,41 +91,9 @@ public class VueDestination extends VBox {
                 for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)) {
                     rectangle.getStyleClass().remove("rectangleGlow");
                 }
-
-        });
-
-        setupHoverTransition(-35, 0);
-    }
-
-    public void setupHoverTransition(double translateToX, double translateToY) {
-        ScaleTransition scaleTransitionHover = new ScaleTransition(Duration.millis(200), this);
-        scaleTransitionHover.setFromX(1);
-        scaleTransitionHover.setFromY(1);
-        scaleTransitionHover.setToX(1.25);
-        scaleTransitionHover.setToY(1.25);
-
-        TranslateTransition translateTransitionHover = new TranslateTransition(Duration.millis(200), this);
-        translateTransitionHover.setFromX(0);
-        translateTransitionHover.setFromY(0);
-        translateTransitionHover.setToX(translateToX);
-        translateTransitionHover.setToY(translateToY);
-
-        setOnMouseEntered(event -> {
-            scaleTransitionHover.playFromStart();
-            translateTransitionHover.playFromStart();
-        });
-
-        ScaleTransition scaleTransitionRestore = new ScaleTransition(Duration.millis(200), this);
-        scaleTransitionRestore.setToX(1);
-        scaleTransitionRestore.setToY(1);
-
-        TranslateTransition translateTransitionRestore = new TranslateTransition(Duration.millis(200), this);
-        translateTransitionRestore.setToX(0);
-        translateTransitionRestore.setToY(0);
-
-        setOnMouseExited(event -> {
             scaleTransitionRestore.playFromStart();
             translateTransitionRestore.playFromStart();
+
         });
     }
 
