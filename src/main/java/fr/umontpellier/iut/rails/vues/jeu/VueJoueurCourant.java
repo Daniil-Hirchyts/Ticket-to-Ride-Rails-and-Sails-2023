@@ -101,10 +101,10 @@ public class VueJoueurCourant extends GridPane {
         double l = this.getPrefWidth() - 300;
         int n = playerCartesBox.getChildren().size();
 
-        if (n > 1 && l > 0) spacing = (l - ((83 * n))) / (n - 1);
+        if (n > 1 && l > 0) spacing = (l - (83 * n)) / (n - 1);
         else spacing = 0;
 
-//        playerCartesBox.setSpacing(spacing);
+        playerCartesBox.setSpacing(spacing);
         System.out.println("l = " + l);
         System.out.println("n = " + n);
         System.out.println("s = " + spacing);
