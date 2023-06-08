@@ -28,11 +28,11 @@
             <Image url="@../../images/elements/player-interface/ring-button.png" />
          </image>
       </ImageView>
-      <Label fx:id="valueFlag" alignment="CENTER" contentDisplay="CENTER" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="40.0" stylesheets="@../../css/style.css" text="0" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="valueFlag" alignment="CENTER" contentDisplay="CENTER" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="40.0" styleClass="labelsIMFellEnglish" stylesheets="@../../css/style.css" text="0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="textFieldChangePions" layoutX="4.0" layoutY="4.0" prefHeight="32.0" prefWidth="33.0" />
+      <TextField fx:id="textFieldChangePions" alignment="CENTER" layoutX="4.0" layoutY="4.0" prefHeight="32.0" prefWidth="33.0" styleClass="labelsIMFellEnglish" />
    </children>
 </fx:root>

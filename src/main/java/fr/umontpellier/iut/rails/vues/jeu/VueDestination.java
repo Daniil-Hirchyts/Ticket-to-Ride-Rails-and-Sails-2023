@@ -93,7 +93,6 @@ public class VueDestination extends VBox {
                 }
             scaleTransitionRestore.playFromStart();
             translateTransitionRestore.playFromStart();
-
         });
     }
 

@@ -44,7 +44,7 @@
                                 <Image url="@../../images/elements/current-player/shadow.png" />
                             </image>
                         </ImageView>
-                        <ImageView fitHeight="167.0" fitWidth="246.0" layoutX="53.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" styleClass="big-shadow">
+                        <ImageView fitHeight="167.0" fitWidth="246.0" layoutX="53.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../images/elements/current-player/background.png" />
                             </image>

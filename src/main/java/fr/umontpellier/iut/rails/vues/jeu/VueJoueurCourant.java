@@ -114,6 +114,20 @@ public class VueJoueurCourant extends GridPane {
             pionsBateau.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
             pionsPort.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
 
+            pionsWagon.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    pionsWagon.getCircleFlag().setStyle("-fx-fill: #88b82d;");
+                }
+            });
+
+            pionsWagon.setOnMouseExited(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    pionsWagon.getCircleFlag().setStyle("-fx-fill: -fx-brown-flag;");
+                }
+            });
+
             pionsWagon.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
@@ -136,6 +150,20 @@ public class VueJoueurCourant extends GridPane {
                     });
                 }
             });
+            pionsBateau.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    pionsBateau.getCircleFlag().setStyle("-fx-fill: #88b82d;");
+                }
+            });
+
+            pionsBateau.setOnMouseExited(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    pionsBateau.getCircleFlag().setStyle("-fx-fill: -fx-brown-flag;");
+                }
+            });
+
             pionsBateau.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
@@ -158,7 +186,6 @@ public class VueJoueurCourant extends GridPane {
                     });
                 }
             });
-
 
             flagsBox.getChildren().addAll(pionsWagon, pionsBateau, pionsPort);
             playerName.setText(newValue.getNom());

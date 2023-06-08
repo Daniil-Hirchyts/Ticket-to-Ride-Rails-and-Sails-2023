@@ -16,7 +16,6 @@ import java.io.IOException;
 import static java.util.Objects.requireNonNull;
 
 public class VueFlag extends Pane {
-
     @FXML
     private ImageView rubanFlag;
     @FXML
@@ -27,8 +26,6 @@ public class VueFlag extends Pane {
     private ImageView iconFlag;
     @FXML
     private Label valueFlag;
-
-
     IJoueur joueur;
 
     public VueFlag(IJoueur joueur, Object o, Image icon, String type) {
@@ -44,23 +41,16 @@ public class VueFlag extends Pane {
         textFieldChangePions.setDisable(true);
         textFieldChangePions.setVisible(false);
         iconFlag.setImage(icon);
-        if (type.equals("wagons"))
-            valueFlag.textProperty().bind(((IntegerProperty) o).asString());
-        else if (type.equals("bateaux"))
-            valueFlag.textProperty().bind(((IntegerProperty) o).asString());
-        else if (type.equals("ports"))
-            valueFlag.setText(String.valueOf(o));
+        switch (type) {
+            case "wagons" -> valueFlag.textProperty().bind(((IntegerProperty) o).asString());
+            case "bateaux" -> valueFlag.textProperty().bind(((IntegerProperty) o).asString());
+            case "ports" -> valueFlag.setText(String.valueOf(o));
+        }
         creerBindings();
-        valueFlag.getStyleClass().add("labelsIMFellEnglish");
-        getStyleClass().add("small-shadow-05");
-
     }
 
     public void creerBindings() {
         rubanFlag.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/ruban/" + joueur.getCouleur() + ".png"))));
-//        circleFlag.setStyle("-fx-fill: " + joueur.getCouleur() + ";");
-//        iconFlag.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/player-interface/flag/icon/" + joueur.getCouleur() + ".png"))));
-//        valueFlag.textProperty().set(String.valueOf(joueur.getNbWagons()));
     }
 
     public TextField getTextFieldChangePions() {
