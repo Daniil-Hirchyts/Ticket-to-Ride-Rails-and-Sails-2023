@@ -23,7 +23,7 @@
          </GridPane.margin></HBox>
         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" GridPane.columnIndex="2">
             <children>
-                <Pane layoutX="-65.0" layoutY="-5.0" prefHeight="124.0" prefWidth="248.0">
+                <Pane layoutX="-75.0" layoutY="-5.0" prefHeight="124.0" prefWidth="248.0">
                     <children>
                         <Group>
                             <children>

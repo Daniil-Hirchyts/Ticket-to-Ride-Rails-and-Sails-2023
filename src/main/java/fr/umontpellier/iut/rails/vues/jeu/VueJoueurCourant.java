@@ -117,7 +117,7 @@ public class VueJoueurCourant extends GridPane {
             pionsWagon.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    pionsWagon.getCircleFlag().setStyle("-fx-fill: #88b82d;");
+                    pionsWagon.getCircleFlag().setStyle("-fx-fill:" + getColorString(joueur.getCouleur().toString()) + ";");
                 }
             });
 
@@ -153,7 +153,7 @@ public class VueJoueurCourant extends GridPane {
             pionsBateau.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    pionsBateau.getCircleFlag().setStyle("-fx-fill: #88b82d;");
+                    pionsBateau.getCircleFlag().setStyle("-fx-fill:" + getColorString(joueur.getCouleur().toString()) + ";");
                 }
             });
 
@@ -193,7 +193,6 @@ public class VueJoueurCourant extends GridPane {
             playerAvatar.setImage(avatarList.get(newValue.getCouleur()).getImage());
             playerLabelColorBackground.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/current-player/score-background/" + newValue.getCouleur().toString() + ".png"))));
         });
-
 
         for (IJoueur j : jeu.getJoueurs()) {
             j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
@@ -239,5 +238,16 @@ public class VueJoueurCourant extends GridPane {
                 }
             }
         });
+    }
+
+    private String getColorString(String color) {
+        return switch (color) {
+            case "ROUGE" -> "#da0000";
+            case "BLEU" -> "#005fa2";
+            case "VERT" -> "#1b7000";
+            case "JAUNE" -> "#ffd423";
+            case "ROSE" -> "#a42bb9";
+            default -> "-fx-brown-flag";
+        };
     }
 }
