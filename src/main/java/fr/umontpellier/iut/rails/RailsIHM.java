@@ -8,6 +8,7 @@ import fr.umontpellier.iut.rails.vues.jeu.VueDuJeu;
 import fr.umontpellier.iut.rails.vues.layout.DonneesGraphiques;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -43,16 +44,18 @@ public class RailsIHM extends Application {
 
     public void debuterJeu() {
 
-        ChangeListener<Number> dimensionListener = (observable, oldValue, newValue) -> {
-            if (observable == primaryStage.widthProperty()) {
-                primaryStage.setHeight(primaryStage.getWidth() / ASPECT_RATIO);
-            } else if (observable == primaryStage.heightProperty()) {
-                primaryStage.setWidth(primaryStage.getHeight() * ASPECT_RATIO);
-            }
-        };
+//        ChangeListener<Number> dimensionListener = (observable, oldValue, newValue) -> {
+//            if (observable == primaryStage.widthProperty()) {
+//                primaryStage.setHeight(primaryStage.getWidth() / ASPECT_RATIO);
+//            } else if (observable == primaryStage.heightProperty()) {
+//                primaryStage.setWidth(primaryStage.getHeight() * ASPECT_RATIO);
+//            }
+//        };
+//
+//        primaryStage.widthProperty().addListener(dimensionListener);
+//        primaryStage.heightProperty().addListener(dimensionListener);
 
-        primaryStage.widthProperty().addListener(dimensionListener);
-        primaryStage.heightProperty().addListener(dimensionListener);
+
 
         if (avecVueChoixJoueurs) {
             vueChoixJoueurs = new VueChoixJoueurs();
@@ -102,7 +105,7 @@ public class RailsIHM extends Application {
         primaryStage.setScene(scene);
         VueResultats vueResultats = new VueResultats(this, avatars);
         Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
-        primaryStage.setScene(sceneResultats);
+//        primaryStage.setScene(sceneResultats);
 //        TODO : A ACTIVER POUR LA VERSION FINALE
 //        primaryStage.setOnCloseRequest(event -> {
 //            this.arreterJeu();

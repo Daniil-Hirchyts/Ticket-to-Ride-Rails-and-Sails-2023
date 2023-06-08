@@ -75,7 +75,7 @@ public class VueResultats extends Pane {
         lumiereGagnant.fitHeightProperty().bind(this.heightProperty().divide(1.2));
         lumiereGagnant.fitWidthProperty().bind(this.widthProperty().divide(3));
         lumiereGagnant.layoutXProperty().bind(this.widthProperty().subtract(avatarGagnant.fitWidthProperty()));
-        lumiereGagnant.layoutYProperty().bind(this.heightProperty().divide(2));
+        lumiereGagnant.layoutYProperty().bind(this.heightProperty().divide(12));
 
 
         RotateTransition rt = new RotateTransition();

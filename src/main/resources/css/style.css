@@ -465,26 +465,11 @@ Label {
     -fx-background-color: -fx-white-carte;
     -fx-border-color: -fx-brown-main;
     -fx-border-width: 1px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 2, 3);
 }
 
 #carte:hover, #carte-horizontal:hover, #carte-vertical:hover, .carte:hover {
     -fx-cursor: hand;
-    -fx-border-color: -fx-red-main;
-    -fx-border-width: 2px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 0);
-    /*-fx-scale-x: 1.15;*/
-    /*-fx-scale-y: 1.15;*/
-}
-
-#carte-horizontal:hover {
-    -fx-translate-x: 5;
-    -fx-translate-y: 15;
-}
-
-#carte-vertical:hover {
-    -fx-translate-y: -5;
-    -fx-translate-x: 15;
+    -fx-background-color: -fx-red-main;
 }
 
 #routeGlow {

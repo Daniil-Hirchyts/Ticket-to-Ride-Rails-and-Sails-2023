@@ -11,11 +11,6 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-/**
- * Cette classe représente la vue d'une carte Transport.
- * <p>
- * On y définit le listener à exécuter lorsque cette carte a été choisie par l'utilisateur
- */
 public class VueCarteTransport extends Pane {
     private final ICarteTransport carteTransport;
 
@@ -31,28 +26,6 @@ public class VueCarteTransport extends Pane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), this);
-        scaleTransition.setFromX(1);
-        scaleTransition.setFromY(1);
-        scaleTransition.setToX(1.1);
-        scaleTransition.setToY(1.1);
-
-        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(200), this);
-        translateTransition.setFromY(0);
-        translateTransition.setToY(-20);
-
-        setOnMouseEntered(event -> {
-            scaleTransition.playFromStart();
-            translateTransition.playFromStart();
-        });
-
-        setOnMouseExited(event -> {
-            scaleTransition.setRate(-1);
-            translateTransition.setRate(-1);
-            scaleTransition.play();
-            translateTransition.play();
-        });
 
         getStyleClass().add("carte");
 
@@ -97,17 +70,47 @@ public class VueCarteTransport extends Pane {
         return carteTransport;
     }
 
+    private void setupHoverTransition(double translateToX, double translateToY) {
+        ScaleTransition scaleTransitionHover = new ScaleTransition(Duration.millis(200), this);
+        scaleTransitionHover.setFromX(1);
+        scaleTransitionHover.setFromY(1);
+        scaleTransitionHover.setToX(1.25);
+        scaleTransitionHover.setToY(1.25);
+
+        TranslateTransition translateTransitionHover = new TranslateTransition(Duration.millis(200), this);
+        translateTransitionHover.setFromX(0);
+        translateTransitionHover.setFromY(0);
+        translateTransitionHover.setToX(translateToX);
+        translateTransitionHover.setToY(translateToY);
+
+        setOnMouseEntered(event -> {
+            scaleTransitionHover.playFromStart();
+            translateTransitionHover.playFromStart();
+        });
+
+        ScaleTransition scaleTransitionRestore = new ScaleTransition(Duration.millis(200), this);
+        scaleTransitionRestore.setToX(1);
+        scaleTransitionRestore.setToY(1);
+
+        TranslateTransition translateTransitionRestore = new TranslateTransition(Duration.millis(200), this);
+        translateTransitionRestore.setToX(0);
+        translateTransitionRestore.setToY(0);
+
+        setOnMouseExited(event -> {
+            scaleTransitionRestore.playFromStart();
+            translateTransitionRestore.playFromStart();
+        });
+    }
 
     public void horizontalLayout() {
         setId("carte-horizontal");
         setRotate(0);
+        setupHoverTransition(35, 0);
     }
 
     public void verticalLayout() {
-//        setId("carte-vertical");
+        setId("carte-vertical");
         setRotate(270);
+        setupHoverTransition(0, -35);
     }
-
-
-
 }
