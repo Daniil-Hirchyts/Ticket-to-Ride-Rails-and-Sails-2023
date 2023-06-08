@@ -18,7 +18,7 @@
    <children>
       <HBox fx:id="centerSection" alignment="CENTER" GridPane.columnSpan="2">
          <children>
-            <HBox fx:id="playerCartesBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="600.0" minHeight="-Infinity" minWidth="300.0" prefHeight="150.0" />
+            <HBox fx:id="playerCartesBox" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" />
          </children></HBox>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" GridPane.columnIndex="2">
          <children>
