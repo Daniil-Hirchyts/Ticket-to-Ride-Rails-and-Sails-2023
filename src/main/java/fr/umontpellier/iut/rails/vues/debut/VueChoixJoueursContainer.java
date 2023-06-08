@@ -51,9 +51,9 @@ public class VueChoixJoueursContainer extends GridPane {
         setId("choixJoueursContainer");
         topBarBackground.prefWidthProperty().bind(this.widthProperty());
         startAnimationTrain();
-        createBindings();
         audioClip = new AudioClip(Objects.requireNonNull(getClass().getResource("/music/peutEtreAppuyeButton.mp3")).toExternalForm());
         audioClip.setVolume(100);
+        createBindings();
         backButton.setLayoutX(0);
         backButton.setLayoutY(0);
         backButton.setTranslateY(40);
