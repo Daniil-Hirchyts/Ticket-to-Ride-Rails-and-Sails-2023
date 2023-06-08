@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<fx:root alignment="CENTER" prefHeight="800.0" prefWidth="1080.0" stylesheets="@../../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" prefHeight="800.0" prefWidth="1080.0" stylesheets="@../../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
         <ColumnConstraints hgrow="ALWAYS" />
@@ -145,12 +153,12 @@
                     <children>
                         <Pane id="carte" fx:id="pileWagonCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="130.0">
                             <children>
+                                <Pane fx:id="pileWagonCarteImage" layoutX="28.0" layoutY="-18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
                         <ImageView fx:id="videWagon" fitHeight="36.0" fitWidth="38.0" layoutX="95.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../images/icons/croix.png" />
                            </image>
                         </ImageView>
-                                <Pane fx:id="pileWagonCarteImage" layoutX="28.0" layoutY="-18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
                             </children>
                         </Pane>
                     </children>
@@ -160,12 +168,12 @@
                     <children>
                         <Pane id="carte" fx:id="pileBateauCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="130.0">
                             <children>
+                                <Pane fx:id="pileBateauCarteImage" layoutX="28.0" layoutY="-18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
                         <ImageView fx:id="videBateau" fitHeight="36.0" fitWidth="38.0" layoutX="95.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../images/icons/croix.png" />
                            </image>
                         </ImageView>
-                                <Pane fx:id="pileBateauCarteImage" layoutX="28.0" layoutY="-18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
                             </children>
                         </Pane>
                     </children>
