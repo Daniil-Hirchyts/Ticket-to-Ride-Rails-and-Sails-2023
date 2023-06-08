@@ -26,15 +26,24 @@
     -fx-brown-flag: #3f1a0a;
 }
 
+Rectangle {
+    -fx-arc-height: 5;
+    -fx-arc-width: 5;
+    -fx-cursor: hand;
+}
+
+Circle {
+    -fx-cursor: hand;
+}
 
 Circle:hover {
-    -fx-stroke: -fx-red-main;
-    -fx-stroke-width: 2;
+    -fx-stroke: #ff0000;
+    -fx-stroke-width: 3;
 }
 
 Rectangle:hover {
-    -fx-stroke: white;
-    -fx-stroke-width: 2;
+    -fx-stroke: #ff0000;
+    -fx-stroke-width: 3;
 }
 
 Label {
@@ -392,7 +401,7 @@ Label {
     -fx-max-height: 52;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 5, 0, 0, -5);
     -fx-alignment: center-left;
-    -fx-spacing: -2;
+    -fx-cursor: hand;
 }
 
 #destinationTicket {
@@ -434,6 +443,7 @@ Label {
     -fx-background-color: -fx-white-carte;
     -fx-border-color: -fx-brown-main;
     -fx-border-width: 1px;
+    -fx-cursor: hand;
 }
 
 #carte:hover, #carte-horizontal:hover, #carte-vertical:hover, .carte:hover {
@@ -457,14 +467,15 @@ Label {
 }
 
 .rectangleGlow {
-    -fx-stroke: #000000;
+    -fx-stroke: #5eff01;
     -fx-stroke-width: 2;
+    -fx-effect: dropshadow(gaussian, #5eff01, 5, 0, 0, 0);
 }
 
 .cercleVilleGlow{
-    -fx-effect: dropshadow(three-pass-box, lightgreen, 2, 1, 0, 0);
-    -fx-stroke: #1f9e1f;
+    -fx-stroke: #5eff01;
     -fx-stroke-width: 2;
+    -fx-effect: dropshadow(gaussian, #5eff01, 5, 0, 0, 0);
 }
 
 #instructionLabel {

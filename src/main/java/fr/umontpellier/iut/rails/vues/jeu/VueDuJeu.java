@@ -68,8 +68,6 @@ public class VueDuJeu extends GridPane {
     @FXML
     private VBox pileCartesDestinations;
     @FXML
-    private TextField commandField;
-    @FXML
     private Button btnPasser;
     @FXML
     private Button btnDestination;
@@ -160,13 +158,6 @@ public class VueDuJeu extends GridPane {
     });
 
     public void creerBindings() {
-        commandField.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                jeu.leNombreDePionsSouhaiteAEteRenseigne(commandField.getText());
-                commandField.setText("");
-            }
-        });
         btnPasser.setOnMouseClicked(actionPasserParDefaut);
         btnDestination.setOnAction(new EventHandler<ActionEvent>() {
             @Override

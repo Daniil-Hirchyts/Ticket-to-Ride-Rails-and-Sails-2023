@@ -238,9 +238,10 @@ public class VueJoueurCourant extends GridPane {
                 }
             }
         });
+
     }
 
-    private String getColorString(String color) {
+    public static String getColorString(String color) {
         return switch (color) {
             case "ROUGE" -> "#da0000";
             case "BLEU" -> "#005fa2";

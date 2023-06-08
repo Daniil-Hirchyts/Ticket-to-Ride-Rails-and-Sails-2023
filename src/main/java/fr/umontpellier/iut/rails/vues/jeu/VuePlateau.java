@@ -3,11 +3,14 @@ package fr.umontpellier.iut.rails.vues.jeu;
 import fr.umontpellier.iut.rails.*;
 import fr.umontpellier.iut.rails.vues.layout.ConsoleLogger;
 import fr.umontpellier.iut.rails.vues.layout.DonneesGraphiques;
+import javafx.animation.Animation;
+import javafx.animation.Transition;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.ObjectBinding;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -19,6 +22,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.*;
@@ -40,7 +44,7 @@ public class VuePlateau extends Pane {
     private IDestination destinationListened;
 
     private Map<String, List<Rectangle>> RectangleDeLaRoute;
-    private Map<String , Circle> cercleDesVilles;
+    private Map<String, Circle> cercleDesVilles;
 
     public VuePlateau(IJeu jeu) {
         try {
@@ -78,7 +82,7 @@ public class VuePlateau extends Pane {
     };
 
     public void creerBindings() {
- ajouterVilles();
+        ajouterVilles();
         ajouterPorts();
         ajouterRoutes();
         bindRedimensionEtCentragePlateau();
@@ -95,6 +99,21 @@ public class VuePlateau extends Pane {
             bindCerclePortAuPlateau(positionPortSurPlateau, cerclePort, ville);
             cerclePort.setOnMouseClicked(choixPort);
             cercleDesVilles.put(nomPort, cerclePort);
+            Glow glow = new Glow();
+            cerclePort.setOnMouseEntered(event -> cerclePort.setEffect(glow));
+            cerclePort.setOnMouseExited(event -> cerclePort.setEffect(null));
+            Transition transition = new Transition() {
+                {
+                    setCycleDuration(Duration.millis(500));
+                    setCycleCount(Animation.INDEFINITE);
+                    setAutoReverse(true);
+                }
+                @Override
+                protected void interpolate(double frac) {
+                    glow.setLevel(frac);
+                }
+            };
+            transition.play();
         }
     }
 
@@ -107,6 +126,21 @@ public class VuePlateau extends Pane {
             for (DonneesGraphiques.DonneesSegments unSegment : segmentsRoute) {
                 Rectangle rectangleSegment = new Rectangle(unSegment.getXHautGauche(), unSegment.getYHautGauche(), DonneesGraphiques.largeurRectangle, DonneesGraphiques.hauteurRectangle);
                 rectangleSegment.setId(nomRoute);
+                Glow glow = new Glow();
+                rectangleSegment.setOnMouseEntered(event -> rectangleSegment.setEffect(glow));
+                rectangleSegment.setOnMouseExited(event -> rectangleSegment.setEffect(null));
+                Transition transition = new Transition() {
+                    {
+                        setCycleDuration(Duration.millis(500));
+                        setCycleCount(Animation.INDEFINITE);
+                        setAutoReverse(true);
+                    }
+                    @Override
+                    protected void interpolate(double frac) {
+                        glow.setLevel(frac);
+                    }
+                };
+                transition.play();
                 rectangleSegment.setRotate(unSegment.getAngle());
                 getChildren().add(rectangleSegment);
                 rectangleSegment.setOnMouseClicked(choixRoute);
@@ -306,18 +340,32 @@ public class VuePlateau extends Pane {
     }
 
 
-
-private void ajouterVilles() {
-    List<? extends IVille> listeVilles = ((VueDuJeu) getScene().getRoot()).getJeu().getIVilles();
-    for (String nomVille : DonneesGraphiques.villes.keySet()) {
-        IVille ville = listeVilles.stream().filter(r -> r.getNom().equals(nomVille)).findAny().orElse(null);
-        DonneesGraphiques.DonneesCerclesPorts positionVilleSurPlateau = DonneesGraphiques.villes.get(nomVille);
-        Circle cercleVille = new Circle(positionVilleSurPlateau.centreX(), positionVilleSurPlateau.centreY(), DonneesGraphiques.rayonInitial);
-        cercleVille.setId(nomVille);
-        getChildren().add(cercleVille);
-        bindCerclePortAuPlateau(positionVilleSurPlateau, cercleVille, ville);
-        cercleVille.setOnMouseClicked(choixPort);
-        cercleDesVilles.put(nomVille, cercleVille);
+    private void ajouterVilles() {
+        List<? extends IVille> listeVilles = ((VueDuJeu) getScene().getRoot()).getJeu().getIVilles();
+        for (String nomVille : DonneesGraphiques.villes.keySet()) {
+            IVille ville = listeVilles.stream().filter(r -> r.getNom().equals(nomVille)).findAny().orElse(null);
+            DonneesGraphiques.DonneesCerclesPorts positionVilleSurPlateau = DonneesGraphiques.villes.get(nomVille);
+            Circle cercleVille = new Circle(positionVilleSurPlateau.centreX(), positionVilleSurPlateau.centreY(), DonneesGraphiques.rayonInitial);
+            cercleVille.setId(nomVille);
+            getChildren().add(cercleVille);
+            bindCerclePortAuPlateau(positionVilleSurPlateau, cercleVille, ville);
+            cercleVille.setOnMouseClicked(choixPort);
+            cercleDesVilles.put(nomVille, cercleVille);
+            Glow glow = new Glow();
+            cercleVille.setOnMouseEntered(event -> cercleVille.setEffect(glow));
+            cercleVille.setOnMouseExited(event -> cercleVille.setEffect(null));
+            Transition transition = new Transition() {
+                {
+                    setCycleDuration(Duration.millis(500));
+                    setCycleCount(Animation.INDEFINITE);
+                    setAutoReverse(true);
+                }
+                @Override
+                protected void interpolate(double frac) {
+                    glow.setLevel(frac);
+                }
+            };
+            transition.play();
+        }
     }
-}
 }

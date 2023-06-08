@@ -50,7 +50,10 @@
                               <String fx:value="hideBG" />
                               <String fx:value="labelsOrchardStreetNFW01Regular" />
                               <String fx:value="small-shadow-05" />
-                           </styleClass></Button>
+                           </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                         <Button id="btnDestination" fx:id="btnDestination" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="27.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="1.0" />
@@ -59,8 +62,10 @@
                               <String fx:value="hideBG" />
                               <String fx:value="small-shadow-05" />
                            </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
-                        <TextField fx:id="commandField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" />
                      </children>
                   </Pane>
                </children>
