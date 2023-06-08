@@ -192,9 +192,6 @@ public class VueDuJeu extends GridPane {
             else ConsoleLogger.getInstance(null, null).log("La pioche de wagon est vide");
         });
 
-        piocheBox.spacingProperty().bind(heightProperty().divide(when(heightProperty().lessThanOrEqualTo(960)).then(7).otherwise(heightProperty().subtract(1))).multiply(
-                when(heightProperty().lessThanOrEqualTo(960)).then(-1).otherwise(1)));
-
         pileBateauCarteImage.setStyle("-fx-background-image: url('images/cartesWagons/dos-BATEAU.png'); " +
                 "-fx-background-position: center center; " +
                 "-fx-background-repeat: stretch; " +
@@ -241,22 +238,30 @@ public class VueDuJeu extends GridPane {
             if (!newValue) btnDestination.setDisable(false);
         });
 
-        pileCartesDestinations.prefHeightProperty().bind(this.prefHeightProperty().subtract(400));
+        pileCartesDestinations.prefHeightProperty().bind(this.prefHeightProperty().subtract(450));
         this.prefHeightProperty().addListener((observable, oldValue, newValue) -> {
-            spacingCalculator();
+            spacingCalculator(450, 52, pileCartesDestinations);
         });
         pileCartesDestinations.getChildren().addListener((ListChangeListener<Node>) c -> {
-            spacingCalculator();
+            spacingCalculator(450, 52, pileCartesDestinations);
+        });
+
+        piocheBox.prefHeightProperty().bind(this.prefHeightProperty().subtract(500));
+        this.prefHeightProperty().addListener((observable, oldValue, newValue) -> {
+            spacingCalculator(500, 83, piocheBox);
+        });
+        piocheBox.getChildren().addListener((ListChangeListener<Node>) c -> {
+            spacingCalculator(500, 83, piocheBox);
         });
     }
 
-    private void spacingCalculator() {
+    private void spacingCalculator(int difference, int size, VBox node) {
         double spacing = 0;
-        double l = this.getPrefHeight() - 400;
-        int n = pileCartesDestinations.getChildren().size();
-        if (n > 1 && l > 0) spacing = (l - (52 * n)) / (n - 1);
+        double l = this.getPrefHeight() - difference;
+        int n = node.getChildren().size();
+        if (n > 1 && l > 0) spacing = (l - (size * n)) / (n - 1);
         else spacing = 0;
-        pileCartesDestinations.setSpacing(spacing);
+        node.setSpacing(spacing);
     }
 
     public VuePlateau getPlateau() {

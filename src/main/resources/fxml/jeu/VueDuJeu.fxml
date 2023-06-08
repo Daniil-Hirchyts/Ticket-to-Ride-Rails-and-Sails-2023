@@ -128,9 +128,9 @@
                 <Button fx:id="btnExit" layoutX="18.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="hideBG" />
             </children>
         </Pane>
-        <GridPane fx:id="leftVBox" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.rowIndex="1">
+        <GridPane fx:id="leftVBox" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.rowIndex="1">
             <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints vgrow="NEVER" />
@@ -152,7 +152,7 @@
                         </Pane>
                     </children>
                 </VBox>
-                <VBox fx:id="piocheBox" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.rowIndex="1" />
+                <VBox fx:id="piocheBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" GridPane.rowIndex="1" VBox.vgrow="ALWAYS" />
                 <VBox fx:id="pileBateau" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" GridPane.rowIndex="2">
                     <children>
                         <Pane id="carte" fx:id="pileBateauCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="130.0">
