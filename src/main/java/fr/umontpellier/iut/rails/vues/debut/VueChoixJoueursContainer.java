@@ -38,9 +38,8 @@ public class VueChoixJoueursContainer extends GridPane {
     @FXML
     private HBox backgroundBarBlur;
     private Button backButton = new Button("");
-    @FXML
-    private AudioClip audioClip;
 
+    private AudioClip audioClip;
 
     public VueChoixJoueursContainer() {
         try {

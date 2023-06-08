@@ -13,8 +13,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,8 @@ public class VueChoixJoueurs extends Stage {
     private ObservableList<TextField> textFields;
     private VueChoixJoueursContainer root;
 
+    private AudioClip audioClip;
+
     public VueChoixJoueurs() {
         avatarsJoueurs = FXCollections.observableHashMap();
         nomsJoueurs = FXCollections.observableArrayList();
@@ -44,6 +48,7 @@ public class VueChoixJoueurs extends Stage {
         setScene(new Scene(root, 1280, 800));
 //        setFullScreen(true);
         setTitle("Choix des joueurs");
+        audioClip = new AudioClip(new File("src/main/resources/music/peutEtreAppuyeButton.mp3").toURI().toString());
         creerBinding();
         show();
     }
@@ -80,6 +85,7 @@ public class VueChoixJoueurs extends Stage {
             avatar.getTextFieldJoueur().setId("playerChoiceTextField");
 
             avatar.setOnMouseClicked(event -> {
+                audioClip.play();
                 if (compteursCouleurs.get(finalI) == 5) compteursCouleurs.set(finalI, 1);
                 else compteursCouleurs.set(finalI, compteursCouleurs.get(finalI) + 1);
                 avatar.getAvatar().setImage(new Image("images/avatars/" + couleur + "/avatar-" + compteursCouleurs.get(finalI) + ".png"));
