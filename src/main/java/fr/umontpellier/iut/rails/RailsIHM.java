@@ -34,7 +34,7 @@ public class RailsIHM extends Application {
     private Stage primaryStage;
     private Jeu jeu;
     private BooleanProperty partieTerminee;
-    private final boolean avecVueChoixJoueurs = false;
+    private final boolean avecVueChoixJoueurs = true;
 
     @Override
     public void start(Stage primaryStage) {
@@ -103,8 +103,8 @@ public class RailsIHM extends Application {
 
 
         primaryStage.setScene(scene);
-        VueResultats vueResultats = new VueResultats(this, avatars);
-        Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
+//        VueResultats vueResultats = new VueResultats(this, avatars);
+//        Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
 //        primaryStage.setScene(sceneResultats);
 //        TODO : A ACTIVER POUR LA VERSION FINALE
 //        primaryStage.setOnCloseRequest(event -> {

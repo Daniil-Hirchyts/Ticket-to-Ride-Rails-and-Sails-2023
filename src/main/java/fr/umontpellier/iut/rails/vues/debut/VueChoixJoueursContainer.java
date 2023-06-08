@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.rails.vues.debut;
 
 import javafx.animation.TranslateTransition;
+import javafx.scene.media.AudioClip;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -8,11 +9,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static javafx.scene.text.Font.loadFont;
 
 public class VueChoixJoueursContainer extends GridPane {
 
+    private AudioClip audioClip;
     @FXML
     private Pane interfaceOfChoose;
     @FXML
@@ -49,7 +52,8 @@ public class VueChoixJoueursContainer extends GridPane {
         topBarBackground.prefWidthProperty().bind(this.widthProperty());
         startAnimationTrain();
         createBindings();
-
+        audioClip = new AudioClip(Objects.requireNonNull(getClass().getResource("/music/peutEtreAppuyeButton.mp3")).toExternalForm());
+        audioClip.setVolume(100);
         backButton.setLayoutX(0);
         backButton.setLayoutY(0);
         backButton.setTranslateY(40);
@@ -80,14 +84,17 @@ public class VueChoixJoueursContainer extends GridPane {
         validation.scaleYProperty().bind(interfaceOfChoose.heightProperty().divide(1080));
 
         btnQuitter.setOnAction(event -> {
+            audioClip.play();
             System.exit(0);
         });
 
         btnStartChoix.setOnAction(event -> {
+            audioClip.play();
             switchEtat(false);
         });
 
         backButton.setOnAction(event -> {
+            audioClip.play();
             switchEtat(true);
         });
     }
