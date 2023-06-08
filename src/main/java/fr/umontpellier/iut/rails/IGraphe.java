@@ -9,5 +9,4 @@ public interface IGraphe {
 
     List<Integer> parcoursSansRepetition(List<Integer> routes);
 
-    HashSet<Arete> getAretes();
 }

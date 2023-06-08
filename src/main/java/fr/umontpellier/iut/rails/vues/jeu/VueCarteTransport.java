@@ -116,6 +116,13 @@ public class VueCarteTransport extends Pane {
     }
 
     public Pane getCarteImage() {
-        return carteImage;
+return carteImage;
+    }
+
+    public void setCarteImagePosee() {
+        setDisable(true);
+        verticalLayout();
+        carteImage.setOpacity(0.75);
+        setStyle("-fx-background-color: #747474;");
     }
 }

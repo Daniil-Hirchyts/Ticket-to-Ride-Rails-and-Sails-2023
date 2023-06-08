@@ -142,6 +142,8 @@ public class VueJoueurCourant extends GridPane {
                 });
             }
         });
+        playerCartesBox.maxWidthProperty().bind(this.widthProperty().multiply(0.75));
+        playerCartesBox.prefWidthProperty().bind(playerCartesBox.maxWidthProperty());
 
             flagsBox.getChildren().addAll(pionsWagon, pionsBateau, pionsPort);
             playerName.setText(newValue.getNom());
@@ -166,8 +168,22 @@ public class VueJoueurCourant extends GridPane {
                     }
                 }
             });
+
+            j.cartesTransportPoseesProperty().addListener(new ListChangeListener<ICarteTransport>() {
+                @Override
+                public void onChanged(Change<? extends ICarteTransport> change) {
+                    while (change.next()) {
+                        for (ICarteTransport carteTransport : change.getList()) {
+                            ConsoleLogger.getInstance(null, null).log("Ajout de la carte " + carteTransport.getStringCouleur().toString());
+                            VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1, true);
+                            vueCarteTransport.setCarteImagePosee();
+                            playerCartesBox.getChildren().add(vueCarteTransport);
+                        }
+                    }
+                }
+            });
         }
-        playerCartesBox.spacingProperty().bind(widthProperty().divide(8).multiply(-1));
+        playerCartesBox.setSpacing(-90);
 
         jeu.joueurCourantProperty().addListener(new ChangeListener<IJoueur>() {
             @Override
