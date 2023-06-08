@@ -55,9 +55,9 @@ public class VueInstructionBar extends Pane {
                 tt.setNode(instructionBar);
                 tt3.setNode(labelInstruciton);
 
-                tt2.setDuration(javafx.util.Duration.millis(700));
-                tt3.setDuration(javafx.util.Duration.millis(700));
-                tt.setDuration(javafx.util.Duration.millis(700));
+                tt2.setDuration(javafx.util.Duration.millis(400));
+                tt3.setDuration(javafx.util.Duration.millis(400));
+                tt.setDuration(javafx.util.Duration.millis(400));
 
                 tt2.setByY(-50);
                 tt3.setByY(-50);
@@ -83,9 +83,9 @@ public class VueInstructionBar extends Pane {
                 tt.setNode(instructionBar);
                 tt3.setNode(labelInstruciton);
 
-                tt2.setDuration(javafx.util.Duration.millis(700));
-                tt3.setDuration(javafx.util.Duration.millis(700));
-                tt.setDuration(javafx.util.Duration.millis(700));
+                tt2.setDuration(javafx.util.Duration.millis(400));
+                tt3.setDuration(javafx.util.Duration.millis(400));
+                tt.setDuration(javafx.util.Duration.millis(400));
 
 
                 tt2.setByY(50);

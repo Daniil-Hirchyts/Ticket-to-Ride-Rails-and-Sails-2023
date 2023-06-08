@@ -6,14 +6,14 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="40.0" type="Pane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="40.0" stylesheets="@../../css/style.css" type="Pane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="rubanFlag" fitHeight="80.0" fitWidth="40.0" layoutX="-2.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/elements/player-interface/ruban/BLEU.png" />
          </image>
       </ImageView>
-      <Circle fx:id="circleFlag" fill="#3f1a0a" layoutX="20.0" layoutY="20.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fx:id="circleFlag" fill="#3f1a0a" layoutX="20.0" layoutY="20.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="small-shadow-05" />
       <HBox fx:id="clickableFlag" alignment="CENTER" layoutX="5.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0">
          <children>
             <ImageView fx:id="iconFlag" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">

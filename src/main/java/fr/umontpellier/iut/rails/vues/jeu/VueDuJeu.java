@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -74,6 +75,10 @@ public class VueDuJeu extends GridPane {
     private Button btnDestination;
     @FXML
     private VBox containerInstruction;
+    @FXML
+    private ImageView videBateau;
+    @FXML
+    private ImageView videWagon;
 
     public VueDuJeu(IJeu jeu, Map<IJoueur.CouleurJoueur, ImageView> avatarList) {
         this.jeu = jeu;
@@ -85,6 +90,8 @@ public class VueDuJeu extends GridPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        videBateau.setVisible(false);
+        videWagon.setVisible(false);
 
         setId("gameScene");
         borderTop.prefWidthProperty().bind(this.widthProperty());
@@ -220,6 +227,35 @@ public class VueDuJeu extends GridPane {
         colorAdjust.setBrightness(0.1);
         pileBateauCarteImage.setEffect(colorAdjust);
         pileWagonCarteImage.setEffect(colorAdjust);
+
+        jeu.piocheWagonVideProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                videWagon.setVisible(true);
+                pileWagonCarteImage.setEffect(null);
+                pileWagonCarteImage.setOpacity(0.75);
+            }
+            if (!newValue) {
+                videWagon.setVisible(false);
+                pileWagonCarteImage.setEffect(colorAdjust);
+                pileWagonCarteImage.setOpacity(1);
+            }
+        });
+        jeu.piocheBateauVideProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                videBateau.setVisible(true);
+                pileBateauCarteImage.setEffect(null);
+                pileBateauCarteImage.setOpacity(0.75);
+            }
+            if (!newValue) {
+                videBateau.setVisible(false);
+                pileBateauCarteImage.setEffect(colorAdjust);
+                pileBateauCarteImage.setOpacity(1);
+            }
+        });
+        jeu.piocheDestinationVideProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) btnDestination.setDisable(true);
+            if (!newValue) btnDestination.setDisable(false);
+        });
 
     }
 

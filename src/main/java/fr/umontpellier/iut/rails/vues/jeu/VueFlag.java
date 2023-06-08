@@ -52,6 +52,7 @@ public class VueFlag extends Pane {
             valueFlag.setText(String.valueOf(o));
         creerBindings();
         valueFlag.getStyleClass().add("labelsIMFellEnglish");
+        getStyleClass().add("small-shadow-05");
 
     }
 

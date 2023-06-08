@@ -34,6 +34,8 @@ public class VuePlateau extends Pane {
     private IJeu jeu;
     @FXML
     private ImageView mapMonde;
+    @FXML
+    private ImageView mapMondeFrame;
 
     private IDestination destinationListened;
 
@@ -59,6 +61,10 @@ public class VuePlateau extends Pane {
         colorAdjust.setContrast(0.11);
         colorAdjust.setBrightness(0.1);
         mapMonde.setEffect(colorAdjust);
+        mapMondeFrame.fitWidthProperty().bind(mapMonde.fitWidthProperty());
+        mapMondeFrame.fitHeightProperty().bind(mapMonde.fitHeightProperty());
+        mapMondeFrame.layoutXProperty().bind(mapMonde.layoutXProperty());
+        mapMondeFrame.layoutYProperty().bind(mapMonde.layoutYProperty());
     }
 
     EventHandler<MouseEvent> choixRoute = event -> {

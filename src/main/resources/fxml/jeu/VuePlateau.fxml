@@ -7,4 +7,9 @@
     <ImageView fx:id="mapMonde" preserveRatio="true">
         <Image url="@../../images/map.jpg" />
     </ImageView>
+   <ImageView fx:id="mapMondeFrame" fitHeight="1069.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../images/background/frame.png" />
+      </image>
+   </ImageView>
 </fx:root>

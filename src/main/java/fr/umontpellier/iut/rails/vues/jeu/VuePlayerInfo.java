@@ -51,6 +51,8 @@ public class VuePlayerInfo extends HBox {
             e.printStackTrace();
         }
         creerBindings();
+        //add to css class to change the style
+        getStyleClass().add("big-shadow");
     }
 
     public void creerBindings() {

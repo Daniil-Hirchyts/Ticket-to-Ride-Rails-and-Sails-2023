@@ -55,9 +55,23 @@ Label {
 
 .labelNomsCreator {
     -fx-font-size: 20px;
-
 }
 
+#mapMonde, .big-shadow {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 20, 0, 0, 0);
+}
+
+.medium-shadow {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 10, 0, 0, 0);
+}
+
+.small-shadow {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 5, 0, 0, 0);
+}
+
+.small-shadow-05 {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 0);
+}
 
 #centerBox, #plateau, .hideBG {
     -fx-background-color: transparent;

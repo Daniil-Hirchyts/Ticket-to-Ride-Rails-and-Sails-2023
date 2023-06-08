@@ -37,7 +37,7 @@
                      <children>
                         <Group>
                            <children>
-                              <ImageView fitHeight="91.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="91.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" styleClass="medium-shadow">
                                  <image>
                                     <Image url="@../../images/elements/current-player/stack.png" />
                                  </image>
@@ -49,11 +49,16 @@
                            <styleClass>
                               <String fx:value="hideBG" />
                               <String fx:value="labelsOrchardStreetNFW01Regular" />
+                              <String fx:value="small-shadow-05" />
                            </styleClass></Button>
-                        <Button id="btnDestination" fx:id="btnDestination" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="27.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" styleClass="hideBG" textAlignment="CENTER" textFill="WHITE">
+                        <Button id="btnDestination" fx:id="btnDestination" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="27.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="1.0" />
                            </font>
+                           <styleClass>
+                              <String fx:value="hideBG" />
+                              <String fx:value="small-shadow-05" />
+                           </styleClass>
                         </Button>
                         <TextField fx:id="commandField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" />
                      </children>
@@ -140,6 +145,11 @@
                     <children>
                         <Pane id="carte" fx:id="pileWagonCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="130.0">
                             <children>
+                        <ImageView fx:id="videWagon" fitHeight="36.0" fitWidth="38.0" layoutX="95.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/icons/croix.png" />
+                           </image>
+                        </ImageView>
                                 <Pane fx:id="pileWagonCarteImage" layoutX="28.0" layoutY="-18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
                             </children>
                         </Pane>
@@ -150,6 +160,11 @@
                     <children>
                         <Pane id="carte" fx:id="pileBateauCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="130.0">
                             <children>
+                        <ImageView fx:id="videBateau" fitHeight="36.0" fitWidth="38.0" layoutX="95.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/icons/croix.png" />
+                           </image>
+                        </ImageView>
                                 <Pane fx:id="pileBateauCarteImage" layoutX="28.0" layoutY="-18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
                             </children>
                         </Pane>
