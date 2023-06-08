@@ -14,6 +14,8 @@ public interface IJoueur {
     IntegerProperty nbPionsBateauxProperty();
     List<? extends ICarteTransport> getCartesTransport();
     List<? extends IDestination> getDestinations();
+
+    boolean destinationEstComplete(IDestination destination);
     int getNbPionsWagon();
     int getNbPionsBateau();
     int getNbPorts();

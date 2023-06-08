@@ -33,7 +33,7 @@ public class RailsIHM extends Application {
     private Stage primaryStage;
     private Jeu jeu;
     private BooleanProperty partieTerminee;
-    private final boolean avecVueChoixJoueurs = true;
+    private final boolean avecVueChoixJoueurs = false;
 
     @Override
     public void start(Stage primaryStage) {
@@ -102,22 +102,22 @@ public class RailsIHM extends Application {
 
 
         primaryStage.setScene(scene);
-//        VueResultats vueResultats = new VueResultats(this, avatars);
-//        Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
-//        primaryStage.setScene(sceneResultats);
+        VueResultats vueResultats = new VueResultats(this, avatars);
+        Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
+        primaryStage.setScene(sceneResultats);
 //        TODO : A ACTIVER POUR LA VERSION FINALE
-        primaryStage.setOnCloseRequest(event -> {
-            this.arreterJeu();
-            event.consume();
-        });
-
-        jeu.finDePartieProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                VueResultats vueResultats = new VueResultats(this, avatars);
-                Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
-                primaryStage.setScene(sceneResultats);
-            }
-        });
+//        primaryStage.setOnCloseRequest(event -> {
+//            this.arreterJeu();
+//            event.consume();
+//        });
+//
+//        jeu.finDePartieProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue) {
+//                VueResultats vueResultats = new VueResultats(this, avatars);
+//                Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
+//                primaryStage.setScene(sceneResultats);
+//            }
+//        });
 
         primaryStage.show();
     }
