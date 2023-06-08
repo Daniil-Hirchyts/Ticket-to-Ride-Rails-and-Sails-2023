@@ -85,7 +85,7 @@ public class VueResultats extends Pane {
         rt.setDuration(javafx.util.Duration.millis(10000));
         rt.play();
 
-        this.getChildren().addAll(lumiereGagnant, avatarGagnant);
+        this.getChildren().addAll(avatarGagnant);
     }
 
 }
