@@ -81,29 +81,20 @@
             </Button>
          </children>
       </VBox>
-      <GridPane fx:id="interfaceOfChoose" alignment="CENTER" GridPane.columnSpan="2" GridPane.rowSpan="3">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints valignment="BOTTOM" vgrow="ALWAYS" />
-          <RowConstraints minHeight="150.0" valignment="CENTER" />
-        </rowConstraints>
+      <Pane fx:id="interfaceOfChoose" GridPane.columnSpan="2" GridPane.rowSpan="3">
          <children>
-            <Button fx:id="validation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="110.0" prefWidth="250.0" text="Valider" textFill="WHITE" GridPane.rowIndex="1">
+            <VBox fx:id="vboxJoueurs" alignment="CENTER" layoutX="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+               <padding>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+               </padding>
+            </VBox>
+            <Button fx:id="validation" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="110.0" prefWidth="250.0" text="Valider" textFill="WHITE">
                <styleClass>
                   <String fx:value="btnMenu" />
                   <String fx:value="labelsOrchardStreetNFW01Regular" />
                </styleClass>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
             </Button>
-            <VBox fx:id="vboxJoueurs" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
-               <padding>
-                  <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-               </padding></VBox>
          </children>
-      </GridPane>
+      </Pane>
    </children>
 </fx:root>

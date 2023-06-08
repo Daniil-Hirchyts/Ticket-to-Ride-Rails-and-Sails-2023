@@ -5,10 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.io.IOException;
 
@@ -17,7 +14,7 @@ import static javafx.scene.text.Font.loadFont;
 public class VueChoixJoueursContainer extends GridPane {
 
     @FXML
-    private GridPane interfaceOfChoose;
+    private Pane interfaceOfChoose;
     @FXML
     private HBox topBarBackground;
     @FXML
@@ -72,6 +69,15 @@ public class VueChoixJoueursContainer extends GridPane {
     private void createBindings() {
         finalTrain.fitHeightProperty().bind(this.heightProperty().divide(2));
         finalTrain.fitWidthProperty().bind(this.widthProperty().divide(2));
+        interfaceOfChoose.prefWidthProperty().bind(this.widthProperty());
+        interfaceOfChoose.prefHeightProperty().bind(this.heightProperty());
+        vboxJoueurs.layoutXProperty().bind(interfaceOfChoose.widthProperty().divide(2).subtract(vboxJoueurs.widthProperty().divide(2)));
+        vboxJoueurs.layoutYProperty().bind(interfaceOfChoose.heightProperty().divide(2).subtract(vboxJoueurs.heightProperty().divide(2)));
+
+        validation.layoutXProperty().bind(interfaceOfChoose.widthProperty().divide(2).subtract(validation.widthProperty().divide(2)));
+        validation.layoutYProperty().bind(interfaceOfChoose.heightProperty().multiply(0.98).subtract(validation.heightProperty()));
+        validation.scaleXProperty().bind(interfaceOfChoose.widthProperty().divide(1920));
+        validation.scaleYProperty().bind(interfaceOfChoose.heightProperty().divide(1080));
 
         btnQuitter.setOnAction(event -> {
             System.exit(0);
@@ -88,7 +94,7 @@ public class VueChoixJoueursContainer extends GridPane {
 
     private void startAnimationTrain() {
         TranslateTransition translateTransition = new TranslateTransition();
-        translateTransition.setDuration(javafx.util.Duration.seconds(3));
+        translateTransition.setDuration(javafx.util.Duration.seconds(5));
         translateTransition.setNode(finalTrain);
         translateTransition.setFromX(-finalTrain.getFitWidth());
         translateTransition.setToX(finalTrain.getX());
