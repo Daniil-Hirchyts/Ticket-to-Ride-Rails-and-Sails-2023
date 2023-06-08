@@ -161,7 +161,6 @@ public class VueJoueurCourant extends GridPane {
                             ConsoleLogger.getInstance(null, null).log("Ajout de la carte " + carteTransport.getStringCouleur().toString());
                             VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1, true);
                             vueCarteTransport.verticalLayout();
-                            vueCarteTransport.setId("carte-vertical");
                             playerCartesBox.getChildren().add(vueCarteTransport);
                         }
                     }
@@ -178,7 +177,6 @@ public class VueJoueurCourant extends GridPane {
                 for (ICarteTransport c : joueur.getCartesTransport()) {
                     VueCarteTransport vueCarteTransport = new VueCarteTransport(c, 1, true);
                     vueCarteTransport.verticalLayout();
-                    vueCarteTransport.setId("carte-vertical");
                     playerCartesBox.getChildren().add(vueCarteTransport);
                 }
             }

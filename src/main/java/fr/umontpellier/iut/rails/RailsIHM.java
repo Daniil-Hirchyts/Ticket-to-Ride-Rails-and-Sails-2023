@@ -38,9 +38,7 @@ public class RailsIHM extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-//        this.primaryStage.setFullScreen(true);
         debuterJeu();
-        //
     }
 
     public void debuterJeu() {

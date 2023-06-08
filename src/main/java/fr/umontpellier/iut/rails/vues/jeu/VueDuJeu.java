@@ -190,9 +190,7 @@ public class VueDuJeu extends GridPane {
                 piocheBox.getChildren().clear();
                 for (ICarteTransport carteTransport : jeu.cartesTransportVisiblesProperty()) {
                     VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1, false);
-                    vueCarteTransport.setId("carte-horizontal");
                     vueCarteTransport.horizontalLayout();
-
                     piocheBox.getChildren().add(vueCarteTransport);
 
                 }

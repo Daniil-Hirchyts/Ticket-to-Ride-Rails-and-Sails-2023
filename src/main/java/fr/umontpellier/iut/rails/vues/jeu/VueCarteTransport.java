@@ -1,10 +1,13 @@
 package fr.umontpellier.iut.rails.vues.jeu;
 
 import fr.umontpellier.iut.rails.ICarteTransport;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -28,6 +31,30 @@ public class VueCarteTransport extends Pane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), this);
+        scaleTransition.setFromX(1);
+        scaleTransition.setFromY(1);
+        scaleTransition.setToX(1.1);
+        scaleTransition.setToY(1.1);
+
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(200), this);
+        translateTransition.setFromY(0);
+        translateTransition.setToY(-20);
+
+        setOnMouseEntered(event -> {
+            scaleTransition.playFromStart();
+            translateTransition.playFromStart();
+        });
+
+        setOnMouseExited(event -> {
+            scaleTransition.setRate(-1);
+            translateTransition.setRate(-1);
+            scaleTransition.play();
+            translateTransition.play();
+        });
+
+        getStyleClass().add("carte");
 
         this.carteTransport = carteTransport;
 
@@ -72,11 +99,15 @@ public class VueCarteTransport extends Pane {
 
 
     public void horizontalLayout() {
+        setId("carte-horizontal");
         setRotate(0);
     }
 
     public void verticalLayout() {
+//        setId("carte-vertical");
         setRotate(270);
     }
+
+
 
 }
