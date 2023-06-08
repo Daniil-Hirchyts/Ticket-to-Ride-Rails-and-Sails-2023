@@ -135,6 +135,7 @@ public class VueDuJeu extends GridPane {
         VueJoueurCourant vueJoueurCourant = new VueJoueurCourant(jeu, avatarList);
         add(vueJoueurCourant, 0, 2);
         setColumnSpan(vueJoueurCourant, 3);
+        vueJoueurCourant.prefWidthProperty().bind(this.widthProperty());
         instructionBar = new VueInstructionBar(this);
         containerInstruction.getChildren().add(instructionBar);
         instructionBar.setTranslateY(20);

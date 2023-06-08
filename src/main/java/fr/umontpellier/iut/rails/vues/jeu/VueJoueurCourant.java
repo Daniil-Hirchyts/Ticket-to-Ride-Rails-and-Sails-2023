@@ -28,6 +28,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,7 +59,6 @@ public class VueJoueurCourant extends GridPane {
     private Label scoreLabel;
     @FXML
     private HBox playerCartesBox;
-
     private VueFlag pionsWagon;
     private VueFlag pionsBateau;
     private VueFlag pionsPort;
@@ -82,7 +83,31 @@ public class VueJoueurCourant extends GridPane {
             e.printStackTrace();
         }
         creerBindings();
+        //bind playerCartesBox width to screen width
+        playerCartesBox.prefWidthProperty().bind(this.prefWidthProperty().subtract(300));
+        this.prefWidthProperty().addListener((observable, oldValue, newValue) -> {
+            spacingCalculator();
+        });
 
+        playerCartesBox.getChildren().addListener((ListChangeListener<Node>) c -> {
+            spacingCalculator();
+        });
+
+        playerCartesBox.setStyle("-fx-background-color: #7f65ff");
+    }
+
+    private void spacingCalculator() {
+        double spacing = 0;
+        double l = this.getPrefWidth() - 300;
+        int n = playerCartesBox.getChildren().size();
+
+        if (n > 1 && l > 0) spacing = (l - ((83 * n))) / (n - 1);
+        else spacing = 0;
+
+//        playerCartesBox.setSpacing(spacing);
+        System.out.println("l = " + l);
+        System.out.println("n = " + n);
+        System.out.println("s = " + spacing);
     }
 
     public void creerBindings() {
@@ -99,51 +124,50 @@ public class VueJoueurCourant extends GridPane {
             pionsPort.setStyle("-fx-scale-x: 1.2; -fx-scale-y: 1.2;");
 
             pionsWagon.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                pionsWagon.getTextFieldChangePions().requestFocus();
-                pionsWagon.getIconFlag().setVisible(false);
-                pionsWagon.getCircleFlag().setFill(Color.WHITE);
-                jeu.nouveauxPionsWagonsDemandes();
-                pionsWagon.getTextField().setOnKeyPressed(new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent keyEvent) {
-                        if (keyEvent.getCode() == KeyCode.ENTER) {
-                            jeu.leNombreDePionsSouhaiteAEteRenseigne(pionsWagon.getTextField().getText());
-                            pionsWagon.getIconFlag().setVisible(true);
-                            pionsWagon.getCircleFlag().setStyle("-fx-fill: -fx-brown-flag;");
-                            pionsWagon.getTextField().setText("");
-                            pionsWagon.getTextField().setDisable(true);
-                            pionsWagon.getTextField().setVisible(false);
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    pionsWagon.getTextFieldChangePions().requestFocus();
+                    pionsWagon.getIconFlag().setVisible(false);
+                    pionsWagon.getCircleFlag().setFill(Color.WHITE);
+                    jeu.nouveauxPionsWagonsDemandes();
+                    pionsWagon.getTextField().setOnKeyPressed(new EventHandler<KeyEvent>() {
+                        @Override
+                        public void handle(KeyEvent keyEvent) {
+                            if (keyEvent.getCode() == KeyCode.ENTER) {
+                                jeu.leNombreDePionsSouhaiteAEteRenseigne(pionsWagon.getTextField().getText());
+                                pionsWagon.getIconFlag().setVisible(true);
+                                pionsWagon.getCircleFlag().setStyle("-fx-fill: -fx-brown-flag;");
+                                pionsWagon.getTextField().setText("");
+                                pionsWagon.getTextField().setDisable(true);
+                                pionsWagon.getTextField().setVisible(false);
+                            }
                         }
-                    }
-                });
-            }
-        });
-        pionsBateau.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                pionsBateau.getTextFieldChangePions().requestFocus();
-                pionsBateau.getIconFlag().setVisible(false);
-                pionsBateau.getCircleFlag().setFill(Color.WHITE);
-                jeu.nouveauxPionsBateauxDemandes();
-                pionsBateau.getTextField().setOnKeyPressed(new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent keyEvent) {
-                        if (keyEvent.getCode() == KeyCode.ENTER) {
-                            jeu.leNombreDePionsSouhaiteAEteRenseigne(pionsBateau.getTextField().getText());
-                            pionsBateau.getIconFlag().setVisible(true);
-                            pionsBateau.getCircleFlag().setStyle("-fx-fill: -fx-brown-flag;");
-                            pionsBateau.getTextField().setText("");
-                            pionsBateau.getTextField().setDisable(true);
-                            pionsBateau.getTextField().setVisible(false);
+                    });
+                }
+            });
+            pionsBateau.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    pionsBateau.getTextFieldChangePions().requestFocus();
+                    pionsBateau.getIconFlag().setVisible(false);
+                    pionsBateau.getCircleFlag().setFill(Color.WHITE);
+                    jeu.nouveauxPionsBateauxDemandes();
+                    pionsBateau.getTextField().setOnKeyPressed(new EventHandler<KeyEvent>() {
+                        @Override
+                        public void handle(KeyEvent keyEvent) {
+                            if (keyEvent.getCode() == KeyCode.ENTER) {
+                                jeu.leNombreDePionsSouhaiteAEteRenseigne(pionsBateau.getTextField().getText());
+                                pionsBateau.getIconFlag().setVisible(true);
+                                pionsBateau.getCircleFlag().setStyle("-fx-fill: -fx-brown-flag;");
+                                pionsBateau.getTextField().setText("");
+                                pionsBateau.getTextField().setDisable(true);
+                                pionsBateau.getTextField().setVisible(false);
+                            }
                         }
-                    }
-                });
-            }
-        });
-        playerCartesBox.maxWidthProperty().bind(this.widthProperty().multiply(0.75));
-        playerCartesBox.prefWidthProperty().bind(playerCartesBox.maxWidthProperty());
+                    });
+                }
+            });
+
 
             flagsBox.getChildren().addAll(pionsWagon, pionsBateau, pionsPort);
             playerName.setText(newValue.getNom());
@@ -183,7 +207,7 @@ public class VueJoueurCourant extends GridPane {
                 }
             });
         }
-        playerCartesBox.setSpacing(-90);
+
 
         jeu.joueurCourantProperty().addListener(new ChangeListener<IJoueur>() {
             @Override
@@ -197,19 +221,5 @@ public class VueJoueurCourant extends GridPane {
                 }
             }
         });
-
-//        btnPionsWagon.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                jeu.nouveauxPionsWagonsDemandes();
-//            }
-//        });
-//
-//        btnPionsBateau.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                jeu.nouveauxPionsBateauxDemandes();
-//            }
-//        });
     }
 }
