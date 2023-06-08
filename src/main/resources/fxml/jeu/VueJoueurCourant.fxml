@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<fx:root fx:id="vueJoueurCourant" alignment="CENTER" prefWidth="1080.0" stylesheets="@../../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="vueJoueurCourant" alignment="CENTER" prefWidth="1080.0" stylesheets="@../../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
@@ -19,11 +24,7 @@
     <children>
         <HBox fx:id="centerSection" alignment="CENTER" GridPane.columnSpan="2">
             <children>
-                <ScrollPane fitToHeight="true" focusTraversable="false" hbarPolicy="ALWAYS" maxHeight="-Infinity" minHeight="-Infinity" pickOnBounds="false" prefHeight="150.0" vbarPolicy="NEVER" vmax="0.0">
-                    <content>
-                        <HBox fx:id="playerCartesBox" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" />
-                    </content>
-                </ScrollPane>
+                  <HBox fx:id="playerCartesBox" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" />
             </children>
             <padding>
                 <Insets left="75.0" right="100.0" />
