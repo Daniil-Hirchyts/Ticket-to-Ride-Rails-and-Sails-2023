@@ -83,31 +83,22 @@ public class VueJoueurCourant extends GridPane {
             e.printStackTrace();
         }
         creerBindings();
-        //bind playerCartesBox width to screen width
-        playerCartesBox.prefWidthProperty().bind(this.prefWidthProperty().subtract(300));
+        playerCartesBox.prefWidthProperty().bind(this.prefWidthProperty().subtract(450));
         this.prefWidthProperty().addListener((observable, oldValue, newValue) -> {
             spacingCalculator();
         });
-
         playerCartesBox.getChildren().addListener((ListChangeListener<Node>) c -> {
             spacingCalculator();
         });
-
-        playerCartesBox.setStyle("-fx-background-color: #7f65ff");
     }
 
     private void spacingCalculator() {
         double spacing = 0;
-        double l = this.getPrefWidth() - 300;
+        double l = this.getPrefWidth() - 450;
         int n = playerCartesBox.getChildren().size();
-
-        if (n > 1 && l > 0) spacing = (l - (83 * n)) / (n - 1);
+        if (n > 1 && l > 0) spacing = (l - (130 * n)) / (n - 1);
         else spacing = 0;
-
         playerCartesBox.setSpacing(spacing);
-        System.out.println("l = " + l);
-        System.out.println("n = " + n);
-        System.out.println("s = " + spacing);
     }
 
     public void creerBindings() {

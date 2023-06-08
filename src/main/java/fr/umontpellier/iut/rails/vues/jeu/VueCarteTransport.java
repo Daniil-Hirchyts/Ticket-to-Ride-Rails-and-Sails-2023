@@ -71,7 +71,7 @@ public class VueCarteTransport extends Pane {
         return carteTransport;
     }
 
-    private void setupHoverTransition(double translateToX, double translateToY) {
+    public void setupHoverTransition(double translateToX, double translateToY) {
         ScaleTransition scaleTransitionHover = new ScaleTransition(Duration.millis(200), this);
         scaleTransitionHover.setFromX(1);
         scaleTransitionHover.setFromY(1);
@@ -116,7 +116,7 @@ public class VueCarteTransport extends Pane {
     }
 
     public Pane getCarteImage() {
-return carteImage;
+        return carteImage;
     }
 
     public void setCarteImagePosee() {

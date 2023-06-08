@@ -2,10 +2,13 @@ package fr.umontpellier.iut.rails.vues.jeu;
 
 import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.mecanique.Graphe;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,21 +60,56 @@ public class VueDestination extends VBox {
         this.setOnMouseExited(event -> {
             List<Integer> villeToInteger = new ArrayList<>();
             for (String ville : destination.getVilles())
-                if (vueDuJeu.getJeu().getIdVille(ville) != -1){
+                if (vueDuJeu.getJeu().getIdVille(ville) != -1) {
                     vueDuJeu.getPlateau().getCercleDeLaVille(ville).getStyleClass().remove("cercleVilleGlow");
                     villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));
                 }
             for (String route : constructListRoute(vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger)))
-                for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)){
+                for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)) {
                     rectangle.getStyleClass().remove("rectangleGlow");
                 }
 
+        });
+
+        setupHoverTransition(-35, 0);
+    }
+
+    public void setupHoverTransition(double translateToX, double translateToY) {
+        ScaleTransition scaleTransitionHover = new ScaleTransition(Duration.millis(200), this);
+        scaleTransitionHover.setFromX(1);
+        scaleTransitionHover.setFromY(1);
+        scaleTransitionHover.setToX(1.25);
+        scaleTransitionHover.setToY(1.25);
+
+        TranslateTransition translateTransitionHover = new TranslateTransition(Duration.millis(200), this);
+        translateTransitionHover.setFromX(0);
+        translateTransitionHover.setFromY(0);
+        translateTransitionHover.setToX(translateToX);
+        translateTransitionHover.setToY(translateToY);
+
+        setOnMouseEntered(event -> {
+            scaleTransitionHover.playFromStart();
+            translateTransitionHover.playFromStart();
+        });
+
+        ScaleTransition scaleTransitionRestore = new ScaleTransition(Duration.millis(200), this);
+        scaleTransitionRestore.setToX(1);
+        scaleTransitionRestore.setToY(1);
+
+        TranslateTransition translateTransitionRestore = new TranslateTransition(Duration.millis(200), this);
+        translateTransitionRestore.setToX(0);
+        translateTransitionRestore.setToY(0);
+
+        setOnMouseExited(event -> {
+            scaleTransitionRestore.playFromStart();
+            translateTransitionRestore.playFromStart();
         });
     }
 
     public List<String> constructListRoute(List<Integer> listeSommets) {
         List<String> listeRoute = new ArrayList<>();
-        for (int i = 0; i < listeSommets.size() - 1; i++) listeRoute.add(graphe.getArete(listeSommets.get(i), listeSommets.get(i + 1)).route().getNom());
+        for (int i = 0; i < listeSommets.size() - 1; i++)
+            listeRoute.add(graphe.getArete(listeSommets.get(i), listeSommets.get(i + 1)).route().getNom());
         return listeRoute;
     }
 

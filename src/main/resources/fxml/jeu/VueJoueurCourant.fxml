@@ -9,7 +9,7 @@
 
 <fx:root fx:id="vueJoueurCourant" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" stylesheets="@../../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
-        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
+        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
         <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
     </columnConstraints>
@@ -19,7 +19,7 @@
     <children>
             <HBox fx:id="playerCartesBox" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0">
          <GridPane.margin>
-            <Insets />
+            <Insets left="50.0" right="100.0" />
          </GridPane.margin></HBox>
         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" GridPane.columnIndex="2">
             <children>

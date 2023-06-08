@@ -95,7 +95,6 @@ public class VueDuJeu extends GridPane {
 
         setId("gameScene");
         borderTop.prefWidthProperty().bind(this.widthProperty());
-//        borderTopMask.prefWidthProperty().bind(this.widthProperty());
         borderDown.prefWidthProperty().bind(this.widthProperty());
         bottomColor.prefWidthProperty().bind(this.widthProperty());
 
@@ -105,10 +104,7 @@ public class VueDuJeu extends GridPane {
             pileCartesDestinations.getChildren().clear();
             String bottom = "bottom-";
             bottomColor.setStyle("-fx-background-image: url('/images/background/bottom-colors/" + bottom + newValue.getCouleur().toString() + PNG + "');");
-            for (IDestination d : newValue.getDestinations()) {
-                pileCartesDestinations.getChildren().add(new VueDestination(d, this));
-            }
-            pileCartesDestinations.setSpacing(-pileCartesDestinations.getChildren().size()*1.5);
+            for (IDestination d : newValue.getDestinations()) pileCartesDestinations.getChildren().add(new VueDestination(d, this));
         });
         jeu.destinationsInitialesProperty().addListener(new ListChangeListener<IDestination>() {
             @Override
@@ -164,7 +160,6 @@ public class VueDuJeu extends GridPane {
     });
 
     public void creerBindings() {
-
         commandField.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -193,7 +188,6 @@ public class VueDuJeu extends GridPane {
                     VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1, false);
                     vueCarteTransport.horizontalLayout();
                     piocheBox.getChildren().add(vueCarteTransport);
-
                 }
             }
         });
@@ -256,22 +250,30 @@ public class VueDuJeu extends GridPane {
             if (!newValue) btnDestination.setDisable(false);
         });
 
+        pileCartesDestinations.prefHeightProperty().bind(this.prefHeightProperty().subtract(400));
+        this.prefHeightProperty().addListener((observable, oldValue, newValue) -> {
+            spacingCalculator();
+        });
+        pileCartesDestinations.getChildren().addListener((ListChangeListener<Node>) c -> {
+            spacingCalculator();
+        });
+    }
+
+    private void spacingCalculator() {
+        double spacing = 0;
+        double l = this.getPrefHeight() - 400;
+        int n = pileCartesDestinations.getChildren().size();
+        if (n > 1 && l > 0) spacing = (l - (52 * n)) / (n - 1);
+        else spacing = 0;
+        pileCartesDestinations.setSpacing(spacing);
     }
 
     public VuePlateau getPlateau() {
         return plateau;
     }
 
-    public VueDuJeu getVueDuJeu() {
-        return this;
-    }
-
     public IJeu getJeu() {
         return jeu;
-    }
-
-    public Button getBtnDestination() {
-        return btnDestination;
     }
 
 }
