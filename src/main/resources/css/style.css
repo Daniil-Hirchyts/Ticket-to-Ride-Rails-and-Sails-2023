@@ -24,6 +24,7 @@
     -fx-white-carte: #e7edf1;
     -fx-title-color: #C50B25;
     -fx-brown-flag: #3f1a0a;
+    -fx-color-map-destination: #bcff00;
 }
 
 Rectangle {
@@ -391,6 +392,10 @@ Label {
     -fx-background-radius: 5px;
 }
 
+#overlay {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
 #destinationTicket, #destinationTicketChoix {
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
@@ -467,15 +472,19 @@ Label {
 }
 
 .rectangleGlow {
-    -fx-stroke: #5eff01;
+    -fx-stroke: -fx-color-map-destination;
     -fx-stroke-width: 2;
-    -fx-effect: dropshadow(gaussian, #5eff01, 5, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, -fx-color-map-destination, 5, 0, 0, 0);
 }
 
 .cercleVilleGlow{
-    -fx-stroke: #5eff01;
+    -fx-stroke: -fx-color-map-destination;
     -fx-stroke-width: 2;
-    -fx-effect: dropshadow(gaussian, #5eff01, 5, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, -fx-color-map-destination, 5, 0, 0, 0);
+}
+
+#star {
+    -fx-fill: -fx-color-map-destination;
 }
 
 #instructionLabel {

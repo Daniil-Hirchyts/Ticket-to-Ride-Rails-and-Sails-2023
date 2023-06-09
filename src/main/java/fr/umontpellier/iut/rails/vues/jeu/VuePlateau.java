@@ -45,6 +45,8 @@ public class VuePlateau extends Pane {
 
     private Map<String, List<Rectangle>> RectangleDeLaRoute;
     private Map<String, Circle> cercleDesVilles;
+    @FXML
+    private Pane overlay;
 
     public VuePlateau(IJeu jeu) {
         try {
@@ -69,6 +71,11 @@ public class VuePlateau extends Pane {
         mapMondeFrame.fitHeightProperty().bind(mapMonde.fitHeightProperty());
         mapMondeFrame.layoutXProperty().bind(mapMonde.layoutXProperty());
         mapMondeFrame.layoutYProperty().bind(mapMonde.layoutYProperty());
+        overlay.setVisible(false);
+    }
+
+    public Pane getOverlay() {
+        return overlay;
     }
 
     EventHandler<MouseEvent> choixRoute = event -> {
@@ -86,6 +93,9 @@ public class VuePlateau extends Pane {
         ajouterPorts();
         ajouterRoutes();
         bindRedimensionEtCentragePlateau();
+
+        overlay.prefWidthProperty().bind(mapMondeFrame.fitWidthProperty());
+        overlay.prefHeightProperty().bind(mapMondeFrame.fitHeightProperty());
     }
 
     private void ajouterPorts() {
@@ -108,6 +118,7 @@ public class VuePlateau extends Pane {
                     setCycleCount(Animation.INDEFINITE);
                     setAutoReverse(true);
                 }
+
                 @Override
                 protected void interpolate(double frac) {
                     glow.setLevel(frac);
@@ -135,6 +146,7 @@ public class VuePlateau extends Pane {
                         setCycleCount(Animation.INDEFINITE);
                         setAutoReverse(true);
                     }
+
                     @Override
                     protected void interpolate(double frac) {
                         glow.setLevel(frac);
@@ -307,8 +319,8 @@ public class VuePlateau extends Pane {
                         pionsPosee.layoutXProperty().bind(rect.layoutXProperty());
                         pionsPosee.layoutYProperty().bind(rect.layoutYProperty());
                         pionsPosee.rotateProperty().bind(rect.rotateProperty());
-                        pionsPosee.fitHeightProperty().bind(rect.heightProperty().add(4));
-                        pionsPosee.fitWidthProperty().bind(rect.widthProperty());
+                        pionsPosee.fitHeightProperty().bind(rect.heightProperty().add(6));
+                        pionsPosee.fitWidthProperty().bind(rect.widthProperty().add(2));
                         getChildren().add(pionsPosee);
                     }
 
@@ -360,6 +372,7 @@ public class VuePlateau extends Pane {
                     setCycleCount(Animation.INDEFINITE);
                     setAutoReverse(true);
                 }
+
                 @Override
                 protected void interpolate(double frac) {
                     glow.setLevel(frac);

@@ -71,6 +71,7 @@ public class VueDestination extends VBox {
             for (String ville : destination.getVilles()) {
                 if (vueDuJeu.getJeu().getIdVille(ville) != -1) {
                     vueDuJeu.getPlateau().getCercleDeLaVille(ville).getStyleClass().add("cercleVilleGlow");
+                    vueDuJeu.getPlateau().getOverlay().setVisible(true);
                     Glow glow = new Glow();
                     vueDuJeu.getPlateau().getCercleDeLaVille(ville).setEffect(glow);
                     Transition transition = new Transition() {
@@ -94,19 +95,21 @@ public class VueDestination extends VBox {
                     scaleTransition.setCycleCount(Animation.INDEFINITE);
                     scaleTransition.setAutoReverse(true);
                     scaleTransition.play();
-//                    Label label = new Label(ville);
-//                    label.setStyle("-fx-background-color: rgb(106,78,57);");
-//                    label.getStyleClass().add("labelsIMFellEnglish");
-//                    label.setTranslateX(vueDuJeu.getPlateau().getCercleDeLaVille(ville).getCenterX());
-//                    label.setTranslateY(vueDuJeu.getPlateau().getCercleDeLaVille(ville).getCenterY());
+                    Label label = new Label(ville);
+                    label.getStyleClass().add("labelsIMFellEnglish");
+                    label.setTranslateX(vueDuJeu.getPlateau().getCercleDeLaVille(ville).getCenterX() + 5);
+                    label.setTranslateY(vueDuJeu.getPlateau().getCercleDeLaVille(ville).getCenterY() - 35);
+                    label.setStyle("-fx-font-size: 15px;" +
+                            "-fx-text-fill: -fx-color-map-destination;" +
+                            "-fx-font-weight: bold;");
                     SVGPath star = new SVGPath();
                     star.setContent("M9.5 14.25l-5.584 2.936 1.066-6.218L.465 6.564l6.243-.907L9.5 0l2.792 5.657 6.243.907-4.517 4.404 1.066 6.218");
-                    star.setFill(Color.valueOf("#5eff01"));
+                    star.setId("star");
                     star.setTranslateX(vueDuJeu.getPlateau().getCercleDeLaVille(ville).getCenterX() - 9);
                     star.setTranslateY(vueDuJeu.getPlateau().getCercleDeLaVille(ville).getCenterY() - 9);
                     star.setScaleX(2);
                     star.setScaleY(2);
-                    vueDuJeu.getPlateau().getChildren().addAll(star);
+                    vueDuJeu.getPlateau().getChildren().addAll(star, label);
                     RotateTransition rotateTransition = new RotateTransition(Duration.millis(3000), star);
                     rotateTransition.setFromAngle(0);
                     rotateTransition.setToAngle(360);
@@ -140,12 +143,13 @@ public class VueDestination extends VBox {
                     vueDuJeu.getPlateau().getCercleDeLaVille(ville).getStyleClass().remove("cercleVilleGlow");
                     villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));
                 }
+            vueDuJeu.getPlateau().getOverlay().setVisible(false);
             for (String route : constructListRoute(vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger)))
                 for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)) {
                     rectangle.getStyleClass().remove("rectangleGlow");
                 }
             vueDuJeu.getPlateau().getChildren().removeIf(node -> node instanceof SVGPath);
-//            vueDuJeu.getPlateau().getChildren().removeIf(node -> node instanceof Label);
+            vueDuJeu.getPlateau().getChildren().removeIf(node -> node instanceof Label);
             scaleTransitionRestore.playFromStart();
             translateTransitionRestore.playFromStart();
         });
