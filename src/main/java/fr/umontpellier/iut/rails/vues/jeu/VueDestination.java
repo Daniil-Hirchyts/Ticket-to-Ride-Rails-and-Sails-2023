@@ -8,12 +8,16 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
+import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Cette classe représente la vue d'une carte Destination.
@@ -23,6 +27,7 @@ import java.util.List;
 public class VueDestination extends VBox {
     private Graphe graphe;
     protected final IDestination destination;
+    private Map<Shape, Transition> transitions;
     private VueDuJeu vueDuJeu;
 
     public VueDestination(IDestination destination, VueDuJeu vueDuJeu) {
@@ -31,6 +36,7 @@ public class VueDestination extends VBox {
 
     public VueDestination(IDestination destination, boolean clickable, VueDuJeu vueDuJeu) {
         this.destination = destination;
+        this.transitions = new HashMap<>();
         this.graphe = vueDuJeu.getJeu().getGraphe();
         for (String ville : destination.getVilles()) {
             Label label = new Label("➤ " + ville);
@@ -95,6 +101,7 @@ public class VueDestination extends VBox {
                     scaleTransition.setCycleCount(Animation.INDEFINITE);
                     scaleTransition.setAutoReverse(true);
                     scaleTransition.play();
+                    transitions.put(vueDuJeu.getPlateau().getCercleDeLaVille(ville), scaleTransition);
                     Label label = new Label(ville);
                     label.getStyleClass().add("labelsIMFellEnglish");
                     label.setTranslateX(vueDuJeu.getPlateau().getCercleDeLaVille(ville).getCenterX() + 5);
@@ -116,6 +123,7 @@ public class VueDestination extends VBox {
                     rotateTransition.setCycleCount(Animation.INDEFINITE);
                     rotateTransition.play();
                     star.setEffect(glow);
+                    transitions.put(vueDuJeu.getPlateau().getCercleDeLaVille(ville), rotateTransition);
                     villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));
                 }
             }
@@ -130,6 +138,7 @@ public class VueDestination extends VBox {
                     scaleTransition.setToY(1.1);
                     scaleTransition.setCycleCount(Animation.INDEFINITE);
                     scaleTransition.setAutoReverse(true);
+                    transitions.put(rectangle, scaleTransition);
                     scaleTransition.play();
                 }
             scaleTransitionHover.playFromStart();
@@ -141,13 +150,16 @@ public class VueDestination extends VBox {
             for (String ville : destination.getVilles())
                 if (vueDuJeu.getJeu().getIdVille(ville) != -1) {
                     vueDuJeu.getPlateau().getCercleDeLaVille(ville).getStyleClass().remove("cercleVilleGlow");
+                    vueDuJeu.getPlateau().getCercleDeLaVille(ville).setEffect(null);
                     villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));
                 }
             vueDuJeu.getPlateau().getOverlay().setVisible(false);
             for (String route : constructListRoute(vueDuJeu.getJeu().getGraphe().parcoursSansRepetition(villeToInteger)))
                 for (Rectangle rectangle : vueDuJeu.getPlateau().getRectangleDeLaRoute(route)) {
+                    rectangle.setEffect(null);
                     rectangle.getStyleClass().remove("rectangleGlow");
                 }
+            for (Transition transition : transitions.values()) transition.stop();
             vueDuJeu.getPlateau().getChildren().removeIf(node -> node instanceof SVGPath);
             vueDuJeu.getPlateau().getChildren().removeIf(node -> node instanceof Label);
             scaleTransitionRestore.playFromStart();
