@@ -393,7 +393,7 @@ Label {
 }
 
 #overlay {
-    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-opacity: 0.5;
 }
 
 #destinationTicket, #destinationTicketChoix {

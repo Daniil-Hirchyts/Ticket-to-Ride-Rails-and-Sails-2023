@@ -46,7 +46,7 @@ public class VuePlateau extends Pane {
     private Map<String, List<Rectangle>> RectangleDeLaRoute;
     private Map<String, Circle> cercleDesVilles;
     @FXML
-    private Pane overlay;
+    private ImageView overlay;
 
     public VuePlateau(IJeu jeu) {
         try {
@@ -74,7 +74,7 @@ public class VuePlateau extends Pane {
         overlay.setVisible(false);
     }
 
-    public Pane getOverlay() {
+    public ImageView getOverlay() {
         return overlay;
     }
 
@@ -94,8 +94,8 @@ public class VuePlateau extends Pane {
         ajouterRoutes();
         bindRedimensionEtCentragePlateau();
 
-        overlay.prefWidthProperty().bind(mapMondeFrame.fitWidthProperty());
-        overlay.prefHeightProperty().bind(mapMondeFrame.fitHeightProperty());
+        overlay.fitWidthProperty().bind(mapMondeFrame.fitWidthProperty());
+        overlay.fitHeightProperty().bind(mapMondeFrame.fitHeightProperty());
     }
 
     private void ajouterPorts() {
