@@ -44,21 +44,29 @@ public class VueInstructionBar extends Pane {
     }
 
     private void creerBindings() {
+        TranslateTransition tt = new TranslateTransition();
+        TranslateTransition tt2 = new TranslateTransition();
+        TranslateTransition tt3 = new TranslateTransition();
+
+        tt2.setNode(instructionBarArrow);
+        tt.setNode(instructionBar);
+        tt3.setNode(labelInstruciton);
+        tt2.setDuration(javafx.util.Duration.millis(400));
+        tt3.setDuration(javafx.util.Duration.millis(400));
+        tt.setDuration(javafx.util.Duration.millis(400));
+        tt2.setByY(50);
+        tt3.setByY(50);
+        tt.setByY(50);
+        tt.play();
+        tt2.play();
+        tt3.play();
+        tt.setOnFinished(actionEvent -> {
+            System.out.println(instructionBarArrowUp);
+            instructionBarArrow.setImage(instructionBarArrowUp);
+        });
         instructionBarArrow.setOnMouseClicked(mouseEvent -> {
             if (instructionBarArrow.getImage().equals(instructionBarArrowUp)) {
                 //TODO : Transition d'animation pour l'ouverture de la barre d'instruction et du instructionBarArrow et du label
-                TranslateTransition tt = new TranslateTransition();
-                TranslateTransition tt2 = new TranslateTransition();
-                TranslateTransition tt3 = new TranslateTransition();
-
-                tt2.setNode(instructionBarArrow);
-                tt.setNode(instructionBar);
-                tt3.setNode(labelInstruciton);
-
-                tt2.setDuration(javafx.util.Duration.millis(400));
-                tt3.setDuration(javafx.util.Duration.millis(400));
-                tt.setDuration(javafx.util.Duration.millis(400));
-
                 tt2.setByY(-50);
                 tt3.setByY(-50);
                 tt.setByY(-50);
@@ -75,19 +83,6 @@ public class VueInstructionBar extends Pane {
 
             } else {
                 //TODO : Transition d'animation pour l'ouverture de la barre d'instruction et du instructionBarArrow et du label
-                TranslateTransition tt = new TranslateTransition();
-                TranslateTransition tt2 = new TranslateTransition();
-                TranslateTransition tt3 = new TranslateTransition();
-
-                tt2.setNode(instructionBarArrow);
-                tt.setNode(instructionBar);
-                tt3.setNode(labelInstruciton);
-
-                tt2.setDuration(javafx.util.Duration.millis(400));
-                tt3.setDuration(javafx.util.Duration.millis(400));
-                tt.setDuration(javafx.util.Duration.millis(400));
-
-
                 tt2.setByY(50);
                 tt3.setByY(50);
                 tt.setByY(50);

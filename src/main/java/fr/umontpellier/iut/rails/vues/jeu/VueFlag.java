@@ -54,7 +54,7 @@ public class VueFlag extends Pane {
     }
 
     public TextField getTextFieldChangePions() {
-        textFieldChangePions.setVisible(false);
+        textFieldChangePions.setDisable(false);
         textFieldChangePions.setVisible(true);
         return textFieldChangePions;
     }

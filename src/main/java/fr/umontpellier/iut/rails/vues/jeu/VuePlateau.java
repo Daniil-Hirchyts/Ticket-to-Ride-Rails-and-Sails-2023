@@ -96,6 +96,8 @@ public class VuePlateau extends Pane {
 
         overlay.fitWidthProperty().bind(mapMondeFrame.fitWidthProperty());
         overlay.fitHeightProperty().bind(mapMondeFrame.fitHeightProperty());
+        overlay.layoutXProperty().bind(mapMondeFrame.layoutXProperty());
+        overlay.layoutYProperty().bind(mapMondeFrame.layoutYProperty());
     }
 
     private void ajouterPorts() {
