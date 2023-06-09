@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.rails.vues.debut;
 
 import fr.umontpellier.iut.rails.IJoueur;
+import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -37,7 +38,7 @@ public class VueChoixJoueurs extends Stage {
     private ObservableList<TextField> textFields;
     private VueChoixJoueursContainer root;
 
-    private AudioClip audioClip;
+    private SoundEffect soundEffect = new SoundEffect();
 
     public VueChoixJoueurs() {
         avatarsJoueurs = FXCollections.observableHashMap();
@@ -48,7 +49,6 @@ public class VueChoixJoueurs extends Stage {
         setScene(new Scene(root, 1280, 800));
 //        setFullScreen(true);
         setTitle("Choix des joueurs");
-        audioClip = new AudioClip(new File("src/main/resources/music/peutEtreAppuyeButton.mp3").toURI().toString());
         creerBinding();
         show();
     }
@@ -85,7 +85,7 @@ public class VueChoixJoueurs extends Stage {
             avatar.getTextFieldJoueur().setId("playerChoiceTextField");
 
             avatar.setOnMouseClicked(event -> {
-                audioClip.play();
+                soundEffect.getButtonSoundEffect().play();
                 if (compteursCouleurs.get(finalI) == 5) compteursCouleurs.set(finalI, 1);
                 else compteursCouleurs.set(finalI, compteursCouleurs.get(finalI) + 1);
                 avatar.getAvatar().setImage(new Image("images/avatars/" + couleur + "/avatar-" + compteursCouleurs.get(finalI) + ".png"));

@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.rails.vues.jeu;
 
 import fr.umontpellier.iut.rails.ICarteTransport;
+import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 public class VueCarteTransport extends Pane {
     private final ICarteTransport carteTransport;
+    private SoundEffect soundEffect;
 
     @FXML
     private Pane carteImage;
@@ -27,7 +29,7 @@ public class VueCarteTransport extends Pane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        soundEffect = new SoundEffect();
         getStyleClass().add("carte");
 
         this.carteTransport = carteTransport;
@@ -57,10 +59,12 @@ public class VueCarteTransport extends Pane {
 
         if (!dansDeck) {
             setOnMouseClicked(event -> {
+                soundEffect.getPiocherCarteVisible().play();
                 ((VueDuJeu) getScene().getRoot()).getJeu().uneCarteTransportAEteChoisie(carteTransport);
             });
         } else {
             setOnMouseClicked(event -> {
+                soundEffect.getPiocherCarteVisible().play();
                 ((VueDuJeu) getScene().getRoot()).getJeu().uneCarteDuJoueurEstJouee(carteTransport);
             });
         }

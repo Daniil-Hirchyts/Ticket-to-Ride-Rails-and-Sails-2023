@@ -2,6 +2,7 @@ package fr.umontpellier.iut.rails.vues.jeu;
 
 import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.mecanique.Graphe;
+import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
 import javafx.animation.*;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -29,6 +30,7 @@ public class VueDestination extends VBox {
     protected final IDestination destination;
     private Map<Shape, Transition> transitions;
     private VueDuJeu vueDuJeu;
+    private SoundEffect soundEffect = new SoundEffect();
 
     public VueDestination(IDestination destination, VueDuJeu vueDuJeu) {
         this(destination, false, vueDuJeu);
@@ -67,6 +69,7 @@ public class VueDestination extends VBox {
 
         if (clickable) {
             this.setOnMouseClicked(event -> {
+                soundEffect.getButtonSoundEffect().play();
                 ((VueDuJeu) getScene().getRoot()).getJeu().uneDestinationAEteChoisie(destination);
             });
             setId("destinationTicketChoix");

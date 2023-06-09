@@ -2,6 +2,7 @@ package fr.umontpellier.iut.rails.vues.jeu;
 
 import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IJoueur;
+import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ public class VueInstructionBar extends Pane {
     private static final Image instructionBarArrowUp = new Image("images/instructionPopUp/instructionBarArrowUp.png");
     private static final Image instructionBarArrowDown = new Image("images/instructionPopUp/instructionBarArrowDown.png");
 
+    private SoundEffect soundEffect;
     @FXML
     private Label labelInstruciton;
 
@@ -37,6 +39,7 @@ public class VueInstructionBar extends Pane {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        soundEffect = new SoundEffect();
         this.instructionBarArrow.setImage(new Image("images/instructionPopUp/instructionBarArrowDown.png"));
         this.instructionBar.setImage(new Image("images/instructionPopUp/instructionBar.png"));
         this.labelInstruciton.setId("instructionLabel");
@@ -65,6 +68,7 @@ public class VueInstructionBar extends Pane {
             instructionBarArrow.setImage(instructionBarArrowUp);
         });
         instructionBarArrow.setOnMouseClicked(mouseEvent -> {
+            soundEffect.getButtonSoundEffect().play();
             if (instructionBarArrow.getImage().equals(instructionBarArrowUp)) {
                 //TODO : Transition d'animation pour l'ouverture de la barre d'instruction et du instructionBarArrow et du label
                 tt2.setByY(-50);

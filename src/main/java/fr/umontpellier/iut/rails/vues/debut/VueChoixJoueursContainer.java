@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.rails.vues.debut;
 
+import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
 import javafx.animation.TranslateTransition;
 import javafx.scene.media.AudioClip;
 import javafx.fxml.FXML;
@@ -39,7 +40,7 @@ public class VueChoixJoueursContainer extends GridPane {
     private HBox backgroundBarBlur;
     private Button backButton = new Button("");
 
-    private AudioClip audioClip;
+    private SoundEffect soundEffect;
 
     public VueChoixJoueursContainer() {
         try {
@@ -53,7 +54,6 @@ public class VueChoixJoueursContainer extends GridPane {
         setId("choixJoueursContainer");
         topBarBackground.prefWidthProperty().bind(this.widthProperty());
         startAnimationTrain();
-        audioClip = new AudioClip(new File("src/main/resources/music/peutEtreAppuyeButton.mp3").toURI().toString());
         createBindings();
         backButton.setLayoutX(0);
         backButton.setLayoutY(0);
@@ -85,18 +85,18 @@ public class VueChoixJoueursContainer extends GridPane {
         validation.scaleYProperty().bind(interfaceOfChoose.heightProperty().divide(1080));
 
         btnQuitter.setOnAction(event -> {
-            audioClip.play();
+            soundEffect.getButtonSoundEffect().play();
             System.exit(0);
         });
 
         btnStartChoix.setOnAction(event -> {
-            audioClip.play();
+            soundEffect.getButtonSoundEffect().play();
             switchEtat(false);
         });
 
         backButton.setOnAction(event -> {
-            audioClip.play();
-            System.out.println("Audio clip loaded: " + audioClip.isPlaying());
+            soundEffect.getButtonSoundEffect().play();
+            System.out.println("Audio clip loaded: " + soundEffect.getButtonSoundEffect().isPlaying());
             switchEtat(true);
         });
     }

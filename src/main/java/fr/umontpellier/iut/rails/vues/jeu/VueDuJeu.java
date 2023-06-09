@@ -2,6 +2,7 @@ package fr.umontpellier.iut.rails.vues.jeu;
 
 import fr.umontpellier.iut.rails.*;
 import fr.umontpellier.iut.rails.vues.layout.ConsoleLogger;
+import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -78,6 +79,8 @@ public class VueDuJeu extends GridPane {
     @FXML
     private ImageView videWagon;
 
+    private SoundEffect soundEffect;
+
     public VueDuJeu(IJeu jeu, Map<IJoueur.CouleurJoueur, ImageView> avatarList) {
         this.jeu = jeu;
         try {
@@ -90,7 +93,7 @@ public class VueDuJeu extends GridPane {
         }
         videBateau.setVisible(false);
         videWagon.setVisible(false);
-
+        soundEffect = new SoundEffect();
         setId("gameScene");
         borderTop.prefWidthProperty().bind(this.widthProperty());
         borderDown.prefWidthProperty().bind(this.widthProperty());
@@ -152,16 +155,19 @@ public class VueDuJeu extends GridPane {
         return null;
     }
 
-    EventHandler<? super MouseEvent> actionPasserParDefaut = (mouseEvent -> {
-        ConsoleLogger.getInstance(null, null).log("Passage au joueur suivant");
-        jeu.passerAEteChoisi();
-    });
-
     public void creerBindings() {
-        btnPasser.setOnMouseClicked(actionPasserParDefaut);
+        btnPasser.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                ConsoleLogger.getInstance(null, null).log("Passage au joueur suivant");
+                jeu.passerAEteChoisi();
+                soundEffect.getButtonSoundEffect().play();
+            }
+        });
         btnDestination.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                soundEffect.getButtonSoundEffect().play();
                 jeu.nouvelleDestinationDemandee();
             }
         });
@@ -184,11 +190,17 @@ public class VueDuJeu extends GridPane {
         });
 
         pileBateauCarte.setOnMouseClicked(mouseEvent -> {
-            if (!jeu.piocheBateauVideProperty().get()) jeu.uneCarteBateauAEtePiochee();
+            if (!jeu.piocheBateauVideProperty().get()) {
+                soundEffect.getPiocherCartePile().play();
+                jeu.uneCarteBateauAEtePiochee();
+            }
             else ConsoleLogger.getInstance(null, null).log("La pioche de bateau est vide");
         });
         pileWagonCarte.setOnMouseClicked(mouseEvent -> {
-            if (!jeu.piocheWagonVideProperty().get()) jeu.uneCarteWagonAEtePiochee();
+            if (!jeu.piocheWagonVideProperty().get()) {
+                soundEffect.getPiocherCartePile().play();
+                jeu.uneCarteWagonAEtePiochee();
+            }
             else ConsoleLogger.getInstance(null, null).log("La pioche de wagon est vide");
         });
 

@@ -5,6 +5,7 @@ import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IJoueur;
 import fr.umontpellier.iut.rails.vues.layout.ConsoleLogger;
+import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -62,6 +63,7 @@ public class VueJoueurCourant extends GridPane {
     private VueFlag pionsWagon;
     private VueFlag pionsBateau;
     private VueFlag pionsPort;
+    private SoundEffect soundEffect;
 
     @FXML
     private HBox flagsBox;
@@ -82,6 +84,7 @@ public class VueJoueurCourant extends GridPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        soundEffect = new SoundEffect();
         creerBindings();
         playerCartesBox.prefWidthProperty().bind(this.prefWidthProperty().subtract(450));
         this.prefWidthProperty().addListener((observable, oldValue, newValue) -> {
@@ -131,6 +134,7 @@ public class VueJoueurCourant extends GridPane {
             pionsWagon.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
+                    soundEffect.getButtonSoundEffect().play();
                     pionsWagon.getTextFieldChangePions().requestFocus();
                     pionsWagon.getIconFlag().setVisible(false);
                     pionsWagon.getCircleFlag().setFill(Color.WHITE);
@@ -167,6 +171,7 @@ public class VueJoueurCourant extends GridPane {
             pionsBateau.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
+                    soundEffect.getButtonSoundEffect().play();
                     pionsBateau.getTextFieldChangePions().requestFocus();
                     pionsBateau.getIconFlag().setVisible(false);
                     pionsBateau.getCircleFlag().setFill(Color.WHITE);
