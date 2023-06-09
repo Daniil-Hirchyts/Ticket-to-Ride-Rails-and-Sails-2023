@@ -51,6 +51,7 @@ public class VueChoixJoueursContainer extends GridPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        soundEffect = new SoundEffect();
         setId("choixJoueursContainer");
         topBarBackground.prefWidthProperty().bind(this.widthProperty());
         startAnimationTrain();

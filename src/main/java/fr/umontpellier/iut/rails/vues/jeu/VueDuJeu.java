@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaPlayer;
 
 import java.io.IOException;
 import java.util.Map;
@@ -145,6 +146,9 @@ public class VueDuJeu extends GridPane {
         vueAutresJoueurs.setScaleX(1.1);
         vueAutresJoueurs.setScaleY(1.1);
         ConsoleLogger.getInstance(consoleHistory, consoleScrollPane);
+        soundEffect.getMenuMusic().play();
+        soundEffect.getMenuMusic().setCycleCount(MediaPlayer.INDEFINITE);
+        soundEffect.getMenuMusic().setVolume(0.5);
     }
 
     public VueDestination trouverLabelDestination(IDestination d) {
