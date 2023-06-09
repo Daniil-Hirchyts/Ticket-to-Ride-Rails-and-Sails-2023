@@ -24,14 +24,11 @@ import java.util.Map;
 public class VueResultats extends Pane {
     @FXML
     private GridPane containerPlayer;
-
     @FXML
     private HBox loserHBox;
-
     private static final double ASPECT_RATIO = 16.0/9.0;
     private Map<IJoueur.CouleurJoueur, ImageView> avatarsJoueurs;
     private RailsIHM ihm;
-
     private ImageView avatarGagnant;
     private ImageView lumiereGagnant;
 
@@ -53,22 +50,20 @@ public class VueResultats extends Pane {
         int nbDestinationsWinners = 0;
         List<Joueur> joueurs = ihm.getJeu().getJoueurs();
         joueurs.sort((j1, j2) -> j2.getScore() - j1.getScore());
-        //verifie chacune des destinations du joueur gagnant pour savoir si elle est valide
-        for (Destination d : joueurs.get(0).getDestinations()) {
-            if (joueurs.get(0).destinationEstComplete(d)) {
-                nbDestinationsWinners++;
-            }
-        }
+        for (Destination d : joueurs.get(0).getDestinations())
+            if (joueurs.get(0).destinationEstComplete(d)) nbDestinationsWinners++;
         VueWinner winner = new VueWinner(joueurs.get(0), 1, avatarsJoueurs.get(joueurs.get(0).getCouleur()));
         containerPlayer.add(winner, 0, 0);
         for (int i = 1; i < joueurs.size(); i++) {
             VueLoser loser = new VueLoser(joueurs.get(i), i+1, avatarsJoueurs.get(joueurs.get(i).getCouleur()));
             loserHBox.getChildren().add(loser);
         }
+        containerPlayer.layoutXProperty().bind(this.widthProperty().divide(5.8).multiply(this.widthProperty().divide(1280)));
+        containerPlayer.layoutYProperty().bind(this.heightProperty().divide(2).subtract(containerPlayer.heightProperty().divide(2)));
         String nomPng = avatarsJoueurs.get(joueurs.get(0).getCouleur()).getImage().getUrl().substring(75, avatarsJoueurs.get(joueurs.get(0).getCouleur()).getImage().getUrl().length()-4).substring(avatarsJoueurs.get(joueurs.get(0).getCouleur()).getImage().getUrl().substring(75, avatarsJoueurs.get(joueurs.get(0).getCouleur()).getImage().getUrl().length()-4).length()-8);
         avatarGagnant = new ImageView(new Image("images/resultatPage/character/"+nomPng+".png"));
-        avatarGagnant.fitHeightProperty().bind(this.heightProperty().divide(1.2));
-        avatarGagnant.fitWidthProperty().bind(this.widthProperty().divide(3));
+        avatarGagnant.fitHeightProperty().bind(this.heightProperty().divide(this.heightProperty().divide(1300).multiply(2)));
+        avatarGagnant.fitWidthProperty().bind(this.widthProperty().divide(this.widthProperty().divide(850).multiply(2)));
         avatarGagnant.layoutXProperty().bind(this.widthProperty().subtract(avatarGagnant.fitWidthProperty()));
         avatarGagnant.layoutYProperty().bind(this.heightProperty().subtract(avatarGagnant.fitHeightProperty()));
         lumiereGagnant = new ImageView(new Image("images/resultatPage/halo.png"));
@@ -76,6 +71,8 @@ public class VueResultats extends Pane {
         lumiereGagnant.fitWidthProperty().bind(this.widthProperty().divide(3));
         lumiereGagnant.layoutXProperty().bind(this.widthProperty().subtract(avatarGagnant.fitWidthProperty()));
         lumiereGagnant.layoutYProperty().bind(this.heightProperty().divide(12));
+        containerPlayer.scaleXProperty().bind(this.widthProperty().divide(1300));
+        containerPlayer.scaleYProperty().bind(this.heightProperty().divide(850));
 
 
         RotateTransition rt = new RotateTransition();
