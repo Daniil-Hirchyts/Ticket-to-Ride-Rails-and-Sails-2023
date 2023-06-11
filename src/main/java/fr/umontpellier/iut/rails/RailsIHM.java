@@ -79,6 +79,9 @@ public class RailsIHM extends Application {
             event.consume();
         });
 
+//        VueResultats vueResultats = new VueResultats(this, avatars);
+//        Scene sceneResultats = new Scene(vueResultats, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran);
+//        primaryStage.setScene(sceneResultats);
         finPartieListener();
 
         primaryStage.show();

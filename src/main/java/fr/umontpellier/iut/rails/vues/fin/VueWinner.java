@@ -21,7 +21,7 @@ public class VueWinner extends Pane {
     @FXML
     private Label labelNbDestination;
 
-    public VueWinner(IJoueur joueur, ImageView Avatar) {
+    public VueWinner(IJoueur joueur, ImageView Avatar, int nbDestination) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/fin/VueWinner.fxml"));
             loader.setRoot(this);
@@ -34,7 +34,7 @@ public class VueWinner extends Pane {
         labelScore.setText(String.valueOf(joueur.getScore()));
         playerName.setText(joueur.getNom());
         labelNbDestination.setText(String.valueOf(nbDestination));
-
+        labelNbDestination.setStyle("-fx-text-fill: #ffffff;");
         playerName.setStyle("--fx-font-size: 30px;");
         labelScore.setStyle("--fx-font-size: 25px;");
         labelNbDestination.setStyle("--fx-font-size: 25px;");

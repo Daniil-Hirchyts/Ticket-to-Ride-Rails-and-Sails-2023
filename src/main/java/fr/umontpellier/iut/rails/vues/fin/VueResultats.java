@@ -50,10 +50,10 @@ public class VueResultats extends Pane {
 
         joueurs.sort((j1, j2) -> j2.getScore() - j1.getScore());
 
-        for (Destination d : joueurs.get(0).getDestinations())
+        for (Destination d : joueurs.get(0).destinationsProperty())
             if (joueurs.get(0).destinationEstComplete(d)) nbDestinationsWinners++;
 
-        VueWinner winner = new VueWinner(joueurs.get(0), avatarsJoueurs.get(joueurs.get(0).getCouleur()));
+        VueWinner winner = new VueWinner(joueurs.get(0), avatarsJoueurs.get(joueurs.get(0).getCouleur()), nbDestinationsWinners);
 
         containerPlayer.layoutXProperty().bind(this.widthProperty().divide(5.8).multiply(this.widthProperty().divide(1280)));
         containerPlayer.layoutYProperty().bind(this.heightProperty().divide(2).subtract(containerPlayer.heightProperty().divide(2)));
