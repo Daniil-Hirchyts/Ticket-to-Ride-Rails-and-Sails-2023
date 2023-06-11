@@ -61,3 +61,7 @@ We completed the project as **[Daniil Hirchyts](https://github.com/Daniil-Hirchy
 The project formed part of the **SAÉ S2.01 / S2.02** coursework. The teaching team supplied the assignment material, starter code, board data, browser interface, tests and the adapted engine used by the JavaFX phase. Our contributions completed the game mechanics and the desktop views on those foundations.
 
 The original [game-engine brief](phase-1-game-engine/README.md), [IHM brief](phase-2-javafx/README.md), phase-specific instructions and game-rule documents were retained with their respective deliverables.
+
+## License
+
+The authors' original contributions are licensed under the [MIT License](LICENSE). Third-party code, assets and course materials retain their respective rights and license notices.
