@@ -236,7 +236,7 @@ public class VueDuJeu extends GridPane {
             soundEffect.getButtonSoundEffect().play();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Quitter");
-            alert.setHeaderText("Voulez-vous vraiment quitter ?");
+            alert.setHeaderText("Voulez-vous vraiment retourner au menu principal ?");
             alert.setContentText("Vous allez perdre votre progression");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {

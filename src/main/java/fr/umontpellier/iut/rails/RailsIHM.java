@@ -81,6 +81,7 @@ public class RailsIHM extends Application {
 
         finPartieListener();
 
+
         primaryStage.show();
     }
 

@@ -4,17 +4,25 @@ import fr.umontpellier.iut.rails.IJoueur;
 import fr.umontpellier.iut.rails.RailsIHM;
 import fr.umontpellier.iut.rails.mecanique.Joueur;
 import fr.umontpellier.iut.rails.mecanique.data.Destination;
+import fr.umontpellier.iut.rails.vues.debut.VueChoixJoueurs;
+import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Cette classe affiche les scores en fin de partie.
@@ -23,14 +31,18 @@ import java.util.Map;
 public class VueResultats extends Pane {
     private final Map<IJoueur.CouleurJoueur, ImageView> avatarsJoueurs;
     private final RailsIHM ihm;
+    private final SoundEffect soundEffect;
     @FXML
     private GridPane containerPlayer;
     @FXML
     private HBox loserHBox;
+    @FXML
+    private Button btnExit;
 
     public VueResultats(RailsIHM ihm, Map<IJoueur.CouleurJoueur, ImageView> avatarsJoueurs) {
         this.ihm = ihm;
         this.avatarsJoueurs = avatarsJoueurs;
+        soundEffect = new SoundEffect();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/fin/VueResultats.fxml"));
@@ -40,7 +52,11 @@ public class VueResultats extends Pane {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        soundEffect.getMenuMusic().stop();
+        soundEffect.getWinnerSound().play();
+        soundEffect.getWinnerSound().setVolume(0.5);
         creerBindings();
+        quitterButton();
     }
 
     private void creerBindings() {
@@ -88,6 +104,31 @@ public class VueResultats extends Pane {
         rt.play();
 
         getChildren().addAll(lumiereGagnant, avatarGagnant);
+    }
+
+    private void quitterButton() {
+        btnExit.setOnMouseClicked(mouseEvent -> {
+            soundEffect.getButtonSoundEffect().play();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Quitter");
+            alert.setHeaderText("Voulez-vous vraiment retourner au menu principal ?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                soundEffect.getWinnerSound().stop();
+                soundEffect.getButtonSoundEffect().stop();
+                soundEffect.getButtonSoundEffect().play();
+                backToMenu();
+            } else {
+                soundEffect.getButtonSoundEffect().play();
+            }
+        });
+    }
+
+    private void backToMenu() {
+        Stage stage = (Stage) btnExit.getScene().getWindow();
+        stage.close();
+        RailsIHM railsIHM = new RailsIHM();
+        railsIHM.start(new VueChoixJoueurs());
     }
 
 }
