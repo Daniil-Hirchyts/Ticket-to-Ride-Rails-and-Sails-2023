@@ -8,7 +8,7 @@ We developed a digital adaptation of the *World* board from *Ticket to Ride: Rai
 
 | Phase | Period | Completed work | Source |
 | --- | --- | --- | --- |
-| **1 — Game engine** | February–March 2023; assessment in April | Object-oriented implementation of the game rules, player actions and scoring, with the supplied browser interface and unit tests. | [phase-1-game-engine](phase-1-game-engine/) |
+| **1 — Game engine** | February–March 2023 | Object-oriented implementation of the game rules, player actions and scoring, with the supplied browser interface and unit tests. | [phase-1-game-engine](phase-1-game-engine/) |
 | **2 — Graphical application** | May–June 2023 | JavaFX application with player setup, an interactive board, card and destination views, player information and final results. | [phase-2-javafx](phase-2-javafx/) |
 
 The graphical deliverable was designated **Phase 3 / IHM** in the original course material. It was the second of the two deliverables collected here.
@@ -23,7 +23,7 @@ We implemented the Java model around the board, cities, players, transport cards
 - Managing player turns, destination choices and the end of a game.
 - Checking connected destinations and calculating scores, bonuses and penalties.
 
-The application used the supplied WebSocket server and browser client to display the game state and receive player choices. The repository also retained the JUnit test suite and the original assessment results.
+The application used the supplied WebSocket server and browser client to display the game state and receive player choices. The JUnit suite covers the game mechanics.
 
 ## Phase 2 — JavaFX interface
 
@@ -56,11 +56,11 @@ Both deliverables used **Java 17** and **Maven**, with separate build configurat
 
 ## Authors and academic context
 
-We completed the project as **[Daniil Hirchyts](https://github.com/Daniil-Hirchyts)** and **[Clément Garro](https://github.com/Clement-Garro)**, whose historical commits also used the names **Suyano** and **Suuyano**.
+**[Daniil Hirchyts](https://github.com/Daniil-Hirchyts)** and **[Clément Garro](https://github.com/Clement-Garro)**.
 
 The project formed part of the **SAÉ S2.01 / S2.02** coursework. The teaching team supplied the assignment material, starter code, board data, browser interface, tests and the adapted engine used by the JavaFX phase. Our contributions completed the game mechanics and the desktop views on those foundations.
 
-The original [game-engine brief](phase-1-game-engine/README.md), [IHM brief](phase-2-javafx/README.md), phase-specific instructions and game-rule documents were retained with their respective deliverables.
+Each phase includes its [game-engine course brief](phase-1-game-engine/ASSIGNMENT.md) or [JavaFX course brief](phase-2-javafx/ASSIGNMENT.md), along with the supplied game rules.
 
 ## License
 
