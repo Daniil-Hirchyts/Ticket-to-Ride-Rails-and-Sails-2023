@@ -390,3 +390,15 @@ Label {
     -fx-font-size: 30px;
     -fx-font-weight: bold;
 }
+
+#labelScore, #labelNbDestination, #playerName {
+    -fx-font-size: 24px;
+}
+
+#labelPseudo {
+    -fx-font-size: 20px;
+}
+
+#labelRank {
+    -fx-font-size: 30px;
+}
