@@ -1,20 +1,18 @@
 package fr.umontpellier.iut.rails.vues.debut;
 
+import java.io.IOException;
+
 import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
 import javafx.animation.TranslateTransition;
-import javafx.scene.media.AudioClip;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Objects;
-
-import static javafx.scene.text.Font.loadFont;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 public class VueChoixJoueursContainer extends GridPane {
 
@@ -38,9 +36,8 @@ public class VueChoixJoueursContainer extends GridPane {
     private ImageView finalTrain;
     @FXML
     private HBox backgroundBarBlur;
-    private Button backButton = new Button("");
-
-    private SoundEffect soundEffect;
+    private final Button backButton = new Button("");
+    private final SoundEffect soundEffect;
 
     public VueChoixJoueursContainer() {
         try {
@@ -52,15 +49,14 @@ public class VueChoixJoueursContainer extends GridPane {
             e.printStackTrace();
         }
         soundEffect = new SoundEffect();
-        setId("choixJoueursContainer");
-        topBarBackground.prefWidthProperty().bind(this.widthProperty());
+
         startAnimationTrain();
         createBindings();
+
         backButton.setLayoutX(0);
         backButton.setLayoutY(0);
         backButton.setTranslateY(40);
         backButton.setTranslateX(20);
-        backButton.setId("btnExit");
         backButton.setPrefHeight(50);
         backButton.setPrefWidth(50);
         backButton.setMaxHeight(Region.USE_PREF_SIZE);
@@ -68,18 +64,21 @@ public class VueChoixJoueursContainer extends GridPane {
         backButton.setMinHeight(Region.USE_PREF_SIZE);
         backButton.setMinWidth(Region.USE_PREF_SIZE);
 
+        setId("choixJoueursContainer");
+        backButton.setId("btnExit");
+
         switchEtat(true);
         getChildren().add(backButton);
     }
 
     private void createBindings() {
+        topBarBackground.prefWidthProperty().bind(this.widthProperty());
         finalTrain.fitHeightProperty().bind(this.heightProperty().divide(2));
         finalTrain.fitWidthProperty().bind(this.widthProperty().divide(2));
         interfaceOfChoose.prefWidthProperty().bind(this.widthProperty());
         interfaceOfChoose.prefHeightProperty().bind(this.heightProperty());
         vboxJoueurs.layoutXProperty().bind(interfaceOfChoose.widthProperty().divide(2).subtract(vboxJoueurs.widthProperty().divide(2)));
         vboxJoueurs.layoutYProperty().bind(interfaceOfChoose.heightProperty().divide(2).subtract(vboxJoueurs.heightProperty().divide(2)));
-
         validation.layoutXProperty().bind(interfaceOfChoose.widthProperty().divide(2).subtract(validation.widthProperty().divide(2)));
         validation.layoutYProperty().bind(interfaceOfChoose.heightProperty().multiply(0.98).subtract(validation.heightProperty()));
         validation.scaleXProperty().bind(interfaceOfChoose.widthProperty().divide(1920));
@@ -97,7 +96,6 @@ public class VueChoixJoueursContainer extends GridPane {
 
         backButton.setOnAction(event -> {
             soundEffect.getButtonSoundEffect().play();
-            System.out.println("Audio clip loaded: " + soundEffect.getButtonSoundEffect().isPlaying());
             switchEtat(true);
         });
     }

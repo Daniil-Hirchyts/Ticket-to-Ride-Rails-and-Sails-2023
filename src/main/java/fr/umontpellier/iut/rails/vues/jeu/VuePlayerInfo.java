@@ -1,5 +1,9 @@
 package fr.umontpellier.iut.rails.vues.jeu;
 
+import static java.util.Objects.requireNonNull;
+
+import java.io.IOException;
+
 import fr.umontpellier.iut.rails.IJoueur;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -10,11 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-
-import java.io.IOException;
-
-import static java.lang.String.valueOf;
-import static java.util.Objects.requireNonNull;
 
 public class VuePlayerInfo extends HBox {
 

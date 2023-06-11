@@ -1,7 +1,12 @@
 package fr.umontpellier.iut.rails.vues.jeu;
 
+import static java.lang.String.valueOf;
+import static java.util.Objects.requireNonNull;
+
+import java.io.IOException;
+import java.util.Map;
+
 import fr.umontpellier.iut.rails.ICarteTransport;
-import fr.umontpellier.iut.rails.IDestination;
 import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IJoueur;
 import fr.umontpellier.iut.rails.vues.layout.ConsoleLogger;
@@ -11,14 +16,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -26,20 +28,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import static java.lang.String.valueOf;
-import static java.util.Objects.requireNonNull;
-import static javafx.beans.binding.Bindings.when;
 
 /**
  * Cette classe présente les éléments appartenant au joueur courant.

@@ -1,17 +1,12 @@
 package fr.umontpellier.iut.rails.vues.fin;
 
-import fr.umontpellier.iut.rails.IJeu;
 import fr.umontpellier.iut.rails.IJoueur;
-import fr.umontpellier.iut.rails.vues.jeu.VueDuJeu;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-
-import java.util.List;
 
 public class VueLoser extends Pane {
 

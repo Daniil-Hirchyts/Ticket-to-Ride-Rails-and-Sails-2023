@@ -1,24 +1,25 @@
 package fr.umontpellier.iut.rails.vues.jeu;
 
-import fr.umontpellier.iut.rails.IDestination;
-import fr.umontpellier.iut.rails.mecanique.Graphe;
-import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
-import javafx.animation.*;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.effect.Glow;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.SVGPath;
-import javafx.scene.shape.Shape;
-import javafx.util.Duration;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import fr.umontpellier.iut.rails.IDestination;
+import fr.umontpellier.iut.rails.mecanique.Graphe;
+import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
+import javafx.animation.Animation;
+import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
+import javafx.animation.Transition;
+import javafx.animation.TranslateTransition;
+import javafx.scene.control.Label;
+import javafx.scene.effect.Glow;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.SVGPath;
+import javafx.scene.shape.Shape;
+import javafx.util.Duration;
 
 /**
  * Cette classe représente la vue d'une carte Destination.

@@ -1,7 +1,7 @@
 package fr.umontpellier.iut.rails.vues.jeu;
 
-import fr.umontpellier.iut.rails.IJeu;
-import fr.umontpellier.iut.rails.IJoueur;
+import java.io.IOException;
+
 import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -10,8 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-
-import java.io.IOException;
 
 public class VueInstructionBar extends Pane {
 

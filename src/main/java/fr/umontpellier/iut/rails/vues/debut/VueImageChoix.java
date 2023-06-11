@@ -17,7 +17,6 @@ public class VueImageChoix extends GridPane {
     @FXML
     private TextField textFieldJoueur;
 
-
     public VueImageChoix() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/debut/VueImageChoix.fxml"));

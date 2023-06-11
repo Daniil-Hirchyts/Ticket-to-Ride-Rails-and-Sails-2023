@@ -1,12 +1,10 @@
 package fr.umontpellier.iut.rails.vues.layout;
 
-import fr.umontpellier.iut.rails.IVille;
-import javafx.scene.image.Image;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import javafx.scene.image.Image;
 
 /**
  * Cette classe permet de construire les rectangles et les cercles correspondant aux routes et villes,

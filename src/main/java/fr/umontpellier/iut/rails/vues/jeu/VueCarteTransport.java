@@ -1,5 +1,7 @@
 package fr.umontpellier.iut.rails.vues.jeu;
 
+import java.io.IOException;
+
 import fr.umontpellier.iut.rails.ICarteTransport;
 import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
 import javafx.animation.ScaleTransition;
@@ -7,11 +9,8 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-
-import java.io.IOException;
 
 public class VueCarteTransport extends Pane {
     private final ICarteTransport carteTransport;

@@ -1,26 +1,23 @@
 package fr.umontpellier.iut.rails.vues.debut;
 
-import fr.umontpellier.iut.rails.IJoueur;
-import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
-import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Region;
-import javafx.scene.media.AudioClip;
-import javafx.stage.Stage;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import fr.umontpellier.iut.rails.IJoueur;
+import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 /**
  * Cette classe correspond à une nouvelle fenêtre permettant de choisir le nombre et les noms des joueurs de la partie.
@@ -30,43 +27,38 @@ import java.util.Map;
  */
 public class VueChoixJoueurs extends Stage {
 
-    private static final double ASPECT_RATIO = 16.0/9.0;
     private final ObservableList<String> nomsJoueurs;
-    private Map<IJoueur.CouleurJoueur, ImageView> avatarsJoueurs;
-    private List<Integer> compteursCouleurs = new ArrayList<>(5);
-    private IntegerProperty nbJoueursProperty = new SimpleIntegerProperty(5);
-    private ObservableList<TextField> textFields;
-    private VueChoixJoueursContainer root;
-
-    private SoundEffect soundEffect = new SoundEffect();
+    private final Map<IJoueur.CouleurJoueur, ImageView> avatarsJoueurs;
+    private final List<Integer> compteursCouleurs = new ArrayList<>(5);
+    private final ObservableList<TextField> textFields;
+    private final VueChoixJoueursContainer root;
+    private final SoundEffect soundEffect = new SoundEffect();
 
     public VueChoixJoueurs() {
         avatarsJoueurs = FXCollections.observableHashMap();
         nomsJoueurs = FXCollections.observableArrayList();
         textFields = FXCollections.observableArrayList();
         root = new VueChoixJoueursContainer();
+        IntegerProperty nbJoueursProperty = new SimpleIntegerProperty(5);
         genererChampsJoueurs(nbJoueursProperty.get());
-        setScene(new Scene(root, 1280, 800));
-//        setFullScreen(true);
-        setTitle("Choix des joueurs");
+        setScene(new Scene(root));
+        setTitle("Choix des joueurs | Les Aventuriers du Rails");
         creerBinding();
         show();
     }
 
     private void creerBinding() {
-        ChangeListener<Number> dimensionListener = (observable, oldValue, newValue) -> {
-            if (observable == this.widthProperty()) setHeight(this.getWidth() / ASPECT_RATIO);
-            else if (observable == this.heightProperty()) setWidth(this.getHeight() * ASPECT_RATIO);
-        };
-        this.widthProperty().addListener(dimensionListener);
-        this.heightProperty().addListener(dimensionListener);
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        setWidth(screenBounds.getWidth());
+        setHeight(screenBounds.getHeight());
+
         root.getValidation().setOnAction(event -> {
             nomsJoueurs.clear();
             setListeDesNomsDeJoueurs();
         });
 
-        root.getVboxJoueurs().scaleXProperty().bind(this.widthProperty().divide(1600));
-        root.getVboxJoueurs().scaleYProperty().bind(this.heightProperty().divide(900));
+        root.getVboxJoueurs().scaleXProperty().bind(widthProperty().divide(1800));
+        root.getVboxJoueurs().scaleYProperty().bind(heightProperty().divide(1080));
     }
 
     protected void genererChampsJoueurs(int nbJoueurs) {
@@ -134,9 +126,7 @@ public class VueChoixJoueurs extends Stage {
      */
     protected int getNombreDeJoueurs() {
         int nbJoueurs = 0;
-        for (TextField textField : textFields) {
-            if (!textField.getText().equals("")) nbJoueurs++;
-        }
+        for (TextField textField : textFields) if (!textField.getText().equals("")) nbJoueurs++;
         return nbJoueurs;
     }
 

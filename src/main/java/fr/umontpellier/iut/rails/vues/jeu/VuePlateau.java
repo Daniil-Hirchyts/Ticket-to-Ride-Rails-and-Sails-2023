@@ -1,6 +1,16 @@
 package fr.umontpellier.iut.rails.vues.jeu;
 
-import fr.umontpellier.iut.rails.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import fr.umontpellier.iut.rails.IDestination;
+import fr.umontpellier.iut.rails.IJeu;
+import fr.umontpellier.iut.rails.IJoueur;
+import fr.umontpellier.iut.rails.IRoute;
+import fr.umontpellier.iut.rails.IVille;
 import fr.umontpellier.iut.rails.vues.layout.ConsoleLogger;
 import fr.umontpellier.iut.rails.vues.layout.DonneesGraphiques;
 import javafx.animation.Animation;
@@ -10,7 +20,6 @@ import javafx.beans.binding.ObjectBinding;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -23,9 +32,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.util.Duration;
-
-import java.io.IOException;
-import java.util.*;
 
 /**
  * Cette classe présente les routes et les villes sur le plateau.
