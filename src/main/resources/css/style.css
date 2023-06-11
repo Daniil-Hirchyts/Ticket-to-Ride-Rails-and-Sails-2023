@@ -247,6 +247,7 @@ Label {
 
 #consoleText {
     -fx-font-size: 12;
+    -fx-text-fill: black;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0), 0, 0, 0, 1);
 }
 
