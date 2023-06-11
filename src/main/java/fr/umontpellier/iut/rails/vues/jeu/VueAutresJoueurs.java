@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class VueAutresJoueurs extends HBox {
     IJeu jeu;
-    private Map<IJoueur.CouleurJoueur, ImageView> avatarList;
+    private final Map<IJoueur.CouleurJoueur, ImageView> avatarList;
 
     public VueAutresJoueurs(IJeu jeu, Map<IJoueur.CouleurJoueur, ImageView> avatarList) {
         this.jeu = jeu;
@@ -31,9 +31,10 @@ public class VueAutresJoueurs extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        currentJoueurListener();
     }
 
-    public void creerBindings() {
+    private void currentJoueurListener() {
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
             updatePlayerViews(newValue);
         });
@@ -49,5 +50,4 @@ public class VueAutresJoueurs extends HBox {
             getChildren().add(vuePlayerInfo);
         }
     }
-
 }

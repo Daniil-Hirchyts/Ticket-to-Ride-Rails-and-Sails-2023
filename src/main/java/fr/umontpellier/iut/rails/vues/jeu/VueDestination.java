@@ -27,11 +27,12 @@ import javafx.util.Duration;
  * On y définit le listener à exécuter lorsque cette carte a été choisie par l'utilisateur
  */
 public class VueDestination extends VBox {
-    private Graphe graphe;
+    private final Graphe graphe;
     protected final IDestination destination;
-    private Map<Shape, Transition> transitions;
-    private VueDuJeu vueDuJeu;
-    private SoundEffect soundEffect = new SoundEffect();
+    private final Map<Shape, Transition> transitions;
+    private final SoundEffect soundEffect = new SoundEffect();
+    private final VueDuJeu vueDuJeu;
+    private final boolean clickable;
 
     public VueDestination(IDestination destination, VueDuJeu vueDuJeu) {
         this(destination, false, vueDuJeu);
@@ -41,6 +42,15 @@ public class VueDestination extends VBox {
         this.destination = destination;
         this.transitions = new HashMap<>();
         this.graphe = vueDuJeu.getJeu().getGraphe();
+        this.vueDuJeu = vueDuJeu;
+        this.clickable = clickable;
+
+        addLabelsToVBox(destination);
+        setupTransitions();
+        clickableListener();
+    }
+
+    private void addLabelsToVBox(IDestination destination) {
         for (String ville : destination.getVilles()) {
             Label label = new Label("➤ " + ville);
             label.setId("destinationLabel");
@@ -48,6 +58,9 @@ public class VueDestination extends VBox {
             getChildren().add(label);
         }
         setSpacing(-6);
+    }
+
+    private void setupTransitions() {
         ScaleTransition scaleTransitionHover = new ScaleTransition(Duration.millis(200), this);
         scaleTransitionHover.setFromX(1);
         scaleTransitionHover.setFromY(1);
@@ -68,22 +81,16 @@ public class VueDestination extends VBox {
         translateTransitionRestore.setToX(0);
         translateTransitionRestore.setToY(0);
 
-        if (clickable) {
-            this.setOnMouseClicked(event -> {
-                soundEffect.getButtonSoundEffect().play();
-                ((VueDuJeu) getScene().getRoot()).getJeu().uneDestinationAEteChoisie(destination);
-            });
-            setId("destinationTicketChoix");
-        } else setId("destinationTicket");
-
-        this.setOnMouseEntered(event -> {
+        setOnMouseEntered(event -> {
             List<Integer> villeToInteger = new ArrayList<>();
             for (String ville : destination.getVilles()) {
                 if (vueDuJeu.getJeu().getIdVille(ville) != -1) {
                     vueDuJeu.getPlateau().getCercleDeLaVille(ville).getStyleClass().add("cercleVilleGlow");
                     vueDuJeu.getPlateau().getOverlay().setVisible(true);
+
                     Glow glow = new Glow();
                     vueDuJeu.getPlateau().getCercleDeLaVille(ville).setEffect(glow);
+
                     Transition transition = new Transition() {
                         {
                             setCycleDuration(Duration.millis(500));
@@ -106,6 +113,7 @@ public class VueDestination extends VBox {
                     scaleTransition.setAutoReverse(true);
                     scaleTransition.play();
                     transitions.put(vueDuJeu.getPlateau().getCercleDeLaVille(ville), scaleTransition);
+
                     Label label = new Label(ville);
                     label.getStyleClass().add("labelsIMFellEnglish");
                     label.setTranslateX(vueDuJeu.getPlateau().getCercleDeLaVille(ville).getCenterX() + 5);
@@ -113,6 +121,7 @@ public class VueDestination extends VBox {
                     label.setStyle("-fx-font-size: 15px;" +
                             "-fx-text-fill: -fx-color-map-destination;" +
                             "-fx-font-weight: bold;");
+
                     SVGPath star = new SVGPath();
                     star.setContent("M9.5 14.25l-5.584 2.936 1.066-6.218L.465 6.564l6.243-.907L9.5 0l2.792 5.657 6.243.907-4.517 4.404 1.066 6.218");
                     star.setId("star");
@@ -120,12 +129,15 @@ public class VueDestination extends VBox {
                     star.setTranslateY(vueDuJeu.getPlateau().getCercleDeLaVille(ville).getCenterY() - 9);
                     star.setScaleX(2);
                     star.setScaleY(2);
+
                     vueDuJeu.getPlateau().getChildren().addAll(star, label);
+
                     RotateTransition rotateTransition = new RotateTransition(Duration.millis(3000), star);
                     rotateTransition.setFromAngle(0);
                     rotateTransition.setToAngle(360);
                     rotateTransition.setCycleCount(Animation.INDEFINITE);
                     rotateTransition.play();
+
                     star.setEffect(glow);
                     transitions.put(vueDuJeu.getPlateau().getCercleDeLaVille(ville), rotateTransition);
                     villeToInteger.add(vueDuJeu.getJeu().getIdVille(ville));
@@ -149,7 +161,7 @@ public class VueDestination extends VBox {
             translateTransitionHover.playFromStart();
         });
 
-        this.setOnMouseExited(event -> {
+        setOnMouseExited(event -> {
             List<Integer> villeToInteger = new ArrayList<>();
             for (String ville : destination.getVilles())
                 if (vueDuJeu.getJeu().getIdVille(ville) != -1) {
@@ -169,6 +181,16 @@ public class VueDestination extends VBox {
             scaleTransitionRestore.playFromStart();
             translateTransitionRestore.playFromStart();
         });
+    }
+
+    private void clickableListener() {
+        if (clickable) {
+            this.setOnMouseClicked(event -> {
+                soundEffect.getButtonSoundEffect().play();
+                ((VueDuJeu) getScene().getRoot()).getJeu().uneDestinationAEteChoisie(destination);
+            });
+            setId("destinationTicketChoix");
+        } else setId("destinationTicket");
     }
 
     public List<String> constructListRoute(List<Integer> listeSommets) {

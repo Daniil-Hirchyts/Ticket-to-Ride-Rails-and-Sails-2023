@@ -36,9 +36,16 @@ import javafx.scene.paint.Color;
  * On y définit les bindings sur le joueur courant, ainsi que le listener à exécuter lorsque ce joueur change
  */
 public class VueJoueurCourant extends GridPane {
-    private IJeu jeu;
+    private final IJeu jeu;
     private IJoueur joueur;
-    private Map<IJoueur.CouleurJoueur, ImageView> avatarList;
+    private final Map<IJoueur.CouleurJoueur, ImageView> avatarList;
+    private VueFlag pionsWagon;
+    private VueFlag pionsBateau;
+    private VueFlag pionsPort;
+    private final SoundEffect soundEffect;
+    private final IntegerProperty wagons = new SimpleIntegerProperty();
+    private final IntegerProperty bateaux = new SimpleIntegerProperty();
+    private int ports;
     @FXML
     private Label playerName;
     @FXML
@@ -49,18 +56,8 @@ public class VueJoueurCourant extends GridPane {
     private Label scoreLabel;
     @FXML
     private HBox playerCartesBox;
-    private VueFlag pionsWagon;
-    private VueFlag pionsBateau;
-    private VueFlag pionsPort;
-    private SoundEffect soundEffect;
-
     @FXML
     private HBox flagsBox;
-
-    private IntegerProperty wagons = new SimpleIntegerProperty();
-    private IntegerProperty bateaux = new SimpleIntegerProperty();
-    private int ports;
-
 
     public VueJoueurCourant(IJeu jeu, Map<IJoueur.CouleurJoueur, ImageView> avatarList) {
         this.jeu = jeu;
@@ -74,14 +71,9 @@ public class VueJoueurCourant extends GridPane {
             e.printStackTrace();
         }
         soundEffect = new SoundEffect();
+        currentPlayerListener();
+        cardsBoxUpdater();
         creerBindings();
-        playerCartesBox.prefWidthProperty().bind(this.prefWidthProperty().subtract(450));
-        this.prefWidthProperty().addListener((observable, oldValue, newValue) -> {
-            spacingCalculator();
-        });
-        playerCartesBox.getChildren().addListener((ListChangeListener<Node>) c -> {
-            spacingCalculator();
-        });
     }
 
     private void spacingCalculator() {
@@ -93,7 +85,7 @@ public class VueJoueurCourant extends GridPane {
         playerCartesBox.setSpacing(spacing);
     }
 
-    public void creerBindings() {
+    private void currentPlayerListener() {
         jeu.joueurCourantProperty().addListener((observable, oldValue, newValue) -> {
             flagsBox.getChildren().clear();
             wagons.bind(newValue.nbPionsWagonsProperty());
@@ -188,6 +180,9 @@ public class VueJoueurCourant extends GridPane {
             playerLabelColorBackground.setImage(new Image(requireNonNull(getClass().getClassLoader().getResourceAsStream("images/elements/current-player/score-background/" + newValue.getCouleur().toString() + ".png"))));
         });
 
+    }
+
+    private void cardsBoxUpdater() {
         for (IJoueur j : jeu.getJoueurs()) {
             j.cartesTransportProperty().addListener(new ListChangeListener<ICarteTransport>() {
                 @Override
@@ -195,7 +190,7 @@ public class VueJoueurCourant extends GridPane {
                     while (change.next()) {
                         playerCartesBox.getChildren().clear();
                         for (ICarteTransport carteTransport : change.getList()) {
-                            ConsoleLogger.getInstance(null, null).log("Ajout de la carte " + carteTransport.getStringCouleur().toString());
+                            ConsoleLogger.getInstance(null, null).log("Ajout de la carte " + carteTransport.getStringCouleur());
                             VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1, true);
                             vueCarteTransport.verticalLayout();
                             playerCartesBox.getChildren().add(vueCarteTransport);
@@ -209,7 +204,7 @@ public class VueJoueurCourant extends GridPane {
                 public void onChanged(Change<? extends ICarteTransport> change) {
                     while (change.next()) {
                         for (ICarteTransport carteTransport : change.getList()) {
-                            ConsoleLogger.getInstance(null, null).log("Ajout de la carte " + carteTransport.getStringCouleur().toString());
+                            ConsoleLogger.getInstance(null, null).log("Ajout de la carte " + carteTransport.getStringCouleur());
                             VueCarteTransport vueCarteTransport = new VueCarteTransport(carteTransport, 1, true);
                             vueCarteTransport.setCarteImagePosee();
                             playerCartesBox.getChildren().add(vueCarteTransport);
@@ -218,7 +213,6 @@ public class VueJoueurCourant extends GridPane {
                 }
             });
         }
-
 
         jeu.joueurCourantProperty().addListener(new ChangeListener<IJoueur>() {
             @Override
@@ -233,6 +227,18 @@ public class VueJoueurCourant extends GridPane {
             }
         });
 
+        prefWidthProperty().addListener((observable, oldValue, newValue) -> {
+            spacingCalculator();
+        });
+
+        playerCartesBox.getChildren().addListener((ListChangeListener<Node>) c -> {
+            spacingCalculator();
+        });
+
+    }
+
+    public void creerBindings() {
+        playerCartesBox.prefWidthProperty().bind(prefWidthProperty().subtract(450));
     }
 
     public static String getColorString(String color) {

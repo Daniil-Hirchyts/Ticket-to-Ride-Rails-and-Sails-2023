@@ -14,12 +14,20 @@ import javafx.util.Duration;
 
 public class VueCarteTransport extends Pane {
     private final ICarteTransport carteTransport;
-    private SoundEffect soundEffect;
-
+    private final SoundEffect soundEffect;
+    private boolean dansDeck = false;
+    private static final String FXML_PATH = "fxml/jeu/VueCarteTransport.fxml";
+    private static final String IMAGE_STYLE = "-fx-background-image: url('%s'); " +
+            "-fx-background-position: center center; " +
+            "-fx-background-repeat: stretch; " +
+            "-fx-background-size: cover;";
     @FXML
     private Pane carteImage;
 
     public VueCarteTransport(ICarteTransport carteTransport, int nbCartes, boolean dansDeck) {
+        this.carteTransport = carteTransport;
+        this.dansDeck = dansDeck;
+        soundEffect = new SoundEffect();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/jeu/VueCarteTransport.fxml"));
             loader.setRoot(this);
@@ -28,10 +36,8 @@ public class VueCarteTransport extends Pane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        soundEffect = new SoundEffect();
-        getStyleClass().add("carte");
 
-        this.carteTransport = carteTransport;
+        getStyleClass().add("carte");
 
         String type;
         if (carteTransport.estBateau()) {
@@ -43,11 +49,7 @@ public class VueCarteTransport extends Pane {
         String ancre = carteTransport.getAncre() ? "-A" : "";
         String path = "images/cartesWagons/carte-" + type + "-" + carteTransport.getStringCouleur() + ancre + ".png";
 
-        carteImage.setStyle("-fx-background-image: url('" + path + "'); " +
-                "-fx-background-position: center center; " +
-                "-fx-background-repeat: stretch; " +
-                "-fx-background-size: cover;");
-
+        carteImage.setStyle(String.format(IMAGE_STYLE, path));
 
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setSaturation(0.1);
@@ -55,7 +57,9 @@ public class VueCarteTransport extends Pane {
         colorAdjust.setBrightness(0.1);
         carteImage.setEffect(colorAdjust);
 
-
+        setSoundEffect();
+    }
+    private void setSoundEffect() {
         if (!dansDeck) {
             setOnMouseClicked(event -> {
                 soundEffect.getPiocherCarteVisible().play();
@@ -67,14 +71,9 @@ public class VueCarteTransport extends Pane {
                 ((VueDuJeu) getScene().getRoot()).getJeu().uneCarteDuJoueurEstJouee(carteTransport);
             });
         }
-
     }
 
-    public ICarteTransport getCarteTransport() {
-        return carteTransport;
-    }
-
-    public void setupHoverTransition(double translateToX, double translateToY) {
+    private void setupHoverTransition(double translateToX, double translateToY) {
         ScaleTransition scaleTransitionHover = new ScaleTransition(Duration.millis(200), this);
         scaleTransitionHover.setFromX(1);
         scaleTransitionHover.setFromY(1);
@@ -87,11 +86,6 @@ public class VueCarteTransport extends Pane {
         translateTransitionHover.setToX(translateToX);
         translateTransitionHover.setToY(translateToY);
 
-        setOnMouseEntered(event -> {
-            scaleTransitionHover.playFromStart();
-            translateTransitionHover.playFromStart();
-        });
-
         ScaleTransition scaleTransitionRestore = new ScaleTransition(Duration.millis(200), this);
         scaleTransitionRestore.setToX(1);
         scaleTransitionRestore.setToY(1);
@@ -100,11 +94,17 @@ public class VueCarteTransport extends Pane {
         translateTransitionRestore.setToX(0);
         translateTransitionRestore.setToY(0);
 
+        setOnMouseEntered(event -> {
+            scaleTransitionHover.playFromStart();
+            translateTransitionHover.playFromStart();
+        });
+
         setOnMouseExited(event -> {
             scaleTransitionRestore.playFromStart();
             translateTransitionRestore.playFromStart();
         });
     }
+
 
     public void horizontalLayout() {
         setId("carte-horizontal");
@@ -117,11 +117,6 @@ public class VueCarteTransport extends Pane {
         setRotate(270);
         setupHoverTransition(0, -35);
     }
-
-    public Pane getCarteImage() {
-        return carteImage;
-    }
-
     public void setCarteImagePosee() {
         setDisable(true);
         verticalLayout();

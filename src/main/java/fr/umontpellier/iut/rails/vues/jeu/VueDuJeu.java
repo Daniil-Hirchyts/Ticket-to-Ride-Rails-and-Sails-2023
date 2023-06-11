@@ -45,7 +45,6 @@ public class VueDuJeu extends GridPane {
     private final ColorAdjust colorAdjust;
     private static final String BATEAU_IMAGE_PATH = "images/cartesWagons/dos-BATEAU.png";
     private static final String WAGON_IMAGE_PATH = "images/cartesWagons/dos-WAGON.png";
-
     @FXML
     private ImageView pileCard;
     @FXML
@@ -119,7 +118,6 @@ public class VueDuJeu extends GridPane {
         instructionBar.setTranslateY(20);
 
         VueAutresJoueurs vueAutresJoueurs = new VueAutresJoueurs(jeu, avatarList);
-        vueAutresJoueurs.creerBindings();
         vueAutresJoueurs.setTranslateY(-15);
         vueAutresJoueurs.setScaleX(1.1);
         vueAutresJoueurs.setScaleY(1.1);

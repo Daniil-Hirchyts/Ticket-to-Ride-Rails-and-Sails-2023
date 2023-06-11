@@ -9,13 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public class VueWinner extends Pane {
-
-    private IJoueur joueur;
-
-    private ImageView Avatar;
-
     private int nbDestination;
-
     @FXML
     private ImageView backgroundWinner;
     @FXML
@@ -26,12 +20,9 @@ public class VueWinner extends Pane {
     private Label playerName;
     @FXML
     private Label labelNbDestination;
-    public VueWinner(IJoueur joueur, int rank, ImageView Avatar) {
-        this.joueur = joueur;
-        this.nbDestination = nbDestination;
-        this.Avatar = Avatar;
-        System.out.println(Avatar);
-        try{
+
+    public VueWinner(IJoueur joueur, ImageView Avatar) {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/fin/VueWinner.fxml"));
             loader.setRoot(this);
             loader.setController(this);
@@ -39,17 +30,17 @@ public class VueWinner extends Pane {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        creerBindings();
-    }
 
-    private void creerBindings() {
         labelScore.setText(String.valueOf(joueur.getScore()));
         playerName.setText(joueur.getNom());
+        labelNbDestination.setText(String.valueOf(nbDestination));
+
         playerName.setStyle("--fx-font-size: 30px;");
         labelScore.setStyle("--fx-font-size: 25px;");
         labelNbDestination.setStyle("--fx-font-size: 25px;");
-        labelNbDestination.setText(String.valueOf(nbDestination));
+
         playerWinnerAvatarColor.setImage(Avatar.getImage());
-        backgroundWinner.setImage(new Image("images/resultatPage/winner/"+joueur.getCouleur()+".png"));
+        backgroundWinner.setImage(new Image("images/resultatPage/winner/" + joueur.getCouleur() + ".png"));
     }
+
 }

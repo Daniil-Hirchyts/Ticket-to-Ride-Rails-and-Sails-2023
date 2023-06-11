@@ -13,17 +13,14 @@ import javafx.scene.layout.Pane;
 
 public class VueInstructionBar extends Pane {
 
-    VueDuJeu jeu;
+    private final VueDuJeu jeu;
     private static final Image instructionBarArrowUp = new Image("images/instructionPopUp/instructionBarArrowUp.png");
     private static final Image instructionBarArrowDown = new Image("images/instructionPopUp/instructionBarArrowDown.png");
-
-    private SoundEffect soundEffect;
+    private final SoundEffect soundEffect;
     @FXML
     private Label labelInstruciton;
-
     @FXML
     private ImageView instructionBar;
-
     @FXML
     private ImageView instructionBarArrow;
 
@@ -37,14 +34,26 @@ public class VueInstructionBar extends Pane {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         soundEffect = new SoundEffect();
+
         this.instructionBarArrow.setImage(new Image("images/instructionPopUp/instructionBarArrowDown.png"));
         this.instructionBar.setImage(new Image("images/instructionPopUp/instructionBar.png"));
         this.labelInstruciton.setId("instructionLabel");
-        creerBindings();
+
+        setupTransition();
+        instructionListener();
     }
 
-    private void creerBindings() {
+    private void instructionListener() {
+        jeu.getJeu().instructionProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                labelInstruciton.setText(newValue);
+            }
+        });
+    }
+
+    private void setupTransition() {
         TranslateTransition tt = new TranslateTransition();
         TranslateTransition tt2 = new TranslateTransition();
         TranslateTransition tt3 = new TranslateTransition();
@@ -68,7 +77,6 @@ public class VueInstructionBar extends Pane {
         instructionBarArrow.setOnMouseClicked(mouseEvent -> {
             soundEffect.getButtonSoundEffect().play();
             if (instructionBarArrow.getImage().equals(instructionBarArrowUp)) {
-                //TODO : Transition d'animation pour l'ouverture de la barre d'instruction et du instructionBarArrow et du label
                 tt2.setByY(-50);
                 tt3.setByY(-50);
                 tt.setByY(-50);
@@ -84,7 +92,6 @@ public class VueInstructionBar extends Pane {
 
 
             } else {
-                //TODO : Transition d'animation pour l'ouverture de la barre d'instruction et du instructionBarArrow et du label
                 tt2.setByY(50);
                 tt3.setByY(50);
                 tt.setByY(50);
@@ -97,12 +104,6 @@ public class VueInstructionBar extends Pane {
                 tt.play();
                 tt2.play();
                 tt3.play();
-            }
-        });
-
-        jeu.getJeu().instructionProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                labelInstruciton.setText(newValue);
             }
         });
     }
