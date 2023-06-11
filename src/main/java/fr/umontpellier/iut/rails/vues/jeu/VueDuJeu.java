@@ -253,8 +253,8 @@ public class VueDuJeu extends GridPane {
         Stage stage = (Stage) btnExit.getScene().getWindow();
         stage.close();
         soundEffect.getMenuMusic().stop();
-        VueChoixJoueurs vueChoixJoueurs = new VueChoixJoueurs();
-        vueChoixJoueurs.show();
+        RailsIHM railsIHM = new RailsIHM();
+        railsIHM.start(new VueChoixJoueurs());
     }
 
     private void setUpDestination() {
