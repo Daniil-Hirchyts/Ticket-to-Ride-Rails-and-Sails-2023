@@ -183,7 +183,6 @@ public class Jeu implements IJeu {
         // les cartes des joueurs sont distribuées lors de la préparation du jeu dans
         // run()
         ArrayList<IJoueur.CouleurJoueur> couleurs = new ArrayList<>(Arrays.asList(IJoueur.CouleurJoueur.values()));
-        Collections.shuffle(couleurs);
         joueurs = new ArrayList<>();
         for (String nomJoueur : nomJoueurs) {
             joueurs.add(new Joueur(nomJoueur, this, couleurs.remove(0)));
