@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="242.0" prefWidth="475.0" stylesheets="@../../css/style.css" type="Pane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="backgroundWinner" fitHeight="199.0" fitWidth="445.0" layoutX="15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/resultatPage/winner/BLEU.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="playerWinnerAvatarColor" fitHeight="93.0" fitWidth="73.0" layoutX="201.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/avatars/BLEU/avatar-2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="95.0" fitWidth="290.0" layoutX="93.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/resultatPage/backgroundLabel.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="labelScore" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="87.0" prefHeight="49.0" prefWidth="123.0" styleClass="labelsIMFellEnglish" text="Score" textAlignment="CENTER" textFill="WHITE" />
+      <Label fx:id="labelNbDestination" alignment="CENTER" contentDisplay="CENTER" layoutX="315.0" layoutY="86.0" prefHeight="51.0" prefWidth="121.0" styleClass="labelsIMFellEnglish" text="nbDestibnation" textAlignment="CENTER" textFill="WHITE" />
+      <Label fx:id="playerName" alignment="CENTER" contentDisplay="CENTER" layoutX="142.0" layoutY="155.0" prefHeight="65.0" prefWidth="191.0" styleClass="labelsIMFellEnglish" text="playerName" textAlignment="CENTER" textFill="WHITE" />
+      <ImageView fitHeight="49.0" fitWidth="45.0" layoutX="427.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/resultatPage/winner/Score.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="50.0" fitWidth="45.0" layoutX="-1.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/resultatPage/winner/nbDestination.png" />
+         </image>
+      </ImageView>
+   </children>
+</fx:root>

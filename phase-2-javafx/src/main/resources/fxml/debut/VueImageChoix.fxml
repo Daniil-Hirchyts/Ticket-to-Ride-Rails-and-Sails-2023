@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="300.0" stylesheets="@../../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" prefWidth="100.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" scaleX="0.85" scaleY="0.85" stylesheets="@../../css/style.css" translateX="-10.0" translateY="-5.0">
+         <children>
+            <ImageView fitHeight="107.0" fitWidth="104.0" layoutX="-1.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/elements/player-interface/avatar/background.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="backgroundColorAvatar" fitHeight="78.0" fitWidth="80.0" layoutX="11.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/elements/player-interface/avatar/back-color/BLEU.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="avatar" fitHeight="100.0" fitWidth="80.0" layoutX="10.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/avatars/BLEU/avatar-3.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <TextField fx:id="textFieldJoueur" maxWidth="150.0" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin></TextField>
+   </children>
+</fx:root>

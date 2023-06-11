@@ -1,0 +1,404 @@
+@font-face {
+    src: url('../../../src/main/resources/fonts/OrchardStreetNFW01-Regular.ttf');
+}
+
+@font-face {
+    src: url('../../../src/main/resources/fonts/IMFeENsc28P.ttf');
+}
+
+.root {
+    -fx-beige-light: rgb(217, 189, 170);
+    -fx-beige-main: rgb(225, 194, 151);
+    -fx-beige-hovered: rgb(200, 169, 126);
+    -fx-beige-pressed: rgb(180, 149, 106);
+    -fx-beige-yellow: rgb(255, 255, 204);
+    -fx-beige-yellow-hovered: rgb(255, 255, 153);
+    -fx-beige-yellow-pressed: rgb(255, 255, 102);
+    -fx-red-main: #d02a1b;
+    -fx-brown-main: #6f2400;
+    -fx-brown-hovered: #5a1e00;
+    -fx-white-carte: #e7edf1;
+    -fx-title-color: #C50B25;
+    -fx-brown-flag: #3f1a0a;
+    -fx-color-map-destination: #bcff00;
+}
+
+Rectangle {
+    -fx-arc-height: 5;
+    -fx-arc-width: 5;
+    -fx-cursor: hand;
+}
+
+Circle {
+    -fx-cursor: hand;
+}
+
+Circle:hover {
+    -fx-stroke: #ff0000;
+    -fx-stroke-width: 3;
+}
+
+Rectangle:hover {
+    -fx-stroke: #ff0000;
+    -fx-stroke-width: 3;
+}
+
+Label {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
+}
+
+.labelsIMFellEnglish {
+    -fx-font-family: 'IM Fell English SC', serif;
+}
+
+.labelsOrchardStreetNFW01Regular {
+    -fx-font-family: 'OrchardStreetNFW01-Regular';
+}
+
+.labelNomsCreator {
+    -fx-font-size: 20px;
+}
+
+#mapMonde, .big-shadow {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 10, 0, 0, 0);
+}
+
+.medium-shadow {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 5, 0, 0, 0);
+}
+
+.small-shadow-05 {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 0);
+}
+
+#centerBox, #plateau, .hideBG, #scrollPane .scroll-bar:vertical, #btnExit, #textFieldChangePions, #playerChoiceTextField, .btnMenu {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+#titleText1 {
+    -fx-font-size: 60px;
+    -fx-text-fill: -fx-title-color;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, #060603, 2, 1, 2, 2);
+}
+
+#titleText2 {
+    -fx-font-size: 45px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, #060603, 2, 1, 1, 1);
+}
+
+#playerChoiceAvatar {
+    -fx-pref-width: 100px;
+    -fx-pref-height: 100px;
+    -fx-max-height: 100px;
+    -fx-max-width: 100px;
+    -fx-min-height: 100px;
+    -fx-min-width: 100px;
+}
+
+#pageResultat, #choixJoueursContainer, #interfaceOfChooseBackground, .btnMenu, #background-bar, #backgroundBarBlur, #top-bar-background, #vboxJoueurs, #playerChoiceBackground, #playerChoiceTextField, #destinationTicket, #destinationTicketChoix, #btnDestination, #btnPasser, #bottomColor, #console, #playerBackgroundAvatar, #playerBackground, #playerBackgroundAvatarColor, #playerLabelScoreImage, #actionPanel, #btnExit, #cornerLT, #cornerLB2, #cornerLB, #borderDown, #borderTopMask, #borderTop, #pageResultat {
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 100% 100%;
+}
+
+#top-bar-background, #backgroundBarBlur, #background-bar, #interfaceOfChooseBackground, #choixJoueursContainer, #pageResultat {
+    -fx-background-position: left center;
+}
+
+#destinationTicket, #destinationTicketChoix, #btnDestination, #btnPasser, #bottomColor, #console, #playerBackgroundAvatar, #playerBackground, #playerBackgroundAvatarColor, #playerLabelScoreImage, #actionPanel, #btnExit, #gameScene, #playerChoiceTextField, #playerChoiceBackground, #vboxJoueurs, .btnMenu {
+    -fx-background-position: center;
+}
+
+#pageResultat {
+    -fx-background-image: url("/images/resultatPage/pageResultat.png");
+}
+
+#choixJoueursContainer {
+    -fx-background-image: url("/images/elements/player-choose/background-page.png");
+}
+
+#interfaceOfChooseBackground {
+    -fx-background-image: url("/images/elements/player-choose/blur-background.png");
+}
+
+.btnMenu {
+    -fx-background-image: url("/images/buttons/btn-choix/button.png");
+    -fx-font-size: 40px;
+}
+
+.btnMenu:hover {
+    -fx-background-image: url("/images/buttons/btn-choix/button-hover.png");
+}
+
+.btnMenu:pressed {
+    -fx-background-image: url("/images/buttons/btn-choix/button-pressed.png");
+}
+
+#background-bar {
+    -fx-background-image: url("/images/elements/player-choose/bar.png");
+}
+
+#backgroundBarBlur {
+    -fx-background-image: url("/images/elements/player-choose/blur-background.png");
+}
+
+
+#top-bar-background {
+    -fx-background-image: url("/images/elements/player-choose/top-bar-Red.png");
+}
+
+#vboxJoueurs {
+    -fx-background-image: url("/images/elements/player-choose/background.png");
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(6, 6, 3, 0.25), 2, 0, 3, 3);
+}
+
+#playerChoiceTextField {
+    -fx-background-image: url("/images/elements/player-choose/textField.png");
+    -fx-font-size: 15px;
+    -fx-font-family: 'OrchardStreetNFW01-Regular';
+}
+
+#gameScene {
+    -fx-background-image: url("/images/background/background-pattern.png");
+    -fx-background-repeat: repeat;
+    -fx-background-size: 20% 60%;
+}
+
+#borderTop {
+    -fx-background-image: url("/images/background/border-top.png");
+    -fx-background-position: left top;
+}
+
+#borderTopMask {
+    -fx-background-image: url("/images/background/background-crop.png");
+    -fx-background-position: left top;
+}
+
+#borderDown {
+    -fx-background-image: url("/images/background/border-down.png");
+    -fx-background-position: left bottom;
+}
+
+#cornerLB {
+    -fx-background-image: url("/images/background/corner-lb.png");
+    -fx-background-position: left bottom;
+}
+
+#cornerLB2 {
+    -fx-background-image: url("/images/background/corner-lb2.png");
+    -fx-background-position: left bottom;
+}
+
+#cornerLT {
+    -fx-background-image: url("/images/background/corner-lt.png");
+    -fx-background-position: left top;
+}
+
+#btnExit {
+    -fx-background-image: url("/images/buttons/btn-exit.png");
+}
+
+#actionPanel {
+    -fx-background-image: url("/images/elements/current-player/actions-background.png");
+}
+
+#playerBackgroundAvatar {
+    -fx-background-image: url("/images/elements/player-interface/avatar/background.png");
+}
+
+#console {
+    -fx-background-image: url("/images/elements/console.png");
+}
+
+#btnPasser {
+    -fx-background-image: url("/images/buttons/btn-passer/passer.png");
+    -fx-backround-color: transparent;
+    -fx-font-size: 12px;
+}
+
+#btnPasser:hover {
+    -fx-background-image: url("/images/buttons/btn-passer/passer-hover.png");
+    -fx-backround-color: transparent;
+}
+
+#btnPasser:pressed {
+    -fx-background-image: url("/images/buttons/btn-passer/passer-pressed.png");
+    -fx-backround-color: transparent;
+}
+
+#btnDestination {
+    -fx-background-image: url("/images/buttons/btn-destinations/destination.png");
+    -fx-backround-color: transparent;
+}
+
+#btnDestination:hover {
+    -fx-background-image: url("/images/buttons/btn-destinations/destination-hover.png");
+    -fx-backround-color: transparent;
+}
+
+#btnDestination:pressed {
+    -fx-background-image: url("/images/buttons/btn-destinations/destination-pressed.png");
+    -fx-backround-color: transparent;
+}
+
+#consoleText {
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0), 0, 0, 0, 1);
+}
+
+#btnExit:hover {
+    -fx-background-image: url("/images/buttons/btn-exit-hover.png");
+}
+
+
+#pile {
+    -fx-min-height: 100;
+}
+
+#playerInfoBlock, #console {
+    -fx-min-width: 300;
+    -fx-max-width: 300;
+}
+
+#scrollPane {
+    -fx-scrollbar-width: 10px;
+    -fx-scrollbar-color: transparent;
+    -fx-scrollbar-thumb-color: black;
+}
+
+#scrollPane .scroll-bar:vertical {
+    -fx-pref-width: 10px;
+}
+
+#scrollPane .scroll-bar:vertical .thumb {
+    -fx-background-color: -fx-brown-main;
+}
+
+#scrollPane .scroll-bar:horizontal {
+    -fx-pref-height: 10px;
+    -fx-background-color: transparent
+}
+
+#scrollPane .scroll-bar:horizontal .thumb {
+    -fx-background-color: -fx-brown-main;
+}
+
+#scrollPane .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: -fx-brown-hovered;
+}
+
+#scrollPane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: -fx-brown-hovered;
+}
+
+#overlay {
+    -fx-opacity: 0.5;
+}
+
+#destinationTicket, #destinationTicketChoix {
+    -fx-min-width: 110;
+    -fx-max-width: 110;
+    -fx-min-height: 52;
+    -fx-max-height: 52;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 5, 0, 0, -5);
+    -fx-alignment: center-left;
+    -fx-cursor: hand;
+}
+
+#destinationTicket {
+    -fx-background-image: url("/images/elements/destination.png");
+}
+
+#destinationTicketChoix:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+#destinationTicketChoix {
+    -fx-background-image: url("/images/elements/destination-choix.png");
+}
+
+#destinationLabel {
+    -fx-font-size: 10px;
+    -fx-alignment: center;
+    -fx-translate-x: 9;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0), 0, 0, 0, 1);
+}
+
+
+#avatarColor {
+    -fx-background-color: -fx-beige-main;
+    -fx-font-size: 10px;
+    -fx-padding: 2px 2px;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+}
+
+#carte-vertical, #carte-horizontal, #carte, .carte {
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-background-color: -fx-white-carte;
+    -fx-border-color: -fx-brown-main;
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+#carte:hover, #carte-horizontal:hover, #carte-vertical:hover, .carte:hover {
+    -fx-cursor: hand;
+    -fx-background-color: -fx-red-main;
+}
+
+#routeGlow {
+    -fx-stroke: white;
+    -fx-stroke-width: 2;
+}
+
+#circlePosee {
+    -fx-stroke: none;
+    -fx-stroke-width: 0;
+}
+
+#rectPosee {
+    -fx-stroke: none;
+    -fx-stroke-width: 0;
+}
+
+.rectangleGlow {
+    -fx-stroke: -fx-color-map-destination;
+    -fx-stroke-width: 2;
+    -fx-effect: dropshadow(gaussian, -fx-color-map-destination, 5, 0, 0, 0);
+}
+
+.cercleVilleGlow {
+    -fx-stroke: -fx-color-map-destination;
+    -fx-stroke-width: 2;
+    -fx-effect: dropshadow(gaussian, -fx-color-map-destination, 5, 0, 0, 0);
+}
+
+#star {
+    -fx-fill: -fx-color-map-destination;
+}
+
+#instructionLabel {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+#labelScore, #labelNbDestination, #playerName {
+    -fx-font-size: 24px;
+}
+
+#labelPseudo {
+    -fx-font-size: 20px;
+}
+
+#labelRank {
+    -fx-font-size: 30px;
+}

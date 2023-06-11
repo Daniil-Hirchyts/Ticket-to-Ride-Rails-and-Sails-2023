@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root alignment="CENTER" prefHeight="800.0" prefWidth="1080.0" stylesheets="@../../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+        <ColumnConstraints hgrow="ALWAYS" />
+        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" valignment="TOP" />
+        <RowConstraints />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" valignment="BOTTOM" />
+    </rowConstraints>
+    <children>
+      <VBox fx:id="containerInstruction" alignment="BOTTOM_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" GridPane.columnSpan="3" />
+        <GridPane fx:id="rightVBox" minHeight="-Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                <RowConstraints valignment="BOTTOM" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+            <VBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" GridPane.rowIndex="1">
+               <children>
+                  <Pane prefHeight="100.0" prefWidth="150.0" translateX="-2.0">
+                     <children>
+                        <Group>
+                           <children>
+                              <ImageView fitHeight="91.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" styleClass="medium-shadow">
+                                 <image>
+                                    <Image url="@../../images/elements/current-player/stack.png" />
+                                 </image>
+                              </ImageView>
+                              <Circle layoutX="129.0" layoutY="46.0" radius="21.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                           </children>
+                        </Group>
+                        <Button fx:id="btnPasser" alignment="CENTER" contentDisplay="CENTER" layoutX="35.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="65.0" text="Passer" textFill="WHITE">
+                           <styleClass>
+                              <String fx:value="hideBG" />
+                              <String fx:value="labelsOrchardStreetNFW01Regular" />
+                              <String fx:value="small-shadow-05" />
+                           </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                        <Button id="btnDestination" fx:id="btnDestination" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="27.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="1.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="hideBG" />
+                              <String fx:value="small-shadow-05" />
+                           </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+                  <VBox fx:id="pileCartesDestinations" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+            </children>
+        </GridPane>
+        <Pane fx:id="borderTop" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" GridPane.columnSpan="3" />
+        <Pane fx:id="bottomColor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
+            <children>
+                <Pane fx:id="borderDown" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" />
+            </children>
+        </Pane>
+        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" GridPane.rowIndex="2">
+            <children>
+                <Pane fx:id="cornerLB2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="190.0" />
+                <Pane fx:id="cornerLB" layoutY="63.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="87.0" prefWidth="236.0" />
+            </children>
+        </Pane>
+        <GridPane fx:id="topGridPane" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" GridPane.columnSpan="3">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                <ColumnConstraints halignment="CENTER" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <VBox fx:id="console" alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" spacing="5.0" GridPane.columnIndex="1">
+                    <children>
+                        <Label styleClass="labelsIMFellEnglish" text="Console" textFill="WHITE" translateY="-7.0">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <ScrollPane id="scrollPane" fx:id="consoleScrollPane" hbarPolicy="NEVER" hmax="0.0" styleClass="hideBG" vbarPolicy="ALWAYS">
+                            <content>
+                                <VBox fx:id="consoleHistory" spacing="5.0">
+                                    <padding>
+                                        <Insets right="20.0" />
+                                    </padding>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                    <padding>
+                        <Insets bottom="25.0" left="20.0" right="10.0" top="30.0" />
+                    </padding>
+                    <opaqueInsets>
+                        <Insets bottom="30.0" />
+                    </opaqueInsets>
+                </VBox>
+            </children>
+        </GridPane>
+        <Pane fx:id="cornerLT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="190.0">
+            <children>
+                <Button fx:id="btnExit" layoutX="18.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="hideBG" />
+            </children>
+        </Pane>
+        <GridPane fx:id="leftVBox" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.rowIndex="1">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="NEVER" />
+                <RowConstraints vgrow="ALWAYS" />
+                <RowConstraints vgrow="NEVER" />
+            </rowConstraints>
+            <children>
+                <VBox fx:id="pileWagon" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0">
+                    <children>
+                        <Pane id="carte" fx:id="pileWagonCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="130.0">
+                            <children>
+                                <Pane fx:id="pileWagonCarteImage" layoutX="28.0" layoutY="-18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
+                        <ImageView fx:id="videWagon" fitHeight="36.0" fitWidth="38.0" layoutX="95.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/icons/croix.png" />
+                           </image>
+                        </ImageView>
+                            </children>
+                        </Pane>
+                    </children>
+                </VBox>
+                <VBox fx:id="piocheBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" GridPane.rowIndex="1" VBox.vgrow="ALWAYS" />
+                <VBox fx:id="pileBateau" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" GridPane.rowIndex="2">
+                    <children>
+                        <Pane id="carte" fx:id="pileBateauCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="130.0">
+                            <children>
+                                <Pane fx:id="pileBateauCarteImage" layoutX="28.0" layoutY="-18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="75.0" rotate="270.0" />
+                        <ImageView fx:id="videBateau" fitHeight="36.0" fitWidth="38.0" layoutX="95.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/icons/croix.png" />
+                           </image>
+                        </ImageView>
+                            </children>
+                        </Pane>
+                    </children>
+                </VBox>
+            </children>
+        </GridPane>
+    </children>
+</fx:root>

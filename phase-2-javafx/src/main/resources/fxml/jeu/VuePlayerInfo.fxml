@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" stylesheets="@../../css/style.css" type="HBox" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane id="playerBackground" fx:id="playerBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="200.0" translateY="15.0">
+         <children>
+            <Group layoutX="10.0" layoutY="10.0">
+               <children>
+                  <Pane id="playerBackgroundAvatar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="65.0" />
+                  <Pane id="playerBackgroundAvatarColor" fx:id="playerBackgroundAvatarColor" layoutX="7.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" />
+                  <ImageView id="playerBackgroundAvatarImage" fx:id="playerBackgroundAvatarImage" fitHeight="55.0" fitWidth="55.0" layoutX="10.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Group>
+            <Label fx:id="playerNameLabel" layoutX="94.0" layoutY="15.0" text="Label" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <HBox id="playerLabelScoreImage" fx:id="playerLabelScoreImage" alignment="CENTER" layoutX="12.0" layoutY="54.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="65.0">
+               <children>
+                  <Label fx:id="playerLabelScore" alignment="TOP_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="65.0" text="Label" textAlignment="CENTER" textFill="WHITE" translateY="-2.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox fx:id="flagsBox" alignment="CENTER" layoutX="102.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="60.0" />
+         </children>
+      </Pane>
+   </children>
+</fx:root>

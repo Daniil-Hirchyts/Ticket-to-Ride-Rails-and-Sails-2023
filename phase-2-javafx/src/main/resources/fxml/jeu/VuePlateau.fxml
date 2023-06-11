@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root fx:id="plateau" stylesheets="@../../css/style.css" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+    <ImageView fx:id="mapMonde" preserveRatio="true">
+        <Image url="@../../images/map.jpg" />
+    </ImageView>
+   <ImageView fx:id="overlay" fitHeight="1069.0" fitWidth="1920.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../images/background/black.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="mapMondeFrame" fitHeight="1069.0" fitWidth="1934.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../images/background/frame.png" />
+      </image>
+   </ImageView>
+</fx:root>

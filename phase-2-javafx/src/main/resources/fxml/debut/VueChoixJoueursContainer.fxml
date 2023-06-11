@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root prefHeight="800.0" prefWidth="1280.0" stylesheets="@../../css/style.css" type="GridPane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" />
+      <ColumnConstraints />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints vgrow="SOMETIMES" />
+    <RowConstraints minHeight="100.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="100.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <ImageView fx:id="finalTrain" fitHeight="366.0" fitWidth="603.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+         <image>
+            <Image url="@../../images/elements/player-choose/train.png" />
+         </image>
+      </ImageView>
+      <HBox id="background-bar" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="3" />
+      <HBox fx:id="backgroundBarBlur" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="3" />
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowSpan="3">
+         <children>
+            <HBox id="top-bar-background" fx:id="topBarBackground" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" prefWidth="1280.0">
+               <children>
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" translateY="-5.0">
+                     <children>
+                        <Label prefWidth="162.0" text="Garro Clement" textFill="WHITE">
+                           <styleClass>
+                              <String fx:value="labelsIMFellEnglish" />
+                              <String fx:value="labelNomsCreator" />
+                           </styleClass>
+                        </Label>
+                        <Label text="Hirchyts Daniil" textFill="WHITE">
+                           <styleClass>
+                              <String fx:value="labelsIMFellEnglish" />
+                              <String fx:value="labelNomsCreator" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <VBox fx:id="titleBox" alignment="BOTTOM_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <VBox alignment="CENTER_RIGHT" maxWidth="-Infinity" prefWidth="600.0">
+               <children>
+                  <Label id="titleText1" maxWidth="-Infinity" minWidth="-Infinity" styleClass="labelsOrchardStreetNFW01Regular" text="Les Aventuriers du Rail" />
+                  <Label id="titleText2" maxWidth="-Infinity" minWidth="-Infinity" styleClass="labelsIMFellEnglish" text="Autour du Monde" />
+               </children>
+            </VBox>
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </VBox>
+      <VBox fx:id="btnBox" alignment="CENTER" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Button fx:id="btnStartChoix" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="110.0" prefWidth="250.0" text="Jouer" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="btnMenu" />
+                  <String fx:value="labelsOrchardStreetNFW01Regular" />
+               </styleClass>
+            </Button>
+            <Button fx:id="btnQuitter" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="110.0" prefWidth="250.0" text="Quitter" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="btnMenu" />
+                  <String fx:value="labelsOrchardStreetNFW01Regular" />
+               </styleClass>
+            </Button>
+         </children>
+      </VBox>
+      <Pane fx:id="interfaceOfChoose" GridPane.columnSpan="2" GridPane.rowSpan="3">
+         <children>
+            <VBox fx:id="vboxJoueurs" alignment="CENTER" layoutX="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+               <padding>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+               </padding>
+            </VBox>
+            <Button fx:id="validation" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="110.0" prefWidth="250.0" text="Valider" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="btnMenu" />
+                  <String fx:value="labelsOrchardStreetNFW01Regular" />
+               </styleClass>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</fx:root>

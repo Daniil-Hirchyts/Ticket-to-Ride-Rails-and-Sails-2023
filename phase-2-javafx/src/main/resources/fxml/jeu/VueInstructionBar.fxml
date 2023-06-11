@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="978.0" stylesheets="@../../css/style.css" type="Pane" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="instructionBar" fitHeight="62.0" fitWidth="978.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/instructionPopUp/instructionBar.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="instructionBarArrow" fitHeight="24.0" fitWidth="244.0" layoutX="415.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/instructionPopUp/instructionBarArrowUp.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="labelInstruciton" alignment="CENTER" contentDisplay="CENTER" layoutX="93.0" prefHeight="51.0" prefWidth="793.0" styleClass="labelsIMFellEnglish" text="labelInstruction" textAlignment="CENTER" textFill="WHITE" />
+   </children>
+</fx:root>
