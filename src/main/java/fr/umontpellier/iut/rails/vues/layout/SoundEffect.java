@@ -14,6 +14,7 @@ public class SoundEffect {
     private final AudioClip sonVictoire;
     private final AudioClip startGame;
     private final AudioClip errorSound;
+    private final AudioClip winnerSound;
 
     private final static String PATH = "src/main/resources/music/";
 
@@ -26,10 +27,15 @@ public class SoundEffect {
         sonVictoire = new AudioClip(new File(PATH + "sonVictoire.mp3").toURI().toString());
         startGame = new AudioClip(new File(PATH + "startGame.mp3").toURI().toString());
         errorSound = new AudioClip(new File(PATH + "buzz4.mp3").toURI().toString());
+        winnerSound = new AudioClip(new File(PATH + "sonVictoire.mp3").toURI().toString());
     }
 
     public AudioClip getButtonSoundEffect() {
         return buttonSoundEffect;
+    }
+
+    public AudioClip getWinnerSound() {
+        return winnerSound;
     }
 
     public AudioClip getMenuMusic() {
@@ -44,7 +50,10 @@ public class SoundEffect {
         return piocherCarteVisible;
     }
 
-    public AudioClip getErrorSound() {return errorSound;}
+
+    public AudioClip getErrorSound() {
+        return errorSound;
+    }
 
     public AudioClip getPlacerCarte() {
         return placerCarte;

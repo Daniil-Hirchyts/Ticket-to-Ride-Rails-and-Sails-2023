@@ -2,11 +2,11 @@ package fr.umontpellier.iut.rails.vues.jeu;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
-import fr.umontpellier.iut.rails.ICarteTransport;
-import fr.umontpellier.iut.rails.IDestination;
-import fr.umontpellier.iut.rails.IJeu;
-import fr.umontpellier.iut.rails.IJoueur;
+import fr.umontpellier.iut.rails.*;
+import fr.umontpellier.iut.rails.vues.debut.VueChoixJoueurs;
+import fr.umontpellier.iut.rails.vues.debut.VueChoixJoueursContainer;
 import fr.umontpellier.iut.rails.vues.layout.ConsoleLogger;
 import fr.umontpellier.iut.rails.vues.layout.SoundEffect;
 import javafx.collections.ListChangeListener;
@@ -16,7 +16,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
@@ -27,6 +30,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 /**
  * Cette classe correspond à la fenêtre principale de l'application.
@@ -45,6 +49,7 @@ public class VueDuJeu extends GridPane {
     private final ColorAdjust colorAdjust;
     private static final String BATEAU_IMAGE_PATH = "images/cartesWagons/dos-BATEAU.png";
     private static final String WAGON_IMAGE_PATH = "images/cartesWagons/dos-WAGON.png";
+    private VueChoixJoueurs vueChoixJoueurs;
     @FXML
     private ImageView pileCard;
     @FXML
@@ -85,6 +90,8 @@ public class VueDuJeu extends GridPane {
     private ImageView videBateau;
     @FXML
     private ImageView videWagon;
+    @FXML
+    private Button btnExit;
 
     public VueDuJeu(IJeu jeu, Map<IJoueur.CouleurJoueur, ImageView> avatarList) {
         this.jeu = jeu;
@@ -147,6 +154,7 @@ public class VueDuJeu extends GridPane {
         setUpJeuListener();
         setUpWagon();
         setUpBateau();
+        quitterButton();
     }
 
     private void setUpBateau() {
@@ -221,6 +229,32 @@ public class VueDuJeu extends GridPane {
             }
         });
 
+    }
+
+    private void quitterButton() {
+        btnExit.setOnMouseClicked(mouseEvent -> {
+            soundEffect.getButtonSoundEffect().play();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Quitter");
+            alert.setHeaderText("Voulez-vous vraiment retourner au menu principal ?");
+            alert.setContentText("Vous allez perdre votre progression");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                soundEffect.getButtonSoundEffect().stop();
+                soundEffect.getButtonSoundEffect().play();
+                backToMenu();
+            } else {
+                soundEffect.getButtonSoundEffect().play();
+            }
+        });
+    }
+
+    private void backToMenu() {
+        Stage stage = (Stage) btnExit.getScene().getWindow();
+        stage.close();
+        soundEffect.getMenuMusic().stop();
+        RailsIHM railsIHM = new RailsIHM();
+        railsIHM.start(new VueChoixJoueurs());
     }
 
     private void setUpDestination() {

@@ -84,6 +84,7 @@ public class RailsIHM extends Application {
 //        primaryStage.setScene(sceneResultats);
         finPartieListener();
 
+
         primaryStage.show();
     }
 
