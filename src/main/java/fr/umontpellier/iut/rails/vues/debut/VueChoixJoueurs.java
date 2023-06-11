@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.ProgressBarTreeTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Screen;
@@ -105,6 +106,7 @@ public class VueChoixJoueurs extends Stage {
      * et affecte la liste définitive des participants
      */
     protected void setListeDesNomsDeJoueurs() {
+        if (getNombreDeJoueurs()>1){
         ArrayList<String> tempNamesList = new ArrayList<>();
         for (int i = 1; i <= getNombreDeJoueurs(); i++) {
             String name = getJoueurParNumero(i);
@@ -118,6 +120,7 @@ public class VueChoixJoueurs extends Stage {
             hide();
             nomsJoueurs.clear();
             nomsJoueurs.addAll(tempNamesList);
+        }
         }
     }
 
