@@ -6,22 +6,23 @@ import java.io.File;
 
 public class SoundEffect {
 
-    private AudioClip buttonSoundEffect;
-    private AudioClip MenuMusic;
-    private AudioClip piocherCartePile;
-    private AudioClip piocherCarteVisible;
-    private AudioClip placerCarte;
-    private AudioClip sonVictoire;
-    private AudioClip startGame;
+    private final AudioClip buttonSoundEffect;
+    private final AudioClip MenuMusic;
+    private final AudioClip piocherCartePile;
+    private final AudioClip piocherCarteVisible;
+    private final AudioClip placerCarte;
+    private final AudioClip sonVictoire;
+    private final AudioClip startGame;
+    private final static String PATH = "src/main/resources/music/";
 
     public SoundEffect() {
-        buttonSoundEffect = new AudioClip(new File("src/main/resources/music/peutEtreAppuyeButton.mp3").toURI().toString());
-        MenuMusic = new AudioClip(new File("src/main/resources/music/MenuMusic.mp3").toURI().toString());
-        piocherCartePile = new AudioClip(new File("src/main/resources/music/piocherCartePile.mp3").toURI().toString());
-        piocherCarteVisible = new AudioClip(new File("src/main/resources/music/piocherCarteVisible.mp3").toURI().toString());
-        placerCarte = new AudioClip(new File("src/main/resources/music/placerCarte.mp3").toURI().toString());
-        sonVictoire = new AudioClip(new File("src/main/resources/music/sonVictoire.mp3").toURI().toString());
-        startGame = new AudioClip(new File("src/main/resources/music/startGame.mp3").toURI().toString());
+        buttonSoundEffect = new AudioClip(new File(PATH + "peutEtreAppuyeButton.mp3").toURI().toString());
+        MenuMusic = new AudioClip(new File(PATH + "MenuMusic.mp3").toURI().toString());
+        piocherCartePile = new AudioClip(new File(PATH + "piocherCartePile.mp3").toURI().toString());
+        piocherCarteVisible = new AudioClip(new File(PATH + "piocherCarteVisible.mp3").toURI().toString());
+        placerCarte = new AudioClip(new File(PATH + "placerCarte.mp3").toURI().toString());
+        sonVictoire = new AudioClip(new File(PATH + "sonVictoire.mp3").toURI().toString());
+        startGame = new AudioClip(new File(PATH + "startGame.mp3").toURI().toString());
     }
 
     public AudioClip getButtonSoundEffect() {

@@ -6,8 +6,8 @@ import javafx.scene.layout.VBox;
 
 public class ConsoleLogger {
     private static ConsoleLogger instance = null;
-    private VBox consoleHistory;
-    private ScrollPane consoleScrollPane;
+    private final VBox consoleHistory;
+    private final ScrollPane consoleScrollPane;
 
     private ConsoleLogger(VBox consoleHistory, ScrollPane consoleScrollPane) {
         this.consoleHistory = consoleHistory;

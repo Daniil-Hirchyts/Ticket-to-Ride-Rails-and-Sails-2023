@@ -6,10 +6,6 @@
     src: url('../../../src/main/resources/fonts/IMFeENsc28P.ttf');
 }
 
-@font-face {
-    src: url('../../../src/main/resources/fonts/Notable-Regular.ttf');
-}
-
 .root {
     -fx-beige-light: rgb(217, 189, 170);
     -fx-beige-main: rgb(225, 194, 151);
@@ -59,10 +55,6 @@ Label {
     -fx-font-family: 'OrchardStreetNFW01-Regular';
 }
 
-.labelsNotable {
-    -fx-font-family: 'Notable';
-}
-
 .labelNomsCreator {
     -fx-font-size: 20px;
 }
@@ -71,7 +63,7 @@ Label {
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 10, 0, 0, 0);
 }
 
-.medium-shadow, .small-shadow {
+.medium-shadow {
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 5, 0, 0, 0);
 }
 
@@ -79,7 +71,7 @@ Label {
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 0);
 }
 
-#centerBox, #plateau, .hideBG {
+#centerBox, #plateau, .hideBG, #scrollPane .scroll-bar:vertical, #btnExit, #textFieldChangePions, #playerChoiceTextField, .btnMenu {
     -fx-background-color: transparent;
     -fx-background: transparent;
 }
@@ -107,35 +99,34 @@ Label {
     -fx-min-width: 100px;
 }
 
+#pageResultat, #choixJoueursContainer, #interfaceOfChooseBackground, .btnMenu, #background-bar, #backgroundBarBlur, #top-bar-background, #vboxJoueurs, #playerChoiceBackground, #playerChoiceTextField, #destinationTicket, #destinationTicketChoix, #btnDestination, #btnPasser, #bottomColor, #console, #playerBackgroundAvatar, #playerBackground, #playerBackgroundAvatarColor, #playerLabelScoreImage, #actionPanel, #btnExit, #cornerLT, #cornerLB2, #cornerLB, #borderDown, #borderTopMask, #borderTop, #pageResultat {
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 100% 100%;
+}
+
+#top-bar-background, #backgroundBarBlur, #background-bar, #interfaceOfChooseBackground, #choixJoueursContainer, #pageResultat {
+    -fx-background-position: left center;
+}
+
+#destinationTicket, #destinationTicketChoix, #btnDestination, #btnPasser, #bottomColor, #console, #playerBackgroundAvatar, #playerBackground, #playerBackgroundAvatarColor, #playerLabelScoreImage, #actionPanel, #btnExit, #gameScene, #playerChoiceTextField, #playerChoiceBackground, #vboxJoueurs, .btnMenu {
+    -fx-background-position: center;
+}
+
 #pageResultat {
     -fx-background-image: url("/images/resultatPage/pageResultat.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: left center;
-    -fx-background-size: 100% 100%;
 }
 
 #choixJoueursContainer {
     -fx-background-image: url("/images/elements/player-choose/background-page.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: left center;
-    -fx-background-size: 100% 100%;
 }
 
 #interfaceOfChooseBackground {
     -fx-background-image: url("/images/elements/player-choose/blur-background.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: left center;
-    -fx-background-size: 100% 100%;
 }
 
 .btnMenu {
     -fx-background-image: url("/images/buttons/btn-choix/button.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 100% 100%;
     -fx-font-size: 40px;
-    -fx-background-color: transparent;
-    -fx-background: transparent;
 }
 
 .btnMenu:hover {
@@ -148,153 +139,83 @@ Label {
 
 #background-bar {
     -fx-background-image: url("/images/elements/player-choose/bar.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: left center;
-    -fx-background-size: 100% 100%;
-}
-#backgroundBarBlur {
-    -fx-background-image: url("/images/elements/player-choose/blur-background.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: left center;
-    -fx-background-size: 100% 100%;
 }
 
+#backgroundBarBlur {
+    -fx-background-image: url("/images/elements/player-choose/blur-background.png");
+}
 
 
 #top-bar-background {
     -fx-background-image: url("/images/elements/player-choose/top-bar-Red.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: left center;
-    -fx-background-size: 100% 100%;
 }
 
 #vboxJoueurs {
     -fx-background-image: url("/images/elements/player-choose/background.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 100% 100%;
     -fx-alignment: center;
     -fx-effect: dropshadow(gaussian, rgba(6, 6, 3, 0.25), 2, 0, 3, 3);
 }
 
-#playerChoiceBackground {
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 100% 100%;
-}
-
 #playerChoiceTextField {
     -fx-background-image: url("/images/elements/player-choose/textField.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 100% 100%;
-    -fx-background-color: transparent;
-    -fx-background: transparent;
     -fx-font-size: 15px;
     -fx-font-family: 'OrchardStreetNFW01-Regular';
-}
-
-#textFieldChangePions{
-    -fx-background-color: transparent;
-    -fx-background: transparent;
 }
 
 #gameScene {
     -fx-background-image: url("/images/background/background-pattern.png");
     -fx-background-repeat: repeat;
-    -fx-background-position: center;
     -fx-background-size: 20% 60%;
 }
 
 #borderTop {
     -fx-background-image: url("/images/background/border-top.png");
-    -fx-background-repeat: no-repeat;
     -fx-background-position: left top;
-    -fx-background-size: 100% 100%;
 }
 
 #borderTopMask {
     -fx-background-image: url("/images/background/background-crop.png");
-    -fx-background-repeat: no-repeat;
     -fx-background-position: left top;
-    -fx-background-size: 100% 100%;
 }
 
 #borderDown {
     -fx-background-image: url("/images/background/border-down.png");
-    -fx-background-repeat: no-repeat;
     -fx-background-position: left bottom;
-    -fx-background-size: 100% 100%;
 }
 
 #cornerLB {
     -fx-background-image: url("/images/background/corner-lb.png");
-    -fx-background-repeat: no-repeat;
     -fx-background-position: left bottom;
-    -fx-background-size: 100% 100%;
 }
 
 #cornerLB2 {
     -fx-background-image: url("/images/background/corner-lb2.png");
-    -fx-background-repeat: no-repeat;
     -fx-background-position: left bottom;
-    -fx-background-size: 100% 100%;
 }
 
 #cornerLT {
     -fx-background-image: url("/images/background/corner-lt.png");
-    -fx-background-repeat: no-repeat;
     -fx-background-position: left top;
-    -fx-background-size: 100% 100%;
 }
 
 #btnExit {
     -fx-background-image: url("/images/buttons/btn-exit.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 100% 100%;
-    -fx-background-color: transparent;
-    -fx-background: transparent;
 }
 
 #actionPanel {
     -fx-background-image: url("/images/elements/current-player/actions-background.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 100% 100%;
-}
-
-#playerBackground, #playerBackgroundAvatarColor, #playerLabelScoreImage {
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 100% 100%;
 }
 
 #playerBackgroundAvatar {
     -fx-background-image: url("/images/elements/player-interface/avatar/background.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 100% 100%;
 }
 
 #console {
     -fx-background-image: url("/images/elements/console.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 100% 100%;
-}
-
-#bottomColor {
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 100% 100%;
 }
 
 #btnPasser {
     -fx-background-image: url("/images/buttons/btn-passer/passer.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 100% 100%;
     -fx-backround-color: transparent;
     -fx-font-size: 12px;
 }
@@ -307,21 +228,16 @@ Label {
 #btnPasser:pressed {
     -fx-background-image: url("/images/buttons/btn-passer/passer-pressed.png");
     -fx-backround-color: transparent;
-
 }
 
 #btnDestination {
     -fx-background-image: url("/images/buttons/btn-destinations/destination.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 100% 100%;
     -fx-backround-color: transparent;
 }
 
 #btnDestination:hover {
     -fx-background-image: url("/images/buttons/btn-destinations/destination-hover.png");
     -fx-backround-color: transparent;
-
 }
 
 #btnDestination:pressed {
@@ -331,7 +247,6 @@ Label {
 
 #consoleText {
     -fx-font-size: 12;
-    -fx-text-fill: black;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0), 0, 0, 0, 1);
 }
 
@@ -357,7 +272,6 @@ Label {
 
 #scrollPane .scroll-bar:vertical {
     -fx-pref-width: 10px;
-    -fx-background-color: transparent;
 }
 
 #scrollPane .scroll-bar:vertical .thumb {
@@ -381,25 +295,11 @@ Label {
     -fx-background-color: -fx-brown-hovered;
 }
 
-#button-square {
-    -fx-background-color: transparent;
-    -fx-text-fill: black;
-    -fx-font-size: 14px;
-    -fx-padding: 3px 3px;
-    -fx-border-color: black;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-}
-
 #overlay {
     -fx-opacity: 0.5;
 }
 
 #destinationTicket, #destinationTicketChoix {
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 100% 100%;
     -fx-min-width: 110;
     -fx-max-width: 110;
     -fx-min-height: 52;
@@ -423,7 +323,6 @@ Label {
 }
 
 #destinationLabel {
-    -fx-text-fill: black;
     -fx-font-size: 10px;
     -fx-alignment: center;
     -fx-translate-x: 9;
@@ -433,7 +332,6 @@ Label {
 
 #avatarColor {
     -fx-background-color: -fx-beige-main;
-    -fx-text-fill: black;
     -fx-font-size: 10px;
     -fx-padding: 2px 2px;
     -fx-border-color: black;
@@ -477,7 +375,7 @@ Label {
     -fx-effect: dropshadow(gaussian, -fx-color-map-destination, 5, 0, 0, 0);
 }
 
-.cercleVilleGlow{
+.cercleVilleGlow {
     -fx-stroke: -fx-color-map-destination;
     -fx-stroke-width: 2;
     -fx-effect: dropshadow(gaussian, -fx-color-map-destination, 5, 0, 0, 0);
